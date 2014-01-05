@@ -13,7 +13,7 @@ IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxImage-qte"
 IMAGE_NAME = "${MACHINE}_LinuxImage-qte"
 
 #create the deployment directory-tree
-require trdx-image-fstype.inc
+require recipes/images/trdx-image-fstype.inc
 
 #remove interfering sysv scripts, connman systemd service
 ROOTFS_POSTINSTALL_COMMAND = "for i in ${IMAGE_ROOTFS}/etc/rc0.d ${IMAGE_ROOTFS}/etc/rc1.d ${IMAGE_ROOTFS}/etc/rc2.d ${IMAGE_ROOTFS}/etc/rc3.d ${IMAGE_ROOTFS}/etc/rc4.d ${IMAGE_ROOTFS}/etc/rc5.d ${IMAGE_ROOTFS}/etc/rc6.d ${IMAGE_ROOTFS}/etc/rcS.d ; do rm -f $i/*dropbear $i/*avahi-daemon $i/*dbus-1 $i/*lxdm $i/*ntpd $i/*syslog $i/*ofono $i/*alsa-state $i/*networking $i/*udev-late-mount $i/*sendsigs $i/*save-rtc.sh $i/*umountnfs.sh $i/*portmap $i/*umountfs $i/*halt $i/*rmnologin.sh $i/*reboot; rm -f $i/*banner.sh $i/*sysfs.sh $i/*checkroot.sh $i/*alignment.sh $i/*mountall.sh $i/*populate-volatile.sh  $i/*devpts.sh  $i/*hostname.sh $i/*portmap  $i/*mountnfs.sh  $i/*bootmisc.sh ; done"
@@ -52,17 +52,16 @@ IMAGE_INSTALL += " \
     task-base-extended \
     \
     bash \
-    tinylogin \
     \
     alsa-states \
 "
 
-require trdx-extra.inc
+require recipes/images/trdx-extra.inc
 
 IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
-IMAGE_LOGIN_MANAGER = "tinylogin shadow"
+IMAGE_LOGIN_MANAGER = "busybox shadow"
 
 export IMAGE_BASENAME = "qt-image"
 
