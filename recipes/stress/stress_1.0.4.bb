@@ -2,7 +2,7 @@
 # Copyright (C) 2006, Advanced Micro Devices, Inc.  All Rights Reserved
 # Released under the MIT license (see /COPYING)
 
-HOMEPAGE="http://weather.ou.edu/~apw/projects/stress/"
+HOMEPAGE = "http://people.seas.harvard.edu/~apw/stress/"
 DESCRIPTION = "a simple tool that imposes certain types of compute stress on UNIX-like operating systems."
 LICENSE = "GPLv3"
 
