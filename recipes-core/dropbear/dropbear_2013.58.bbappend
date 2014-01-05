@@ -12,7 +12,7 @@ SRC_URI += "file://remove-reverse-dns.patch"
 # workaround different libexecdir definition in oe; it does not fix
 # the multilib issues but mades sftp work again when dropbear and
 # openssh-sftp-server are for the same architecture.
-_sftp_server_path = "${@\
-    ['${libexecdir}/sftp-server','${libdir}/openssh/sftp-server']\
-    [d.getVar('libexecdir', True).endswith(d.expand('/${BPN}'))]}"
-CFLAGS += "-DSFTPSERVER_PATH=\\"${_sftp_server_path}\\""
+#_sftp_server_path = "${@\
+#    ['${libexecdir}/sftp-server','${libdir}/openssh/sftp-server']\
+#    [d.getVar('libexecdir', True).endswith(d.expand('/${BPN}'))]}"
+#CFLAGS += "-DSFTPSERVER_PATH=\\"${_sftp_server_path}\\""
