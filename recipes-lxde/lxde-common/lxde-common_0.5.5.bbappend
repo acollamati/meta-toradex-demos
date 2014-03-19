@@ -1,4 +1,4 @@
-PRINC = "9"
+PRINC = "10"
 WALLPAPER-MACHINE = "Wallpaper_Toradex.png"
 WALLPAPER-MACHINE_colibri-t20 = "Wallpaper_ColibriT20.png"
 WALLPAPER-MACHINE_colibri-t30 = "Wallpaper_ColibriT30.png"
@@ -25,6 +25,11 @@ SRC_URI_append_vf += " \
     file://Wallpaper_ColibriVF50.png \
     file://Wallpaper_ColibriVF61.png \
 "
+# for apalis-imx6, we decide on the target during postinst
+SRC_URI_append_mx6 += " \
+    file://Wallpaper_ApalisiMX6D.png \
+    file://Wallpaper_ApalisiMX6Q.png \
+"
 
 do_install_append () {
     install -m 0755 -d ${D}/${datadir}/lxde/wallpapers
@@ -38,7 +43,6 @@ do_install_append () {
     install -m 0755 ${WORKDIR}/hdmiaudio.sh  ${D}/${bindir}/
 }
 
-
 pkg_postinst_${PN}_vf () {
     # can't do this offline
     if [ "x$D" != "x" ]; then
@@ -49,5 +53,18 @@ pkg_postinst_${PN}_vf () {
         ln -sf Wallpaper_ColibriVF50.png ${datadir}/lxde/wallpapers/toradex.png
     else
         ln -sf Wallpaper_ColibriVF61.png ${datadir}/lxde/wallpapers/toradex.png
+    fi
+}
+
+pkg_postinst_${PN}_mx6 () {
+    # can't do this offline
+    if [ "x$D" != "x" ]; then
+        exit 1
+    fi
+    CORES=`grep -c processor /proc/cpuinfo`
+    if [ $CORES -gt 2 ]; then
+        ln -sf Wallpaper_ApalisiMX6Q.png ${datadir}/lxde/wallpapers/toradex.png
+    else
+        ln -sf Wallpaper_ApalisiMX6D.png ${datadir}/lxde/wallpapers/toradex.png
     fi
 }
