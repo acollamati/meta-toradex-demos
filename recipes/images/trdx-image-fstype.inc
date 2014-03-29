@@ -17,6 +17,7 @@ do_rootfs_prepend() {
 
 #we need some native tools for deployment
 DEPENDS_colibri-vf = "mtd-utils-native imx-loader-native"
+DEPENDS_mx6 = "imx-loader-native"
 
 do_rootfs_append_colibri-vf() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../vf_flash/"
@@ -30,6 +31,17 @@ do_rootfs_append_colibri-vf() {
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_uart ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_uart*
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
+}
+
+do_rootfs_append_mx6() {
+    IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
+    rm -f ${IMAGE_ROOT}/imx_flash/imx_usb ${IMAGE_ROOT}/imx_flash/*.conf
+    mkdir -p ${IMAGE_ROOT}
+
+    # add imx-loader and its configuration files
+    cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb*
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
 }
 
