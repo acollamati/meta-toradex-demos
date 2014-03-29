@@ -12,6 +12,7 @@ IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxImage-qt"
 IMAGE_NAME_colibri-t30 = "Colibri_T30_LinuxImage-qt"
 IMAGE_NAME_apalis-t30 = "ApalisT30_LinuxImage-qt"
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt"
+IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt"
 IMAGE_NAME = "${MACHINE}_LinuxImage-qt"
 
 #create the deployment directory-tree
@@ -33,7 +34,9 @@ CONMANPKGS_libc-uclibc = ""
 DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
 
 #deploy the OpenGL ES headers to the sysroot
-DEPENDS_tegra += "nvsamples"
+DEPENDS-TEGRA += ""
+DEPENDS-TEGRA_tegra += "nvsamples"
+DEPENDS += "${DEPENDS-TEGRA}"
 
 #don't install some id databases
 BAD_RECOMMENDATIONS_VF_colibri_vf += " udev-hwdb "
@@ -76,6 +79,42 @@ GSTREAMER = " \
 "
 GSTREAMER_append_tegra3 = " \
     gst-plugins-good-jpeg \
+"
+GSTREAMER_colibri-vf = ""
+GSTREAMER_mx6 = " \
+    gstreamer \
+    gst-plugins-base \
+    gst-plugins-base-alsa \
+    gst-plugins-base-audioconvert \
+    gst-plugins-base-audioresample \
+    gst-plugins-base-audiotestsrc \
+    gst-plugins-base-decodebin \
+    gst-plugins-base-decodebin2 \
+    gst-plugins-base-playbin \
+    gst-plugins-base-typefindfunctions \
+    gst-plugins-base-ivorbisdec \
+    gst-plugins-base-ogg \
+    gst-plugins-base-theora \
+    gst-plugins-base-videotestsrc \
+    gst-plugins-base-vorbis \
+    gst-plugins-base-ximagesink \
+    gst-plugins-base-xvimagesink \
+    gst-plugins-good-audioparsers \
+    gst-plugins-good-autodetect \
+    gst-plugins-good-avi \
+    gst-plugins-good-deinterlace \
+    gst-plugins-good-id3demux \
+    gst-plugins-good-isomp4 \
+    gst-plugins-good-matroska \
+    gst-plugins-good-rtp \
+    gst-plugins-good-udp \
+    gst-plugins-good-video4linux2 \
+    gst-plugins-good-wavenc \
+    gst-plugins-good-wavparse \
+    gst-plugins-ugly-asf \
+    gst-plugins-gl \
+    gst-fsl-plugin \
+    gpu-viv-bin-mx6q \
 "
 
 IMAGE_INSTALL_QT4 = " \

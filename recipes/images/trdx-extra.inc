@@ -68,6 +68,20 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     kernel-module-fusion-f0710a \
 "
 
+IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
+    curl \
+    file \
+    aspell \
+    pciutils \
+    iproute2 \
+    canutils \
+    fs-init \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
+    mimetypes \
+"
+
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
     gpioconfig \
     ptpd \
