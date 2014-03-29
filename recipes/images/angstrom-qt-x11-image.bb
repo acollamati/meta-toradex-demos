@@ -74,6 +74,9 @@ GSTREAMER = " \
     gst-plugins-good-wavparse \
     gst-plugins-ugly-asf \
 "
+GSTREAMER_append_tegra3 = " \
+    gst-plugins-good-jpeg \
+"
 
 IMAGE_INSTALL_QT4 = " \
     qt4-x11-free \
@@ -120,6 +123,7 @@ IMAGE_INSTALL += " \
     initscripts \
     libgsf \
     polkit-gnome \
+    pam-plugin-ck-connector \
     libwnck \
     libxres \
     makedevs \
