@@ -40,7 +40,9 @@ IMAGE_INSTALL_MACHINE_colibri-t20 = " \
 IMAGE_INSTALL_MACHINE_colibri-t30 = " \
     ${IMAGE_INSTALL_T20_T30} \
     fs-init \
-    util-linux-fstrim \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
     kernel-module-fusion-f0710a \
 "
 
@@ -52,7 +54,9 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     canutils \
     lvds-ctrl \
     fs-init \
-    util-linux-fstrim \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
     kernel-module-adv7180 \
     kernel-module-max9526 \
     kernel-module-ov7670soc \
@@ -109,6 +113,7 @@ IMAGE_INSTALL += " \
     mtd-utils \
     udisks \
     dosfstools \
+    util-linux-fstrim \
     \
     devmem2 \
     evtest \
