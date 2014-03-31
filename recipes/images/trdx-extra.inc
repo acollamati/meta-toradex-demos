@@ -73,6 +73,7 @@ IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
     file \
     aspell \
     pciutils \
+    ptpd \
     iproute2 \
     canutils \
     fs-init \
