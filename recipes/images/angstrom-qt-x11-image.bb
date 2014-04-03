@@ -114,7 +114,7 @@ GSTREAMER_mx6 = " \
     gst-plugins-ugly-asf \
     gst-plugins-gl \
     gst-fsl-plugin \
-    gpu-viv-bin-mx6q \
+    gpu-viv-bin-mx6q-libraries \
 "
 
 IMAGE_INSTALL_QT4 = " \
