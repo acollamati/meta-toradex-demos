@@ -4,8 +4,8 @@ DESCRIPTION = "Image booting to a console"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"
 
-PV = "V2.1"
-PR = "r4"
+PV = "V2.2"
+PR = "r0"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxConsoleImage"
