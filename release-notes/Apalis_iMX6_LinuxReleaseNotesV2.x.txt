@@ -1,0 +1,183 @@
+************************************************
+Release Notes:  Linux Image V2.x for Apalis iMX6
+************************************************
+
+Contents:
+- U-Boot 2013.10 boot loader
+- Linux 3.0.35 kernel, based on Freescale's BSP release 4.1.0 and patches from
+    Boundary Devices
+- OpenEmbedded oe-core dora/2013.12 based root file system, using LXDE
+    desktop environment
+
+Licensing:
+- proprietary multimedia codecs included for evaluation purpose only
+- customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.2 Beta 1 (April 04, 2014)
+- U-Boot:
+  - initial release
+- Linux kernel:
+  - initial release
+- rootfs / oe-core:
+  - initial release
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.2Beta1_20140404
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- display resolution can be set for some output configurations, set the u-boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- backlight PWM BKL_PWM (hard-coded to 0 in u-boot > full brightness on a EDT
+    display)
+- X uses only the fb0 device
+- video decoding leaks resources, after a while it stops working
+- initial rootfs must fit in RAM, i.e. it must not be greater than ~900MB
+
+********************************************************************************
+Notes:
+- 115200 baud serial debug console on UART1 (EvalBoard lower X28 resp.
+    X29 depending on JP10/12, X22 on Ixora) without any handshake
+- user account: root with empty password
+- eMMC: partition 1: vfat with kernel, partition 2 ext3 root file system
+- opkg package manager
+- HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
+- Linux host used for update preparation requires proper 32-bit execution environment
+    (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install gawk on Ubuntu)
+
+Working on latest image:
+- U-Boot boot loader
+  - environment storage in eMMC
+  - Gigabit Ethernet
+  - MMC/SD cards
+  - eMMC flash
+  - serial console debug UART1
+  - Toradex Apalis configuration block handling
+  - USB storage as host on USB host ports
+- Linux kernel
+  - GPIOlib /sys/class/gpio (the 'export’ interface is not implemented)
+  - temperature sensor /sys/devices/virtual/thermal/thermal_zone0/temp
+  - Gigabit Ethernet (i.MX 6 errata, only 400 Mbps sustainable data rate)
+  - eMMC ext3
+  - serial console debug UART1
+  - I2C via /dev/i2c-X
+  - 8-bit MMC card mmc1
+  - 4-bit SD card mmc2
+  - HDMI audio
+  - analogue audio playback and resistive touch
+    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
+  - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev1.0 aka SPI2
+  - custom Ethernet MAC Address
+  - serial number
+  - USB host port
+  - USB audio driver
+  - USB webcam
+  - USB raw HID device /dev/hidrawX
+  - USB device Ethernet RNDIS
+  - automatic USB device/host/suspend detection aka full OTG support
+  - analog input via IIO framework
+  - CAN via can0 and can1
+  - PCIe (regular ports and mini-PCIe slot)
+  - SATA (regular port or mSATA slot)
+  - DVFS power management
+- Linux user-space
+  - Firefox
+  - Gstreamer playback
+  - OpenGL, but thermal issues if running full speed
+  - LXDE
+  - resize rootfs partition to full eMMC capacity
+- Display:
+  - only first output used by X11
+  - dual output on HDMI and LVDS, both in 1920x1080
+  - single output on EDT 7” Display
+  - resolution setting through modedb string in kernel command line (working
+      resolutions to be tested)
+
+Not working or not tested:
+- U-Boot boot loader
+  - framebuffer support
+  - USB OTG1 support
+- Linux kernel
+  - IrDA
+  - RS-422/485
+  - SIM card
+  - suspend LP1
+  - high speed serial UART2, UART4 and UART5
+  - S/PDIF (not worked on so far)
+  - HDA audio IF on MXM connector (not possible with i.MX 6)
+  - I2S / AC97 on MXM connector
+  - analogue audio capture with on module codec (not tested)
+  - framebuffer console
+  - watchdog
+  - parallel camera interface
+  - CSI2 camera interface
+  - PWM LEDs /sys/class/leds/
+  - UARTs apart from debug output, all UART control lines (not tested)
+- Linux user-space
+  - Gstreamer encoding (not tested)
+  - GPIO config tool not available
+  - DHCP server configuration on USB RNDIS missing
+- Display:
+  - on same monitors HDMI EDID does not negotiate correct timings,
+      adding mxc_hdmi.only_cea=1 to the kernel command line may help
+  - more than one framebuffer used as a X screen
+  - backlight PWM
+  - VGA output
+  - DSI output
+
+******************************************
+eMMC Boot: Apalis iMX6Q 1GB V1.0a (Sample)
+******************************************
+
+Initial Preparation:
+- download and extract Apalis_iMX6_LinuxImageVx.yz.tar.bz2 package with root
+    permissions
+- use any VFAT formatted SD resp. uSD card with at least 1000 MB of free space
+- run update.sh script with optional -o argument pointing to mount point of
+    above mentioned card
+
+Flash eMMC:
+- EvalBoard V1.0a
+  - connect serial debug console to lower X28 or X29 using null modem RS-232
+      or regular USB cable
+  - insert above prepared SD card into MMC SDIO-socket (X18)
+- Ixora V1.0a
+  currently not supported, the update scripts will have to be updated to use mmc 2 and not mmc 1
+  - connect serial debug console to X21 using null modem RS-232 cable and a
+      10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
+  - insert above prepared SD card into SD card/MMC SDIO-socket (X10)
+- Boot to u-boot prompt and start the update:
+  - apply power or reset
+  - hit any key to stop auto booting
+  - use 'run setupdate' u-boot command and then
+  - use 'run update' u-boot command
+
+Boot from eMMC:
+- EvalBoard V1.0a or Ixora V1.0a
+- power cycle
+- upon first boot post-install scripts are run which takes around 2 minutes, please be patient
+
+If the boot loader on the module got corrupted this recovers it by loading u-boot
+over USB into the module's RAM and executing it there:
+- EvalBoard V1.0a
+  - connect USB micro A/B (X49) or USB B (X50) to development workstation using micro or regular USB cable
+- Ixora V1.0a
+  currently not supported, the update scripts will have to be updated to use mmc 2 and not mmc 1
+  - connect USB micro A/B (X9) to development workstation using regular micro USB cable
+  - make sure JP2 is removed and nothing is connected to the lower USB host port X8
+  - for more information please consult Ixora datasheet section 3.3 and chapter 4
+- have the module in recovery mode and load u-boot over USB to the module's RAM:
+  - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
+      the module is in recovery mode
+  - if you have a 32-bit Linux host, replace imx_flash/imx_usb with its 32-bit version imx_flash/imx_usb.m32 i.e.
+      sudo mv imx_flash/imx_usb imx_flash/imx_usb.m64; sudo ln -s imx_usb.m32 imx_flash/imx_usb
+  - run ./update.sh -d
+  - stop at the u-boot prompt and begin the update as stated above
+
+
+Toradex, April 04, 2014
+
