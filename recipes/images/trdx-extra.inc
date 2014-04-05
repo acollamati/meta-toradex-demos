@@ -33,7 +33,7 @@ IMAGE_INSTALL_T20_T30 = " \
 
 IMAGE_INSTALL_MACHINE_colibri-t20 = " \
     ${IMAGE_INSTALL_T20_T30} \
-    u-boot-fw-utils \
+    u-boot-toradex-fw-utils \
     kernel-module-fusion-f0710a \
 "
 
