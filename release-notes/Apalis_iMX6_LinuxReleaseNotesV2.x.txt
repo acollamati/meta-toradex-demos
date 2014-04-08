@@ -29,14 +29,16 @@ Known Issues:
     connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
-- display resolution can be set for some output configurations, set the u-boot
+- Display resolution can be set for some output configurations, set the U-Boot
     environment variable vidargs accordingly. Some vidargs_xx variables
     provided for reference.
-- backlight PWM BKL_PWM (hard-coded to 0 in u-boot > full brightness on a EDT
+- backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
     display)
 - X uses only the fb0 device
 - video decoding leaks resources, after a while it stops working
 - initial rootfs must fit in RAM, i.e. it must not be greater than ~900MB
+- SSH password authentication is disabled by default (see PasswordAuthentication
+    setting in /etc/ssh/sshd_config)
 
 ********************************************************************************
 Notes:
@@ -46,8 +48,9 @@ Notes:
 - eMMC: partition 1: vfat with kernel, partition 2 ext3 root file system
 - opkg package manager
 - HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
-- Linux host used for update preparation requires proper 32-bit execution environment
-    (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install gawk on Ubuntu)
+- Linux host used for update preparation requires proper 32-bit execution
+    environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install
+    gawk on Ubuntu)
 
 Working on latest image:
 - U-Boot boot loader
@@ -69,7 +72,8 @@ Working on latest image:
   - 4-bit SD card mmc2
   - HDMI audio
   - analogue audio playback and resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
+    - audio noise is high, workaround is to set headphone volume to maximum and
+        use the DAC volume
   - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev1.0 aka SPI2
   - custom Ethernet MAC Address
   - serial number
@@ -146,38 +150,43 @@ Flash eMMC:
       or regular USB cable
   - insert above prepared SD card into MMC SDIO-socket (X18)
 - Ixora V1.0a
-  currently not supported, the update scripts will have to be updated to use mmc 2 and not mmc 1
+  currently not supported, the update scripts will have to be updated to use mmc
+    2 and not mmc 1
   - connect serial debug console to X21 using null modem RS-232 cable and a
       10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
   - insert above prepared SD card into SD card/MMC SDIO-socket (X10)
-- Boot to u-boot prompt and start the update:
+- Boot to U-Boot prompt and start the update:
   - apply power or reset
   - hit any key to stop auto booting
-  - use 'run setupdate' u-boot command and then
-  - use 'run update' u-boot command
+  - use 'run setupdate' U-Boot command and then
+  - use 'run update' U-Boot command
 
 Boot from eMMC:
 - EvalBoard V1.0a or Ixora V1.0a
 - power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes, please be patient
+- upon first boot post-install scripts are run which takes around 2 minutes,
+    please be patient
 
-If the boot loader on the module got corrupted this recovers it by loading u-boot
-over USB into the module's RAM and executing it there:
+If the boot loader on the module got corrupted this recovers it by loading U-Boot
+  over USB into the module's RAM and executing it there:
 - EvalBoard V1.0a
-  - connect USB micro A/B (X49) or USB B (X50) to development workstation using micro or regular USB cable
+  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
+      micro or regular USB cable
 - Ixora V1.0a
-  currently not supported, the update scripts will have to be updated to use mmc 2 and not mmc 1
-  - connect USB micro A/B (X9) to development workstation using regular micro USB cable
-  - make sure JP2 is removed and nothing is connected to the lower USB host port X8
+  currently not supported, the update scripts will have to be updated to use mmc
+    2 and not mmc 1
+  - connect USB micro A/B (X9) to development workstation using regular micro USB
+      cable
+  - make sure JP2 is removed and nothing is connected to the lower USB host port
+      X8
   - for more information please consult Ixora datasheet section 3.3 and chapter 4
-- have the module in recovery mode and load u-boot over USB to the module's RAM:
+- have the module in recovery mode and load U-Boot over USB to the module's RAM:
   - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
       the module is in recovery mode
-  - if you have a 32-bit Linux host, replace imx_flash/imx_usb with its 32-bit version imx_flash/imx_usb.m32 i.e.
-      sudo mv imx_flash/imx_usb imx_flash/imx_usb.m64; sudo ln -s imx_usb.m32 imx_flash/imx_usb
+  - if you have a 32-bit Linux host, replace imx_flash/imx_usb with its 32-bit
+      version imx_flash/imx_usb.m32 i.e. sudo mv imx_flash/imx_usb
+      imx_flash/imx_usb.m64; sudo ln -s imx_usb.m32 imx_flash/imx_usb
   - run ./update.sh -d
-  - stop at the u-boot prompt and begin the update as stated above
+  - stop at the U-Boot prompt and begin the update as stated above
 
-
-Toradex, April 04, 2014
-
+Toradex, April 8, 2014

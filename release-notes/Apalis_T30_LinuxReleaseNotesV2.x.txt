@@ -5,7 +5,8 @@ Release Notes:  Linux Image V2.x for Apalis T30
 Contents:
 - U-Boot 2011.06 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
-- OpenEmbedded oe-core 2013.06 based root file system, using LXDE desktop environment
+- OpenEmbedded oe-core 2013.06 based root file system, using LXDE desktop
+    environment
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
@@ -30,11 +31,11 @@ Linux Image V2.1 Beta 3 (March 18, 2014)
 - sources git.toradex.com tag Apalis_T30_LinuxImageV2.1Beta3_20140318
 
 Known Issues:
-- connecting an analogue mic to the on module codec resets the codec, so that 
-    neither headphone out nor mic in works anymore. Workaround: Have mic 
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
     connected before boot or change the output source between DAC/LineIn
 - certain low-speed USB devices might not get detected
-- on first boot the resizing process adversely affects system performance for 
+- on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
 
 ********************************************************************************
@@ -77,7 +78,7 @@ Linux Image V2.1 Beta 2 (February 6, 2014)
   - Add entry for fusion touchscreen driver to xorg.conf.
   - Add fstrim from util-linux.
   - Add kernel module for fusion touch screens (see
-    http://developer.toradex.com/knowledge-base/capacitive-multi-touch-display-(linux)).
+      http://developer.toradex.com/knowledge-base/capacitive-multi-touch-display-(linux)).
   - burnflash: Account for fs overhead and many files.
 - sources git.toradex.com tag Apalis_T30_LinuxImageV2.1Beta2_20140206
 
@@ -103,8 +104,8 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - Support default watchdog API (see
       http://developer.toradex.com/knowledge-base/watchdog-(linux)).
   - Disable magic SysRq key configuration as this is not only a potential
-       security thread but can cause serious trouble if for some reason UART pins
-       are left floating and therefore cause unexpected break conditions.
+       security thread but can cause serious trouble if for some reason UART
+	   pins are left floating and therefore cause unexpected break conditions.
   - HDMI: Retry EDID reads up to 4 times until failing.
 
 - rootfs / oe-core:
@@ -170,7 +171,8 @@ Known Issues:
 Linux Image V2.0 Beta 1 (June 26, 2013)
 - U-Boot:
   - initial integration
-  - integrate NVIDIA partition table parsing incl. Toradex Apalis configuration block
+  - integrate NVIDIA partition table parsing incl. Toradex Apalis configuration
+      block
   - adjust available amount of memory
   - activate DVI-D framebuffer console
   - increase CPU frequency at boot
@@ -239,13 +241,17 @@ Known Issues:
 
 ********************************************************************************
 Notes:
-- 115200 baud serial debug console on UARTA aka UART1 (EvalBoard lower X28 resp. X29 depending on JP10/12, X22 on Ixora) without any handshake
+- 115200 baud serial debug console on UARTA aka UART1 (EvalBoard lower X28 resp.
+    X29 depending on JP10/12, X22 on Ixora) without any handshake
 - user account: root with empty password
 - ext3 root file system
 - opkg package manager
 - HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
-- CRT: the T30 internal video DAC output is unsupported by NVIDIA's L4T Linux SW stack
-- Linux host used for recovery mode flashing requires proper 32-bit execution environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install gawk on Ubuntu)
+- CRT: the T30 internal video DAC output is unsupported by NVIDIA's L4T Linux SW
+    stack
+- Linux host used for recovery mode flashing requires proper 32-bit execution
+    environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install
+    gawk on Ubuntu)
 
 Working on latest image:
 - U-Boot boot loader
@@ -270,9 +276,11 @@ Working on latest image:
   - 4-bit SD card mmc2
   - PWM LEDs /sys/class/leds/
   - HDMI HDA audio
-  - HDA audio (on Eval Board V1.0a: check datasheet/schematics for patch instructions)
+  - HDA audio (on Eval Board V1.0a: check datasheet/schematics for patch
+      instructions)
   - analogue audio capture, playback and resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
+    - audio noise is high, workaround is to set headphone volume to maximum and
+        use the DAC volume
     - touch has some jitter
   - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev4.2 aka SPI2
   - framebuffer console
@@ -321,16 +329,22 @@ eMMC Boot: Apalis T30 2GB V1.0a, V1.0b and V1.0c (Sample)
 *********************************************************
 
 Initial Preparation:
-- download and extract Apalis_T30_LinuxImageVx.yz.tar.bz2 package with root permissions
+- download and extract Apalis_T30_LinuxImageVx.yz.tar.bz2 package with root
+    permissions
 
 Flash eMMC:
 - EvalBoard V1.0a
-  - connect USB micro A/B (X49) or USB B (X50) to development workstation using micro or regular USB cable
-  - connect serial debug console to lower X28 or X29 using null modem RS-232 or regular USB cable
+  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
+      micro or regular USB cable
+  - connect serial debug console to lower X28 or X29 using null modem RS-232 or
+      regular USB cable
 - Ixora V1.0a
-  - connect USB micro A/B (X9) to development workstation using regular micro USB cable
-  - make sure JP2 is removed and nothing is connected to the lower USB host port X8
-  - optionally assemble resistor R90 instead of R91 so SW3 can be used as recovery mode switch
+  - connect USB micro A/B (X9) to development workstation using regular micro
+      USB cable
+  - make sure JP2 is removed and nothing is connected to the lower USB host port
+      X8
+  - optionally assemble resistor R90 instead of R91 so SW3 can be used as
+      recovery mode switch
   - for more information please consult Ixora datasheet section 3.3 and chapter 4
 - enter recovery mode:
   - EvalBoard with Mezzanine press recovery mode SW2 while applying power
@@ -345,12 +359,14 @@ Flash eMMC:
     - apply power or reset
     - hit any key to stop auto booting
     - use 'enterrcm' command
-  - for more information about recovery mode please consult Apalis T30 datasheet chapter 6
+  - for more information about recovery mode please consult Apalis T30 datasheet
+      chapter 6
 - run update.sh script
 
 Boot from eMMC:
 - EvalBoard V1.0a or Ixora V1.0a
 - power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes, please be patient
+- upon first boot post-install scripts are run which takes around 2 minutes,
+    please be patient
 
-Toradex, March 18, 2014
+Toradex, April 8, 2014
