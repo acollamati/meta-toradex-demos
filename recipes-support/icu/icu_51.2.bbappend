@@ -1,6 +1,7 @@
 # use a customized small icu data library created from
 # http://apps.icu-project.org/datacustom/ICUData51.html
 #   Charset Mapping Tables
+#   Break Iterator (en_US)
 #   Base Data
 PRINC_colibri-vf = "1"
 
