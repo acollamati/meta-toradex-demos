@@ -91,6 +91,7 @@ IMAGE_INSTALL_MACHINE_colibri-vf = " \
     mtd-utils-ubifs \
     mqxboot \
     libmcc \
+    mcc-pingpong \
     kernel-module-fusion-f0710a \
     kernel-module-mcc \
     kernel-module-snd-ac97-codec \
