@@ -1,5 +1,3 @@
-PRINC = "4"
-
 do_compile_append() {
     #trdx: no machine feed available so empty the feed configs
     echo "" >  ${S}/${sysconfdir}/opkg/${MACHINE_ARCH}-feed.conf

@@ -1,5 +1,3 @@
-PRINC = "1"
-
 FILESEXTRAPATHS_prepend := "${THISDIR}/files"
 
 RDEPENDS_${PN} += "librsvg-gtk"

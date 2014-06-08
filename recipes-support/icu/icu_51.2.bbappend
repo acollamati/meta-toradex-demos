@@ -3,7 +3,6 @@
 #   Charset Mapping Tables
 #   Break Iterator (en_US)
 #   Base Data
-PRINC_colibri-vf = "1"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 

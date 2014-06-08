@@ -1,5 +1,3 @@
-PRINC = "4"
-
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI += "file://config \
             file://bookmarks_v2.db \

@@ -1,4 +1,3 @@
-PRINC := "${@int(PRINC) + 2}"
 EXTRA_OECONF +=  "--disable-sdl"
 
 do_install_append () {

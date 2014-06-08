@@ -1,4 +1,3 @@
-PRINC = "1"
 # discrepancy
 # ./openembedded-core/meta/recipes-core/systemd/systemd-compat-units.bb 
 # ./openembedded-core/meta/recipes-devtools/run-postinsts/run-postinsts_1.0.bb 

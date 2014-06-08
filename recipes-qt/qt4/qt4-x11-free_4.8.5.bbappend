@@ -1,5 +1,3 @@
-PRINC = "1"
-
 # Build OpenGL/ES support if available
 
 QT_GLFLAGS_colibri-t20 = "-opengl es2 "
