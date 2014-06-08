@@ -1,4 +1,3 @@
-PRINC := "${@int(PRINC) + 3}"
 PACKAGES =+ "${PN}-scp-dev ${PN}-sftp-dev ${PN}-sftp-server-dev"
 PACKAGES =+ "${PN}-scp-dbg ${PN}-sftp-dbg ${PN}-sftp-server-dbg"
 
