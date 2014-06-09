@@ -14,8 +14,10 @@ SRC_URI += "file://GPIOConfig.png"
 
 PACKAGES = "${PN}"
 
-# Inhibit warnings about files being stripped.
-INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
+#no gnu_hash in binaries, skip QA dev-so for this package
+#we have symlinks ending in .so, skip QA ldflags for this package
+#inhibit warnings about files being stripped
+INSANE_SKIP_${PN} = "ldflags already-stripped"
 
 # just don't do any configuring
 do_configure() {
