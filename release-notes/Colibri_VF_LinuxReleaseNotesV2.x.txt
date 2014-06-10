@@ -3,9 +3,40 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 ******************************************************
 
 Contents:
-- U-Boot 2011.12 boot loader
-- Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink 2014-01-27
-- OpenEmbedded oe-core 2013.06 based root file system, using LXDE desktop environment
+- U-Boot 2014.04 boot loader
+- Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink
+  2014-05-08 (ts2.16)
+- OpenEmbedded oe-core dora/2013.12 based root file system, using LXDE desktop
+  environment
+
+********************************************************************************
+Linux Image V2.2 Beta 1 (June 03, 2014)
+- U-Boot
+  - Update to mainline U-Boot 2014.04 with new partition layout and NAND driver
+    which enables hardware ECC.
+  - Support new config block layout.
+  - Dropped SD card environment support (booting the boot loader from SD card is
+    not possible with fused modules)
+- Linux kernel:
+  - Make use of hardware ECC result when reading from NAND
+    (this breaks backward compatibility, reflash of root filesystem needed)
+  - Clear pending characters from UART when configuring FIFO. This solves boot
+    hang when UART characters are received during startup.
+  - Fix global timer length which makes sure kernel time is monotonic increasing
+  - Add support for second Ethernet (enable with CONFIG_FEC0)
+  - Add support for UART4/UART5 (enable with CONFIG_UART[3|4]_SUPPORT)
+  - Support new pin assignment for VF50 V1.1 and newer
+  - Use chip select for NAND (required for U-Boot 2014.04)
+- Linux user-space
+  - Update GPIO config tool to V1.2
+  - Add mcc-pingpong demo application for communication with Cortex M4 core
+
+- sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF_LinuxImageV2.2Beta1_20140603
+
+Known Issues:
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1)
+- Analogue audio is not working on the Colibri VF61
 
 ********************************************************************************
 Linux Image V2.1 Beta 3 (March 18, 2014)
@@ -136,7 +167,7 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - feed-config: use the new feed armv7ahf-vfp-neon
   - evdev: backport V2.8.1 from dora to get a fix for multitouch events
   - browser: use midori
-  - burnflash: script for configblock generation
+  - burnflash: script for config block generation
   - systemd-journald: limit journal size
 - sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF50_LinuxImageV2.1Beta1_20131022
 
@@ -153,7 +184,7 @@ Notes:
 
 Working:
 - U-Boot boot loader
-  - environment storage in NAND flash or on MMC/SD card
+  - environment storage in NAND flash
   - Ethernet
   - MMC/SD cards
   - RAM size auto detection
@@ -165,7 +196,7 @@ Working:
   - temperature sensor /sys/class/hwmon/hwmon0/device/temp1_input
   - RTC (Vybrid internal without wakeup support and board level I2C RTC)
   - Ethernet eth0
-  - NAND flash MTD UBIFS
+  - NAND flash MTD UBIFS with hardware ECC
   - serial console debug UART0
   - Serial UART_A/UART_B and UART_C up to 921600, including RTS/CTS
   - I2C via /dev/i2c-X
@@ -203,31 +234,31 @@ Not working or not tested:
   - optional parallel camera interface
   - IrDA
   - RS-422/485
-  - Colibri VF61: Aanalogue audio
+  - Colibri VF61: Analogue audio
 
 *************************************************************
 NAND Boot: Colibri VF50 V1.0a and Colibri VF61 V1.0b (Sample)
 *************************************************************
 
-If the boot loader in NAND got corrupted SD card boot as described further down can be used as a means of recovery.
+If the boot loader in NAND got corrupted UART/SD card boot as described further down can be used as a means of recovery.
 
 Initial Preparation:
 - download and extract Colibri_VF_LinuxImageVx.yz.tar.bz2 package with root permissions
 - use any VFAT formatted SD resp. uSD card with at least 100 MB of free space
 - optionally format the SD resp. uSD card using the format_sd.sh script (warning everything will be erased)
 - run update.sh script with optional -o argument pointing to mount point of above mentioned card
+- insert prepared SD card into SD card/MMC SDIO-socket (X15/X10 on Iris)
 
 Flash NAND:
 - EvalBoard V3.1a
-  - 115200 baud serial debug console on UART0 aka FFUART (lower X25 resp. X27 depending on JP17/19) without any handshake
-  - insert above prepared SD card into SD card/MMC SDIO-socket (X15)
+  - 115200 baud serial debug console on UART_A (lower X25 resp. X27 depending on JP17/19) without any handshake
 - Iris V1.1a
-  - 115200 baud serial debug console on UART0 aka FFUART (X13) without any handshake
-  - insert above prepared uSD card into uSD card holder (X10)
-  - apply power or reset
-  - hit any key to stop auto booting
-  - use 'mmc part 0 ; fatload mmc 0:1 $loadaddr flash_mmc.img ;source' commands
-  - use 'run update' command
+  - 115200 baud serial debug console on UART_A (X13) without any handshake
+- apply power or reset
+- hit any key to stop auto booting
+- use 'run setupdate' commands
+  (for old U-Boot versions 'mmc part 0 ; fatload mmc 0:1 $loadaddr flash_mmc.img ;source')
+- use 'run update' command
 
 Boot from NAND:
 - EvalBoard V3.1a or Iris V1.1a
@@ -235,10 +266,52 @@ Boot from NAND:
 - optionally power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
+********************************************************************
+UART Boot: Colibri VF50 V1.1a and Colibri VF61 V1.1b (Sample, fused)
+********************************************************************
 
-****************************************************************
-SD Card Boot: Colibri VF50 V1.0a and Colibri VF61 V1.0b (Sample)
-****************************************************************
+If the boot loader in NAND got corrupted this can be used as a means of recovery.
+
+For detailed description, see also:
+http://developer.toradex.com/knowledge-base/vfxx-recovery-mode
+
+For initial Preparation, refer to NAND Boot above.
+- if you have a 32-bit Linux host, replace vf_flash/imx_uart with its 32-bit
+  version vf_flash/imx_uart.m32 i.e. sudo mv vf_flash/imx_uart
+  vf_flash/imx_uart.m64; sudo ln -s vf_uart.m32 vf_flash/imx_uart
+
+Connect UART_A:
+- On EvalBoard V3.1a, use on-board FTDI RTS/CTS signal (bridge RTS/CTS, X11 5/6)
+- On Iris, use RS232 adapter with RTS/CTS support
+
+Enter recovery mode:
+- Turn the module off
+- Press the recovery button
+- Turn the module on
+
+Boot using UART:
+- Use update.sh -d /dev/ttyUSB0
+- When RTS/CTS is shortened on module side, disable RTS/CTS on PC side by using
+  argument -n
+
+Flash NAND:
+- EvalBoard V3.1a
+  - 115200 baud serial debug console on UART_A (lower X25 resp. X27 depending on JP17/19) without any handshake
+- Iris V1.1a
+  - 115200 baud serial debug console on UART_A (X13) without any handshake
+- hit enter to verify the U-Boot command prompt
+- use 'run setupdate' commands 
+- when migrating from a V2.1 Beta 3 or older image, use 'run migrate_v2.1b3' in
+  order to migrate config block.
+- otherwise, use 'run update' command
+
+Note: After UART recovery, the module is resetted automatically, however when
+resetting, the module enters recovery mode again. One need to power cycle the
+module to start the flashed image.
+
+***************************************************************************
+SD Card Boot: Colibri VF50 V1.0a and Colibri VF61 V1.0b (Sample, non-fused)
+***************************************************************************
 
 If the boot loader in NAND got corrupted this can also be used as a means of recovery.
 
@@ -257,7 +330,7 @@ Flash SD Card:
 Boot from SD Card:
 - EvalBoard V3.1a
   - insert SD card into SD card/MMC SDIO-socket (X15)
-- apply power or reset
+- apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, March 20, 2014
+Toradex, June 10, 2014
