@@ -41,13 +41,13 @@ do_rootfs_append_mx6() {
 
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
-    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb*
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb ${IMAGE_ROOT}/imx_usb.m32
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
 }
 
 do_rootfs_append() {
     # put u-boot, kernel into the bin directories, remove the kernel from the rootfs/boot
-    rm ${IMAGE_ROOTFS}/boot/uImage*
+    rm -f ${IMAGE_ROOTFS}/boot/uImage*
     cp -pP ${DEPLOY_DIR_IMAGE}/uImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage
 
