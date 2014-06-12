@@ -286,7 +286,8 @@ Connect UART_A:
 
 Enter recovery mode:
 - Turn the module off
-- Press the recovery button
+- On EvalBoard V3.1a, press the recovery button
+- On Iris, short pin 1-2 of JP1 on Iris for recovery
 - Turn the module on
 
 Boot using UART:
@@ -308,6 +309,11 @@ Flash NAND:
 Note: After UART recovery, the module is resetted automatically, however when
 resetting, the module enters recovery mode again. One need to power cycle the
 module to start the flashed image.
+
+Note: This also works for non-fused pins. However, the jumper X11-37 need to
+be removed. The reason is that non-fused modules determine the UART for serial
+loader from SO-DIMM 105 (X11-37) and SO-DIMM 101 (X22-9), which both need to
+be low in order to boot from UART0.
 
 ***************************************************************************
 SD Card Boot: Colibri VF50 V1.0a and Colibri VF61 V1.0b (Sample, non-fused)
