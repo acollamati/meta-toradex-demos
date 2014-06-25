@@ -10,12 +10,8 @@ DEPENDS += "canutils libsocketcan iproute2"
 #the following builds cross gdb and gdbserver
 DEPENDS += "gdb-cross"
 
-# angstrom and oe-core disagree on the format
-rootfs_update_timestamp_classic () {
-	date -u +%2m%2d%2H%2M%4Y >${IMAGE_ROOTFS}/etc/timestamp
-}
 #create the file /etc/timestamp
-IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp_classic"
+IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
 
 IMAGE_INSTALL_T20_T30 = " \
     gpioconfig \
