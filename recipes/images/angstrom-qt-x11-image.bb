@@ -9,7 +9,7 @@ PR = "r0"
 #start of the resulting deployable tarball name
 IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxImage-qt"
 IMAGE_NAME_colibri-t30 = "Colibri_T30_LinuxImage-qt"
-IMAGE_NAME_apalis-t30 = "ApalisT30_LinuxImage-qt"
+IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage-qt"
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt"
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt"
 IMAGE_NAME = "${MACHINE}_LinuxImage-qt"
