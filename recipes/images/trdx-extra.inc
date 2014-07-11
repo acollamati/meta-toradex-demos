@@ -1,8 +1,9 @@
 #additional packages to include in our Toradex images
 
-# Copy Licenses to image /usr/share/common-licenses, on tegra with individual licenses
+# Copy Licenses to image /usr/share/common-licenses, on vybrid for flash size reasons only the manifest
 COPY_LIC_MANIFEST = "1"
-COPY_LIC_DIRS_tegra = "1"
+COPY_LIC_DIRS = "1"
+COPY_LIC_DIRS_colibri-vf = "0"
 
 #build some ipk which are needed together with CAN, but do not yet install them
 DEPENDS += "canutils libsocketcan iproute2"
