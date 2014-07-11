@@ -139,6 +139,7 @@ IMAGE_INSTALL += " \
     gnome-vfs-plugin-file \
     gvfs \
     gvfsd-trash \
+    gnome-disk-utility \
     xdg-utils \
     xvinfo \
     \
