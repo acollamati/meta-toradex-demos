@@ -7,3 +7,8 @@ FILES_${PN}-sftp-server-dev = ""
 FILES_${PN}-scp-dbg = "${bindir}/.debug/scp.${BPN}"
 FILES_${PN}-sftp-dbg = "${bindir}/.debug/sftp"
 FILES_${PN}-sftp-server-dbg = "${libexecdir}/.debug/sftp-server"
+
+#do not use reverse DNS
+do_install_append () {
+    sed -i -e 's:^#UseDNS.*$:UseDNS no:g' ${D}${sysconfdir}/ssh/sshd_config
+}
