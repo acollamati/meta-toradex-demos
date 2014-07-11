@@ -144,7 +144,3 @@ IMAGE_INSTALL += " \
 "
 #    openssl-conf 
 #    ntpclient 
-
-do_rootfs_prepend () {
-    export NATIVE_ROOT=${STAGING_DIR_NATIVE}
-}

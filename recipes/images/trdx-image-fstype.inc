@@ -1,25 +1,21 @@
 #create the deployment directory-tree
 
 BURNFLASH := "${THISDIR}/files/${MACHINE}/burnflash.tar.bz2"
-
-S = "${WORKDIR}/burnflash"
-
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_NAME}${PV}/rootfs"
+
 U_BOOT_EXT = "bin"
 U_BOOT_EXT_colibri-vf = "imx"
 U_BOOT_EXT_apalis-imx6 = "imx"
-
-do_rootfs_prepend() {
-    tar -C ${WORKDIR} -xf ${BURNFLASH} 
-    mkdir -p ${IMAGE_ROOTFS}
-    cp -pPr ${S}/* ${IMAGE_ROOTFS}/../ 
-}
 
 #we need some native tools for deployment
 DEPENDS_colibri-vf = "mtd-utils-native imx-loader-native"
 DEPENDS_mx6 = "imx-loader-native"
 
-do_rootfs_append_colibri-vf() {
+imagedeploytools() {
+    # default to nothing to deploy
+    :
+}
+imagedeploytools_colibri-vf() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../vf_flash/"
     rm -f ${IMAGE_ROOT}/mkfs.ubifs  ${IMAGE_ROOT}/imx_uart
     mkdir -p ${IMAGE_ROOT}
@@ -34,7 +30,7 @@ do_rootfs_append_colibri-vf() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
 }
 
-do_rootfs_append_mx6() {
+imagedeploytools_append_mx6() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
     rm -f ${IMAGE_ROOT}/imx_flash/imx_usb ${IMAGE_ROOT}/imx_flash/*.conf
     mkdir -p ${IMAGE_ROOT}
@@ -45,10 +41,15 @@ do_rootfs_append_mx6() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
 }
 
-do_rootfs_append() {
-    # put u-boot, kernel into the bin directories, remove the kernel from the rootfs/boot
-    rm -f ${IMAGE_ROOTFS}/boot/uImage*
+fakeroot do_imagedeploy() {
+    cd ${WORKDIR}
+    tar -xf ${BURNFLASH}
+    cp -pPr burnflash/* ${IMAGE_NAME}${PV}/
+
+    # put u-boot, kernel into the bin directories, remove the kernel/dtb from the rootfs/boot
+    rm -f ${IMAGE_ROOTFS}/boot/uImage* ${IMAGE_ROOTFS}/boot/*.dtb
     cp -pP ${DEPLOY_DIR_IMAGE}/uImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage
 
     cp -pP ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
@@ -59,10 +60,15 @@ do_rootfs_append() {
     echo "${IMAGE_NAME}${PV}_${DATE}" >> ${IMAGE_ROOTFS}/etc/issue
     echo "" >> ${IMAGE_ROOTFS}/etc/issue
 
+    # add additional tools if required
+    imagedeploytools
+
     # remove intermediate file rootfs.lock
-    rm ${WORKDIR}/${IMAGE_NAME}${PV}/rootfs.lock
+    rm -f ${IMAGE_NAME}${PV}/rootfs.lock
 
     #create tarball
     DATE=`date +%Y%m%d`
-    cd ${WORKDIR}; tar -cjvf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${PV}_${DATE}.tar.bz2 ${IMAGE_NAME}${PV}
+    tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${PV}_${DATE}.tar.bz2 ${IMAGE_NAME}${PV}
 }
+
+addtask imagedeploy after do_rootfs before do_rm_work
