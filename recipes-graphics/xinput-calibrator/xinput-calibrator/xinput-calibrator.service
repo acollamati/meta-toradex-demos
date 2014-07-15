@@ -1,7 +1,7 @@
 [Unit]
 Description=Loads xinput calibration data
 ConditionPathExists=/etc/pointercal.xinput
-Requires=lxdm.service
+Requisite=lxdm.service
 After=lxdm.service
 
 [Service]
