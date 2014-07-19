@@ -44,9 +44,7 @@ CONMANPKGS_libc-uclibc = ""
 DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
 
 #deploy the OpenGL ES headers to the sysroot
-DEPENDS-TEGRA += ""
-DEPENDS-TEGRA_tegra += "nvsamples"
-DEPENDS += "${DEPENDS-TEGRA}"
+DEPENDS_append_tegra = " nvsamples"
 
 IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
@@ -55,8 +53,7 @@ IMAGE_BROWSER_colibri-vf = "midori"
 # this recommends from midori pulls in 8Meg of icons
 BAD_RECOMMENDATIONS += " gnome-icon-theme "
 #don't install some id databases
-BAD_RECOMMENDATIONS_VF_colibri_vf += " udev-hwdb "
-BAD_RECOMMENDATIONS += " ${BAD_RECOMMENDATIONS_VF} "
+BAD_RECOMMENDATIONS_append_colibri_vf = " udev-hwdb "
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gst-plugins-base-meta
