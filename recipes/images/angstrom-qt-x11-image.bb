@@ -77,6 +77,7 @@ GSTREAMER = " \
     gst-plugins-good-isomp4 \
     gst-plugins-good-matroska \
     gst-plugins-good-rtp \
+    gst-plugins-good-rtpmanager \
     gst-plugins-good-udp \
     gst-plugins-good-video4linux2 \
     gst-plugins-good-wavenc \
@@ -167,6 +168,7 @@ IMAGE_INSTALL += " \
     xrdb \
     xorg-minimal-fonts xserver-xorg-multimedia-modules xserver-xorg-utils \
     scrot \
+    unclutter \
     \
     libxdamage libxvmc libxinerama \
     libxcursor \
