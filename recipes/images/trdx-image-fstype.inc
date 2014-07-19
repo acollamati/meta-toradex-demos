@@ -8,8 +8,8 @@ U_BOOT_EXT_colibri-vf = "imx"
 U_BOOT_EXT_apalis-imx6 = "imx"
 
 #we need some native tools for deployment
-DEPENDS_colibri-vf = "mtd-utils-native imx-loader-native"
-DEPENDS_mx6 = "imx-loader-native"
+DEPENDS_append_colibri-vf = " mtd-utils-native imx-loader-native"
+DEPENDS_append_mx6 = " imx-loader-native"
 
 imagedeploytools() {
     # default to nothing to deploy
