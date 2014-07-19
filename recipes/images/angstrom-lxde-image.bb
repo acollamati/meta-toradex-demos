@@ -93,42 +93,14 @@ GSTREAMER = " \
 GSTREAMER_append_tegra3 = " \
     gst-plugins-good-jpeg \
 "
-GSTREAMER_colibri-vf = ""
-GSTREAMER_mx6 = " \
-    gstreamer \
-    gst-plugins-base \
-    gst-plugins-base-alsa \
-    gst-plugins-base-audioconvert \
-    gst-plugins-base-audioresample \
-    gst-plugins-base-audiotestsrc \
-    gst-plugins-base-decodebin \
-    gst-plugins-base-decodebin2 \
-    gst-plugins-base-playbin \
-    gst-plugins-base-typefindfunctions \
-    gst-plugins-base-ivorbisdec \
-    gst-plugins-base-ogg \
-    gst-plugins-base-theora \
-    gst-plugins-base-videotestsrc \
-    gst-plugins-base-vorbis \
+GSTREAMER_append_mx6 = " \
     gst-plugins-base-ximagesink \
     gst-plugins-base-xvimagesink \
-    gst-plugins-good-audioparsers \
-    gst-plugins-good-autodetect \
-    gst-plugins-good-avi \
-    gst-plugins-good-deinterlace \
-    gst-plugins-good-id3demux \
-    gst-plugins-good-isomp4 \
-    gst-plugins-good-matroska \
-    gst-plugins-good-rtp \
-    gst-plugins-good-udp \
-    gst-plugins-good-video4linux2 \
-    gst-plugins-good-wavenc \
-    gst-plugins-good-wavparse \
-    gst-plugins-ugly-asf \
     gst-plugins-gl \
     gst-fsl-plugin \
     gpu-viv-bin-mx6q-libraries \
 "
+GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL += " \
     gconf \
