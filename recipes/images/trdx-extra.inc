@@ -65,7 +65,12 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     kernel-module-fusion-f0710a \
 "
 
+#note that the kernel-modules meta package gets installed from
+#meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
+    u-boot-toradex-fsl-fw-utils \
+    usb-rndis-systemd \
+    gpio-export \
     curl \
     file \
     aspell \
