@@ -86,6 +86,7 @@ IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
 "
 
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
+    u-boot-toradex-fsl-fw-utils \
     gpioconfig \
     ptpd \
     iproute2 \
