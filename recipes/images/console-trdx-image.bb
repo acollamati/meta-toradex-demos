@@ -40,7 +40,7 @@ CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-et
 CONMANPKGS_libc-uclibc = ""
 
 #don't install some id databases
-BAD_RECOMMENDATIONS += " udev-hwdb "
+#BAD_RECOMMENDATIONS_append_colibri-vf += " udev-hwdb cpufrequtils "
 
 #this adds a few MB to the image
 IMAGE_INSTALL_X11_tegra = "${XSERVER} xterm xclock"

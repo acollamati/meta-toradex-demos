@@ -46,7 +46,7 @@ DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
 DEPENDS_append_tegra = " nvsamples"
 
 #don't install some id databases
-BAD_RECOMMENDATIONS_append_colibri_vf = " udev-hwdb "
+#BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils "
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gst-plugins-base-meta

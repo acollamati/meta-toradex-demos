@@ -36,8 +36,7 @@ CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-et
 CONMANPKGS_libc-uclibc = ""
 
 #don't install some id databases
-BAD_RECOMMENDATIONS_VF_colibri_vf += " udev-hwdb "
-BAD_RECOMMENDATIONS += " ${BAD_RECOMMENDATIONS_VF} "
+#BAD_RECOMMENDATIONS_append_colibri-vf += " udev-hwdb cpufrequtils "
 
 IMAGE_INSTALL += " \
     packagegroup-core-qt4e \

@@ -51,9 +51,11 @@ IMAGE_BROWSER = "firefox"
 IMAGE_BROWSER_colibri-vf = "midori"
 
 # this recommends from midori pulls in 8Meg of icons
-BAD_RECOMMENDATIONS += " gnome-icon-theme "
+BAD_RECOMMENDATIONS = "gnome-icon-theme"
 #don't install some id databases
-BAD_RECOMMENDATIONS_append_colibri_vf = " udev-hwdb "
+#currently having more than one BAD_RECOMMENDATIONS and having
+#a package which exists in more than one compatible feed does not work
+#BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gst-plugins-base-meta
