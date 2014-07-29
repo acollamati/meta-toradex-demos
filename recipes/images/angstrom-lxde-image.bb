@@ -103,13 +103,19 @@ GSTREAMER_append_mx6 = " \
 "
 GSTREAMER_colibri-vf = ""
 
+IMAGE_INSTALL_append_tegra = " \
+    gnome-disk-utility \
+"
+IMAGE_INSTALL_append_mx6 = " \
+    gnome-disk-utility \
+"
+
 IMAGE_INSTALL += " \
     gconf \
     gnome-vfs \
     gnome-vfs-plugin-file \
     gvfs \
     gvfsd-trash \
-    gnome-disk-utility \
     xdg-utils \
     xvinfo \
     \
