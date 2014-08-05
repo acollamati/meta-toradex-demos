@@ -5,11 +5,58 @@ Release Notes:  Linux Image V2.x for Colibri T30
 Contents:
 - U-Boot 2011.06 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
-- OpenEmbedded oe-core 2013.06 based root file system, using LXDE desktop environment
+- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
+  environment
+
+==> Flashing instructions can be found at the very bottom of this release notes
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 1 (August 4, 2014)
+- U-Boot
+  - Fix USB device enumeration problem
+  - Fix out-of-tree build
+- Linux kernel:
+  - Fix locking in BERR counter functionality of MCP251x CAN driver
+  - Disable DC when frame buffer off detected
+  - Clarify MCP2515 reset
+  - Add SPI controller platform data for hardware chip select
+  - Use 1.8V MMC/SD quirk only on affected instances
+  - Retry eMMC transfers if aborted due to argument out of range
+  - Fix issue with slow SPDIF clock
+  - Enable CONFIG_FHANDLE required for later systemd
+  - Swap on-board vs. HDA sound card order and use HDA HDMI audio
+  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up systemd boot-up
+  - Enable VLAN functionality
+  - Fix memset-related crashes caused by recent GCC (4.7.2) optimisations
+- Linux user-space
+  - Update from oe's dylan to daisy
+  - Fix comments in xorg.conf files
+  - Add BCT parameter sets 1-3
+  - Provide the khronos headers locally
+  - Replace "eglplatform.h" file
+  - Prefer using EGL GLES from toradex-nv-binaries package
+  - Remove machine feed URL, as it does not exist
+  - Only start xinput-calibrator.service when LXDM is enabled
+  - Use X server 1.14.4
+  - Disable openssh's use of reverse DNS
+  - Add gstreamer-rtp-manager and unclutter
+  - Update GPIO config tool to V1.2
+
+- sources git.toradex.com tag Colibri_T30_LinuxImageV2.3Beta1_20140804
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch tegra
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that 
+    neither headphone out nor mic in works anymore. Workaround: Have mic 
+    connected before boot or change the output source between DAC/LineIn
+- certain low-speed USB devices might not get detected
+- on first boot the resizing process adversely affects system performance for 
+    the first few minutes until completed
 
 ********************************************************************************
 Linux Image V2.1 Beta 3 (March 18, 2014)
@@ -330,6 +377,7 @@ Working on latest image:
   - I2C via /dev/i2c-X
   - MMC/SD card, optional 8-bit SDHCI
   - PWM LEDs /sys/class/leds/
+  - HDMI HDA audio
   - analogue audio capture, playback and resistive touch
     - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
     - touch has some jitter
@@ -352,7 +400,7 @@ Working on latest image:
 - Linux user-space
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
-  - Firefox
+  - Firefox browser
   - Gstreamer video encode and playback, independent dual full HD video decode
   - GPIO config tool
   - LXDE
@@ -363,7 +411,6 @@ Not working or not tested:
   - U-Boot USB keyboard
   - TFTLCD framebuffer support
 - Linux kernel
-  - HDMI SPDIF audio broken
   - IrDA
   - RS-422/485
 - Linux user-space
@@ -398,4 +445,4 @@ Boot from eMMC:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, March 18, 2014
+Toradex, August 5, 2014

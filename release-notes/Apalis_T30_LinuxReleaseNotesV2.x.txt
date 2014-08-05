@@ -5,12 +5,58 @@ Release Notes:  Linux Image V2.x for Apalis T30
 Contents:
 - U-Boot 2011.06 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
-- OpenEmbedded oe-core 2013.06 based root file system, using LXDE desktop
-    environment
+- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
+  environment
+
+==> Flashing instructions can be found at the very bottom of this release notes
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 1 (August 4, 2014)
+- U-Boot
+  - Fix USB device enumeration problem
+  - Fix out-of-tree build
+- Linux kernel:
+  - Integrate Intel gigabit Ethernet igb driver 5.1.2
+  - No NVM and Ethernet MAC address handling
+  - IEEE 1588 PTP support
+  - Optional CSI2 camera support
+  - Fix locking in BERR counter functionality of MCP251x CAN driver
+  - Disable DC when frame buffer off detected
+  - Add SPI controller platform data for hardware chip select
+  - Fix PCIe clock and reset conform to specification
+  - Use 1.8V MMC/SD quirk only on affected instances
+  - Retry eMMC transfers if aborted due to argument out of range
+  - Fix issue with slow SPDIF clock
+  - Enable CONFIG_FHANDLE required for later systemd
+  - Swap on-board vs. HDA sound card order
+  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up systemd boot-up
+  - Enable VLAN functionality
+  - Fix memset-related crashes caused by recent GCC (4.7.2) optimisations
+- Linux user-space
+  - Update from oe's dylan to daisy
+  - Add ptpd for IEEE 1588
+  - Fix comments in xorg.conf files
+  - Provide the khronos headers locally
+  - Replace "eglplatform.h" file
+  - Prefer using EGL GLES from toradex-nv-binaries package
+  - Remove machine feed URL, as it does not exist
+  - Only start xinput-calibrator.service when LXDM is enabled
+  - Use X server 1.14.4
+  - Disable openssh's use of reverse DNS
+  - Add gstreamer-rtp-manager and unclutter
+  - Update GPIO config tool to V1.2 including MXM3 pin descriptions
+
+- sources git.toradex.com tag Apalis_T30_LinuxImageV2.3Beta1_20140804
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch tegra
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
 
 ********************************************************************************
 Linux Image V2.1 Beta 3 (March 18, 2014)
@@ -299,11 +345,13 @@ Working on latest image:
   - SATA (regular port or mSATA slot)
   - DVFS power management
   - parallel camera interface
+  - optional CSI2 camera interface
 - Linux user-space
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
-  - Firefox
+  - Firefox browser
   - Gstreamer video encode and playback, independent dual full HD video decode
+  - GPIO config tool
   - LXDE
   - tegrastats-gtk, CPU information visible in graphical environment
   - LVDS transmitter configuration (see lvds-dual-channel.sh resp. lvds-single-channel.sh)
@@ -321,7 +369,6 @@ Not working or not tested:
   - suspend LP1 (igb/PCIe failing)
 - Linux user-space
   - Adobe Flash not provided by L4T (and probably never will)
-  - GPIO config tool missing Apalis MXM3 pin description integration
 
 *********************************************************
 eMMC Boot: Apalis T30 1GB V1.0a (Sample)
@@ -369,4 +416,4 @@ Boot from eMMC:
 - upon first boot post-install scripts are run which takes around 2 minutes,
     please be patient
 
-Toradex, April 8, 2014
+Toradex, August 5, 2014

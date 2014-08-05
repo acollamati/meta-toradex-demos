@@ -5,9 +5,50 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 Contents:
 - U-Boot 2014.04 boot loader
 - Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink
-  2014-05-08 (ts2.16)
-- OpenEmbedded oe-core dora/2013.12 based root file system, using LXDE desktop
+  2014-05-29 (ts2.17)
+- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
   environment
+
+==> Flashing instructions can be found at the very bottom of this release notes
+
+********************************************************************************
+Linux Image V2.3 Beta 1 (August 4, 2014)
+- U-Boot
+  - Fix environment offset to match new MTD partition layout
+  - Enable external 32 kHz oscillator for more precise RTC
+  - Use PLL2 as RAM clock which allows correct frequency for VF61
+  - Updated Boot ROM Configuration; boot ROM is now able to skip bad blocks
+  - Add CPU/SoC type detection
+  - Disable automatic boot when using recovery mode
+- Linux kernel:
+  - Add support for CAN (configuration CONFIG_CAN_FLEXCAN need to be enabled)
+  - Updated default configuration for newer systemd variant, removed DVB-T
+    tuners
+  - Added/Fixed PWM support by creating a new driver for FlexTimer
+  - Colibri VF50: Minimum touch pressure to count as touch is now configurable
+    through the parameter "min_pressure"
+- Linux user-space
+  - Update from oe's dora to daisy
+  - Integrate u-boot-fw-utils fw_printenv fw_setenv
+  - Remove machine feed URL, as it does not exist
+  - Only start xinput-calibrator.service when LXDM is enabled
+  - Use X server 1.14.4
+  - Disable openssh's use of reverse DNS
+  - Add unclutter to hide mouse cursor
+  - Disable gvfs samba-client
+  - Remove webkit-gtk dependency on video and OpenGL
+  - Use libpthread for gnutls
+  - Remove gnome-disk-utility
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.3Beta1_20140804
+  - repository linux-toradex branch colibri_vf
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1)
+- Analogue audio is not working on the Colibri VF61
+- USB client is not reliable (communication freezes when using RNDIS/g_ether)
 
 ********************************************************************************
 Linux Image V2.2 Beta 1 (June 03, 2014)
@@ -37,6 +78,10 @@ Known Issues:
 - If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
+- SSH password authentication is disabled by default (see PasswordAuthentication
+    setting in /etc/ssh/sshd_config)
+- Package management is not active (opkg update/opkg install does not work)
+- USB client is not reliable (communication freezes when using RNDIS/g_ether)
 
 ********************************************************************************
 Linux Image V2.1 Beta 3 (March 18, 2014)
@@ -202,7 +247,7 @@ Working:
   - I2C via /dev/i2c-X
   - MMC/SD card ESDHC2
   - PWM LEDs /sys/class/leds/
-  - Colibri VF61: AC97 resistive touch (early version, load module kernel-module-snd-soc-wm9712/kernel-module-mvf-sai-ac97)
+  - Colibri VF61: AC97 resistive touch (early version, load module snd-soc-wm9712/mvf-sai-ac97)
   - SPI via /dev/spidev1.0
   - framebuffer console
   - custom Ethernet MAC Address
@@ -212,6 +257,7 @@ Working:
   - USB raw HID device /dev/hidrawX
   - analogue inputs /dev/mvf-adc.{0|1} (see http://developer.toradex.com/knowledge-base/adc-(linux)#Colibri_VFxx)
   - power management (standby is LPRun, suspend-to-mem is Stop mode)
+  - optional CAN (Vybrid SoC internal)
 - Linux user-space
   - graphics (DCU aka parallel RGB)
   - Midori browser
@@ -226,10 +272,9 @@ Not working or not tested:
   - USB storage as host
   - framebuffer support
 - Linux kernel
-  - CAN (Vybrid internal)
   - USB audio driver
   - USB webcam
-  - USB device Ethernet RNDIS
+  - USB device Ethernet RNDIS (unreliable/freezes)
   - automatic USB device/host detection aka OTG support
   - optional parallel camera interface
   - IrDA
@@ -276,9 +321,11 @@ For detailed description, see also:
 http://developer.toradex.com/knowledge-base/vfxx-recovery-mode
 
 For initial Preparation, refer to NAND Boot above.
-- if you have a 32-bit Linux host, replace vf_flash/imx_uart with its 32-bit
+- If you have a 32-bit Linux host, replace vf_flash/imx_uart with its 32-bit
   version vf_flash/imx_uart.m32 i.e. sudo mv vf_flash/imx_uart
   vf_flash/imx_uart.m64; sudo ln -s vf_uart.m32 vf_flash/imx_uart
+- For config block recovery, run the ./create_configblock.sh script to
+  generate a configblock.bin file before creating the SD card
 
 Connect UART_A:
 - On EvalBoard V3.1a, use on-board FTDI RTS/CTS signal (bridge RTS/CTS, X11 5/6)
@@ -301,16 +348,20 @@ Flash NAND:
 - Iris V1.1a
   - 115200 baud serial debug console on UART_A (X13) without any handshake
 - hit enter to verify the U-Boot command prompt
-- use 'run setupdate' commands 
-- when migrating from a V2.1 Beta 3 or older image, use 'run migrate_v2.1b3' in
-  order to migrate config block.
-- otherwise, use 'run update' command
+- Use 'run setupdate' command to load update commands from SD card
+  - Migrating from images before V2.2: use 'run migrate_v2.1b3' to migrate
+    config block to new flash layout.
+  - To re-create boot configuration block: use 'run create_bcb' to re-create
+    the boot configuration block. Then, use 'run update_configblock' to flash
+    the config block again.
+    Finally, use 'run update' command to update the boot loader, kernel and
+    root file system.
 
 Note: After UART recovery, the module is resetted automatically, however when
 resetting, the module enters recovery mode again. One need to power cycle the
 module to start the flashed image.
 
-Note: This also works for non-fused pins. However, the jumper X11-37 need to
+Note: This also works for non-fused modules. However, the jumper X11-37 need to
 be removed. The reason is that non-fused modules determine the UART for serial
 loader from SO-DIMM 105 (X11-37) and SO-DIMM 101 (X22-9), which both need to
 be low in order to boot from UART0.
@@ -339,4 +390,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, June 10, 2014
+Toradex, August 5, 2014

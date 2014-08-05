@@ -3,15 +3,61 @@ Release Notes:  Linux Image V2.x for Apalis iMX6
 ************************************************
 
 Contents:
-- U-Boot 2013.10 boot loader
-- Linux 3.0.35 kernel, based on Freescale's BSP release 4.1.0 and patches from
-    Boundary Devices
-- OpenEmbedded oe-core dora/2013.12 based root file system, using LXDE
-    desktop environment
+- U-Boot 2014.04 boot loader
+- Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.0_ga
+  and patches from Boundary Devices
+- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
+  environment
+
+==> Flashing instructions can be found at the very bottom of this release notes
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 1 (August 4, 2014)
+- U-Boot
+  - Based on mainline U-Boot 2014.04
+  - Prepare for UART in DTE mode
+  - Enable device tree booting
+  - Fix kernel only update using fatwrite
+  - Enable update from MMC or SD card slot
+- Linux kernel:
+  - Update from 3.0.35 to 3.10.17
+  - Use device tree
+  - Fix the validity bit in S/PDIF
+  - Use PCIe with GEN1 speed
+  - Add a VideoDAC driver
+  - Add a touchscreen driver for TouchRevolution Fusion 7 / 10 panels
+  - No analog input driver any more
+- Linux user-space
+  - Update from oe's dora to daisy
+  - Export Apalis GPIOs with systemd service
+  - Integrate u-boot-fw-utils fw_printenv fw_setenv
+  - Remove machine feed URL, as it does not exist
+  - Only start xinput-calibrator.service when LXDM is enabled
+  - Use X server 1.14.4
+  - Disable openssh's use of reverse DNS
+  - Add gstreamer-rtp-manager and unclutter
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta1_20140804
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
+    display).
+- X uses only the fb0 device
+- initial rootfs must fit in RAM, i.e. it must not be greater than ~900MB
 
 ********************************************************************************
 Linux Image V2.2 Beta 1 (April 04, 2014)
@@ -62,7 +108,8 @@ Working on latest image:
   - Toradex Apalis configuration block handling
   - USB storage as host on USB host ports
 - Linux kernel
-  - GPIOlib /sys/class/gpio (the 'export’ interface is not implemented)
+  - GPIOlib /sys/class/gpio
+  - PWM LEDs /sys/class/leds/
   - temperature sensor /sys/devices/virtual/thermal/thermal_zone0/temp
   - Gigabit Ethernet (i.MX 6 errata, only 400 Mbps sustainable data rate)
   - eMMC ext3
@@ -71,25 +118,25 @@ Working on latest image:
   - 8-bit MMC card mmc1
   - 4-bit SD card mmc2
   - HDMI audio
-  - analogue audio playback and resistive touch
+  - analogue audio playback and capture, resistive touch
     - audio noise is high, workaround is to set headphone volume to maximum and
         use the DAC volume
-  - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev1.0 aka SPI2
+  - S/PDIF
+  - SPI via /dev/spidev32766.0 aka SPI1 and /dev/spidev32765.0 aka SPI2
   - custom Ethernet MAC Address
-  - serial number
   - USB host port
   - USB audio driver
   - USB webcam
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS
   - automatic USB device/host/suspend detection aka full OTG support
-  - analog input via IIO framework
   - CAN via can0 and can1
   - PCIe (regular ports and mini-PCIe slot)
   - SATA (regular port or mSATA slot)
   - DVFS power management
+  - suspend LP1
 - Linux user-space
-  - Firefox
+  - Firefox browser
   - Gstreamer playback
   - OpenGL, but thermal issues if running full speed
   - LXDE
@@ -98,6 +145,7 @@ Working on latest image:
   - only first output used by X11
   - dual output on HDMI and LVDS, both in 1920x1080
   - single output on EDT 7” Display
+  - single output to analog RGB, aka VGA output
   - resolution setting through modedb string in kernel command line (working
       resolutions to be tested)
 
@@ -108,29 +156,24 @@ Not working or not tested:
 - Linux kernel
   - IrDA
   - RS-422/485
+  - UART2, UART3 and UART4
+  - All UART control lines (There is a HW bug on V1.0 modules)
   - SIM card
-  - suspend LP1
-  - high speed serial UART2, UART4 and UART5
-  - S/PDIF (not worked on so far)
   - HDA audio IF on MXM connector (not possible with i.MX 6)
   - I2S / AC97 on MXM connector
-  - analogue audio capture with on module codec (not tested)
-  - framebuffer console
   - watchdog
   - parallel camera interface
   - CSI2 camera interface
-  - PWM LEDs /sys/class/leds/
-  - UARTs apart from debug output, all UART control lines (not tested)
+  - analog input via IIO framework
+  - serial number and board revision
 - Linux user-space
   - Gstreamer encoding (not tested)
   - GPIO config tool not available
-  - DHCP server configuration on USB RNDIS missing
 - Display:
   - on same monitors HDMI EDID does not negotiate correct timings,
       adding mxc_hdmi.only_cea=1 to the kernel command line may help
   - more than one framebuffer used as a X screen
   - backlight PWM
-  - VGA output
   - DSI output
 
 ******************************************
@@ -150,9 +193,7 @@ Flash eMMC:
       or regular USB cable
   - insert above prepared SD card into MMC SDIO-socket (X18)
 - Ixora V1.0a
-  currently not supported, the update scripts will have to be updated to use mmc
-    2 and not mmc 1
-  - connect serial debug console to X21 using null modem RS-232 cable and a
+  - connect serial debug console to X22 using null modem RS-232 cable and a
       10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
   - insert above prepared SD card into SD card/MMC SDIO-socket (X10)
 - Boot to U-Boot prompt and start the update:
@@ -160,6 +201,11 @@ Flash eMMC:
   - hit any key to stop auto booting
   - use 'run setupdate' U-Boot command and then
   - use 'run update' U-Boot command
+- If you updated from an older Image. (without a device tree)
+  - power cycle or reset and hit any key to stop auto booting
+    - use 'printenv' to get your current u-boot environment
+    - use 'env default -a' to set the u-boot environment to its default value
+	- optionally change the environment to your needs
 
 Boot from eMMC:
 - EvalBoard V1.0a or Ixora V1.0a
@@ -172,14 +218,14 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
 - EvalBoard V1.0a
   - connect USB micro A/B (X49) or USB B (X50) to development workstation using
       micro or regular USB cable
+  - connect serial debug console as stated above
 - Ixora V1.0a
-  currently not supported, the update scripts will have to be updated to use mmc
-    2 and not mmc 1
   - connect USB micro A/B (X9) to development workstation using regular micro USB
       cable
   - make sure JP2 is removed and nothing is connected to the lower USB host port
       X8
   - for more information please consult Ixora datasheet section 3.3 and chapter 4
+  - connect serial debug console as stated above
 - have the module in recovery mode and load U-Boot over USB to the module's RAM:
   - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
       the module is in recovery mode
@@ -189,4 +235,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, April 8, 2014
+Toradex, August 5, 2014
