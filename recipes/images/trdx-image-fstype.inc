@@ -4,8 +4,8 @@ BURNFLASH := "${THISDIR}/files/${MACHINE}/burnflash.tar.bz2"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_NAME}${PV}/rootfs"
 
 U_BOOT_EXT = "bin"
-U_BOOT_EXT_colibri-vf = "imx"
-U_BOOT_EXT_apalis-imx6 = "imx"
+U_BOOT_EXT_vf = "imx"
+U_BOOT_EXT_mx6 = "imx"
 
 #we need some native tools for deployment
 DEPENDS_append_colibri-vf = " mtd-utils-native imx-loader-native"
