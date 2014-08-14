@@ -144,7 +144,7 @@ Working on latest image:
 - Display:
   - only first output used by X11
   - dual output on HDMI and LVDS, both in 1920x1080
-  - single output on EDT 7” Display
+  - single output on EDT 7" Display
   - single output to analog RGB, aka VGA output
   - resolution setting through modedb string in kernel command line (working
       resolutions to be tested)
@@ -235,4 +235,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, August 5, 2014
+Toradex, August 14, 2014
