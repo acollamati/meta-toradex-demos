@@ -15,6 +15,22 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.3 Beta 2 (September 3, 2014)
+- Linux kernel:
+  - Add a mapping for H.264 payloads to the UVC aka USB webcam driver
+  - Fix PCIe boot-up issue by not disabling clock after deasserting the resets
+- Linux user-space
+  - Update imlib2 to 1.4.6 and use git instead of subversion repo
+
+- sources git.toradex.com tag Apalis_T30_LinuxImageV2.3Beta2_20140903
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch tegra
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+
+********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
 - U-Boot
   - Fix USB device enumeration problem
@@ -416,4 +432,4 @@ Boot from eMMC:
 - upon first boot post-install scripts are run which takes around 2 minutes,
     please be patient
 
-Toradex, August 5, 2014
+Toradex, September 4, 2014
