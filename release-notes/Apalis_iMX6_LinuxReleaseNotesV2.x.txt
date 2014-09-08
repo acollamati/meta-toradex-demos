@@ -204,6 +204,11 @@ Flash eMMC:
   - connect serial debug console to X22 using null modem RS-232 cable and a
       10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
   - insert above prepared SD card into SD card/MMC SDIO-socket (X10)
+  - if you update from a V2.2 image either use an EvalBoard for update or use
+    on Ixora the U-Boot command:
+	  setenv drive 2
+	  setenv setupdate 'fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source'
+	  save
 - Boot to U-Boot prompt and start the update:
   - apply power or reset
   - hit any key to stop auto booting
