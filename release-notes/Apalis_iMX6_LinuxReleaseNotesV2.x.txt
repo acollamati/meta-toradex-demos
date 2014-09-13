@@ -62,6 +62,10 @@ Known Issues:
   misconfiguration of the Linux kernel. Unset CONFIG_RC_MODE_IN_EP_RC_SYS
   and recompile the kernel.
   http://git.toradex.com/gitweb/linux-toradex.git/commit/09c7ac4adbb2e807b921d02caacc7c53abdedac7
+- The Angstrom-Distribution since switched to using ARM Thumb2 instruction set.
+  To use their binary feeds e.g. using the opkg package manager please change in
+  /etc/opkg/base-feed.conf et. al. armv7ahf-vfp-neon to armv7at2hf-vfp-neon.
+  We consider switching in our next release.
 
 ********************************************************************************
 Linux Image V2.2 Beta 1 (April 04, 2014)
@@ -240,4 +244,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, September 2, 2014
+Toradex, September 14, 2014

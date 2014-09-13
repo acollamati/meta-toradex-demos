@@ -49,6 +49,10 @@ Known Issues:
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
 - USB client is not reliable (communication freezes when using RNDIS/g_ether)
+- The Angstrom-Distribution since switched to using ARM Thumb2 instruction set.
+  To use their binary feeds e.g. using the opkg package manager please change in
+  /etc/opkg/base-feed.conf et. al. armv7ahf-vfp-neon to armv7at2hf-vfp-neon.
+  We consider switching in our next release.
 
 ********************************************************************************
 Linux Image V2.2 Beta 1 (June 03, 2014)
@@ -390,4 +394,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, August 5, 2014
+Toradex, September 14, 2014
