@@ -27,7 +27,7 @@ imagedeploytools_colibri-vf() {
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_uart ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_uart*
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/vybrid_usb_work.conf ${IMAGE_ROOT}/
 }
 
 imagedeploytools_append_mx6() {
@@ -38,7 +38,8 @@ imagedeploytools_append_mx6() {
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb ${IMAGE_ROOT}/imx_usb.m32
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/* ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_work.conf ${IMAGE_ROOT}/
 }
 
 fakeroot do_imagedeploy() {
