@@ -26,6 +26,8 @@ SRC_URI_append_vf += " \
 SRC_URI_append_mx6 += " \
     file://Wallpaper_ApalisiMX6D.png \
     file://Wallpaper_ApalisiMX6Q.png \
+    file://Wallpaper_ColibriiMX6DL.png \
+    file://Wallpaper_ColibriiMX6S.png \
 "
 
 do_install_append () {
@@ -56,10 +58,24 @@ pkg_postinst_${PN}_mx6 () {
     if [ "x$D" != "x" ]; then
         exit 1
     fi
+    SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
     CORES=`grep -c processor /proc/cpuinfo`
-    if [ $CORES -gt 2 ]; then
-        ln -sf Wallpaper_ApalisiMX6Q.png ${datadir}/lxde/wallpapers/toradex.png
-    else
-        ln -sf Wallpaper_ApalisiMX6D.png ${datadir}/lxde/wallpapers/toradex.png
-    fi
+    case $CORES in
+        4)
+            ln -sf Wallpaper_ApalisiMX6Q.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+        2)
+            if [ "x$SOC_TYPE" = "xi.MX6Q" ]; then
+                ln -sf Wallpaper_ColibriiMX6D.png ${datadir}/lxde/wallpapers/toradex.png
+            else
+                ln -sf Wallpaper_ApalisiMX6DL.png ${datadir}/lxde/wallpapers/toradex.png
+            fi
+            ;;
+        1)
+            ln -sf Wallpaper_ColibriiMX6S.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+        *)
+            ln -sf Wallpaper_Toradex.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+    esac
 }
