@@ -85,6 +85,25 @@ IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
     mimetypes \
 "
 
+#note that the kernel-modules meta package gets installed from
+#meta-fsl-arm/conf/machine/include/imx-base.inc
+IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
+    u-boot-toradex-fsl-fw-utils \
+    usb-rndis-systemd \
+    gpio-export \
+    curl \
+    file \
+    aspell \
+    ptpd \
+    iproute2 \
+    canutils \
+    fs-init \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
+    mimetypes \
+"
+
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
     u-boot-toradex-fsl-fw-utils \
     gpioconfig \
