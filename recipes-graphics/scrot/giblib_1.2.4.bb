@@ -26,5 +26,5 @@ do_compile_prepend () {
 
 FILES_${PN}-doc = "/usr/doc"
 
-inherit autotools binconfig
+inherit autotools-brokensep binconfig
 
