@@ -9,7 +9,7 @@ COPY_LIC_DIRS_colibri-vf = "0"
 DEPENDS += "canutils libsocketcan iproute2"
 
 #the following builds cross gdb and gdbserver
-DEPENDS += "gdb-cross"
+DEPENDS += "gdb-cross-${TARGET_ARCH}"
 
 #create the file /etc/timestamp
 IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
