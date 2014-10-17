@@ -149,12 +149,12 @@ IMAGE_INSTALL += " \
     xcursor-transparent-theme \
     zeroconf \
     angstrom-packagegroup-boot \
-    task-basic \
+    packagegroup-basic \
     udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    task-base-extended \
+    packagegroup-base-extended \
     ${XSERVER} \
     xserver-common \
     xserver-xorg-extension-dbe \

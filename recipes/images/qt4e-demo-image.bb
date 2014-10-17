@@ -52,12 +52,12 @@ IMAGE_INSTALL += " \
     zeroconf \
     fbset \	
     angstrom-packagegroup-boot \
-    task-basic \
+    packagegroup-basic \
     udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    task-base-extended \
+    packagegroup-base-extended \
     \
     bash \
     \
