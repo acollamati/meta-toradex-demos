@@ -42,16 +42,25 @@ imagedeploytools_append_mx6() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_work.conf ${IMAGE_ROOT}/
 }
 
+imagedeploy_kernel() {
+    # put u-boot, kernel into the bin directories, remove the kernel/dtb from the rootfs/boot
+    # rm -f ${IMAGE_ROOTFS}/boot/uImage* ${IMAGE_ROOTFS}/boot/*.dtb
+    cp -pP ${DEPLOY_DIR_IMAGE}/uImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage
+}
+
+imagedeploy_kernel_colibri-vf() {
+    # Do nothing, we use the kernel from /boot inside root fs
+    :
+}
+
 fakeroot do_imagedeploy() {
     cd ${WORKDIR}
     tar -xf ${BURNFLASH}
     cp -pPr burnflash/* ${IMAGE_NAME}${PV}/
 
-    # put u-boot, kernel into the bin directories, remove the kernel/dtb from the rootfs/boot
-    rm -f ${IMAGE_ROOTFS}/boot/uImage* ${IMAGE_ROOTFS}/boot/*.dtb
-    cp -pP ${DEPLOY_DIR_IMAGE}/uImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
-    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
-    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage
+    imagedeploy_kernel
 
     cp -pP ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${U_BOOT_EXT}
