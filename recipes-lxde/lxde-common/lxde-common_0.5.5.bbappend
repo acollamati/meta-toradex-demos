@@ -46,9 +46,12 @@ pkg_postinst_${PN}_vf () {
         exit 1
     fi
     IS_VF50=`grep -c VF50 /proc/cpuinfo`
-    if [ $IS_VF50 -gt 0 ]; then
+    IS_VF50_DTB=`grep -c toradex,vf500-colibri_vf50 /proc/device-tree/compatible`
+    IS_VF61=`grep -c VF61 /proc/cpuinfo`
+    IS_VF61_DTB=`grep -c toradex,vf610-colibri_vf61 /proc/device-tree/compatible`
+    if [ $IS_VF50 -gt 0 ] || [ $IS_VF50_DTB -gt 0 ]; then
         ln -sf Wallpaper_ColibriVF50.png ${datadir}/lxde/wallpapers/toradex.png
-    else
+    elif [ $IS_VF61 -gt 0 ] || [ $IS_VF61_DTB -gt 0 ]; then
         ln -sf Wallpaper_ColibriVF61.png ${datadir}/lxde/wallpapers/toradex.png
     fi
 }
