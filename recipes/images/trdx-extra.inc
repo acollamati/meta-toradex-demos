@@ -132,7 +132,6 @@ IMAGE_INSTALL += " \
     alsa-utils-aplay \
     alsa-utils-amixer \
     \
-    consolekit \
     sqlite3 \
     \
     curl \
