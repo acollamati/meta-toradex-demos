@@ -15,6 +15,7 @@ DEPENDS += "gdb-cross"
 IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
 
 IMAGE_INSTALL_T20_T30 = " \
+    u-boot-toradex-fw-utils \
     gpioconfig \
     tegrastats \
     trdx-nv-binaries \
@@ -30,7 +31,6 @@ IMAGE_INSTALL_T20_T30 = " \
 
 IMAGE_INSTALL_MACHINE_colibri-t20 = " \
     ${IMAGE_INSTALL_T20_T30} \
-    u-boot-toradex-fw-utils \
     kernel-module-fusion-f0710a \
 "
 
@@ -88,7 +88,6 @@ IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
-    u-boot-toradex-fsl-fw-utils \
     usb-rndis-systemd \
     gpio-export \
     curl \
