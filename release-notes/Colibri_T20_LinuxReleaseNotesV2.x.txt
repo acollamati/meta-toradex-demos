@@ -15,6 +15,29 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.3 Beta 3 (October 31, 2014)
+- U-Boot
+  - no changes
+- Linux kernel:
+  - add a mapping for H.264 payloads to the UVC aka USB webcam driver
+  - fix YAFFS2 spinning when flush inodes
+  - prevent null pointer dereference in Tegra nvmap video driver
+- Linux user-space:
+  - switch to ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp)
+  - updated LXDM to 0.5 with proper systemd-logind support
+  - removed ConsoleKit session/login manager (superseded by systemd-logind)
+  - lxsession shows hibernate button only when kernel support is available
+  - various build and dependency fixes for LXDE recipes
+
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.3Beta3_20141031
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch colibri
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+
+********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
 - U-Boot
   - Fix/hack sd boot environment
@@ -46,7 +69,7 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
 
 - sources git.toradex.com tag Colibri_T20_LinuxImageV2.3Beta1_20140804
   - repository linux-toradex branch tegra
-  - repository u-boot-toradex branch tegra
+  - repository u-boot-toradex branch colibri
 
 Known Issues:
 - LP1 suspend might fail due to pending USB interrupts
@@ -462,4 +485,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, September 14, 2014
+Toradex, November 3, 2014

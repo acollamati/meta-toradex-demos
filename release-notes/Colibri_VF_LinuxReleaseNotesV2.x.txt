@@ -3,13 +3,46 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 ******************************************************
 
 Contents:
-- U-Boot 2014.04 boot loader
+- U-Boot 2014.10 boot loader
 - Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink
   2014-05-29 (ts2.17)
 - Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
   environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
+
+********************************************************************************
+Linux Image V2.3 Beta 3 (October 31, 2014)
+- U-Boot:
+  - update to mainline U-Boot 2014.10 with new partition layout
+  - upstream NAND flash support: faster transfers due to optimised memcpy
+  - improved DDR initialization, according to JEDEC specifications
+  - enable caches in U-Boot
+  - boot zImage kernel from root file system
+  - create environment variable containing SoC type
+  - update environment script to also support device tree based kernels
+  - use PLL1 as DDR clock for Colibri VF50 (keep PLL2 off)
+- Linux kernel:
+  - support SMBus block reads (I2C)
+  - complete I2C resource tables
+  - enable wakealarm feature of SoC RTC to wakeup the system from suspend
+  - compile/deploy in zImage format
+- Linux user-space:
+  - switch to ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
+  - updated LXDM to 0.5 with proper systemd-logind support
+  - removed ConsoleKit session/login manager (superseded by systemd-logind)
+  - lxsession shows hibernate button only when kernel support is available
+  - various build and dependency fixes for LXDE recipes
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.3Beta3_20141031
+  - repository linux-toradex branch colibri_vf
+  - repository u-boot-toradex branch 2014.10-toradex
+
+Known Issues:
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1)
+- Analogue audio is not working on the Colibri VF61
+- USB client is not reliable (communication freezes when using RNDIS/g_ether)
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -394,4 +427,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, September 14, 2014
+Toradex, November 3, 2014

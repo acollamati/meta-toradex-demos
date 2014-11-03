@@ -3,7 +3,7 @@ Release Notes:  Linux Image V2.x for Apalis T30
 ***********************************************
 
 Contents:
-- U-Boot 2011.06 boot loader
+- U-Boot 2014.10 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
 - Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
   environment
@@ -13,6 +13,44 @@ Contents:
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 3 (October 31, 2014)
+- U-Boot:
+  - update to mainline U-Boot 2014.10 with new partition layout and
+      cbootimage/tegrarcm based update concept
+  - common config block code
+  - improved NFS boot functionality
+  - fw_printenv integration
+- Linux kernel:
+  - various analogue audio codec fixes/improvements noteworthy driver probe after reset
+  - mark host as eMMC CMD23 capable to force using reliable write command
+  - fix audio hub lock-up
+  - prevent null pointer dereference in Tegra nvmap video driver
+- Linux user-space:
+  - switch to ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
+  - add cbootimage, libcryptopp and tegrarcm recipes
+  - use latest u-boot git migrated to cbootimage/tegrarcm
+  - fix noisy analogue audio playback
+  - introduce and deploy fw_printenv/setenv
+  - updated LXDM to 0.5 with proper systemd-logind support
+  - removed ConsoleKit session/login manager (superseded by systemd-logind)
+  - lxsession shows hibernate button only when kernel support is available
+  - various build and dependency fixes for LXDE recipes
+
+- sources git.toradex.com tag Apalis_T30_LinuxImageV2.3Beta3_20141031
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2014.10-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- certain low-speed USB devices might not get detected
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+- partition resizing on first boot not working
+- fw_printenv not working
 
 ********************************************************************************
 Linux Image V2.3 Beta 2 (September 3, 2014)
@@ -314,25 +352,26 @@ Notes:
 - 115200 baud serial debug console on UARTA aka UART1 (EvalBoard lower X28 resp.
     X29 depending on JP10/12, X22 on Ixora) without any handshake
 - user account: root with empty password
-- ext3 root file system
+- eMMC: partition 1: vfat with kernel, partition 2 ext3 root file system
 - opkg package manager
 - HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
 - CRT: the T30 internal video DAC output is unsupported by NVIDIA's L4T Linux SW
     stack
-- Linux host used for recovery mode flashing requires proper 32-bit execution
-    environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install
-    gawk on Ubuntu)
+- Linux host used for update preparation requires proper 32-bit execution
+    environment (e.g. install ia32-libs on 64-bit Ubuntu), awk and libcryptopp
+    (e.g. install gawk and libcrypto++ on Ubuntu)
 
 Working on latest image:
 - U-Boot boot loader
   - environment storage in eMMC
-  - ASIX based USB to Ethernet adapters on USBH3
-  - MMC/SD cards (only GPT partitioned)
-  - eMMC flash with NVIDIA partition table parsing
+  - Gigabit Ethernet
+  - MMC/SD cards
+  - eMMC flash
   - RAM size auto detection
   - serial console debug UARTA aka UART1
   - Toradex Apalis configuration block handling
-  - USB storage as host on USBH3
+  - USB storage as host on USB host ports
+  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on USB OTG1 port
 - Linux kernel
   - GPIOlib /sys/class/gpio
   - temperature sensor /sys/bus/i2c/devices/4-004c
@@ -383,9 +422,7 @@ Working on latest image:
 Not working or not tested:
 - U-Boot boot loader
   - U-Boot USB keyboard
-  - Gigabit Ethernet
   - framebuffer support
-  - USB OTG1 and USBH2
 - Linux kernel
   - IrDA
   - RS-422/485
@@ -394,45 +431,46 @@ Not working or not tested:
 - Linux user-space
   - Adobe Flash not provided by L4T (and probably never will)
 
-*********************************************************
+****************************************************************
 eMMC Boot: Apalis T30 1GB V1.0a (Sample)
-eMMC Boot: Apalis T30 2GB V1.0a, V1.0b and V1.0c (Sample)
-*********************************************************
+eMMC Boot: Apalis T30 2GB V1.0a, V1.0b, V1.0c and V1.0e (Sample)
+****************************************************************
 
 Initial Preparation:
 - download and extract Apalis_T30_LinuxImageVx.yz.tar.bz2 package with root
     permissions
+- use any VFAT formatted SD resp. micro D card with at least 1000 MB of free
+    space
+- run update.sh script with optional -o argument pointing to mount point of
+    above mentioned card
 
 Flash eMMC:
 - EvalBoard V1.0a
-  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
-      micro or regular USB cable
   - connect serial debug console to lower X28 or X29 using null modem RS-232 or
       regular USB cable
+  - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
 - Ixora V1.0a
-  - connect USB micro A/B (X9) to development workstation using regular micro
-      USB cable
-  - make sure JP2 is removed and nothing is connected to the lower USB host port
-      X8
-  - optionally assemble resistor R90 instead of R91 so SW3 can be used as
-      recovery mode switch
-  - for more information please consult Ixora datasheet section 3.3 and chapter 4
-- enter recovery mode:
-  - EvalBoard with Mezzanine press recovery mode SW2 while applying power
-  - Ixora press SW3 while applying power (requires R90 assembly option noted above)
-  - Eboot (e.g. transitioning from WEC):
-    - 115200 baud without any handshake
-    - hold space key while applying power or resetting
-    - press x to enter command mode
-    - use 'reboot rcm' command
-  - U-Boot (e.g. updating Embedded Linux):
-    - 115200 baud without any handshake
-    - apply power or reset
-    - hit any key to stop auto booting
-    - use 'enterrcm' command
-  - for more information about recovery mode please consult Apalis T30 datasheet
-      chapter 6
-- run update.sh script
+  - connect serial debug console to X22 using null modem RS-232 cable and a
+      10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
+  - insert above prepared micro SD card into micro SD card socket (X10)
+- Boot to U-Boot prompt and start the update:
+  - apply power or reset
+  - hit any key to stop auto booting
+  - if you update from a previous image use the following U-Boot commands:
+    - using SD/MMC 8bit (X18) socket on EvalBoard:
+        setenv drive 1
+        setenv setupdate 'mmc dev ${drive}; fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source'
+        save
+    - using SD/MMC 4bit (X19) socket on EvalBoard or micro SD card socket (X10) on Ixora:
+        setenv drive 2
+        setenv setupdate 'mmc dev ${drive}; fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source'
+        save
+  - use 'run setupdate' U-Boot command and then
+  - use 'run update' U-Boot command
+- If you updated from an older image:
+  - power cycle or reset as requested and hit any key to stop auto booting
+  - use 'run setupdate' U-Boot command and then
+  - use 'run migrate_v2.3b2' U-Boot command
 
 Boot from eMMC:
 - EvalBoard V1.0a or Ixora V1.0a
@@ -440,4 +478,22 @@ Boot from eMMC:
 - upon first boot post-install scripts are run which takes around 2 minutes,
     please be patient
 
-Toradex, September 14, 2014
+If the boot loader on the module got corrupted this recovers it by loading U-Boot
+  over USB into the module's RAM and executing it there:
+- EvalBoard V1.0a
+  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
+      micro or regular USB cable
+  - connect serial debug console as stated above
+- Ixora V1.0a
+  - connect USB micro A/B (X9) to development workstation using regular micro USB
+      cable
+  - make sure JP2 is removed and nothing is connected to the lower USB host port
+      X8
+  - for more information please consult Ixora datasheet section 3.3 and chapter 4
+  - connect serial debug console as stated above
+- have the module in recovery mode and load U-Boot over USB to the module's RAM:
+  - lsusb should show a 0955:7130 NVidia Corp. device if the module is in recovery mode
+  - run ./update.sh -d
+  - stop at the U-Boot prompt and begin the update as stated above
+
+Toradex, November 3, 2014

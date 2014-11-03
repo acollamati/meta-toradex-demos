@@ -4,7 +4,7 @@ Release Notes:  Linux Image V2.x for Apalis iMX6
 
 Contents:
 - U-Boot 2014.04 boot loader
-- Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.0_ga
+- Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.1_ga
   and patches from Boundary Devices
 - Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
   environment
@@ -14,6 +14,56 @@ Contents:
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 3 (October 31, 2014)
+- U-Boot:
+  - move configuration to board/toradex
+  - access GPIO with symbolic names
+  - remove PF0100 PMIC settings now fused
+  - fix LVDS panel name in environment
+  - enable fusing using do_fuse command
+  - cleanup configs
+  - use get_ram_size()
+  - use correct boot device in apalis_imx6q.cfg
+  - separate enet reset from pinmuxing
+  - enable USB host power consistently
+- Linux kernel:
+  - add STMPE ADC driver using IIO framework
+  - allow reading board temperature via STMPE ADC driver
+  - fix PCIe by disabling RC/EP test mode
+  - skip unnecessary mxc_hdmi_setup calls
+  - upgrade to Freescale's BSP release imx_3.10.17_1.0.1_ga
+  - remove CONFIG_WATCHDOG_NOWAYOUT
+  - add intial DTE UART support
+  - fix pixelclk polarity for EDT-WVGA
+  - eMMC VCCQ is 3.3V only
+  - optional RS485 handling
+  - move pinmux definitions into Toradex files
+- Linux user-space:
+  - switch to ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
+  - support for initial rootfs bigger than RAM, i.e. greater than ~900MB
+  - updated LXDM to 0.5 with proper systemd-logind support
+  - removed ConsoleKit session/login manager (superseded by systemd-logind)
+  - lxsession shows hibernate button only when kernel support is available
+  - various build and dependency fixes for LXDE recipes
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta3_20141031
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
+    display).
+- X uses only the fb0 device
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -122,6 +172,8 @@ Working on latest image:
   - Gigabit Ethernet (i.MX 6 errata, only 400 Mbps sustainable data rate)
   - eMMC ext3
   - serial console debug UART1
+  - UART2, UART3 and UART4
+  - optional RS485
   - I2C via /dev/i2c-X
   - 8-bit MMC card mmc1
   - 4-bit SD card mmc2
@@ -138,6 +190,7 @@ Working on latest image:
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS
   - automatic USB device/host/suspend detection aka full OTG support
+  - analog input via IIO framework
   - CAN via can0 and can1
   - PCIe (regular ports and mini-PCIe slot)
   - SATA (regular port or mSATA slot)
@@ -163,8 +216,7 @@ Not working or not tested:
   - USB OTG1 support
 - Linux kernel
   - IrDA
-  - RS-422/485
-  - UART2, UART3 and UART4
+  - RS-422
   - All UART control lines (There is a HW bug on V1.0 modules)
   - SIM card
   - HDA audio IF on MXM connector (not possible with i.MX 6)
@@ -172,7 +224,6 @@ Not working or not tested:
   - watchdog
   - parallel camera interface
   - CSI2 camera interface
-  - analog input via IIO framework
   - serial number and board revision
 - Linux user-space
   - Gstreamer encoding (not tested)
@@ -191,19 +242,20 @@ eMMC Boot: Apalis iMX6Q 1GB V1.0a (Sample)
 Initial Preparation:
 - download and extract Apalis_iMX6_LinuxImageVx.yz.tar.bz2 package with root
     permissions
-- use any VFAT formatted SD resp. uSD card with at least 1000 MB of free space
+- use any VFAT formatted SD resp. micro D card with at least 1000 MB of free
+    space
 - run update.sh script with optional -o argument pointing to mount point of
     above mentioned card
 
 Flash eMMC:
 - EvalBoard V1.0a
-  - connect serial debug console to lower X28 or X29 using null modem RS-232
-      or regular USB cable
-  - insert above prepared SD card into MMC SDIO-socket (X18)
+  - connect serial debug console to lower X28 or X29 using null modem RS-232 or
+      regular USB cable
+  - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
 - Ixora V1.0a
   - connect serial debug console to X22 using null modem RS-232 cable and a
       10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
-  - insert above prepared SD card into SD card/MMC SDIO-socket (X10)
+  - insert above prepared micro SD card into SD card socket (X10)
   - if you update from a V2.2 image either use an EvalBoard for update or use
     on Ixora the U-Boot command:
 	  setenv drive 2
@@ -214,7 +266,7 @@ Flash eMMC:
   - hit any key to stop auto booting
   - use 'run setupdate' U-Boot command and then
   - use 'run update' U-Boot command
-- If you updated from an older Image. (without a device tree)
+- If you updated from an older image. (without a device tree)
   - power cycle or reset and hit any key to stop auto booting
     - use 'printenv' to get your current u-boot environment
     - use 'env default -a' to set the u-boot environment to its default value
@@ -249,4 +301,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, September 14, 2014
+Toradex, November 3, 2014
