@@ -19,8 +19,8 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
 - U-Boot:
   - update to mainline U-Boot 2014.10 with new partition layout and
       cbootimage/tegrarcm based update concept
+  - gigabit Ethernet over PCIe support for NFS boot functionality
   - common config block code
-  - improved NFS boot functionality
   - fw_printenv integration
 - Linux kernel:
   - various analogue audio codec fixes/improvements noteworthy driver probe after reset
