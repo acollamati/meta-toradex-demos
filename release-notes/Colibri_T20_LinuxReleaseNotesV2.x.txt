@@ -36,6 +36,12 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
 Known Issues:
 - LP1 suspend might fail due to pending USB interrupts
 - LP1 suspend might hang due to display controller issue
+- Unfortunately even though the Angstrom-Distribution now has even a few ARM
+  Thum2 VFP binary feeds without any NEON requirement available we forgot to
+  enable them. To use their binary feeds e.g. using the opkg package manager
+  please add in /etc/opkg/base-feed.conf et. al. a line as follows (e.g. just
+  replace base as needed):
+src/gz base http://feeds.angstrom-distribution.org/feeds/v2014.06/ipk/eglibc/armv7at2hf-vfp/base
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -485,4 +491,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, November 3, 2014
+Toradex, November 5, 2014

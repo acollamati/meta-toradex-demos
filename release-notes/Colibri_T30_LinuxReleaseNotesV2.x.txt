@@ -43,6 +43,10 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
   - repository linux-toradex branch tegra
   - repository u-boot-toradex branch 2014.10-toradex
 
+Note:
+- As we no longer rely on proprietary Fastboot/NvFlash for flashing the
+  instructions at the very bottom of this release notes changed.
+
 Known Issues:
 - connecting an analogue mic to the on module codec resets the codec, so that
     neither headphone out nor mic in works anymore. Workaround: Have mic
@@ -51,7 +55,7 @@ Known Issues:
 - LP1 suspend might fail due to pending USB interrupts
 - LP1 suspend might hang due to display controller issue
 - partition resizing on first boot not working
-- fw_printenv not working
+- fw_setenv not working
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -490,7 +494,7 @@ Flash eMMC:
   - hit any key to stop auto booting
   - if you update from a previous image use the following U-Boot commands:
         setenv drive 1
-        setenv setupdate 'mmc dev ${drive}; fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source'
+        setenv setupdate 'mmc dev ${drive}; fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source ${loadaddr}'
         save
   - use 'run setupdate' U-Boot command and then
   - use 'run update' U-Boot command
@@ -530,4 +534,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, November 3, 2014
+Toradex, November 5, 2014
