@@ -69,6 +69,7 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
+    gpioconfig \
     usb-rndis-systemd \
     gpio-export \
     curl \
