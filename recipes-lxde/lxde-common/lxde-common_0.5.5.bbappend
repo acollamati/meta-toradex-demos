@@ -68,10 +68,10 @@ pkg_postinst_${PN}_mx6 () {
             ln -sf Wallpaper_ApalisiMX6Q.png ${datadir}/lxde/wallpapers/toradex.png
             ;;
         2)
-            if [ "x$SOC_TYPE" = "xi.MX6Q" ]; then
-                ln -sf Wallpaper_ColibriiMX6D.png ${datadir}/lxde/wallpapers/toradex.png
+            if [ "x$SOC_TYPE" = "xi.MX6DL" ]; then
+                ln -sf Wallpaper_ColibriiMX6DL.png ${datadir}/lxde/wallpapers/toradex.png
             else
-                ln -sf Wallpaper_ApalisiMX6DL.png ${datadir}/lxde/wallpapers/toradex.png
+                ln -sf Wallpaper_ApalisiMX6D.png ${datadir}/lxde/wallpapers/toradex.png
             fi
             ;;
         1)
