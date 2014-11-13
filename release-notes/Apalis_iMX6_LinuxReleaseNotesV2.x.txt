@@ -6,8 +6,8 @@ Contents:
 - U-Boot 2014.04 boot loader
 - Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.1_ga
   and patches from Boundary Devices
-- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
-  environment
+- Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
+  LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
 
@@ -64,6 +64,8 @@ Known Issues:
 - backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
     display).
 - X uses only the fb0 device
+- due to the flash_eth.img update script currently being broken please use the
+    SD card flashing method (e.g. flash_mmc.img) for now
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -295,9 +297,6 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
 - have the module in recovery mode and load U-Boot over USB to the module's RAM:
   - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
       the module is in recovery mode
-  - if you have a 32-bit Linux host, replace imx_flash/imx_usb with its 32-bit
-      version imx_flash/imx_usb.m32 i.e. sudo mv imx_flash/imx_usb
-      imx_flash/imx_usb.m64; sudo ln -s imx_usb.m32 imx_flash/imx_usb
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 

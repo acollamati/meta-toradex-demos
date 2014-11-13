@@ -6,8 +6,8 @@ Contents:
 - U-Boot 2014.10 boot loader
 - Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink
   2014-05-29 (ts2.17)
-- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
-  environment
+- Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
+  LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
 

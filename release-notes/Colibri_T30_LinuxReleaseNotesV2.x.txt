@@ -5,8 +5,8 @@ Release Notes:  Linux Image V2.x for Colibri T30
 Contents:
 - U-Boot 2014.10 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
-- Yocto/OpenEmbedded daisy/2014.06 based root file system, using LXDE desktop
-  environment
+- Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
+  LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
 
@@ -56,6 +56,8 @@ Known Issues:
 - LP1 suspend might hang due to display controller issue
 - partition resizing on first boot not working
 - fw_setenv not working
+- due to the flash_eth.img update script currently being broken please use the
+    SD card flashing method (e.g. flash_mmc.img) for now
 
 ********************************************************************************
 Linux Image V2.3 Beta 1 (August 4, 2014)
@@ -91,7 +93,7 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
 
 - sources git.toradex.com tag Colibri_T30_LinuxImageV2.3Beta1_20140804
   - repository linux-toradex branch tegra
-  - repository u-boot-toradex branch tegra
+  - repository u-boot-toradex branch colibri
 
 Known Issues:
 - connecting an analogue mic to the on module codec resets the codec, so that 
