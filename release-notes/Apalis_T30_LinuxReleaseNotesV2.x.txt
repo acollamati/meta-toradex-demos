@@ -54,6 +54,9 @@ Known Issues:
 - LP1 suspend might fail due to pending USB interrupts
 - LP1 suspend might hang due to display controller issue
 - partition resizing on first boot not working
+    Change the script /usr/sbin/resizefs.sh and then run the script to have 
+    it work for you:
+    PART="mmcblk0p1" -> PART="mmcblk0p2"
 - fw_setenv not working
 - due to the flash_eth.img update script currently being broken please use the
     SD card flashing method (e.g. flash_mmc.img) for now
@@ -502,4 +505,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, November 5, 2014
+Toradex, November 19, 2014
