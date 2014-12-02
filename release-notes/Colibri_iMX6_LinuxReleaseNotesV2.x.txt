@@ -1,0 +1,181 @@
+*************************************************
+Release Notes:  Linux Image V2.x for Colibri iMX6
+*************************************************
+
+Contents:
+- U-Boot 2014.04 boot loader
+- Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.1_ga
+  and patches from Boundary Devices
+- Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
+  LXDE desktop environment
+
+==> Flashing instructions can be found at the very bottom of this release notes
+
+Licensing:
+- proprietary multimedia codecs included for evaluation purpose only
+- customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 4 (November 13, 2014)
+- U-Boot:
+  - initial release
+- Linux kernel:
+  - initial release
+- rootfs / oe-core:
+  - initial release
+  - uses ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta3_20141031
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- X uses only the fb0 device
+- due to the flash_eth.img update script currently being broken please use the
+    SD card flashing method (e.g. flash_mmc.img) for now
+
+********************************************************************************
+Notes:
+- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on
+    EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris)
+- user account: root with empty password
+- eMMC: partition 1: vfat with kernel, partition 2 ext3 root file system
+- opkg package manager
+- HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
+- Linux host used for update preparation requires proper 32-bit execution
+    environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install
+    gawk on Ubuntu)
+
+Working on latest image:
+- U-Boot boot loader
+  - environment storage in eMMC
+  - Ethernet
+  - MMC/SD cards
+  - eMMC flash
+  - serial console debug UARTA
+  - Toradex Colibri configuration block handling
+  - USB storage as host on USB host ports
+- Linux kernel
+  - GPIOlib /sys/class/gpio
+  - PWM LEDs /sys/class/leds/
+  - temperature sensor CPU /sys/devices/virtual/thermal/thermal_zone0/temp
+      Board: /sys/devices/soc0/soc.1/2100000.aips-bus/21a4000.i2c/i2c-1/1-0041/stmpe-adc/iio:device0/in_temp8_raw
+  - Ethernet
+  - eMMC ext3
+  - serial console debug UARTA
+  - UARTB, UARTC
+  - optional RS485
+  - I2C via /dev/i2c-X
+  - 4-bit SD card mmc1
+  - HDMI audio
+  - analogue audio playback and capture, resistive touch
+  - optional S/PDIF, disabled in device tree
+  - SPI via /dev/spidev32766.0
+  - custom Ethernet MAC Address
+  - USB host port
+  - USB audio driver
+  - USB webcam
+  - USB raw HID device /dev/hidrawX
+  - USB device Ethernet RNDIS
+  - analog input via IIO framework
+  - DVFS power management
+- Linux user-space
+  - Firefox browser
+  - Gstreamer playback
+  - OpenGL, but thermal issues if running full speed
+  - LXDE
+  - resize rootfs partition to full eMMC capacity
+- Display:
+  - only first output used by X11
+  - backlight PWM
+  - dual output on HDMI and parallel RGB, HDMI 1920x1080, RGB 800x480
+  - single output on EDT 7" Display
+  - single output to analog RGB, aka VGA output
+  - resolution setting through modedb string in kernel command line (working
+      resolutions to be tested)
+
+Not working or not tested:
+- U-Boot boot loader
+  - framebuffer support
+  - USB OTG1 support
+- Linux kernel
+  - automatic USB device/host/suspend detection aka full OTG support
+  - CSI2 camera interface
+  - CAN via can0 and can1, disabled in device tree
+  - IrDA
+  - parallel camera interface
+  - RS-422
+  - serial number and board revision
+  - SIM card
+  - suspend LP1 (issue with X/fb setup after wakeup)
+  - watchdog
+- Linux user-space
+  - Gstreamer encoding (not tested)
+- Display:
+  - on same monitors HDMI EDID does not negotiate correct timings,
+      adding mxc_hdmi.only_cea=1 to the kernel command line may help
+  - more than one framebuffer used as a X screen
+  - DSI output
+
+**************************************************************************
+eMMC Boot: Colibri iMX6S 256MB V1.0a (Sample), iMX6DL 512MB V1.0a (Sample)
+**************************************************************************
+
+Initial Preparation:
+- download and extract Colibri_iMX6_LinuxImageVx.yz.tar.bz2 package with root
+    permissions
+- use any VFAT formatted SD resp. micro D card with at least 1000 MB of free
+    space
+- run update.sh script with optional -o argument pointing to mount point of
+    above mentioned card
+
+Flash eMMC:
+- EvalBoard V3.1a
+  - connect serial debug console to UARTA aka FFUART (lower X25) resp. X27
+      using null modem RS-232 or regular USB cable
+  - insert above prepared SD card into SD/MMC socket (X15)
+- Iris V1.1a
+  - connect serial debug console to UARTA aka FFUART X13 using null modem RS-232 cable and a
+      10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
+  - insert above prepared micro SD card into micro SD card socket (X10)
+- Boot to U-Boot prompt and start the update:
+  - apply power or reset
+  - hit any key to stop auto booting
+  - use 'run setupdate' U-Boot command and then
+  - use 'run update' U-Boot command
+
+Boot from eMMC:
+- above given update command should automatically perform a soft re-boot upon successful completion
+- optionally power cycle
+- upon first boot post-install scripts are run which takes around 2 minutes,
+    please be patient
+
+If the boot loader on the module got corrupted this recovers it by loading U-Boot
+  over USB into the module's RAM and executing it there:
+- EvalBoard V3.1a
+  - connect USB B (X29) or USB micro A/B (X30) to development workstation using
+      regular or micro USB cable
+  - the jumper JP2 must be open
+  - connect serial debug console as stated above
+- Iris V1.1a
+  - connect USB micro A/B (X12) to development workstation using regular micro USB
+      cable
+  - connect serial debug console as stated above
+(other carrier boards see http://developer.toradex.com/knowledge-base/colibri-recovery-mode)
+- make sure that the carrier board supports USB high speed
+  - Iris & EvalBoard V3.1a OK, for other carrier boards see
+      http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29
+- have the module in recovery mode and load U-Boot over USB to the module's RAM:
+  - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
+      the module is in recovery mode
+  - run ./update.sh -d
+  - stop at the U-Boot prompt and begin the update as stated above
+
+Toradex, December 2, 2014
