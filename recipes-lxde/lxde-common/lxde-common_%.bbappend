@@ -3,12 +3,11 @@ WALLPAPER-MACHINE_colibri-t20 = "Wallpaper_ColibriT20.png"
 WALLPAPER-MACHINE_colibri-t30 = "Wallpaper_ColibriT30.png"
 WALLPAPER-MACHINE_apalis-t30 = "Wallpaper_ApalisT30.png"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 SRC_URI += " \
-    file://consistent_defconfig_dirs.patch \
     file://Wallpaper_Toradex.png \
     file://${WALLPAPER-MACHINE} \
     file://wallpaper.patch \
