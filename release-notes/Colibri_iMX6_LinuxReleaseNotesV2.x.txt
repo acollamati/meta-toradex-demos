@@ -24,7 +24,7 @@ Linux Image V2.3 Beta 4 (November 13, 2014)
 - rootfs / oe-core:
   - initial release
   - uses ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
-- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta3_20141031
+- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.3Beta4_20141113
   - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
   - repository u-boot-toradex branch 2014.04-toradex
 
@@ -38,8 +38,8 @@ Known Issues:
     environment variable vidargs accordingly. Some vidargs_xx variables
     provided for reference.
 - X uses only the fb0 device
-- due to the flash_eth.img update script currently being broken please use the
-    SD card flashing method (e.g. flash_mmc.img) for now
+- flash_eth.img requires manual splitting of the root.ext3 file.
+    see the colibri-imx6_bin/flash_eth.scr script
 
 ********************************************************************************
 Notes:
@@ -83,9 +83,10 @@ Working on latest image:
   - USB audio driver
   - USB webcam
   - USB raw HID device /dev/hidrawX
-  - USB device Ethernet RNDIS
+  - USB device Ethernet RNDIS, disabled
   - analog input via IIO framework
   - DVFS power management
+  - watchdog
 - Linux user-space
   - Firefox browser
   - Gstreamer playback
@@ -104,25 +105,23 @@ Working on latest image:
 Not working or not tested:
 - U-Boot boot loader
   - framebuffer support
-  - USB OTG1 support
+  - USB Device/Host switching
 - Linux kernel
   - automatic USB device/host/suspend detection aka full OTG support
-  - CSI2 camera interface
   - CAN via can0 and can1, disabled in device tree
+  - CAN via MPC2515
   - IrDA
   - parallel camera interface
   - RS-422
   - serial number and board revision
-  - SIM card
-  - suspend LP1 (issue with X/fb setup after wakeup)
-  - watchdog
+  - suspend LP1 (issue with X/framebuffer setup after wakeup)
+  - USB Device/Host switching
 - Linux user-space
   - Gstreamer encoding (not tested)
 - Display:
-  - on same monitors HDMI EDID does not negotiate correct timings,
+  - on some monitors HDMI EDID does not negotiate correct timings,
       adding mxc_hdmi.only_cea=1 to the kernel command line may help
   - more than one framebuffer used as a X screen
-  - DSI output
 
 **************************************************************************
 eMMC Boot: Colibri iMX6S 256MB V1.0a (Sample), iMX6DL 512MB V1.0a (Sample)
@@ -150,7 +149,13 @@ Flash eMMC:
   - hit any key to stop auto booting
   - use 'run setupdate' U-Boot command and then
   - use 'run update' U-Boot command
-
+- Update a single component
+  - U-Boot
+    use 'run setupdate' and then 'run update_uboot'
+    use 'patch_ddr_size' to set the memory configuration depending on module
+      type. (i.e the Colibri iMX6 DL will use only half of the available RAM)
+  - Kernel or Linux Device Tree
+    use 'run setupdate' and then 'run update_kernel' or 'run update_fdt' respectively
 Boot from eMMC:
 - above given update command should automatically perform a soft re-boot upon successful completion
 - optionally power cycle
@@ -168,7 +173,7 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - connect USB micro A/B (X12) to development workstation using regular micro USB
       cable
   - connect serial debug console as stated above
-(other carrier boards see http://developer.toradex.com/knowledge-base/colibri-recovery-mode)
+(see Colibri iMX6 Datasheet for recovery mode)
 - make sure that the carrier board supports USB high speed
   - Iris & EvalBoard V3.1a OK, for other carrier boards see
       http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29
@@ -178,4 +183,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 2, 2014
+Toradex, December 3, 2014
