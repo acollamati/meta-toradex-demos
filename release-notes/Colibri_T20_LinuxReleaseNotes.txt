@@ -229,7 +229,7 @@ Flash NAND:
 - Iris V1.1a
   - connect USB micro A/B (X12) to development workstation using regular micro USB cable
   - short pin 1-2 of JP1 on Iris for RECOVERY
-(other carrier boards see http://developer.toradex.com/knowledge-base/colibri-recovery-mode)
+(other carrier boards see http://developer.toradex.com/knowledge-base/txx-recovery-mode)
 - make sure that the carrier board supports USB high speed 
   - Iris & EvalBoard V3.1a OK, for other carrier boards see http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29 )
 - apply power or reset
@@ -269,4 +269,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, March 08, 2013
+Toradex, December 3, 2014

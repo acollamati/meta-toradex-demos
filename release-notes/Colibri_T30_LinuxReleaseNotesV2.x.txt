@@ -530,7 +530,7 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
       cable
   - connect serial debug console as stated above
   - short pin 1-2 of JP1 on Iris for RECOVERY
-(other carrier boards see http://developer.toradex.com/knowledge-base/colibri-recovery-mode)
+(other carrier boards see http://developer.toradex.com/knowledge-base/txx-recovery-mode)
 - make sure that the carrier board supports USB high speed
   - Iris & EvalBoard V3.1a OK, for other carrier boards see
       http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29
@@ -539,4 +539,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 2, 2014
+Toradex, December 3, 2014
