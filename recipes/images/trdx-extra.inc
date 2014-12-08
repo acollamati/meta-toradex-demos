@@ -27,6 +27,7 @@ IMAGE_INSTALL_T20_T30 = " \
     curl \
     file \
     aspell \
+    eglinfo-x11 \
 "
 
 IMAGE_INSTALL_MACHINE_colibri-t20 = " \
@@ -84,6 +85,7 @@ IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
     mimetypes \
+    eglinfo-x11 \
 "
 
 #note that the kernel-modules meta package gets installed from
@@ -102,6 +104,7 @@ IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
     mimetypes \
+    eglinfo-x11 \
 "
 
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
