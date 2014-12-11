@@ -41,7 +41,6 @@ CONMANPKGS_libc-uclibc = ""
 IMAGE_INSTALL += " \
     packagegroup-core-qt4e \
     libicui18n \
-    xdg-utils \
     \
     initscripts \
     polkit \
