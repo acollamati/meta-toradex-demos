@@ -15,6 +15,8 @@ SRC_URI[sha256sum] = "ad25a15f34eb758b7896d327a28ef884e2ab04851cff42f059b32dc63e
 
 S = "${WORKDIR}/mcc-pingpong-${PV}"
 
+CFLAGS += "-I${STAGING_KERNEL_DIR}/include"
+
 DEPENDS = "libmcc"
 
 do_install (){
