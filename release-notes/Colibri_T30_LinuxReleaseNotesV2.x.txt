@@ -4,7 +4,7 @@ Release Notes:  Linux Image V2.x for Colibri T30
 
 Contents:
 - U-Boot 2014.10 boot loader
-- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
+- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
   LXDE desktop environment
 
@@ -13,6 +13,43 @@ Contents:
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - no changes
+- Linux kernel:
+  - optional ADV7180 analogue video decoder as found on ACA (formerly ACM) now
+      works at 25 fps
+  - fix HDMI display controller disable state
+  - fix pixel clock polarity
+  - fix USB low-speed issue hack
+- Linux user-space:
+  - fix 32-bit build of our bsp/devtools (e.g. cbootimage/tegrarcm)
+  - fix fw_setenv
+  - fix resizefs
+  - integrate NVIDIA L4T R16.5 (fixes gstreamer memory leak)
+  - add eglinfo application
+  - update X server to 1.14.7 (fixes broken X server rotation)
+  - don't check last mounttime on superblock
+  - /etc/machine-id: ensure it is saved non-volatile
+- Update script
+  - reduce rootfs partition size in the MBR to the available eMMC size
+      to have a valid MBR
+  - fix flash_eth update scripts
+
+- sources git.toradex.com tag Colibri_T30_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2014.10-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -539,4 +576,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 3, 2014
+Toradex, December 19, 2014

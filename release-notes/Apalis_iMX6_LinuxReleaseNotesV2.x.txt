@@ -5,15 +5,58 @@ Release Notes:  Linux Image V2.x for Apalis iMX6
 Contents:
 - U-Boot 2014.04 boot loader
 - Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.1_ga
-  and patches from Boundary Devices
+    and patches from Boundary Devices
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
-  LXDE desktop environment
+    LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - detect HW Version and work with both V1.0 and V1.1 HW
+  - add initial configuration for Apalis iMX6Q 2GB IT, configure
+      with apalis_imx6q2g
+  - add additional version related environment variables to ease scripting
+  - on HW 1.1 route PWM4 also to BKL_PWM by means of an on module buffer
+- Linux kernel:
+  - control RESET_MOCI from the CPU on V1.1 HW, and thus have the correct reset
+      sequence between the PCIe switch and downstream end points.
+      Fixes missing PCIe devices after reboot.
+  - update device tree for HW V1.1 and add a V1.0 HW device-tree
+  - remove some drivers unusable on Apalis iMX6
+  - rename power-key to its correct function wake-up-key
+- Linux user-space:
+  - add eglinfo application
+  - update X server to 1.14.7
+  - /etc/machine-id: ensure it is saved non-volatile
+- Update script
+  - reduce rootfs partition size in the MBR to the available eMMC size
+      to have a valid MBR
+  - fix flash_eth update scripts
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
+    display).
+- X uses only the fb0 device
+- flash_eth.img requires manual splitting of the root.ext3 file.
+    see the apalis-imx6_bin/flash_eth.scr script
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -170,7 +213,8 @@ Working on latest image:
 - Linux kernel
   - GPIOlib /sys/class/gpio
   - PWM LEDs /sys/class/leds/
-  - temperature sensor /sys/devices/virtual/thermal/thermal_zone0/temp
+  - temperature sensor CPU /sys/devices/virtual/thermal/thermal_zone0/temp
+      board: /sys/devices/soc0/soc.1/2100000.aips-bus/21a4000.i2c/i2c-1/1-0041/stmpe-adc/iio:device0/in_temp8_raw
   - Gigabit Ethernet (i.MX 6 errata, only 400 Mbps sustainable data rate)
   - eMMC ext3
   - serial console debug UART1
@@ -181,11 +225,11 @@ Working on latest image:
   - 4-bit SD card mmc2
   - HDMI audio
   - analogue audio playback and capture, resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and
-        use the DAC volume
+    - audio noise is high on V1.0 HW, workaround is to set headphone volume
+        to maximum and use the DAC volume
   - S/PDIF
   - SPI via /dev/spidev32766.0 aka SPI1 and /dev/spidev32765.0 aka SPI2
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - USB host port
   - USB audio driver
   - USB webcam
@@ -201,9 +245,10 @@ Working on latest image:
 - Linux user-space
   - Firefox browser
   - Gstreamer playback
-  - OpenGL, but thermal issues if running full speed
+  - OpenGL
   - LXDE
   - resize rootfs partition to full eMMC capacity
+  - GPIO config tool
 - Display:
   - only first output used by X11
   - dual output on HDMI and LVDS, both in 1920x1080
@@ -219,7 +264,7 @@ Not working or not tested:
 - Linux kernel
   - IrDA
   - RS-422
-  - All UART control lines (There is a HW bug on V1.0 modules)
+  - All UART control lines on V1.1 HW
   - SIM card
   - HDA audio IF on MXM connector (not possible with i.MX 6)
   - I2S / AC97 on MXM connector
@@ -229,17 +274,18 @@ Not working or not tested:
   - serial number and board revision
 - Linux user-space
   - Gstreamer encoding (not tested)
-  - GPIO config tool not available
 - Display:
-  - on same monitors HDMI EDID does not negotiate correct timings,
-      adding mxc_hdmi.only_cea=1 to the kernel command line may help
+  - on some monitors HDMI EDID does not negotiate correct timings,
+      adding/removing mxc_hdmi.only_cea=1 to the kernel command line may help
   - more than one framebuffer used as a X screen
-  - backlight PWM
+  - backlight PWM on V1.0 HW
   - DSI output
 
-******************************************
-eMMC Boot: Apalis iMX6Q 1GB V1.0a (Sample)
-******************************************
+******************************************************************************
+eMMC Boot: Apalis iMX6Q 1GB V1.0a (Sample), Apalis iMX6D 512MB V1.1a (Sample), 
+           Apalis iMX6Q 1GB V1.1a (Sample), Apalis iMX6Q 2GB IT V1.1a (Sample)
+******************************************************************************
+Note: recompile U-Boot with apalis_imx6q2g config for Apalis iMX6Q 2GB IT V1.1a
 
 Initial Preparation:
 - download and extract Apalis_iMX6_LinuxImageVx.yz.tar.bz2 package with root
@@ -274,10 +320,15 @@ Flash eMMC:
     - use 'env default -a' to set the u-boot environment to its default value
     - optionally change the environment to your needs
     - use 'saveenv' to make the changes permanent
+- Update a single component
+  - U-Boot
+    use 'run setupdate' and then 'run update_uboot'
+  - Kernel or Linux Device Tree
+    use 'run setupdate' and then 'run update_kernel' or 'run update_fdt' respectively
 
 Boot from eMMC:
-- EvalBoard V1.0a or Ixora V1.0a
-- power cycle
+- above given update command should automatically perform a soft re-boot upon successful completion
+- optionally power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes,
     please be patient
 
@@ -300,4 +351,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, November 3, 2014
+Toradex, December 19, 2014

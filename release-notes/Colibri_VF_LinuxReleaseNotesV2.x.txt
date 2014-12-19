@@ -4,12 +4,66 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2014.10 boot loader
-- Linux 3.0.15 kernel, based on Freescale TWR-VF65GS10 Timesys LinuxLink
-  2014-05-29 (ts2.17)
+- Linux 3.18.0 kernel
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - set secondary MAC address (for dual Ethernet carrier boards)
+  - use Thumb2 instruction set which shrinks U-Boot size by about 25%
+  - fix sub-page NAND writes
+  - USB host and device support
+  - USB host: enable mass storage support
+  - USB device: enable DFU support (device firmware upgrade)
+  - USB device: use Toradex VID/PID and specify device serial number
+  - improve evaluation of reset source
+  - switch default console to ttyLP0 (used by mainline kernel)
+- Linux kernel:
+  - switch to vanilla 3.18 based Linux kernel with device tree capabilities
+  - clock handling using the common clock framework. Clocks get enabled only if
+    needed which saves power during runtime as well as sleep.
+  - new GPIO driver including Pinctrl support for muxing/pin settings
+  - ADC support through IIO framework (including reading the temperature sensor)
+  - PWM driver using the PWM framework with sysfs API
+  - UART driver with DMA support, exported as ttyLPX (was ttymxcX)
+  - SD card support including card detect
+  - on-module CAN controller support using FlexCAN driver
+  - USB peripheral and host support (specified in device tree for now)
+  - configurable main clocksource, using ARM Global Timer by default
+  - MSCM driver for interrupt routing between Cortex-A5/Cortex-M4
+  - Multi-Core Communication support updated for use with virtual IRQ numbers
+- Linux user-space:
+  - Update mcc-pingpong buildscript to build with the new kernel
+  - update X server to 1.14.7
+  - /etc/machine-id: ensure it is saved non-volatile
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch toradex_vf_3.18
+  - repository u-boot-toradex branch 2014.10-toradex
+
+Note:
+- The kernel requires now the device tree from within the root filesystem to
+  boot. Board customisation within code are for most use cases not necessary.
+  For custom carrier boards, it is recommended to create a customised
+  device tree file and deploy it in the root filesystems /boot directory.
+  U-Boot reads the device tree according to the following name scheme:
+  => ${soc}-colibri-${fdt_board}.dtb
+
+  Hence, a custom carrier board needs to set the fdt_board variable accordingly
+  and would name the device tree files using the SoC prefix depending on the
+  supported module type:
+  => vf500-colibri-mycarrier.dtb
+  => vf610-colibri-mycarrier.dtb
+
+Known Issues:
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- Analogue audio and Touchscreen are not yet working on the Colibri VF61
+- SPI and CAN over SPI (using MCP251x) do not work yet on the new kernel
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -269,36 +323,40 @@ Notes:
 - opkg package manager
 - Linux host used for update preparation requires proper 32-bit execution environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install gawk on Ubuntu)
 
-Working:
+Working on latest image:
 - U-Boot boot loader
   - environment storage in NAND flash
   - Ethernet
   - MMC/SD cards
+  - NAND flash
   - RAM size auto detection
-  - serial console debug UART0
+  - serial console debug UARTA
   - Toradex Colibri configuration block handling
   - module type auto detection
+  - USB storage as host on USB host port
+  - USB device DFU
 - Linux kernel
   - GPIOlib /sys/class/gpio
-  - temperature sensor /sys/class/hwmon/hwmon0/device/temp1_input
+  - PWM /sys/class/pwm/
+  - temperature sensor /sys/bus/iio/devices/iio\:device0/in_temp_input
   - RTC (Vybrid internal without wakeup support and board level I2C RTC)
   - Ethernet eth0
   - NAND flash MTD UBIFS with hardware ECC
-  - serial console debug UART0
-  - Serial UART_A/UART_B and UART_C up to 921600, including RTS/CTS
+  - serial console debug UARTA (ttyLP0)
+  - serial UARTA/UARTB and UARTC up to 921600, including RTS/CTS
   - I2C via /dev/i2c-X
   - MMC/SD card ESDHC2
-  - PWM LEDs /sys/class/leds/
-  - Colibri VF61: AC97 resistive touch (early version, load module snd-soc-wm9712/mvf-sai-ac97)
-  - SPI via /dev/spidev1.0
   - framebuffer console
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - serial number and board revision
-  - watchdog
   - USB host port
   - USB raw HID device /dev/hidrawX
-  - analogue inputs /dev/mvf-adc.{0|1} (see http://developer.toradex.com/knowledge-base/adc-(linux)#Colibri_VFxx)
-  - power management (standby is LPRun, suspend-to-mem is Stop mode)
+  - USB device Ethernet RNDIS
+  - USB device CDCACM
+  - analogue inputs /sys/bus/iio/devices/
+  - power management (standby is Stop mode)
+  - interrupt router (peripheral gets routed on interrupt request)
+  - watchdog
   - optional CAN (Vybrid SoC internal)
 - Linux user-space
   - graphics (DCU aka parallel RGB)
@@ -306,26 +364,27 @@ Working:
   - GPIO config tool
   - LXDE
   - Cortex M4 utility mqxboot
-  - Communication library libmcc
+  - communication library libmcc
 
 Not working or not tested:
 - U-Boot boot loader
   - USB keyboard
-  - USB storage as host
   - framebuffer support
 - Linux kernel
   - USB audio driver
   - USB webcam
-  - USB device Ethernet RNDIS (unreliable/freezes)
   - automatic USB device/host detection aka OTG support
-  - optional parallel camera interface
   - IrDA
+  - optional parallel camera interface
   - RS-422/485
-  - Colibri VF61: Analogue audio
+  - SPI (DSPI)
+  - Colibri VF61:
+    - analogue audio (early version available on git)
+    - resistive touch (early version available on git)
 
-*************************************************************
-NAND Boot: Colibri VF50 V1.0a and Colibri VF61 V1.0b (Sample)
-*************************************************************
+******************************************************************************
+NAND Boot: Colibri VF50 V1.0a and V1.1a, Colibri VF61 V1.0b and V1.1b (Sample)
+******************************************************************************
 
 If the boot loader in NAND got corrupted UART/SD card boot as described further down can be used as a means of recovery.
 
@@ -432,4 +491,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, November 5, 2014
+Toradex, December 19, 2014

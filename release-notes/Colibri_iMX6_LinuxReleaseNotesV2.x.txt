@@ -5,15 +5,48 @@ Release Notes:  Linux Image V2.x for Colibri iMX6
 Contents:
 - U-Boot 2014.04 boot loader
 - Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.1_ga
-  and patches from Boundary Devices
+    and patches from Boundary Devices
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
-  LXDE desktop environment
+    LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - default to VGA on parallel RGB display (from full HD on DVI)
+  - add additional version related environment variables to ease scripting
+- Linux kernel:
+  - remove some drivers unusable on Colibri iMX6
+  - rename power-key to its correct function wake-up-key
+- Linux user-space:
+  - add eglinfo application
+  - update X server to 1.14.7
+  - /etc/machine-id: ensure it is saved non-volatile
+- Update script
+  - reduce rootfs partition size in the MBR to the available eMMC size
+      to have a valid MBR
+
+- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- X uses only the fb0 device
+- flash_eth.img requires manual splitting of the root.ext3 file.
+    see the colibri-imx6_bin/flash_eth.scr script
 
 ********************************************************************************
 Linux Image V2.3 Beta 4 (November 13, 2014)
@@ -59,14 +92,16 @@ Working on latest image:
   - Ethernet
   - MMC/SD cards
   - eMMC flash
+  - RAM size auto detection
   - serial console debug UARTA
   - Toradex Colibri configuration block handling
-  - USB storage as host on USB host ports
+  - module type auto detection
+  - USB storage as host on USB host port
 - Linux kernel
   - GPIOlib /sys/class/gpio
   - PWM LEDs /sys/class/leds/
   - temperature sensor CPU /sys/devices/virtual/thermal/thermal_zone0/temp
-      Board: /sys/devices/soc0/soc.1/2100000.aips-bus/21a4000.i2c/i2c-1/1-0041/stmpe-adc/iio:device0/in_temp8_raw
+      board: /sys/devices/soc0/soc.1/2100000.aips-bus/21a4000.i2c/i2c-1/1-0041/stmpe-adc/iio:device0/in_temp8_raw
   - Ethernet
   - eMMC ext3
   - serial console debug UARTA
@@ -74,11 +109,12 @@ Working on latest image:
   - optional RS485
   - I2C via /dev/i2c-X
   - 4-bit SD card mmc1
+  - framebuffer console
   - HDMI audio
   - analogue audio playback and capture, resistive touch
   - optional S/PDIF, disabled in device tree
   - SPI via /dev/spidev32766.0
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - USB host port
   - USB audio driver
   - USB webcam
@@ -90,7 +126,7 @@ Working on latest image:
 - Linux user-space
   - Firefox browser
   - Gstreamer playback
-  - OpenGL, but thermal issues if running full speed
+  - OpenGL
   - LXDE
   - resize rootfs partition to full eMMC capacity
 - Display:
@@ -105,22 +141,23 @@ Working on latest image:
 Not working or not tested:
 - U-Boot boot loader
   - framebuffer support
-  - USB Device/Host switching
+  - USB device/host switching
 - Linux kernel
-  - automatic USB device/host/suspend detection aka full OTG support
+  - automatic USB device/host detection aka OTG support
   - CAN via can0 and can1, disabled in device tree
-  - CAN via MPC2515
+  - CAN via MCP2515
   - IrDA
-  - parallel camera interface
+  - optional parallel camera interface
   - RS-422
   - serial number and board revision
   - suspend LP1 (issue with X/framebuffer setup after wakeup)
-  - USB Device/Host switching
+  - RTC
 - Linux user-space
   - Gstreamer encoding (not tested)
+  - GPIO config tool not available
 - Display:
   - on some monitors HDMI EDID does not negotiate correct timings,
-      adding mxc_hdmi.only_cea=1 to the kernel command line may help
+      adding/removing mxc_hdmi.only_cea=1 to the kernel command line may help
   - more than one framebuffer used as a X screen
 
 **************************************************************************
@@ -156,6 +193,7 @@ Flash eMMC:
       type. (i.e the Colibri iMX6 DL will use only half of the available RAM)
   - Kernel or Linux Device Tree
     use 'run setupdate' and then 'run update_kernel' or 'run update_fdt' respectively
+
 Boot from eMMC:
 - above given update command should automatically perform a soft re-boot upon successful completion
 - optionally power cycle
@@ -183,4 +221,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 3, 2014
+Toradex, December 19, 2014

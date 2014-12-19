@@ -4,7 +4,7 @@ Release Notes:  Linux Image V2.x for Colibri T20
 
 Contents:
 - U-Boot 2011.06 boot loader
-- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
+- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
   LXDE desktop environment
 
@@ -13,6 +13,36 @@ Contents:
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - no changes
+- Linux kernel:
+  - optional ADV7180 analogue video decoder as found on ACA (formerly ACM) now
+      works at 25 fps
+  - fix HDMI display controller disable state
+  - fix pixel clock polarity
+- Linux user-space:
+  - integrate NVIDIA L4T R16.5 (fixes gstreamer memory leak)
+  - add eglinfo application
+  - update X server to 1.14.7 (fixes broken X server rotation)
+  - don't check last mounttime on superblock
+  - /etc/machine-id: ensure it is saved non-volatile
+
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch colibri
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+- Unfortunately even though the Angstrom-Distribution now has even a few ARM
+  Thum2 VFP binary feeds without any NEON requirement available we forgot to
+  enable them. To use their binary feeds e.g. using the opkg package manager
+  please add in /etc/opkg/base-feed.conf et. al. a line as follows (e.g. just
+  replace base as needed):
+src/gz base http://feeds.angstrom-distribution.org/feeds/v2014.06/ipk/eglibc/armv7at2hf-vfp/base
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -491,4 +521,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, December 3, 2014
+Toradex, December 19, 2014

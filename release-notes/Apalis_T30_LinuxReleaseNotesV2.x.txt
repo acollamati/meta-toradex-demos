@@ -4,7 +4,7 @@ Release Notes:  Linux Image V2.x for Apalis T30
 
 Contents:
 - U-Boot 2014.10 boot loader
-- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.4
+- Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
 - Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
   LXDE desktop environment
 
@@ -13,6 +13,48 @@ Contents:
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.3 Beta 5 (December 19, 2014)
+- U-Boot:
+  - no changes
+- Linux kernel:
+  - ADV7180 analogue video decoder as found on ACA (formerly ACM) now works at
+      25 fps
+  - fix wake-up-key (formerly power-key)
+  - implement optional force off GPIO support
+  - implement power button optionally acting as power-key
+  - fix HDMI display controller disable state
+  - fix pixel clock polarity
+  - fix USB low-speed issue hack
+  - optional MMC UHS support (enable using mmc_uhs=1 kernel command line
+      parameter, requires V1.1A or later HW)
+- Linux user-space:
+  - fix 32-bit build of our bsp/devtools (e.g. cbootimage/tegrarcm)
+  - fix fw_setenv
+  - fix resizefs
+  - integrate NVIDIA L4T R16.5 (fixes gstreamer memory leak)
+  - add eglinfo application
+  - update X server to 1.14.7 (fixes broken X server rotation)
+  - don't check last mounttime on superblock
+  - /etc/machine-id: ensure it is saved non-volatile
+- Update script
+  - reduce rootfs partition size in the MBR to the available eMMC size
+      to have a valid MBR
+  - fix flash_eth update scripts
+
+- sources git.toradex.com tag Apalis_T30_LinuxImageV2.3Beta5_20141219
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2014.10-toradex
+
+Known Issues:
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -440,10 +482,10 @@ Not working or not tested:
 - Linux user-space
   - Adobe Flash not provided by L4T (and probably never will)
 
-****************************************************************
-eMMC Boot: Apalis T30 1GB V1.0a (Sample)
-eMMC Boot: Apalis T30 2GB V1.0a, V1.0b, V1.0c and V1.0e (Sample)
-****************************************************************
+***********************************************************************
+eMMC Boot: Apalis T30 1GB V1.0a and V1.1a (Sample)
+eMMC Boot: Apalis T30 2GB V1.0a, V1.0b, V1.0c, V1.0e and V1.1a (Sample)
+***********************************************************************
 
 Initial Preparation:
 - download and extract Apalis_T30_LinuxImageVx.yz.tar.bz2 package with root
@@ -505,4 +547,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, November 19, 2014
+Toradex, December 19, 2014
