@@ -129,8 +129,6 @@ IMAGE_INSTALL += " \
     max9526-i2c \
     linux-firmware-ralink \
     \
-    systemd-machine-id-commit \
-    \
     alsa-utils \
     alsa-utils-aplay \
     alsa-utils-amixer \
