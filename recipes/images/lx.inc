@@ -1,15 +1,14 @@
 IMAGE_INSTALL += " \
-	packagegroup-lxde-extended \
-	\
-	xinput-calibrator \
-	\
-	openbox-theme-clearlooks \
-	openbox-theme-onyx \
-	lxdm \
-	menu-cache \
-	obconf \
-	lxrandr \
-	\
-	lxlauncher \
-	leafpad \
+    packagegroup-lxde-extended \
+    \
+    xinput-calibrator \
+    \
+    openbox \
+    openbox-theme-clearlooks \
+    openbox-theme-onyx \
+    obconf \
+    hicolor-icon-theme \
+    gtk-theme-clearlooks \
+    lxdm \
+    leafpad \
 "
