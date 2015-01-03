@@ -3,7 +3,7 @@ DESCRIPTION = "Image booting to a console"
 
 LICENSE = "MIT"
 
-PV = "V2.3"
+PV = "V2.4"
 PR = "r0"
 
 #start of the resulting deployable tarball name
