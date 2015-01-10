@@ -1,4 +1,4 @@
-DESCRIPTION = "Hides the cursor after inactivity"
+SUMMARY = "Hides the cursor after inactivity"
 LICENSE = "PublicDomain"
 
 DEPENDS = "virtual/xserver"

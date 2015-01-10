@@ -1,4 +1,4 @@
-DESCRIPTION = "Systemd start script for Qt Embedded demo"
+SUMMARY = "Systemd start script for Qt Embedded demo"
 LICENSE = "MIT"
 PR = "r1"
 

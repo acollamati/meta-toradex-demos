@@ -1,5 +1,5 @@
 #Angstrom image
-DESCRIPTION = "Image based on qt4e-demo-image.bb"
+SUMMARY = "Image based on qt4e-demo-image.bb"
 
 LICENSE = "MIT"
 

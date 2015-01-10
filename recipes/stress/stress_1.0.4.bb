@@ -3,6 +3,7 @@
 # Released under the MIT license (see /COPYING)
 
 HOMEPAGE = "http://people.seas.harvard.edu/~apw/stress/"
+SUMMARY = "Generate load stress on UNIX-like operating systems"
 DESCRIPTION = "a simple tool that imposes certain types of compute stress on UNIX-like operating systems."
 LICENSE = "GPLv3"
 

@@ -1,5 +1,5 @@
 SECTION = "graphical"
-DESCRIPTION = "Graphviz - Graph Visualization Software"
+SUMMARY = "Graphviz - Graph Visualization Software"
 HOMEPAGE = "http://www.graphviz.org"
 LICENSE = "EPL-1.0"
 DEPENDS = "cairo pango expat"

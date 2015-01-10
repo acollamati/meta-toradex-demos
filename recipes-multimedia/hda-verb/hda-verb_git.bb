@@ -1,5 +1,5 @@
 SECTION = "multimedia"
-DESCRIPTION = "hda-verb is a small program to send HD-audio commands to the given ALSA hwdep device on the hd-audio interface."
+SUMMARY = "hda-verb sendS HD-audio commands to ALSA HDA devices"
 HOMEPAGE = ""
 LICENSE ="GPLv2+"
 RDEPENDS_${PN} = ""

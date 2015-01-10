@@ -1,4 +1,5 @@
 SECTION = "multimedia"
+SUMMARY = "Tool to generate a graph of HDA codec config"
 DESCRIPTION = "Codecgraph is a tool to generate a graph based on the ALSA description of a High Definition Audio codec."
 HOMEPAGE = "http://helllabs.org/codecgraph/"
 LICENSE ="GPLv2+"

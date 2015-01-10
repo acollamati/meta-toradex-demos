@@ -1,5 +1,5 @@
 #Angstrom image
-DESCRIPTION = "Image based on the LXDE desktop"
+SUMMARY = "Image based on the LXDE desktop"
 
 LICENSE = "MIT"
 

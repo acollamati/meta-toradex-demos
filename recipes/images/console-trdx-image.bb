@@ -1,5 +1,5 @@
 #Angstrom image
-DESCRIPTION = "Image booting to a console"
+SUMMARY = "Image booting to a console"
 
 LICENSE = "MIT"
 

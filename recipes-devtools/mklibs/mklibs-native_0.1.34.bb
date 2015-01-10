@@ -1,3 +1,4 @@
+SUMMARY = "mklibs produces cut-down shared libraries"
 DESCRIPTION = "mklibs produces cut-down shared libraries that contain only the routines required by a particular set of executables."
 HOMEPAGE = "https://code.launchpad.net/mklibs"
 SECTION = "devel"

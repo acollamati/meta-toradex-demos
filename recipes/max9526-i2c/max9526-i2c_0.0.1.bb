@@ -1,4 +1,4 @@
-DESCRIPTION = "spidev userspace driver for a Maxim MAX9526"
+SUMMARY = "CLI spidev userspace driver for a Maxim MAX9526"
 LICENSE = "CLOSED"
 
 DEPENDS = ""

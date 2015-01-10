@@ -1,4 +1,4 @@
-DESCRIPTION = "MultiCore Communication Ping-Pong Demo Application"
+SUMMARY = "MultiCore Communication Ping-Pong Demo Application"
 SECTION = "examples"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c49712341497d0b5f2e40c30dff2af9d"

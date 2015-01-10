@@ -1,4 +1,4 @@
-DESCRIPTION = "spidev userspace driver for a Maxim MAX9526"
+SUMMARY = "spidev userspace driver for a Maxim MAX9526"
 LICENSE = "CLOSED"
 
 DEPENDS = "gtk+"

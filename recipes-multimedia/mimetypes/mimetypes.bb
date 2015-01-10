@@ -1,4 +1,4 @@
-DESCRIPTION = "use mimetypes to start a videoplayer"
+SUMMARY = "use mimetypes to start a videoplayer"
 LICENSE = "MIT"
 PR = "r2"
 

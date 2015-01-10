@@ -1,5 +1,5 @@
 SECTION = "graphic/utils"
-DESCRIPTION = "giblib is a simple library which wraps imlib2"
+SUMMARY = "giblib is a simple library which wraps imlib2"
 HOMEPAGE = "http://linuxbrit.co.uk/software/"
 LICENSE ="BSD"
 RDEPENDS_${PN} = "imlib2"

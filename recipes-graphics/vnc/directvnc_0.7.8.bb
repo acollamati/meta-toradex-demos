@@ -1,4 +1,4 @@
-DESCRIPTION = "DirectVNC provides a very thin VNC client for unix framebuffer systems."
+SUMMARY = "Provides a very thin VNC client for unix framebuffer systems"
 HOMEPAGE = "http://drinkmilk.github.com/directvnc/"
 SECTION = "utils"
 LICENSE = "GPLv2+"

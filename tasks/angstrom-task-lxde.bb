@@ -1,4 +1,4 @@
-DESCRIPTION = "Tasks for an LXDE based image"
+SUMMARY = "Tasks for an LXDE based image"
 
 inherit task
 

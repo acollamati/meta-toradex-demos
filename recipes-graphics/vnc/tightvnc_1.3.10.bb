@@ -1,4 +1,4 @@
-DESCRIPTION-${PN}-viewer = "A lightweight VNC viewer"
+SUMMARY = "A lightweight VNC viewer"
 HOMEPAGE = "http://www.tightvnc.com/"
 SECTION = "utils"
 LICENSE = "GPLv2"

@@ -1,5 +1,5 @@
 #Angstrom image
-DESCRIPTION = "Image based on qt4-x11-free"
+SUMMARY = "Image based on qt4-x11-free"
 
 LICENSE = "MIT"
 

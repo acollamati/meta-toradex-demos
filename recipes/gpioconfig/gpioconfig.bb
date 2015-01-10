@@ -1,4 +1,4 @@
-DESCRIPTION = "GPIOConfig tool for Toradex Modules"
+SUMMARY = "GPIOConfig tool for Toradex Modules"
 SECTION = "base"
 LICENSE = "CLOSED"
 PR = "r3"

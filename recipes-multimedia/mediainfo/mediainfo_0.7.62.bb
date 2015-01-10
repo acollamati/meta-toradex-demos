@@ -1,5 +1,5 @@
 HOMEPAGE="mediainfo.sourceforge.net"
-DESCRIPTION = "Mediainfo is a tool to analyze multimedia files."
+SUMMARY = "Mediainfo is a tool to analyze multimedia files"
 LICENSE = "GPLv2_modified"
 
 inherit autotools
