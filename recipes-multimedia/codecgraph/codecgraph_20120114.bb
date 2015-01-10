@@ -4,12 +4,12 @@ HOMEPAGE = "http://helllabs.org/codecgraph/"
 LICENSE ="GPLv2+"
 RDEPENDS_${PN} = "python graphviz"
 
-SRC_URI = "http://helllabs.org/codecgraph/${PN}-${PV}.tar.gz"
+SRC_URI = "http://helllabs.org/codecgraph/codecgraph-${PV}.tar.gz"
 LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 SRC_URI[md5sum] = "30bb1afeda28b7e9b7f36e3b5b98a869"
 SRC_URI[sha256sum] = "24dca78c6a8cf894385df304d29f348d48868000d5ffbd03bf12c5b4f9805106"
 
-S = "${WORKDIR}/${PN}-${PV}"
+S = "${WORKDIR}/codecgraph-${PV}"
 
 PR = "r1"
 

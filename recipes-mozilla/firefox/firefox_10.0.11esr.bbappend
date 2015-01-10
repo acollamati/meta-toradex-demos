@@ -11,7 +11,6 @@ SRC_URI += "file://alignment.patch \
 "
 
 do_install_append() {
-    install -d ${D}${libdir}/${PN}/distribution
-    install -m 0644 ${WORKDIR}/distribution.ini ${D}${libdir}/${PN}/distribution/
+    install -d ${D}${libdir}/firefox/distribution
+    install -m 0644 ${WORKDIR}/distribution.ini ${D}${libdir}/firefox/distribution/
 }
-

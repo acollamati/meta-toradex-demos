@@ -4,9 +4,9 @@ LICENSE = "PublicDomain"
 DEPENDS = "virtual/xserver"
 PR = "r0"
 
-S = "${WORKDIR}/${PN}-${PV}"
+S = "${WORKDIR}/unclutter-${PV}"
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/unclutter/${PN}-${PV}.tar.gz \
+SRC_URI = "${SOURCEFORGE_MIRROR}/unclutter/unclutter-${PV}.tar.gz \
 	file://cross-compile.patch \
 "
 LIC_FILES_CHKSUM = "file://README;md5=7c9b6681ac4b35194de7d5f3585702b6"

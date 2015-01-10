@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/lxdm:"
 
 SRC_URI += " \
     file://logout-fixes.patch \

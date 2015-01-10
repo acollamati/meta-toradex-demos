@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/xinput-calibrator:"
 
 # menu entry should make the calibration permanent instead of printing cal data into a terminal
 do_install_append() {

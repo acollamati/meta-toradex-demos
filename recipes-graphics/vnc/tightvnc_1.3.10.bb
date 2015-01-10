@@ -8,7 +8,7 @@ DEPENDS = "virtual/libx11 zlib libxmu libxaw jpeg libxt libxext libxmu"
 
 PR = "r2"
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/vnc-tight/${PN}-${PV}_unixsrc.tar.bz2 \
+SRC_URI = "${SOURCEFORGE_MIRROR}/vnc-tight/tightvnc-${PV}_unixsrc.tar.bz2 \
            file://Makefile \
            file://Vncviewer"
 
