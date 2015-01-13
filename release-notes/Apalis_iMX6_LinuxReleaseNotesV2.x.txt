@@ -16,6 +16,36 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.3 Beta 6 (January 12, 2015)
+- U-Boot:
+  - no change
+- Linux kernel:
+  - no change
+- Linux user-space:
+  - remove not existing debug feed from opkg configuration
+- Update script
+  - add additional U-Boot binary for use with Apalis iMX6Q 2GB IT module
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.3Beta6_20150112
+  - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
+  - repository u-boot-toradex branch 2014.04-toradex
+
+Known Issues:
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly. Some vidargs_xx variables
+    provided for reference.
+- backlight PWM BKL_PWM (hard-coded to 0 in U-Boot > full brightness on an EDT
+    display).
+- X uses only the fb0 device
+- flash_eth.img requires manual splitting of the root.ext3 file.
+    see the apalis-imx6_bin/flash_eth.scr script
+
+********************************************************************************
 Linux Image V2.3 Beta 5 (December 19, 2014)
 - U-Boot:
   - detect HW Version and work with both V1.0 and V1.1 HW
@@ -314,6 +344,7 @@ Flash eMMC:
   - hit any key to stop auto booting
   - use 'run setupdate' U-Boot command and then
   - use 'run update' U-Boot command
+    for "Apalis iMX6Q 2GB IT V1.1a" use 'run update_it' instead
 - If you updated from an older image. (without a device tree)
   - power cycle or reset and hit any key to stop auto booting
     - use 'printenv' to get your current u-boot environment
@@ -323,6 +354,7 @@ Flash eMMC:
 - Update a single component
   - U-Boot
     use 'run setupdate' and then 'run update_uboot'
+    for "Apalis iMX6Q 2GB IT V1.1a" use 'run update_uboot_it' instead
   - Kernel or Linux Device Tree
     use 'run setupdate' and then 'run update_kernel' or 'run update_fdt' respectively
 
@@ -351,4 +383,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, January 9, 2015
+Toradex, January 12, 2015
