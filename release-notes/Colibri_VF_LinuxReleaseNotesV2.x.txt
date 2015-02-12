@@ -19,18 +19,18 @@ Linux Image V2.3 Beta 7 (February 03, 2015)
 - Linux kernel:
   - update to 3.18.5 stable Linux kernel
   - add software AC97 SAI driver to communicate with the Wolfson WM9712
-    AC97 codec for analogue audio playback and resitive touchscreen support
+    AC97 codec for analogue audio playback and resistive touchscreen support
   - add backlight support with a intermediary PWM duty cycle
   - add FlexCAN device tree nodes (disabled in the eval-v3 device tree)
   - add GPIO default pinmux entries for all default GPIO pins (enables export
     of GPIO's using sysfs for most pins)
   - enable debug access port which is supported by hw-breakpoint/perf framework
-  - fix boot freeze due to uninizialized DCU layers (observed on Colibri VF50)
+  - fix boot freeze due to uninitialised DCU layers (observed on Colibri VF50)
   - fix DSPI driver, use hardware chip select and memory leak
   - fix several bugs in UART driver when using in DMA as well as interrupt mode
   - decrease ADC clock to be within specified range, use different sampling
     settings to avoid issues with temperature sensor
-  - improve pixelclock precission by using a higher DCU input clock
+  - improve pixelclock precision by using a higher DCU input clock
   - rename GPIO nodes to start with zero (as in the reference manual)
   - remove wrong touchscreen nodes in common device tree vf-colibri.dtsi
 - Linux user-space:
@@ -372,7 +372,7 @@ Known Issues:
 
 ********************************************************************************
 Notes:
-- 115200 baud serial debug console on UART0 aka FFUART (lower X25 on EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
+- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
 - user account: root with empty password
 - UBIFS flash root file system
 - opkg package manager
@@ -389,21 +389,24 @@ Working on latest image:
   - Toradex Colibri configuration block handling
   - module type auto detection
   - USB storage as host on USB host port
-  - USB device DFU
+  - USB device firmware upgrade (DFU) as device on USB OTG port
 - Linux kernel
   - GPIOlib /sys/class/gpio
-  - PWM /sys/class/pwm/
   - temperature sensor /sys/bus/iio/devices/iio\:device0/in_temp_input
   - RTC (Vybrid internal without wakeup support and board level I2C RTC)
   - Ethernet eth0
   - NAND flash MTD UBIFS with hardware ECC
-  - serial console debug UARTA (ttyLP0)
+  - serial console debug UARTA ttyLP0
   - serial UARTA/UARTB and UARTC up to 921600, including RTS/CTS
   - I2C via /dev/i2c-X
   - MMC/SD card ESDHC2
+  - PWM /sys/class/pwm/
+  - Colibri VF61: AC97 analogue audio playback and resistive touch
+  - SPI (DSPI) via /dev/spidev1.0
   - framebuffer console
   - custom Ethernet MAC address
   - serial number and board revision
+  - watchdog
   - USB host port
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS
@@ -411,7 +414,6 @@ Working on latest image:
   - analogue inputs /sys/bus/iio/devices/
   - power management (standby is Stop mode)
   - interrupt router (peripheral gets routed on interrupt request)
-  - watchdog
   - optional CAN (Vybrid SoC internal)
 - Linux user-space
   - graphics (DCU aka parallel RGB)
@@ -419,23 +421,20 @@ Working on latest image:
   - GPIO config tool
   - LXDE
   - Cortex M4 utility mqxboot
-  - communication library libmcc
+  - multicore communication library libmcc
 
 Not working or not tested:
 - U-Boot boot loader
   - USB keyboard
   - framebuffer support
 - Linux kernel
+  - Colibri VF61: AC97 analogue audio capture
   - USB audio driver
   - USB webcam
   - automatic USB device/host detection aka OTG support
   - IrDA
-  - optional parallel camera interface
   - RS-422/485
-  - SPI (DSPI)
-  - Colibri VF61:
-    - analogue audio (early version available on git)
-    - resistive touch (early version available on git)
+  - optional parallel camera interface
 
 ******************************************************************************
 NAND Boot: Colibri VF50 V1.0a and V1.1a, Colibri VF61 V1.0b and V1.1b (Sample)
@@ -557,4 +556,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, February 03, 2015
+Toradex, February 12, 2015

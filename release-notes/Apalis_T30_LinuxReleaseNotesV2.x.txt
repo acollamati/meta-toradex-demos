@@ -429,8 +429,8 @@ Working on latest image:
   - RTC (Tegra internal, PMIC and board level I2C RTC)
   - Gigabit Ethernet enpXs0, X being its PCIe bus number
   - eMMC ext3
-  - serial console debug UARTA aka UART1
-  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2
+  - serial console debug UARTA aka UART1 ttyS0
+  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
   - I2C via /dev/i2c-X
   - 8-bit MMC card mmc1
   - 4-bit SD card mmc2
@@ -439,12 +439,11 @@ Working on latest image:
   - HDA audio (on Eval Board V1.0a: check datasheet/schematics for patch
       instructions)
   - analogue audio capture, playback and resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and
-        use the DAC volume
+    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
     - touch has some jitter
   - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev4.2 aka SPI2
   - framebuffer console
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - serial number and board revision
   - watchdog
   - USB host port
@@ -453,7 +452,7 @@ Working on latest image:
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS, provided by Android gadget
   - automatic USB device/host/suspend detection aka full OTG support
-  - analog input
+  - analogue input
   - CAN via can0 and can1
   - PCIe (regular ports and mini-PCIe slot)
   - SATA (regular port or mSATA slot)
@@ -473,7 +472,7 @@ Working on latest image:
 Not working or not tested:
 - U-Boot boot loader
   - U-Boot USB keyboard
-  - framebuffer support
+  - TFTLCD framebuffer support
 - Linux kernel
   - IrDA
   - RS-422/485
@@ -547,4 +546,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 19, 2014
+Toradex, February 12, 2014

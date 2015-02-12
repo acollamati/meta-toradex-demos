@@ -466,8 +466,8 @@ Working on latest image:
   - RTC (Tegra internal, PMIC and board level I2C RTC)
   - Ethernet eth0
   - eMMC ext3
-  - serial console debug UARTA
-  - high speed serial UARTB and UARTD
+  - serial console debug UARTA ttyS0
+  - high speed serial UARTB and UARTD ttyHSX
   - I2C via /dev/i2c-X
   - MMC/SD card, optional 8-bit SDHCI
   - PWM LEDs /sys/class/leds/
@@ -478,7 +478,7 @@ Working on latest image:
   - SPI via /dev/spidev0.0
   - GMI with multiplexed nPWE and RDnWR
   - framebuffer console
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - serial number and board revision
   - watchdog
   - USB host port
@@ -576,4 +576,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, December 19, 2014
+Toradex, February 12, 2014

@@ -15,6 +15,24 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.3 Beta 7 (February 03, 2015)
+- U-Boot:
+  - no changes
+- Linux kernel:
+  - integrate NVIDIA L4T R16.5
+  - optional ADV7280 analogue video decoder support
+- Linux user-space:
+  - working Angstrom opkg package feeds
+
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.3Beta7_20150203
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch colibri
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+
+********************************************************************************
 Linux Image V2.3 Beta 5 (December 19, 2014)
 - U-Boot:
   - no changes
@@ -413,18 +431,18 @@ Working on latest image:
   - temperature sensor /sys/bus/i2c/devices/4-004c
   - RTC (Tegra internal, PMIC and board level I2C RTC)
   - Ethernet eth0
-  - NAND flash MTD YAFFS2
-  - serial console debug UARTA
-  - high speed serial UARTB and UARTD
+  - NAND flash MTD YAFFS2 with hardware ECC
+  - serial console debug UARTA ttyS0
+  - high speed serial UARTB and UARTD ttyHSX
   - I2C via /dev/i2c-X
   - MMC/SD card, optional 8-bit SDHCI
   - PWM LEDs /sys/class/leds/
   - HDMI SPDIF audio
-  - AC97 audio capture, playback and resistive touch
+  - AC97 analogue audio capture, playback and resistive touch
   - SPI via /dev/spidev3.0
   - GMI with multiplexed nPWE and RDnWR
   - framebuffer console
-  - custom Ethernet MAC Address
+  - custom Ethernet MAC address
   - serial number and board revision
   - watchdog
   - USB host port
@@ -452,7 +470,6 @@ Not working or not tested:
   - IrDA
   - RS-422/485
 - Adobe Flash not provided by L4T (and probably never will)
-- opkg package feeds seem to not be usable
 
 *****************************************************************************************************************************************************************************************
 NAND Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample), Colibri T20 256MB V1.2a, Colibri T20 512MB V1.2a, Colibri T20 256MB IT V1.2a or Colibri T20 512MB IT V1.2a
@@ -521,4 +538,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, December 19, 2014
+Toradex, February 12, 2015
