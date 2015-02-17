@@ -11,6 +11,9 @@ IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qte"
 IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxImage-qte"
 IMAGE_NAME = "${MACHINE}_LinuxImage-qte"
 
+#start graphical target by default (start new qt-demo-init systemd service)
+SYSTEMD_DEFAULT_TARGET = "graphical.target"
+
 #create the deployment directory-tree
 require recipes/images/trdx-image-fstype.inc
 
