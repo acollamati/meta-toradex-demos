@@ -1,5 +1,5 @@
 SUMMARY = "Hides the cursor after inactivity"
-LICENSE = "PublicDomain"
+LICENSE = "PD"
 
 DEPENDS = "virtual/xserver"
 PR = "r0"
