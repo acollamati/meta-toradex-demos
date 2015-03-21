@@ -1,5 +1,5 @@
 SUMMARY = "Sample code to access the toradex oak sensors"
-LICENSE = "PublicDomain"
+LICENSE = "PD"
 
 S="${WORKDIR}/OakLinux_${PV}"
 
