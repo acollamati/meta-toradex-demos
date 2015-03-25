@@ -15,6 +15,22 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.3 (March 20, 2015)
+- U-Boot:
+  - no changes
+- Linux kernel:
+  - media: fix work of analog cameras
+- Linux user-space:
+  - usb-rndis: fix various issues with dhcpd service for RNDIS
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.3_20150320
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch colibri
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+
+********************************************************************************
 Linux Image V2.3 Beta 7 (February 03, 2015)
 - U-Boot:
   - no changes
@@ -31,6 +47,7 @@ Linux Image V2.3 Beta 7 (February 03, 2015)
 Known Issues:
 - LP1 suspend might fail due to pending USB interrupts
 - LP1 suspend might hang due to display controller issue
+- the USB device Ethernet RNDIS functionality is disabled by default
 
 ********************************************************************************
 Linux Image V2.3 Beta 5 (December 19, 2014)
@@ -61,6 +78,7 @@ Known Issues:
   please add in /etc/opkg/base-feed.conf et. al. a line as follows (e.g. just
   replace base as needed):
 src/gz base http://feeds.angstrom-distribution.org/feeds/v2014.06/ipk/eglibc/armv7at2hf-vfp/base
+- the USB device Ethernet RNDIS functionality is disabled by default
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -538,4 +556,4 @@ Boot from SD Card:
 - power cycle
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, February 12, 2015
+Toradex, March 25, 2015

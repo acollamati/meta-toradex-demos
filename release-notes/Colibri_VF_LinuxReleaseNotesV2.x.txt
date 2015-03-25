@@ -65,6 +65,8 @@ Known Issues:
 		${soc}-colibri-${fdt_board}.dtb && \
 		"/boot/${soc}-colibri-${fdt_board}.dtb && \
 		"setenv dtbparam ${fdt_addr_r}'
+- the USB device Ethernet RNDIS functionality is disabled by default
+
 ********************************************************************************
 Linux Image V2.3 Beta 5 (December 19, 2014)
 - U-Boot:
@@ -119,6 +121,7 @@ Known Issues:
   (This has been observed on an Evaluation Board V2.1C)
 - Analogue audio and Touchscreen are not yet working on the Colibri VF61
 - SPI and CAN over SPI (using MCP251x) do not work yet on the new kernel
+- the USB device Ethernet RNDIS functionality is disabled by default
 
 ********************************************************************************
 Linux Image V2.3 Beta 3 (October 31, 2014)
@@ -556,4 +559,4 @@ Boot from SD Card:
 - apply power
 - upon first boot post-install scripts are run which takes around 2 minutes, please be patient
 
-Toradex, February 12, 2015
+Toradex, March 25, 2015
