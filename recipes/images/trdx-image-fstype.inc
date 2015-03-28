@@ -74,7 +74,7 @@ imagedeploy_kernel_vf() {
 
 fakeroot do_imagedeploy() {
     cd ${WORKDIR}
-    cp -pPr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
+    cp -pLr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
 
     imagedeploy_kernel
 
