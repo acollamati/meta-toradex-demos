@@ -1,0 +1,35 @@
+test -n ${drive} || setenv drive 1
+
+setenv check_1 'setenv conf_blk_offset 0x1fff; mmc read $loadaddr $conf_blk_offset 1'
+setenv check_2 'setenv conf_blk_offset 0xfff; mmc read $loadaddr $conf_blk_offset 1'
+setenv check_3 'setenv conf_blk_offset 0x7ff; mmc read $loadaddr $conf_blk_offset 1'
+setenv check_configblock 'setexpr toradex_oui_addr $loadaddr + 8; mmc dev 0 1; run check_1 || run check_2 || run check_3; crc32 -v $toradex_oui_addr 3 94305232'
+
+setenv migrate_1 'mmc dev 0 0; mmc read ${loadaddr} 6000 1; setenv conf_blk_offset 0x1fff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_2 'mmc dev 0 0; mmc read ${loadaddr} 8000 1; setenv conf_blk_offset 0xfff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_3 'mmc dev 0 0; mmc read ${loadaddr} 9000 1; setenv conf_blk_offset 0x7ff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_4 'mmc dev 0 0; mmc read ${loadaddr} 34000 1; setenv conf_blk_offset 0x1fff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_5 'mmc dev 0 0; mmc read ${loadaddr} 36000 1; setenv conf_blk_offset 0xfff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_6 'mmc dev 0 0; mmc read ${loadaddr} 37000 1; setenv conf_blk_offset 0x7ff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
+setenv migrate_configblock 'setexpr toradex_oui_addr $loadaddr + 8; run migrate_1; run migrate_2; run migrate_3; run migrate_4; run migrate_5; run migrate_6'
+
+setenv update_configblock 'load mmc ${drive}:1 ${loadaddr} configblock.bin && setexpr blkcnt $filesize + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200 && run check_configblock; mmc write $loadaddr $conf_blk_offset ${blkcnt}'
+
+setenv update_uboot 'fatload mmc ${drive}:1 ${loadaddr} colibri_t30.img && if setexpr blkcnt $filesize + 0x1ff; then setexpr blkcnt ${blkcnt} / 0x200; else setenv blkcnt 0x500; fi && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
+
+setenv update_kernel 'load mmc ${drive}:1 ${loadaddr} uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
+
+setenv update_fdt 'load mmc ${drive}:1 ${loadaddr} ${fdt_file} && fatwrite mmc 0:1 ${loadaddr} ${fdt_file} ${filesize}'
+
+setenv update_1 'load mmc ${drive}:1 ${loadaddr} mbr.bin && mmc dev 0 0 && mmc write ${loadaddr} 0x0 0x1'
+setenv update_2 'load mmc ${drive}:1 ${loadaddr} boot.vfat && setexpr blkcnt $filesize + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200 && mmc dev 0 0 && mmc write ${loadaddr} 0x2000 ${blkcnt}'
+setenv update_3 'load mmc ${drive}:1 ${loadaddr} root.ext3 && setexpr blkcnt $filesize + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200 && mmc dev 0 0 && mmc write ${loadaddr} 0xa000 ${blkcnt}'
+
+setenv echo_v2.3b1 echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.3b1\" to complete update"
+setenv migrate_v2.3b1 'run migrate_configblock; run update_new'
+setenv update_v2.3b1 'run update_uboot && run echo_v2.3b1'
+
+setenv update_new 'run check_configblock || run migrate_configblock; run update_uboot; run update_1; run update_2; run update_3; reset'
+setenv update 'if test -v $ver; then run update_new; else run update_v2.3b1; fi'
+
+echo 'enter "run update" to update the entire module'

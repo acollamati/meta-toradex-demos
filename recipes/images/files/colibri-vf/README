@@ -1,0 +1,4 @@
+Toradex Linux BSP
+
+Use the update.sh script to update your module. Also check the Release Notes
+located in the same directory of the BSP release tarball.

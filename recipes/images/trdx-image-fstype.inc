@@ -1,6 +1,6 @@
 #create the deployment directory-tree
 
-BURNFLASH := "${THISDIR}/files/${MACHINE}/burnflash.tar.bz2"
+BURNFLASH := "${THISDIR}/files/${MACHINE}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_NAME}${PV}/rootfs"
 
 U_BOOT_EXT = "bin"
@@ -74,8 +74,7 @@ imagedeploy_kernel_vf() {
 
 fakeroot do_imagedeploy() {
     cd ${WORKDIR}
-    tar -xf ${BURNFLASH}
-    cp -pPr burnflash/* ${IMAGE_NAME}${PV}/
+    cp -pPr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
 
     imagedeploy_kernel
 
