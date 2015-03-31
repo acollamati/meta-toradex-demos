@@ -85,7 +85,6 @@ IMAGE_INSTALL_append_colibri-vf = " \
     mqxboot \
     libmcc \
     mcc-pingpong \
-    kernel-module-mcc \
     kernel-modules \
 "
 
