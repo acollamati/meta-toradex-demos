@@ -93,7 +93,6 @@ GSTREAMER_append_mx6 = " \
     gst-plugins-base-xvimagesink \
     gst-plugins-gl \
     gst-fsl-plugin \
-    gpu-viv-bin-mx6q-libraries \
 "
 GSTREAMER_colibri-vf = ""
 
@@ -132,6 +131,10 @@ IMAGE_INSTALL_QT4 = " \
     qt4-examples \
     qt4-assistant \
     icu \
+"
+
+IMAGE_INSTALL_append_mx6 = " \
+    packagegroup-fsl-tools-gpu \
 "
 
 IMAGE_INSTALL += " \
