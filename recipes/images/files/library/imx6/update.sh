@@ -50,9 +50,7 @@ Usage()
 	echo ""
 	echo "-d           : use USB connection to copy and execute U-Boot to the module's RAM"
 	echo "-h           : Prints this message"
-	echo "-o directory : output directory, defaults to /media/KERNEL"
-	echo "               if this is on a SD card, it should be the"
-	echo "               first partition formated with VFAT"
+	echo "-o directory : output directory"
 	echo ""
 	echo "Example \"./update.sh\" copies the requiered files to /media/KERNEL/"
 	echo "Example \"./update.sh -o /srv/tftp/\" copies the requiered files to /srv/tftp/"
@@ -86,7 +84,12 @@ while getopts "dho:" Option ; do
 	esac
 done
 
-# autotect MODTYPE from from rootfs directory
+if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
+	Usage
+	exit 0
+fi
+
+# auto detect MODTYPE from rootfs directory
 CNT=`grep -ic "Colibri.iMX6" rootfs/etc/issue || true`
 if [ "$CNT" -ge 1 ] ; then
 	echo "Colibri iMX6 rootfs detected"

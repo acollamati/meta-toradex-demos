@@ -49,9 +49,7 @@ Usage()
 	echo ""
 	echo "-d           : use USB connection to copy and execute U-Boot to the module's RAM"
 	echo "-h           : Prints this message"
-	echo "-o directory : output directory, defaults to /media/KERNEL"
-	echo "               if this is on a SD card, it should be the"
-	echo "               first partition formated with VFAT"
+	echo "-o directory : output directory"
 	echo ""
 	echo "Example \"./update.sh\" copies the requiered files to /media/KERNEL/"
 	echo "Example \"./update.sh -o /srv/tftp/\" copies the requiered files to /srv/tftp/"
@@ -85,7 +83,12 @@ while getopts "dho:" Option ; do
 	esac
 done
 
-# autotect MODTYPE from from rootfs directory
+if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
+	Usage
+	exit 0
+fi
+
+# auto detect MODTYPE from rootfs directory
 CNT=`grep -ic "t30" rootfs/etc/issue || true`
 if [ "$CNT" -ge 1 ] ; then
 	CNT=`grep -ic "apalis" rootfs/etc/issue || true`
@@ -245,6 +248,7 @@ export MTOOLS_SKIP_CHECK=1
 mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/uImage ::/uImage
 
 # Copy device tree file
+COPIED=false
 if test -n "${KERNEL_DEVICETREE}"; then
 	for DTS_FILE in ${KERNEL_DEVICETREE}; do
 		DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
@@ -255,9 +259,11 @@ if test -n "${KERNEL_DEVICETREE}"; then
 				mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb ::/${DTS_BASE_NAME}.dtb
 				#copy also to out_dir
 				sudo cp ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb "$OUT_DIR/${DTS_BASE_NAME}.dtb"
+				COPIED=true
 			fi
 		fi
 	done
+	[ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; }
 fi
 
 echo ""
