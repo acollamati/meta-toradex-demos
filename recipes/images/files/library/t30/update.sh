@@ -143,7 +143,7 @@ then
 	exit 1
 fi
 
-#sanity check for existens of U-Boot and kernel
+#sanity check for existence of U-Boot and kernel
 [ -e ${BINARIES}/${U_BOOT_BINARY} ] || { echo "${BINARIES}/${U_BOOT_BINARY} does not exist"; exit 1; }
 [ -e ${BINARIES}/uImage ] || { echo "${BINARIES}/uImage does not exist"; exit 1; }
 

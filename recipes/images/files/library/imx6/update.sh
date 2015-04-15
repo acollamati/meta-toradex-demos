@@ -20,18 +20,19 @@ Flash()
 	echo "To flash the Apalis/Colibri iMX6 module, boot the module to the U-Boot prompt and"
 	echo ""
 	echo "when using a SD-card, insert the SD-card and enter:"
-	echo "run setupdate"
+	echo "'run setupdate'"
 	echo ""
 	echo "when using tftp, connect Ethernet and enter:"
-	echo "tftp \$loadaddr flash_eth.img ; source \$loadaddr"
+	echo "'tftp \$loadaddr flash_eth.img ; source \$loadaddr'"
 	echo ""
 	echo "then enter to update all:"
-	echo "run update"
+	echo "'run update' or 'run update_it'"
 	echo ""
 	echo "to update a single component enter one of:"
-	echo "run update_uboot"
-	echo "run update_kernel"
+	echo "'run update_uboot' or 'run update_uboot_it'"
+	echo "'run update_kernel'"
 	echo ""
+	echo "Use the version with '_it' if you have an IT module, e.g. 'Apalis iMX6Q 2GB IT'"
 	echo ""
 	echo "If you don't have a working U-Boot anymore, connect your PC to the module's"
 	echo "USB client port, bring the module in the serial download mode and start"
@@ -92,6 +93,7 @@ if [ "$CNT" -ge 1 ] ; then
 	MODTYPE=colibri-imx6
 	IMAGEFILE=root.ext3
 	U_BOOT_BINARY=u-boot.imx
+	U_BOOT_BINARY_IT=u-boot.imx
 	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb"
 	LOCPATH="imx_flash"
 	# eMMC size [in sectors of 512]
@@ -103,6 +105,7 @@ else
 		MODTYPE=apalis-imx6
 		IMAGEFILE=root.ext3
 		U_BOOT_BINARY=u-boot.imx
+		U_BOOT_BINARY_IT=u-boot-it.imx
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis-eval_v1_0.dtb"
 		LOCPATH="imx_flash"
 		# eMMC size [in sectors of 512]
@@ -118,7 +121,8 @@ BINARIES=${MODTYPE}_bin
 #is only U-Boot to be copied to RAM?
 if [ "$UBOOT_RECOVERY" -ge 1 ] ; then
 	cd ${LOCPATH}
-	sudo ./imx_usb ../${BINARIES}/${U_BOOT_BINARY}
+	#the IT timings work for all modules, so use it during recovery
+	sudo ./imx_usb ../${BINARIES}/${U_BOOT_BINARY_IT}
 	exit 1
 fi
 
@@ -138,8 +142,9 @@ then
 	exit 1
 fi
 
-#sanity check for existens of U-Boot and kernel
+#sanity check for existence of U-Boot and kernel
 [ -e ${BINARIES}/${U_BOOT_BINARY} ] || { echo "${BINARIES}/${U_BOOT_BINARY} does not exist"; exit 1; }
+[ -e ${BINARIES}/${U_BOOT_BINARY_IT} ] || { echo "${BINARIES}/${U_BOOT_BINARY_IT} does not exist"; exit 1; }
 [ -e ${BINARIES}/uImage ] || { echo "${BINARIES}/uImage does not exist"; exit 1; }
 
 #sanity check for some programs
@@ -160,6 +165,7 @@ rm ${BINARIES}/versions.txt
 touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
+basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/uImage`" >> ${BINARIES}/versions.txt
 $ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
 grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
@@ -253,7 +259,8 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 
 
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/configblock.bin ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat ${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+sudo cp ${BINARIES}/configblock.bin ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${U_BOOT_BINARY_IT} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
+	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
 sync
 
 Flash

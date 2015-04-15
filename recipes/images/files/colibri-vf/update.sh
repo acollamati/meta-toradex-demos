@@ -12,7 +12,7 @@ Flash()
 	echo "To flash the Colibri VFxx module a running U-Boot is required. Boot the"
 	echo "module to the U-Boot prompt and"
 	echo ""
-	echo "insert the SD card and enter:"
+	echo "insert the USB flash drive or SD card and enter:"
 	echo "# run setupdate"
 	echo ""
 	echo "to update all components enter:"
@@ -42,11 +42,11 @@ Usage()
 	echo ""
 	echo "Prepares and copies files for flashing the internal NAND of a Colibri VFxx"
 	echo ""
-	echo "The recommended way is to copy the files on a SD card. The script format_sd.sh"
-	echo "may be used to format the SD card."
+	echo "The recommended way is to copy the files on a SD card or USB flash drive."
+	echo "The script format_sd.sh may be used to format the SD card."
 	echo ""
-	echo "Will require a running U-Boot on the target. Either one already flashed"
-	echo "on the NAND or download using serial downloader (argument -d)."
+	echo "The flash step requires a running U-Boot on the target. Either one already"
+ 	echo "flashed on the NAND or download using serial downloader (argument -d)."
 	echo ""
 	echo "-d uart_dev  : use UART connection to copy and execute U-Boot from module's RAM"
 	echo "-f           : flash instructions"
@@ -81,7 +81,7 @@ while getopts "d:fnho:s" Option ; do
 			;;
 		h)	Usage
 			# Exit if only usage (-h) was specified.
-			if [[ $# -eq 1 ]] ; then
+			if [ $# -eq 1 ] ; then
 				exit 10
 			fi
 			exit 0
@@ -96,7 +96,7 @@ while getopts "d:fnho:s" Option ; do
 	esac
 done
 
-if [[ "$OUT_DIR" = "" && "$UBOOT_RECOVERY" = "0" ]] ; then
+if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	Usage
 	exit 0
 fi
