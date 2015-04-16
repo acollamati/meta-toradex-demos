@@ -17,8 +17,8 @@ DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
-#we need mkimage to produce the U-Boot scripts
-DEPENDS_append = " u-boot-mkimage-native"
+#we need mkimage to produce the U-Boot scripts even if not building a uImage kernel
+DEPENDS_append = " virtual/bootloader u-boot-mkimage-native"
 
 imagedeploytools() {
     # default to nothing to deploy
