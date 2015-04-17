@@ -56,7 +56,7 @@ BAD_RECOMMENDATIONS = "gnome-icon-theme"
 #don't install some id databases
 #currently having more than one BAD_RECOMMENDATIONS and having
 #a package which exists in more than one compatible feed does not work
-#BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
+BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gst-plugins-base-meta
@@ -108,9 +108,11 @@ GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL_append_tegra = " \
     gnome-disk-utility \
+    mime-support \
 "
 IMAGE_INSTALL_append_mx6 = " \
     gnome-disk-utility \
+    mime-support \
 "
 
 IMAGE_INSTALL += " \
@@ -127,7 +129,6 @@ IMAGE_INSTALL += " \
     libwnck \
     libxres \
     makedevs \
-    mime-support \
     xcursor-transparent-theme \
     zeroconf \
     angstrom-packagegroup-boot \
