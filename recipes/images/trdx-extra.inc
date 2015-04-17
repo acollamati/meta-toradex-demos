@@ -137,7 +137,6 @@ IMAGE_INSTALL += " \
     sqlite3 \
     \
     curl \
-    ntp \
     nfs-utils-client \
     openssh-scp \
     openssh-sftp \
@@ -170,4 +169,3 @@ IMAGE_INSTALL += " \
     trdx-oak-sensors \
 "
 #    openssl-conf 
-#    ntpclient 
