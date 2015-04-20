@@ -97,7 +97,7 @@ if [ "$CNT" -ge 1 ] ; then
 	IMAGEFILE=root.ext3
 	U_BOOT_BINARY=u-boot.imx
 	U_BOOT_BINARY_IT=u-boot.imx
-	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb"
+	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
 	LOCPATH="imx_flash"
 	# eMMC size [in sectors of 512]
 	EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
