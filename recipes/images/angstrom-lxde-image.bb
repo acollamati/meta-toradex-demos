@@ -107,6 +107,7 @@ GSTREAMER_append_mx6 = " \
 GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL_append_tegra = " \
+    tegrastats-gtk \
     gnome-disk-utility \
     mime-support \
 "
