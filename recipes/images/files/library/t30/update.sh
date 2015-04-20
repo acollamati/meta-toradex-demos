@@ -263,7 +263,6 @@ if test -n "${KERNEL_DEVICETREE}"; then
 			fi
 		fi
 	done
-	[ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; }
 fi
 
 echo ""
