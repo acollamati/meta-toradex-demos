@@ -31,5 +31,8 @@ export DISPLAY
 
 export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
 
+# Serial consoles are not able to autoresize. Set size once upon login.
+resize
+
 umask 022
 
