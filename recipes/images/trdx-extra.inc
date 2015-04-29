@@ -111,7 +111,7 @@ IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
 
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
     u-boot-toradex-fsl-fw-utils \
-    usb-rndis-systemd \
+    libusbg \
     gpioconfig \
     ptpd \
     iproute2 \
