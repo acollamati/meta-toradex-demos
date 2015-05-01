@@ -30,20 +30,6 @@ IMAGE_INSTALL_T20_T30 = " \
     eglinfo-x11 \
 "
 
-IMAGE_INSTALL_MACHINE_colibri-t20 = " \
-    ${IMAGE_INSTALL_T20_T30} \
-    kernel-module-fusion-f0710a \
-"
-
-IMAGE_INSTALL_MACHINE_colibri-t30 = " \
-    ${IMAGE_INSTALL_T20_T30} \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-tune2fs \
-    kernel-module-fusion-f0710a \
-"
-
 IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     ${IMAGE_INSTALL_T20_T30} \
     pciutils \
@@ -63,6 +49,21 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     kernel-module-tegra-v4l2-camera \
     kernel-module-videobuf2-dma-nvmap \
     kernel-module-videobuf2-memops \
+    kernel-module-fusion-f0710a \
+"
+
+IMAGE_INSTALL_MACHINE_colibri-t20 = " \
+    ${IMAGE_INSTALL_T20_T30} \
+    mtd-utils-ubifs \
+    kernel-module-fusion-f0710a \
+"
+
+IMAGE_INSTALL_MACHINE_colibri-t30 = " \
+    ${IMAGE_INSTALL_T20_T30} \
+    fs-init \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
     kernel-module-fusion-f0710a \
 "
 

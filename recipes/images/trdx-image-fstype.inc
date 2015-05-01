@@ -4,16 +4,18 @@ BURNFLASH := "${THISDIR}/files/${MACHINE}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_NAME}${PV}/rootfs"
 
 U_BOOT_EXT = "bin"
-U_BOOT_EXT_vf = "imx"
 U_BOOT_EXT_mx6 = "imx"
+U_BOOT_EXT_vf = "imx"
 U_BOOT_SYMLINK = "u-boot-${MACHINE}.${U_BOOT_EXT}"
-U_BOOT_SYMLINK_tegra3 = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
+U_BOOT_SYMLINK_tegra = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
 U_BOOT_BINARY = "u-boot.${U_BOOT_EXT}"
-U_BOOT_BINARY_tegra3 = "u-boot-dtb-tegra.${U_BOOT_EXT}"
+U_BOOT_BINARY_tegra = "u-boot-dtb-tegra.${U_BOOT_EXT}"
 
 #we need some native tools for deployment
 DEPENDS_append_mx6 = " imx-loader-native"
-DEPENDS_append_tegra3 = " cbootimage-native tegrarcm-native"
+#FIXME: 32-bit tegrarcm built on F20 does not run on 64-bit F20 even with properly installed 32-bit libs!
+DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
+DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
 
 imagedeploytools() {
@@ -33,7 +35,7 @@ imagedeploytools_append_mx6() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_work.conf ${IMAGE_ROOT}/
 }
 
-imagedeploytools_append_tegra3() {
+imagedeploytools_append_tegra() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../tegra-uboot-flasher/"
     mkdir -p ${IMAGE_ROOT}
 
@@ -42,6 +44,12 @@ imagedeploytools_append_tegra3() {
     cp ${STAGING_BINDIR_NATIVE}/tegrarcm ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/cbootimage
     ${BUILD_STRIP} ${IMAGE_ROOT}/tegrarcm
+}
+
+imagedeploytools_append_tegra2() {
+    # add the mkfs.ubifs binary
+    cp ${STAGING_DIR_NATIVE}/usr/sbin/mkfs.ubifs ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/mkfs.ubifs
 }
 
 imagedeploytools_append_vf() {
@@ -60,11 +68,16 @@ imagedeploytools_append_vf() {
 }
 
 imagedeploy_kernel() {
-    # put u-boot, kernel into the bin directories, remove the kernel/dtb from the rootfs/boot
+    # put kernel, device-tree into the bin directories, remove the kernel/dtb from the rootfs/boot
     rm -f ${IMAGE_ROOTFS}/boot/uImage* ${IMAGE_ROOTFS}/boot/*.dtb
     cp -pP ${DEPLOY_DIR_IMAGE}/uImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/uImage
+}
+
+imagedeploy_kernel_tegra2() {
+    # Do nothing, we use the kernel from /boot inside root fs
+    :
 }
 
 imagedeploy_kernel_vf() {

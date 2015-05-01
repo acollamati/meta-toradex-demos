@@ -1,5 +1,5 @@
 #! /bin/sh
-# Prepare files needed for flashing a Colbiri VFxx module
+# Prepare files needed for flashing a Colibri VFxx module
 # and copy them into a convenient location for use from a running U-Boot
 
 set -e

@@ -1,0 +1,11 @@
+test -n ${drive} || setenv drive 1
+test -n ${interface} || setenv interface mmc
+
+setenv prepare_rootfs 'ubi part ubi && ubi check rootfs || ubi create rootfs'
+setenv update_configblock 'load ${interface} 0:1 ${loadaddr} configblock.bin && nand erase.part cfgblock && nand write ${loadaddr} cfgblock ${filesize}'
+setenv update_uboot 'load ${interface} 0:1 ${loadaddr} colibri_t20-${ram-size}-${hw-version}-nand.img && nand erase.part u-boot && nand erase.part u-boot-env && nand write ${loadaddr} u-boot ${filesize}'
+setenv update_rootfs 'load ${interface} 0:1 ${loadaddr} ubifs_${leb-size}.img && run prepare_rootfs && ubi write ${loadaddr} rootfs ${filesize}'
+
+setenv update 'run update_uboot; run update_rootfs; reset'
+
+echo 'enter "run update" to update the entire module'

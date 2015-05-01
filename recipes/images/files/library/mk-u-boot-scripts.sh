@@ -1,5 +1,5 @@
 #!/bin/sh
 for f in *.scr
 do
-	mkimage -T script -C none -n 'Flash Apalis iMX6' -d $f `basename $f .scr`.img
+	mkimage -T script -C none -n 'Flash Apalis/Colibri module' -d $f `basename $f .scr`.img
 done	

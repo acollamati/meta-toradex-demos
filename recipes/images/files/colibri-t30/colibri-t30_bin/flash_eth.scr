@@ -1,5 +1,3 @@
-test -n ${drive} || setenv drive 1
-
 setenv check_1 'setenv conf_blk_offset 0x1fff; mmc read $loadaddr $conf_blk_offset 1'
 setenv check_2 'setenv conf_blk_offset 0xfff; mmc read $loadaddr $conf_blk_offset 1'
 setenv check_3 'setenv conf_blk_offset 0x7ff; mmc read $loadaddr $conf_blk_offset 1'
@@ -13,7 +11,7 @@ setenv migrate_5 'mmc dev 0 0; mmc read ${loadaddr} 36000 1; setenv conf_blk_off
 setenv migrate_6 'mmc dev 0 0; mmc read ${loadaddr} 37000 1; setenv conf_blk_offset 0x7ff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
 setenv migrate_configblock 'setexpr toradex_oui_addr $loadaddr + 8; run migrate_1; run migrate_2; run migrate_3; run migrate_4; run migrate_5; run migrate_6'
 
-setenv update_configblock 'tftpboot ${loadaddr} configblock.bin && setexpr blkcnt $filesize + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200 && run check_configblock; mmc write $loadaddr $conf_blk_offset ${blkcnt}'
+setenv update_configblock 'run check_configblock; tftpboot ${loadaddr} configblock.bin && setexpr blkcnt $filesize + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200 && mmc write $loadaddr $conf_blk_offset ${blkcnt}'
 
 setenv update_uboot 'tftpboot ${loadaddr} colibri_t30.img && if setexpr blkcnt $filesize + 0x1ff; then setexpr blkcnt ${blkcnt} / 0x200; else setenv blkcnt 0x500; fi && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
 

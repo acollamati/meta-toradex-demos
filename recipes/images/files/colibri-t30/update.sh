@@ -1,1 +1,1 @@
-../library/t30/update.sh
+../library/tegra/update.sh
