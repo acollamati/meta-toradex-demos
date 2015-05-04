@@ -10,11 +10,11 @@ LICENSE = "GPLv3"
 inherit autotools
 
 MIRRORS_prepend () {
-  http://weather.ou.edu/~apw/projects/stress/ http://pkgs.fedoraproject.org/repo/pkgs/stress/stress-1.0.4.tar.gz/a607afa695a511765b40993a64c6e2f4/
+   http://people.seas.harvard.edu/~apw/stress/ http://pkgs.fedoraproject.org/repo/pkgs/stress/stress-1.0.4.tar.gz/a607afa695a511765b40993a64c6e2f4/
 }
 
 SRC_URI=" \
-    http://weather.ou.edu/~apw/projects/stress/stress-${PV}.tar.gz \
+    http://people.seas.harvard.edu/~apw/stress/stress-${PV}.tar.gz \
     file://texinfo.patch \
 "
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
