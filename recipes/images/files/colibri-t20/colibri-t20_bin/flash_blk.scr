@@ -1,5 +1,5 @@
-test -n ${drive} || setenv drive 1
 test -n ${interface} || setenv interface mmc
+test -n ${drive} || setenv drive 1
 
 setenv prepare_rootfs 'ubi part ubi && ubi check rootfs || ubi create rootfs'
 setenv update_configblock 'load ${interface} 0:1 ${loadaddr} configblock.bin && nand erase.part cfgblock && nand write ${loadaddr} cfgblock ${filesize}'
