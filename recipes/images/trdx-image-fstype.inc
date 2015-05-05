@@ -89,6 +89,10 @@ fakeroot do_imagedeploy() {
     cd ${WORKDIR}
     cp -pLr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
 
+    cd ${IMAGE_NAME}${PV}/${MACHINE}_bin
+    ./mk-u-boot-scripts.sh
+    cd ${WORKDIR}
+
     imagedeploy_kernel
 
     cp -pP ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
