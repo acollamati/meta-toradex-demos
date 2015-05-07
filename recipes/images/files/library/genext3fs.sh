@@ -40,7 +40,7 @@ shift $(($OPTIND - 1))
 #create the file used for the loopbackdevice and format it for ext3
 #answer y to "is not a block special device"
 dd if=/dev/zero of=$@ bs=1024k count=$PARTITIONSIZE
-mkfs.ext3 -F -L arm $@
+mkfs.ext3 -F -L rootfs $@
 #disable fsck checks based on mount count or time interval
 tune2fs -c 0 -i 0 $@
 

@@ -202,7 +202,7 @@ BOOT_START=$(expr 4096 \* 2)
 # Rootfs partition [in sectors of 512]
 ROOTFS_START=$(expr 20480 \* 2)
 # Boot partition volume id
-BOOTDD_VOLUME_ID="Boot"
+BOOTDD_VOLUME_ID="boot"
 
 #make the partition size size(rootfs used + MIN_PARTITION_FREE_SIZE)
 #add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).                                                                                    
