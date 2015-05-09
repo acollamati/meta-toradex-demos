@@ -9,11 +9,12 @@ setenv update_new 'run update_uboot; run update_rootfs; reset'
 
 # Upgrade part 1, write new U-Boot, but with old ECC format still...
 # Store config block temporarly in memory at kernel_addr_r.
-setenv upgrade_part1 'run update_uboot && nand read ${kernel_addr_r} 0x800 0x20 && echo "successfully updated U-Boot, enter \"reset\", interrupt boot process and enter \"run setupdate\; run upgrade_part2\" to complete upgrade"'
+setenv upgrade_part1 'run update_uboot && nand read ${kernel_addr_r} 0x800 0x20 && echo "${upgrade_part1_msg}"'
+setenv upgrade_part1_msg 'Successfully updated U-Boot, NAND upgrade required. Enter "reset", interrupt boot process and enter "run setupdate; upgrade_part2" to complete upgrade.'
 
 # Upgrade part 2, use new ECC format for the whole device...
-setenv upgrade_part2 'run create_bcb && nand write ${kernel_addr_r} 0x800 0x20 && \
-run update_uboot && nand erase.part ubi && run update_rootfs'
+setenv upgrade_part2 'run create_bcb && nand write ${kernel_addr_r} 0x800 0x20 && run update_uboot && nand erase.part ubi && run update_rootfs && echo ${upgrade_part2_msg}'
+setenv upgrade_part2_msg 'Successfully upgraded module, enter "reset" to restart the module.'
 
 # fsl_nfc indicates old NAND format (24-bit ECC), start migration process
 setenv update 'mtdparts default && if test "${mtdids}" = "nand0=fsl_nfc"; then; run upgrade_part1; else run update_new; fi'
