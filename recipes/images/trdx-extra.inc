@@ -28,6 +28,7 @@ IMAGE_INSTALL_T20_T30 = " \
     file \
     aspell \
     eglinfo-x11 \
+    kernel-modules \
 "
 
 IMAGE_INSTALL_MACHINE_apalis-t30 = " \
@@ -41,21 +42,11 @@ IMAGE_INSTALL_MACHINE_apalis-t30 = " \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
-    kernel-module-adv7180 \
-    kernel-module-max9526 \
-    kernel-module-ov7670soc \
-    kernel-module-tvp5150soc \
-    kernel-module-as0260soc \
-    kernel-module-tegra-v4l2-camera \
-    kernel-module-videobuf2-dma-nvmap \
-    kernel-module-videobuf2-memops \
-    kernel-module-fusion-f0710a \
 "
 
 IMAGE_INSTALL_MACHINE_colibri-t20 = " \
     ${IMAGE_INSTALL_T20_T30} \
     mtd-utils-ubifs \
-    kernel-module-fusion-f0710a \
 "
 
 IMAGE_INSTALL_MACHINE_colibri-t30 = " \
@@ -64,7 +55,6 @@ IMAGE_INSTALL_MACHINE_colibri-t30 = " \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
-    kernel-module-fusion-f0710a \
 "
 
 #note that the kernel-modules meta package gets installed from
@@ -121,6 +111,7 @@ IMAGE_INSTALL_MACHINE_colibri-vf = " \
     libmcc \
     mcc-pingpong \
     kernel-module-mcc \
+    kernel-modules \
 "
 
 IMAGE_INSTALL_MACHINE = ""
