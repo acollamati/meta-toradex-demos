@@ -5,7 +5,7 @@ Release Notes:  Linux Image V2.x for Colibri T20
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom/OpenEmbedded/Yocto 2014.12/dizzy/1.7 based root file system, using
+- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
@@ -556,8 +556,9 @@ Initial Preparation:
 
 Flash NAND:
 - EvalBoard V3.1a
-  - connect serial debug console to UARTA aka FFUART (lower X25) resp. X27
-      using null modem RS-232 or regular USB cable
+  - depending on JP17/19 connect serial debug console to UARTA aka FFUART
+    (lower X25) using null modem RS-232 cable resp. X27 using a regular USB
+    cable
   - insert above prepared SD card into SD/MMC socket (X15)
 - Iris V1.1a
   - connect serial debug console to UARTA aka FFUART X13 using null modem RS-232 cable and a
@@ -617,4 +618,4 @@ SD Card Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample)
 no SD boot integration yet but copying cbootimage to beginning of SD card will
 at least boot
 
-Toradex, May 19, 2015
+Toradex, May 22, 2015

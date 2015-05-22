@@ -6,7 +6,7 @@ Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.2_ga
     and patches from Boundary Devices
-- Angstrom/OpenEmbedded/Yocto 2014.12/dizzy/1.7 based root file system, using
+- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
     LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
@@ -43,7 +43,7 @@ Linux Image V2.4 Beta 1 (May 18, 2015)
     network interface (new standard IP of the module is 192.168.11.1!)
   - enable BusyBox resize command to resize the terminal on serial console
 
-- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.4Beta1_20150518
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.4Beta1_20150518
   - repository linux-toradex branch toradex_imx_3.10.17_1.0.0_ga
   - repository u-boot-toradex branch 2015.04-toradex
 
@@ -388,8 +388,8 @@ Initial Preparation:
 
 Flash eMMC:
 - EvalBoard V1.0a
-  - connect serial debug console to lower X28 or X29 using null modem RS-232 or
-      regular USB cable
+  - depending on JP10/12 connect serial debug console to lower X28 or X29 using
+      null modem RS-232 or regular USB cable
   - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
 - Ixora V1.0a
   - connect serial debug console to X22 using null modem RS-232 cable and a
@@ -444,4 +444,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, May 19, 2015
+Toradex, May 22, 2015

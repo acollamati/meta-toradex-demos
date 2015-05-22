@@ -6,7 +6,7 @@ Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.2_ga
     and patches from Boundary Devices
-- Angstrom/OpenEmbedded/Yocto 2014.12/dizzy/1.7 based root file system, using
+- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
     LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
@@ -226,8 +226,9 @@ Initial Preparation:
 
 Flash eMMC:
 - EvalBoard V3.1a
-  - connect serial debug console to UARTA aka FFUART (lower X25) resp. X27
-      using null modem RS-232 or regular USB cable
+  - depending on JP17/19 connect serial debug console to UARTA aka FFUART
+      (lower X25) using null modem RS-232 cable resp. X27 using a regular USB
+      cable
   - insert above prepared SD card into SD/MMC socket (X15)
 - Iris V1.1a
   - connect serial debug console to UARTA aka FFUART X13 using null modem RS-232 cable and a
@@ -273,4 +274,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, May 19, 2015
+Toradex, May 22, 2015

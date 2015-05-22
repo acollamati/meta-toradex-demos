@@ -5,7 +5,7 @@ Release Notes:  Linux Image V2.x for Apalis T30
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom/OpenEmbedded/Yocto 2014.12/dizzy/1.7 based root file system, using
+- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
@@ -560,8 +560,8 @@ Initial Preparation:
 
 Flash eMMC:
 - EvalBoard V1.0a
-  - connect serial debug console to lower X28 or X29 using null modem RS-232 or
-      regular USB cable
+  - depending on JP10/12 connect serial debug console to lower X28 using null
+    modem RS-232 cable resp. X29 using a regular USB cable
   - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
 - Ixora V1.0a
   - connect serial debug console to X22 using null modem RS-232 cable and a
@@ -574,17 +574,20 @@ Flash eMMC:
     - using SD/MMC 8bit (X18) socket on EvalBoard:
         setenv drive 1
         setenv setupdate 'mmc dev ${drive}; mmc rescan; fatload mmc ${drive}:1 ${loadaddr} flash_blk.img; source ${loadaddr}'
-        save
+        saveenv
     - using SD/MMC 4bit (X19) socket on EvalBoard or micro SD card socket (X10) on Ixora:
         setenv drive 2
         setenv setupdate 'mmc dev ${drive}; mmc rescan; fatload mmc ${drive}:1 ${loadaddr} flash_blk.img; source ${loadaddr}'
-        save
+        saveenv
   - use 'run setupdate' U-Boot command and then
-  - use 'run update' U-Boot command
-- If you updated from an older image:
-  - power cycle or reset as requested and hit any key to stop auto booting
-  - use 'run setupdate' U-Boot command and then
-  - use 'run migrate_v2.3b2' U-Boot command
+  - use 'run update' U-Boot command unless you are updating from an older image
+    in which case:
+    - use 'run update_uboot' command and power cycle or reset and hit any key
+      to stop auto booting
+    - use 'env default -a' command followed by 'saveenv' command
+    - power cycle or reset again and hit any key to stop auto booting
+    - use 'run setupdate' U-Boot command and then
+    - use 'run migrate_v2.3b2' U-Boot command
 
 Boot from eMMC:
 - EvalBoard V1.0a or Ixora V1.0a
@@ -610,4 +613,4 @@ If the boot loader on the module got corrupted this recovers it by loading U-Boo
   - run ./update.sh -d
   - stop at the U-Boot prompt and begin the update as stated above
 
-Toradex, May 19, 2015
+Toradex, May 22, 2015

@@ -5,7 +5,7 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 4.0.2 kernel
-- Angstrom/OpenEmbedded/Yocto 2014.12/dizzy/1.7 based root file system, using
+- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
@@ -80,6 +80,8 @@ Known Issues:
   (This has been observed on an Evaluation Board V2.1C)
 - Downgrade is not possible through "run update" due to NAND ECC layout changes
   refer to the flashing instruction article to flash the module from scratch
+- Audio capture does not work due to a bug in the device tree
+  http://git.toradex.com/cgit/linux-toradex.git/commit/?h=toradex_vf_4.0-next&id=cc465207c8c1d1c39dd036b851fb8f7e65a5d21b
 
 ********************************************************************************
 Linux Image V2.3 Beta 7 (February 03, 2015)
@@ -513,4 +515,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, May 19, 2015
+Toradex, May 22, 2015
