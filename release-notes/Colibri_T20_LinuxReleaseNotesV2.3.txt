@@ -1,11 +1,11 @@
 ************************************************
-Release Notes:  Linux Image V2.x for Colibri T20
+Release Notes:  Linux Image V2.3 for Colibri T20
 ************************************************
 
 Contents:
 - U-Boot 2011.06 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom/OpenEmbedded/Yocto 2014.06/daisy/1.6 based root file system, using
+- Angstrom 2014.06/OpenEmbedded daisy/Yocto 1.6 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found at the very bottom of this release notes
@@ -55,7 +55,7 @@ Linux Image V2.3 Beta 5 (December 19, 2014)
   - no changes
 - Linux kernel:
   - optional ADV7180 analogue video decoder as found on ACA (formerly ACM) now
-      works at 25 fps
+    works at 25 fps
   - fix HDMI display controller disable state
   - fix pixel clock polarity
 - Linux user-space:
@@ -122,7 +122,8 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
   - Add SPI controller platform data for hardware chip select
   - Fix AC97 audio capture issue
   - Enable CONFIG_FHANDLE required for later systemd
-  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up systemd boot-up
+  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up
+    systemd boot-up
   - Enable VLAN functionality
   - Fix memset-related crashes caused by recent GCC (4.7.2) optimisations
 - Linux user-space
@@ -218,7 +219,7 @@ Known Issues:
 Linux Image V2.1 Beta 1 (October 22, 2013)
 - U-Boot:
   - Fix possible uninitialised array member issue in serial number to
-      hexadecimal coded decimal conversion routine (e.g. as used for
+    hexadecimal coded decimal conversion routine (e.g. as used for
       /proc/cpuinfo in Linux).
   - SD card boot offset detection
   - rename shell prompt to Colibri T20
@@ -226,10 +227,10 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - fix overflow in HCD conversion
 - Linux kernel:
   - Support default watchdog API (see
-      http://developer.toradex.com/knowledge-base/watchdog-(linux)).
+    http://developer.toradex.com/knowledge-base/watchdog-(linux)).
   - Disable magic SysRq key configuration as this is not only a potential
-       security thread but can cause serious trouble if for some reason UART pins
-       are left floating and therefore cause unexpected break conditions.
+    security thread but can cause serious trouble if for some reason UART pins
+    are left floating and therefore cause unexpected break conditions.
   - HDMI: Retry EDID reads up to 4 times until failing.
   - provision for the Analogue Camera Module
   - V4L2 kernel drivers configured as kernel modules
@@ -270,7 +271,7 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
 
 Known Issues:
 - LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution, 
-    comments with timings for other resolutions provided
+  comments with timings for other resolutions provided
 - LP1 suspend might fail due to pending USB interrupts
 - LP1 suspend might hang due to display controller issue
 
@@ -290,7 +291,8 @@ Linux Image V2.0 (March 07, 2013)
 - sources git.toradex.com tag T20_LinuxImageV2.0_20130305
 
 Known Issues:
-- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution, comments with timings for other resolutions provided
+- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution,
+  comments with timings for other resolutions provided
 - some windows have garbled titlebar, e.g. lxterminal
 - lxappearance is segfaulting upon start
 - LP1 suspend might fail due to pending USB interrupts
@@ -316,7 +318,8 @@ Linux Image V2.0 Beta 2 (January 29, 2013)
 - sources git.toradex.com tag T20_LinuxImageV2.0Beta2_20130129
 
 Known Issues:
-- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution, comments with timings for other resolutions provided
+- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution,
+  comments with timings for other resolutions provided
 - some windows have garbled titlebar, e.g. lxterminal
 - lxappearance is segfaulting upon start
 - LP1 suspend might fail due to pending USB interrupts
@@ -330,38 +333,53 @@ Linux Image V2.0 Beta 1 (December 18, 2012)
   - fix NVIDIA partition table parsing
   - fix Ethernet detection fault
 - Linux kernel:
-  - added one wire platform data (conditional, CONFIG_W1_MASTER_TEGRA must be enabled)
-  - implement analogue input AD0 aka ANALOG_IN0 as voltage_now and AD1 aka ANALOG_IN1 as temp value (see /sys/class/power_supply/colibri_t20-analog_inputs)
+  - added one wire platform data (conditional, CONFIG_W1_MASTER_TEGRA must be
+    enabled)
+  - implement analogue input AD0 aka ANALOG_IN0 as voltage_now and AD1 aka
+    ANALOG_IN1 as temp value (see
+    /sys/class/power_supply/colibri_t20-analog_inputs)
   - unified Ethernet initialisation
   - GPIO keys implementation
   - USB OTG support
   - USB gadget using Android function stack
   - USB full speed limiting (see usb_high_speed kernel command line argument)
   - USB device now reports 2 mA VBUS draw
-  - revise Ethernet MAC address assignment: should now use MAC from EEPROM if set and further handles up to two instances of custom user MACs (2nd one with a 0x100000 offset), this way customer does not have to put EEPROM on a secondary Ethernet on carrier board and still gets a valid official MAC address from us (e.g. analogous to how we do it on our Protea carrier board)
+  - revise Ethernet MAC address assignment: should now use MAC from EEPROM if
+    set and further handles up to two instances of custom user MACs (2nd one
+    with a 0x100000 offset), this way customer does not have to put EEPROM on a
+    secondary Ethernet on carrier board and still gets a valid official MAC
+    address from us (e.g. analogous to how we do it on our Protea carrier board)
   - fix VESA VGA graphics aka too much TuxTM issue
-  - using full PMIC power off which decreases power consumption but reset won't force a re-boot anymore
+  - using full PMIC power off which decreases power consumption but reset won't
+    force a re-boot anymore
   - implement Video-DAC power save for Iris
   - LP1 suspend support (Colibri T20 512 MB on Iris draws around 180 mW)
   - re-worked function tri-stating
   - irq 68 nobody cared workaround
 - oe-core:
   - L4T release 16-r2 userspace binaries
-  - update procedure: use loader.nb0 as the target binary, add .bat file for flashing from Windows, improved parameter checks, 
+  - update procedure: use loader.nb0 as the target binary, add .bat file for
+    flashing from Windows, improved parameter checks
   - configure RNDIS with Androids USB gadget
-  - dropbear: disable reverse DNS lookups, prevents timeout if no DNS Server is available
+  - dropbear: disable reverse DNS lookups, prevents timeout if no DNS Server is
+    available
   - add gstreamer plugins, nvvidconv Nvidia colorspace conversion, mp3 helpers
-  - xinput-calibrator: make the menu entry behaviour equal to the one time calibration on first boot
-  - added firmware for Ralink WiFi chipsets, e.g. WL250N USB WiFi stick from Ambicom
+  - xinput-calibrator: make the menu entry behaviour equal to the one time
+    calibration on first boot
+  - added firmware for Ralink WiFi chipsets, e.g. WL250N USB WiFi stick from
+    Ambicom
   - add the rootfs builddate to /etc/issue -> Welcome banner
-  - add license information generated from oe-core and merge this with the Nvidia licenses in the common folder /usr/share/common-licenses
-  - kernel recipe: remove all fiddling with the defconfig, compile the kernel as it is in git
+  - add license information generated from oe-core and merge this with the
+    Nvidia licenses in the common folder /usr/share/common-licenses
+  - kernel recipe: remove all fiddling with the defconfig, compile the kernel
+    as it is in git
   - header files for OpenGL, EGL, OpenMAX: taken from www.khronos.org
   - firefox: set develper.toradex.com as the homepage
 - sources git.toradex.com tag T20_LinuxImageV2.0Beta1_20121218
 
 Known Issues:
-- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution, comments with timings for other resolutions provided
+- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution,
+  comments with timings for other resolutions provided
 - some windows have garbled titlebar, e.g. lxterminal
 - lxappearance is segfaulting upon start
 - LP1 suspend might fail due to pending USB interrupts
@@ -369,14 +387,18 @@ Known Issues:
 
 ********************************************************************************
 Linux Image V2.0 Alpha 2 (October 19, 2012)
-- update to L4T R16, !!!THIS REQUIRED TO CHANGE THE CALLING CONVENTION TO HARD FLOAT!!!
+- update to L4T R16, !!!THIS REQUIRED TO CHANGE THE CALLING CONVENTION TO HARD
+  FLOAT!!!
 - U-Boot:
-  - use a generic approach to get the MTD partitions to ease changes to the partition layout
-    (Initial partition table parsing courtesy of Mitja \8Apes from LXNAV)
+  - use a generic approach to get the MTD partitions to ease changes to the
+    partition layout (Initial partition table parsing courtesy of Mitja \8Apes
+    from LXNAV)
   - increase kernel partition size to 8 MB
   - move the init output from the framebuffer console to the serial output
 - Linux kernel:
-  - implement analogue input AD0 aka ANALOG_IN0 as voltage_now and AD1 aka ANALOG_IN1 as temp value. See /sys/class/power_supply/colibri_t20-analog_inputs.
+  - implement analogue input AD0 aka ANALOG_IN0 as voltage_now and AD1 aka
+    ANALOG_IN1 as temp value. See
+    /sys/class/power_supply/colibri_t20-analog_inputs.
   - PWM B, PWM C, PWM D now accessible from userspace, /sys/class/leds/
   - IPv6 enabled
   - USB audio enabled
@@ -384,11 +406,13 @@ Linux Image V2.0 Alpha 2 (October 19, 2012)
 - oe-core:
   - updated the different meta-layers
   - change machine configuration to use hard float
-  - change OpenGL ES nvsamples to use hard float and not using pre-compiled shaders
+  - change OpenGL ES nvsamples to use hard float and not using pre-compiled
+    shaders
 - sources git.toradex.com tag T20_LinuxImageV2.0Alpha2_20121019
 
 Known Issues:
-- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution, comments with timings for other resolutions provided
+- LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution,
+  comments with timings for other resolutions provided
 - some gstreamer plugins, notably mp3decoding, h264encoding not working
 - some windows have garbled titlebar, e.g. lxterminal
 - lxappearance is segfaulting upon start
@@ -396,42 +420,51 @@ Known Issues:
 - SD card boot copies only 4 MB from kernel (see further below for workaround)
 
 Calling Convention hard float:
-The way floats are passed in subroutine calls can be either in processor registers or
-in the floating point coprocessor registers.
-The processor register approach is used when gcc is called with -mfloat-abi=softfp or -mfloat-abi=soft
+The way floats are passed in subroutine calls can be either in processor
+registers or in the floating point coprocessor registers.
+The processor register approach is used when gcc is called with
+-mfloat-abi=softfp or -mfloat-abi=soft
 The FPU register approach is used when gcc is called with -mfloat-abi=hard
-These two methods are not compatible with each other, all programs and libraries must be compiled
-either with softfp/soft or with hard.
-Thus all code used with Alpha2 must be recompiled. If you start a program which uses soft calling 
-convention you will get a 'No such file or directory' error, despite that the file exists and has executable permissions.
+These two methods are not compatible with each other, all programs and libraries
+must be compiled either with softfp/soft or with hard.
+Thus all code used with Alpha2 must be recompiled. If you start a program which
+uses soft calling convention you will get a 'No such file or directory' error,
+despite that the file exists and has executable permissions.
 
 ********************************************************************************
 Linux Image V2.0 Alpha 1 (August 9, 2012)
 - migrated from Vibrante 1.1 to L4T R15
 - migrated from OpenEmbedded classic to OpenEmbedded core
 - power management (frequency and voltage scaling) enabled
-- touch calibration applied after boot, missing configuration triggers calibrator launch
-- USB high speed activated by default, change if your baseboard only supports low and full speed
+- touch calibration applied after boot, missing configuration triggers
+  calibrator launch
+- USB high speed activated by default, change if your baseboard only supports
+  low and full speed
 - sources git.toradex.com tag T20_LinuxImageV2.0Alpha1_20120808
 
 Known Issues:
-- sometimes postinsts script not executed at first boot resulting in no icons and no fonts on graphical screen
-  workaround: manually execute /etc/init.d/run-postinsts
+- sometimes postinsts script not executed at first boot resulting in no icons
+  and no fonts on graphical screen, workaround: manually execute
+  /etc/init.d/run-postinsts
 - LVDS aka TFTLCD resolution hardcoded in kernel to VESA VGA resolution
 - some gstreamer plugins, notably mp3 not working
-- X server needs ugly hack not to segfault, some regions are not redrawn nicely when hoovered over by mouse
+- X server needs ugly hack not to segfault, some regions are not redrawn nicely
+  when hoovered over by mouse
 - some windows have garbled titlebar, e.g. lxterminal
 - Firefox not yet working and thus not included
 
 ********************************************************************************
 Notes:
-- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
+- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards
+  resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
 - user account: root with empty password
 - YAFFS2 flash root file system
 - opkg package manager
 - HDMI aka DVI-D: not all pixel clock frequencies allow for HDMI audio
-- CRT: the T20 internal video DAC output is unsupported by NVIDIA's L4T Linux SW stack
-- Linux host used for recovery mode flashing requires proper 32-bit execution environment (e.g. install ia32-libs on 64-bit Ubuntu)
+- CRT: the T20 internal video DAC output is unsupported by NVIDIA's L4T Linux SW
+       stack
+- Linux host used for recovery mode flashing requires proper 32-bit execution
+  environment (e.g. install ia32-libs on 64-bit Ubuntu)
 
 Working on latest image:
 - U-Boot boot loader
@@ -494,19 +527,23 @@ NAND Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample), C
 *****************************************************************************************************************************************************************************************
 
 Initial Preparation:
-- download and extract Colibri_T20_LinuxImageVx.yz.tar.bz2 package with root permissions
+- download and extract Colibri_T20_LinuxImageVx.yz.tar.bz2 package with root
+  permissions
 
 Flash NAND:
 - EvalBoard V3.1a
-  - connect USB B (X29) or USB micro A/B (X30) to development workstation using regular or micro USB cable
+  - connect USB B (X29) or USB micro A/B (X30) to development workstation using
+    regular or micro USB cable
   - the jumper JP2 must be open
   - press and hold recovery mode switch (SW9) during power up
 - Iris V1.1a
-  - connect USB micro A/B (X12) to development workstation using regular micro USB cable
+  - connect USB micro A/B (X12) to development workstation using regular micro
+    USB cable
   - short pin 1-2 of JP1 on Iris for RECOVERY
 (other carrier boards see http://developer.toradex.com/knowledge-base/txx-recovery-mode)
 - make sure that the carrier board supports USB high speed
-  - Iris & EvalBoard V3.1a OK, for other carrier boards see http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29 )
+  - Iris & EvalBoard V3.1a OK, for other carrier boards see
+http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29 )
 - apply power or reset
 - run update.sh script
 - use -r 512 option for 512 MB RAM modules
@@ -518,7 +555,8 @@ Boot from NAND:
 - Iris V1.1a
   - do no longer short any pins of JP1
 - power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes, please be patient
+- upon first boot post-install scripts are run which takes around 2 minutes,
+  please be patient
 
 
 *******************************************************************************************************************************************************************************************************************************************************************
@@ -527,21 +565,26 @@ SD Card Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample)
 
 Initial Preparation:
 - EvalBoard V3.1a
-  - ground the following user extension (X3) pins to select the SD boot bootstrap option: A6, B6, C5 and C6
+  - ground the following user extension (X3) pins to select the SD boot
+    bootstrap option: A6, B6, C5 and C6
   - insert SD card into SD card/MMC SDIO-socket (X15)
 - Iris V1.1a
-  - populate 100 ohm resistors R109, R111, R112 and R113 close to micro SD card holder (X10, see bottom assembly drawing fig.7 page 21 of Iris data sheet)
+  - populate 100 ohm resistors R109, R111, R112 and R113 close to micro SD card
+    holder (X10, see bottom assembly drawing fig.7 page 21 of Iris data sheet)
   - populate boot mode header (JP1)
   - insert micro SD card into micro SD card holder (X10)
-- download and extract Colibri_T20_LinuxImageVx.yz.tar.bz2 package with root permissions
+- download and extract Colibri_T20_LinuxImageVx.yz.tar.bz2 package with root
+  permissions
 
 Flash SD Card:
 - EvalBoard V3.1a
-  - connect USB B (X29) or USB micro A/B (X30) to development workstation using regular or micro USB cable
+  - connect USB B (X29) or USB micro A/B (X30) to development workstation using
+    regular or micro USB cable
   - the jumper JP2 must be open
   - press and hold recovery mode switch (SW9) during power up
 - Iris V1.1a
-  - connect USB micro A/B (X12) to development workstation using regular micro USB cable
+  - connect USB micro A/B (X12) to development workstation using regular micro
+    USB cable
   - short all 3 pins of JP1 for RECOVERY and SD_BOOT
 - apply power or reset
 - run update.sh script with -b hsmmc option
@@ -554,6 +597,7 @@ Boot from SD Card:
 - Iris V1.1a
   - short pin 2-3 of JP1 for SD_BOOT
 - power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes, please be patient
+- upon first boot post-install scripts are run which takes around 2 minutes,
+  please be patient
 
-Toradex, March 25, 2015
+Toradex, May 29, 2015
