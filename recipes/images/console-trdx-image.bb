@@ -50,7 +50,6 @@ IMAGE_INSTALL_X11 = ""
 IMAGE_INSTALL += " \
     angstrom-packagegroup-boot \
     packagegroup-basic \
-    udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
