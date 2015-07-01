@@ -38,7 +38,7 @@ IMAGE_LINGUAS = "en-us"
 DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
-CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client connman-gnome"
+CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
 CONMANPKGS_libc-uclibc = ""
 
 DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
@@ -142,7 +142,6 @@ IMAGE_INSTALL += " \
     \
     initscripts \
     libgsf \
-    libwnck \
     libxres \
     makedevs \
     mime-support \
