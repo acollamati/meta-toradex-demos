@@ -16,7 +16,6 @@ IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
 
 IMAGE_INSTALL_T20_T30 = " \
     u-boot-toradex-fw-utils \
-    gpioconfig \
     tegrastats \
     trdx-nv-binaries \
     trdx-nv-binaries-nv-gstapps \
@@ -61,7 +60,6 @@ IMAGE_INSTALL_MACHINE_colibri-t30 = " \
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
-    gpioconfig \
     usb-rndis-systemd \
     gpio-export \
     curl \
@@ -102,7 +100,6 @@ IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
 IMAGE_INSTALL_MACHINE_colibri-vf = " \
     u-boot-toradex-fsl-fw-utils \
     libusbg \
-    gpioconfig \
     ptpd \
     iproute2 \
     canutils \

@@ -107,13 +107,20 @@ GSTREAMER_append_mx6 = " \
 GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL_append_tegra = " \
+    gpioconfig \
     tegrastats-gtk \
     gnome-disk-utility \
     mime-support \
 "
+IMAGE_INSTALL_append_apalis-imx6 = " \
+    gpioconfig \
+"
 IMAGE_INSTALL_append_mx6 = " \
     gnome-disk-utility \
     mime-support \
+"
+IMAGE_INSTALL_vf = " \
+    gpioconfig \
 "
 
 IMAGE_INSTALL += " \
