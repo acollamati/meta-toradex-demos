@@ -14,7 +14,7 @@ DEPENDS += "gdb-cross-${TARGET_ARCH}"
 #create the file /etc/timestamp
 IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
 
-IMAGE_INSTALL_T20_T30 = " \
+IMAGE_INSTALL_append_tegra = " \
     u-boot-toradex-fw-utils \
     tegrastats \
     trdx-nv-binaries \
@@ -30,74 +30,52 @@ IMAGE_INSTALL_T20_T30 = " \
     kernel-modules \
 "
 
-IMAGE_INSTALL_MACHINE_apalis-t30 = " \
-    ${IMAGE_INSTALL_T20_T30} \
+IMAGE_INSTALL_append_tegra3 = " \
+    fs-init \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
+"
+
+IMAGE_INSTALL_append_apalis-t30 = " \
     pciutils \
     ptpd \
     iproute2 \
     canutils \
     lvds-ctrl \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-tune2fs \
 "
 
-IMAGE_INSTALL_MACHINE_colibri-t20 = " \
-    ${IMAGE_INSTALL_T20_T30} \
+IMAGE_INSTALL_append_colibri-t20 = " \
     mtd-utils-ubifs \
 "
 
-IMAGE_INSTALL_MACHINE_colibri-t30 = " \
-    ${IMAGE_INSTALL_T20_T30} \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-tune2fs \
-"
-
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
-IMAGE_INSTALL_MACHINE_apalis-imx6 = " \
+IMAGE_INSTALL_append_mx6 = " \
     u-boot-toradex-fsl-fw-utils \
     usb-rndis-systemd \
     gpio-export \
     curl \
     file \
     aspell \
+    ptpd \
+    iproute2 \
+    canutils \
+    fs-init \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
+    mimetypes \
+    eglinfo-x11 \
+"
+
+#note that the kernel-modules meta package gets installed from
+#meta-fsl-arm/conf/machine/include/imx-base.inc
+IMAGE_INSTALL_append_apalis-imx6 = " \
     pciutils \
-    ptpd \
-    iproute2 \
-    canutils \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-tune2fs \
-    mimetypes \
-    eglinfo-x11 \
 "
 
-#note that the kernel-modules meta package gets installed from
-#meta-fsl-arm/conf/machine/include/imx-base.inc
-IMAGE_INSTALL_MACHINE_colibri-imx6 = " \
-    u-boot-toradex-fsl-fw-utils \
-    usb-rndis-systemd \
-    gpio-export \
-    curl \
-    file \
-    aspell \
-    ptpd \
-    iproute2 \
-    canutils \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-tune2fs \
-    mimetypes \
-    eglinfo-x11 \
-"
-
-IMAGE_INSTALL_MACHINE_colibri-vf = " \
+IMAGE_INSTALL_append_colibri-vf = " \
     u-boot-toradex-fsl-fw-utils \
     libusbg \
     ptpd \
@@ -110,8 +88,6 @@ IMAGE_INSTALL_MACHINE_colibri-vf = " \
     kernel-module-mcc \
     kernel-modules \
 "
-
-IMAGE_INSTALL_MACHINE = ""
 
 IMAGE_INSTALL += " \
     max9526-i2c \
@@ -149,8 +125,6 @@ IMAGE_INSTALL += " \
     lmbench \
     nbench-byte \
     ethtool \
-    \
-    ${IMAGE_INSTALL_MACHINE} \
     \
     trdx-oak-sensors \
 "

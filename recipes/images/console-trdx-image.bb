@@ -43,9 +43,10 @@ CONMANPKGS_libc-uclibc = ""
 #don't install some id databases
 #BAD_RECOMMENDATIONS_append_colibri-vf += " udev-hwdb cpufrequtils "
 
-#this adds a few MB to the image
-IMAGE_INSTALL_X11_tegra = "${XSERVER} xterm xclock"
-IMAGE_INSTALL_X11 = ""
+#deploy the X server for the tegras
+#this adds a few MB to the image, but all graphical HW acceleration is
+#available only on top of X
+IMAGE_INSTALL_append_tegra = "${XSERVER} xterm xclock"
 
 IMAGE_INSTALL += " \
     angstrom-packagegroup-boot \
@@ -54,9 +55,7 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
-    ${IMAGE_INSTALL_X11} \
 "
-
 
 require recipes/images/trdx-extra.inc
 
