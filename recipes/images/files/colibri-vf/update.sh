@@ -28,13 +28,16 @@ Flash()
 	echo "script with the -d option. This will copy U-Boot into the module's RAM and"
 	echo "and execute it. Also bridge RTS/CTS when using the evaluation boards USB to"
 	echo "UART converter."
+	echo "Then use the following commands to get a working U-Boot."
 	echo ""
 	echo "\"./update.sh -n -d /dev/ttyUSB0\""
 	echo ""
 	echo "Next, recreate the Boot Configuration Block and the Toradex Config Block"
 	echo ""
+	echo "# run setupdate"
+	echo "# run update_uboot"
 	echo "# run create_bcb"
-	echo "# run update_configblock"
+	echo "# cfgblock create"
 }
 
 Usage()
@@ -176,7 +179,7 @@ $ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
 grep VF rootfs/etc/issue >> ${BINARIES}/versions.txt
 
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/configblock.bin ${BINARIES}/u-boot-nand.imx ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+sudo cp ${BINARIES}/u-boot-nand.imx ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
 sync
 echo "Successfully copied data to target folder."
 echo ""
