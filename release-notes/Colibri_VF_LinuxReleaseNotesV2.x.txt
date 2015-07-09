@@ -82,6 +82,8 @@ Known Issues:
   refer to the flashing instruction article to flash the module from scratch
 - Audio capture does not work due to a bug in the device tree
   http://git.toradex.com/cgit/linux-toradex.git/commit/?h=toradex_vf_4.0-next&id=cc465207c8c1d1c39dd036b851fb8f7e65a5d21b
+- USB mass storage not mountable due to missing kernel configuration
+  http://git.toradex.com/cgit/linux-toradex.git/commit/?h=toradex_vf_4.0-next&id=afd1ef6b14dd6ba9d2f0d09f99a21c610a2d2c09
 
 ********************************************************************************
 Linux Image V2.3 Beta 7 (February 03, 2015)
@@ -515,4 +517,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, May 22, 2015
+Toradex, July 9, 2015
