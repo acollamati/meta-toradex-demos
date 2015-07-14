@@ -132,7 +132,7 @@ if [ "$CNT" -ge 1 ] ; then
 		U_BOOT_BINARY=u-boot-dtb-tegra.bin
 		KERNEL_DEVICETREE="tegra30-apalis-eval.dtb"
 		LOCPATH="tegra-uboot-flasher"
-		# eMMC size [in sectors of 512]
+		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
 		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
 		CBOOT_IMAGE=apalis_t30.img
@@ -280,29 +280,27 @@ grep -i t[2-3]0 rootfs/etc/issue >> ${BINARIES}/versions.txt
 
 # The emmc layout used is:
 #
-# boot area partition 1 aka eMMC boot sector:
-#
+# boot area partition 1 aka primary eMMC boot sector:
 # with cbootimage containing BCT and U-Boot boot loader
+# and the configblock at the end of that boot area partition
+#
+# boot area partition 2 aka secondary eMMC boot sector:
+# with the U-Boot environment at the end of that boot area partition
 #
 # user area aka general purpose eMMC region:
 #
-#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved to bootloader (not partitioned)
+#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved ((not partitioned)
 #    IMAGE_ROOTFS_ALIGNMENT -> BOOT_SPACE                     - kernel and other data
 #    BOOT_SPACE             -> SDIMG_SIZE                     - rootfs
 #
-#                                                     Default Free space = 1.3x
-#                                                     Use IMAGE_OVERHEAD_FACTOR to add more space
-#                                                     <--------->
-#            4MiB               16MiB           SDIMG_ROOTFS                    4MiB
-# <-----------------------> <----------> <----------------------> <------------------------------>
-#  ------------------------ ------------ ------------------------ -------------------------------
-# | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |     IMAGE_ROOTFS_ALIGNMENT    |
-#  ------------------------ ------------ ------------------------ -------------------------------
-# ^                        ^            ^                        ^                               ^
-# |                        |            |                        |                               |
-# 0                      4096     4MiB +  16MiB       4MiB +  16Mib + SDIMG_ROOTFS   4MiB +  16MiB + SDIMG_ROOTFS + 4MiB
-#
-# with the U-Boot environment at 512 * 1024, the config block is at 640 * 1024
+#            4MiB               16MiB           SDIMG_ROOTFS
+# <-----------------------> <----------> <---------------------->
+#  ------------------------ ------------ ------------------------
+# | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |
+#  ------------------------ ------------ ------------------------
+# ^                        ^            ^                        ^
+# |                        |            |                        |
+# 0                      4MiB      4MiB + 16MiB              EMMC_SIZE
 
 # generate cbootimage(s) containing BCT(s) and U-Boot boot loader
 cd ${BINARIES}
@@ -328,13 +326,6 @@ else
 		ROOTFS_START=$(expr 20480 \* 2)
 		# Boot partition volume id
 		BOOTDD_VOLUME_ID="boot"
-
-		#make the partition size size(rootfs used + MIN_PARTITION_FREE_SIZE)
-		#add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).                                                                                    
-		#add 512 bytes per file to account for small files
-		NUMBER_OF_FILES=`sudo find ${ROOTFSPATH} | wc -l`
-		EXT_SIZE=`sudo du -DsB1 ${ROOTFSPATH} | awk -v min=$MIN_PARTITION_FREE_SIZE -v f=${NUMBER_OF_FILES} \
-				'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 
 		echo ""
 		echo "Creating MBR file and do the partitioning"
@@ -381,6 +372,14 @@ else
 
 		echo ""
 		echo "Creating rootfs partion image"
+		#make the partition size size(rootfs used + MIN_PARTITION_FREE_SIZE)
+		#add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).
+		#add 512 bytes per file to account for small files
+		#(resize it later on target to fill the size of the partition it lives in)
+		NUMBER_OF_FILES=`sudo find ${ROOTFSPATH} | wc -l`
+		EXT_SIZE=`sudo du -DsB1 ${ROOTFSPATH} | awk -v min=$MIN_PARTITION_FREE_SIZE -v f=${NUMBER_OF_FILES} \
+				'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
+
 		rm -f ${BINARIES}/${IMAGEFILE}
 		sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
 	fi

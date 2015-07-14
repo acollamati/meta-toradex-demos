@@ -99,7 +99,7 @@ if [ "$CNT" -ge 1 ] ; then
 	U_BOOT_BINARY_IT=u-boot.imx
 	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
 	LOCPATH="imx_flash"
-	# eMMC size [in sectors of 512]
+	# assumed minimal eMMC size [in sectors of 512]
 	EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 else
 	CNT=`grep -ic "imx6" rootfs/etc/issue || true`
@@ -111,7 +111,7 @@ else
 		U_BOOT_BINARY_IT=u-boot-it.imx
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis-eval_v1_0.dtb"
 		LOCPATH="imx_flash"
-		# eMMC size [in sectors of 512]
+		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 	else
 		echo "can not detect module type from ./rootfs/etc/issue"
@@ -182,17 +182,14 @@ grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
 #    IMAGE_ROOTFS_ALIGNMENT -> BOOT_SPACE                     - kernel and other data
 #    BOOT_SPACE             -> SDIMG_SIZE                     - rootfs
 #
-#                                                     Default Free space = 1.3x
-#                                                     Use IMAGE_OVERHEAD_FACTOR to add more space
-#                                                     <--------->
-#            4MiB               16MiB           SDIMG_ROOTFS                    4MiB
-# <-----------------------> <----------> <----------------------> <------------------------------>
-#  ------------------------ ------------ ------------------------ -------------------------------
-# | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |     IMAGE_ROOTFS_ALIGNMENT    |
-#  ------------------------ ------------ ------------------------ -------------------------------
-# ^                        ^            ^                        ^                               ^
-# |                        |            |                        |                               |
-# 0                      4096     4MiB +  16MiB       4MiB +  16Mib + SDIMG_ROOTFS   4MiB +  16MiB + SDIMG_ROOTFS + 4MiB
+#            4MiB               16MiB           SDIMG_ROOTFS
+# <-----------------------> <----------> <---------------------->
+#  ------------------------ ------------ ------------------------
+# | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |
+#  ------------------------ ------------ ------------------------
+# ^                        ^            ^
+# |                        |            |
+# 0                      4MiB      4MiB + 16MiB              EMMC_SIZE
 #
 # with U-Boot at 1024, the U-Boot environment at 512 * 1024, the config block is at 640 * 1024
 
@@ -203,13 +200,6 @@ BOOT_START=$(expr 4096 \* 2)
 ROOTFS_START=$(expr 20480 \* 2)
 # Boot partition volume id
 BOOTDD_VOLUME_ID="boot"
-
-#make the partition size size(rootfs used + MIN_PARTITION_FREE_SIZE)
-#add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).                                                                                    
-#add 512 bytes per file to account for small files
-NUMBER_OF_FILES=`sudo find ${ROOTFSPATH} | wc -l`
-EXT_SIZE=`sudo du -DsB1 ${ROOTFSPATH} | awk -v min=$MIN_PARTITION_FREE_SIZE -v f=${NUMBER_OF_FILES} \
-		'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 
 echo ""
 echo "Creating MBR file and do the partitioning"
@@ -257,6 +247,13 @@ fi
 
 echo ""
 echo "Creating rootfs partion image"
+#make the filesystem size size(rootfs used + MIN_PARTITION_FREE_SIZE)
+#add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).
+#add 512 bytes per file to account for small files
+#(resize it later on target to fill the size of the partition it lives in)
+NUMBER_OF_FILES=`sudo find ${ROOTFSPATH} | wc -l`
+EXT_SIZE=`sudo du -DsB1 ${ROOTFSPATH} | awk -v min=$MIN_PARTITION_FREE_SIZE -v f=${NUMBER_OF_FILES} \
+		'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 rm -f ${BINARIES}/${IMAGEFILE}
 sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
 
