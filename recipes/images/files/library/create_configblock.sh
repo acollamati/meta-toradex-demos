@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# exit on error
+set -e
+
 Usage()
 {
 	echo "create_configblock creates a configblock binary from the info on the module sticker."
@@ -30,6 +33,10 @@ while getopts "h" Option ; do
                         ;;
         esac
 done
+
+#sanity check for some programs
+AWKTEST=`echo 12345678abcdefgh | awk 'BEGIN{ FIELDWIDTHS = "8 8"} {print $2}'` || true
+[ "${AWKTEST}x" = "abcdefghx" ] || { echo >&2 "Program gawk not available.  Aborting."; exit 1; }
 
 # autotect MODTYPE from from rootfs directory
 CNT=`grep -c "T20" rootfs/etc/issue || true`

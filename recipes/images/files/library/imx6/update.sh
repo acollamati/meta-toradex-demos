@@ -3,6 +3,9 @@
 #
 # inspired by meta-fsl-arm/classes/image_types_fsl.bbclass
 
+# exit on error
+set -e
+
 # sometimes we need the binary echo, not the shell builtin
 ECHO=`which echo`
 #some distros have fs tools only in root's path
@@ -135,6 +138,10 @@ if [ ! -d "$OUT_DIR" ] ; then
 	exit 1
 fi
 
+#sanity check for awk programs
+AWKTEST=`echo 100000000 | awk -v min=100 -v f=10000 '{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'` || true
+[ "${AWKTEST}x" = "204x" ] || { echo >&2 "Program awk not available.  Aborting."; exit 1; }
+
 #sanity check for correct untared rootfs
 DEV_OWNER=`ls -ld rootfs/dev | awk '{print $3}'`
 if [ "${DEV_OWNER}x" != "rootx" ]
@@ -157,14 +164,13 @@ sudo ${PARTED} -v >/dev/null 2>&1 || { echo >&2 "Program parted not available.  
 [ "${MKFSVFAT}x" != "x" ] || { echo >&2 "Program mkfs.vfat not available.  Aborting."; exit 1; }
 MKFSEXT3=`sudo which mkfs.ext3`
 [ "${MKFSEXT3}x" != "x" ] || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
-awk -V  >/dev/null 2>&1 || { echo >&2 "Program awk not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 
 #make the directory with the outputfiles writable
 sudo chown $USER: ${BINARIES}
 
 #make a file with the used versions for U-Boot, kernel and rootfs
-rm ${BINARIES}/versions.txt
+rm -f ${BINARIES}/versions.txt
 touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
