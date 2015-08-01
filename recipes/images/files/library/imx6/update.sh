@@ -9,7 +9,7 @@ set -e
 # sometimes we need the binary echo, not the shell builtin
 ECHO=`which echo`
 #some distros have fs tools only in root's path
-PARTED=`which parted` 2> /dev/null
+PARTED=`which parted` 2> /dev/null || true
 if [ -e "$PARTED" ] ; then
 	MKFSVFAT=`which mkfs.vfat`
 else
