@@ -90,6 +90,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
 
 IMAGE_INSTALL += " \
     max9526-i2c \
+    crda \
     linux-firmware-ralink \
     \
     alsa-utils \
