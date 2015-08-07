@@ -3,7 +3,7 @@ SUMMARY = "Image based on qt4-x11-free"
 
 LICENSE = "MIT"
 
-PV = "V2.4"
+PV = "V2.5"
 PR = "r0"
 
 #start of the resulting deployable tarball name
