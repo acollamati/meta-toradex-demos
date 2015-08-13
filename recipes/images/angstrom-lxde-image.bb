@@ -121,6 +121,7 @@ IMAGE_INSTALL_append_mx6 = " \
 "
 IMAGE_INSTALL_append_vf = " \
     gpioconfig \
+    xf86-video-modesetting \
 "
 
 IMAGE_INSTALL += " \
