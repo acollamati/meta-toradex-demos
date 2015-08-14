@@ -4,12 +4,73 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 4.0.2 kernel
-- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
+- Linux 4.1.5 LTS kernel
+- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+
+********************************************************************************
+Linux Image V2.5 Beta 1 (August 13, 2015)
+- U-Boot:
+  - Improve TFTP transfer speed by using increased block size
+  - Introduce m4boot command which accept a FIT image to boot the secondary
+    Cortex-M4 core
+  - Pass U-Boot MTD partitions to the kernel by using device tree fix-up
+  - Use ARM Global Timer instead of PIT Timer (avoids conflicts with Cortex-M4)
+  - Clock and mux Colibri UART_B (UART2) by default
+  - Add fdt_fixup variable to make it easier to include scripts which fix-up
+    the kernel's device tree (e.g. for evaluation/testing purpose)
+  - Set DDR fix property in the kernel's device tree to enable
+    Suspend-to-Memory support
+- Linux kernel:
+  - Update to 4.1.5 LTS long term stable Linux kernel
+  - Initial Suspend-to-Memory support using Vybrid's LPSTOP2 low power mode
+    ("echo mem > /sys/power/state")
+  - Fixed and enhanced suspend/resume functions in various drivers
+  - Framebuffer ioctl WAITFORVSYNC which allows to synchronize buffer swap
+    on vertical blanking period
+  - Support RS485 transceiver on UARTs
+  - Updated default configuration: Include all drivers necessary to support
+    USB mass storage, add PWM LED, HWMON IIO and PL2303 serial device support
+    by default, configure more drivers as modules (e.g. UVC webcam), and
+    add some Wi-Fi drivers as module too
+- Linux user-space:
+  - Update OpenEmbedded from dizzy to fido:
+    - glibc 2.21
+    - systemd 219
+    - Xorg 1.16.3
+  - Removed udev-extra-rules (e.g. automount.rules/mount.sh) since the LXDE
+    image handles automounting using udisk. Newer systemd variants also start
+    udev using MountFlags=slave leading to mountpoints being mounted by the
+    udev rules not accessible by other processes.
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.5Beta1_20150813
+  - repository linux-toradex branch toradex_vf_4.1
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Note:
+- Mount point names in LXDE image changed from /media/<block device name> to
+  /media/<label>
+- The kernel requires the device tree from within the root filesystem to
+  boot. Board customisation within code are for most use cases not necessary.
+  For custom carrier boards it is recommended to create a customised device
+  tree file and deploy it in the root filesystem's /boot directory.
+  U-Boot reads the device tree according to the following naming scheme:
+  => ${soc}-colibri-${fdt_board}.dtb
+
+  Hence, a custom carrier board needs to set the fdt_board variable accordingly
+  and would name the device tree files using the SoC prefix depending on the
+  supported module type:
+  => vf500-colibri-mycarrier.dtb
+  => vf610-colibri-mycarrier.dtb
+
+Known Issues:
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
+- Standby: Wake-up using UART in DMA mode hangs
 
 ********************************************************************************
 Linux Image V2.4 Beta 1 (May 18, 2015)
@@ -476,10 +537,11 @@ Working on latest image:
   - NAND flash MTD UBIFS with hardware ECC
   - serial console debug UARTA ttyLP0
   - serial UARTA/UARTB and UARTC up to 921600, including RTS/CTS
+  - RS-422/485
   - I2C via /dev/i2c-X
   - MMC/SD card ESDHC2
   - PWM /sys/class/pwm/
-  - Colibri VF61: AC97 analogue audio playback and resistive touch
+  - Colibri VF61: AC97 analogue audio capture, playback and resistive touch
   - SPI (DSPI) via /dev/spidev1.0
   - framebuffer console
   - custom Ethernet MAC address
@@ -506,15 +568,13 @@ Not working or not tested:
 - U-Boot boot loader
   - USB keyboard
 - Linux kernel
-  - Colibri VF61: AC97 analogue audio capture
   - USB audio driver
   - automatic USB device/host detection aka OTG support
   - IrDA
-  - RS-422/485
   - optional parallel camera interface
 
 ******************************************************************************
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, July 9, 2015
+Toradex, August 14, 2015
