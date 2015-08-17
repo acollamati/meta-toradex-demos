@@ -51,8 +51,8 @@ Linux Image V2.5 Beta 1 (August 13, 2015)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Note:
-- Mount point names in LXDE image changed from /media/<block device name> to
-  /media/<label>
+- Due to flash space constraints we recommend using the console only image on
+  Colibri VF50 (e.g. Colibri_VF_LinuxConsoleImageV2.5Beta1_20150813.tar.bz2).
 - The kernel requires the device tree from within the root filesystem to
   boot. Board customisation within code are for most use cases not necessary.
   For custom carrier boards it is recommended to create a customised device
