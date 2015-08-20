@@ -319,7 +319,7 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	# Prepare full flashing
 	#build ${IMAGEFILE} if it does not exist
 	for blocksize in ${BLOCK}; do
-		sudo $LOCPATH/mkfs.ubifs -c ${MAXLEB} -e ${blocksize} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE}_${blocksize}.img -r rootfs/ -v
+		sudo $LOCPATH/mkfs.ubifs --space-fixup -c ${MAXLEB} -e ${blocksize} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE}_${blocksize}.img -r rootfs/ -v
 	done
 
 	echo ""

@@ -165,7 +165,7 @@ fi
 
 # Prepare full flashing
 #build ${IMAGEFILE} if it does not exist
-sudo $LOCPATH/mkfs.ubifs -c ${MAXLEB} -e ${BLOCK} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE} -r rootfs/ -v
+sudo $LOCPATH/mkfs.ubifs --space-fixup -c ${MAXLEB} -e ${BLOCK} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE} -r rootfs/ -v
 
 echo ""
 echo "UBI image of root file system generated, coping data to target folder..."
