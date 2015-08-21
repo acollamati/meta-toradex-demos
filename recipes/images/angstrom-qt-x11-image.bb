@@ -133,8 +133,12 @@ IMAGE_INSTALL_QT4 = " \
     icu \
 "
 
+IMAGE_INSTALL_append_tegra = " \
+    eglinfo-x11 \
+"
 IMAGE_INSTALL_append_mx6 = " \
     packagegroup-fsl-tools-gpu \
+    eglinfo-x11 \
 "
 
 IMAGE_INSTALL += " \

@@ -26,7 +26,6 @@ IMAGE_INSTALL_append_tegra = " \
     curl \
     file \
     aspell \
-    eglinfo-x11 \
     kernel-modules \
 "
 
@@ -66,7 +65,6 @@ IMAGE_INSTALL_append_mx6 = " \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
     mimetypes \
-    eglinfo-x11 \
 "
 
 #note that the kernel-modules meta package gets installed from

@@ -110,6 +110,7 @@ IMAGE_INSTALL_append_tegra = " \
     tegrastats-gtk \
     gnome-disk-utility \
     mime-support \
+    eglinfo-x11 \
 "
 IMAGE_INSTALL_append_apalis-imx6 = " \
     gpioconfig \
@@ -118,6 +119,7 @@ IMAGE_INSTALL_append_mx6 = " \
     packagegroup-fsl-tools-gpu \
     gnome-disk-utility \
     mime-support \
+    eglinfo-x11 \
 "
 IMAGE_INSTALL_append_vf = " \
     gpioconfig \
