@@ -112,7 +112,7 @@ else
 		IMAGEFILE=root.ext3
 		U_BOOT_BINARY=u-boot.imx
 		U_BOOT_BINARY_IT=u-boot-it.imx
-		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis-eval_v1_0.dtb"
+		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb"
 		LOCPATH="imx_flash"
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
