@@ -6,6 +6,10 @@ LICENSE ="BSD"
 RDEPENDS_${PN} = "imlib2 giblib imlib2-loaders"
 DEPENDS = "imlib2 giblib"
 
+MIRRORS_prepend () {
+    http://linuxbrit.co.uk/downloads/ http://pkgs.fedoraproject.org/repo/pkgs/scrot/scrot-${PV}.tar.gz/ccae904d225609571bdd3b03445c1e88/
+}
+
 SRC_URI = "http://linuxbrit.co.uk/downloads/scrot-${PV}.tar.gz \
            file://fix-scrot-include-paths.patch "
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"
