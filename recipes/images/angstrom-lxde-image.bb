@@ -144,7 +144,7 @@ IMAGE_INSTALL += " \
     zeroconf \
     angstrom-packagegroup-boot \
     packagegroup-basic \
-    udisks \
+    udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
