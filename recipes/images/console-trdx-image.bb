@@ -51,6 +51,7 @@ IMAGE_INSTALL_append_tegra = "${XSERVER} xterm xclock"
 IMAGE_INSTALL += " \
     angstrom-packagegroup-boot \
     packagegroup-basic \
+    udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
