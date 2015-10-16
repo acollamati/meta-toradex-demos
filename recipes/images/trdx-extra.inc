@@ -110,7 +110,6 @@ IMAGE_INSTALL += " \
     ldd \
     lsof \
     mtd-utils \
-    udisks \
     dosfstools \
     util-linux-fstrim \
     \
