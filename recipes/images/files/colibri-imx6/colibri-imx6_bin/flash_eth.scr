@@ -11,6 +11,6 @@ setenv update_1 'tftpboot ${loadaddr} mbr.bin && mmc dev 0 0 && mmc write ${load
 setenv update_2 'tftpboot ${loadaddr} boot.vfat && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 0x2000 ${blkcnt}'
 #do it in chunks of 64M to fit into DDR RAM of the smallest module
 #split root.ext3 into multiple 64M chunks before copying to TFTP folder as follows
-#split -a 1 -b `expr 64 \* 1024 \* 1024` -d root.ext3 root.ext3-
-setenv update_3 'setenv filesize 4000000; setenv filenum 0; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextnum; done'
+#split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 root.ext3 root.ext3-
+setenv update_3 'setenv filesize 4000000; setenv filenum 10; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextnum; done'
 echo 'enter "run update" to update the entire module'

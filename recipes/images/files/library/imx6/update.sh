@@ -51,6 +51,7 @@ Usage()
 	echo "Will require a running U-Boot on the target. Either one already flashed"
 	echo "on the eMMC or one copied over usb into the module's RAM"
 	echo ""
+	echo "-c           : split the resulting rootfs into chunks usable for tftp transmission"
 	echo "-d           : use USB connection to copy and execute U-Boot to the module's RAM"
 	echo "-h           : prints this message"
 	echo "-o directory : output directory"
@@ -65,13 +66,16 @@ Usage()
 MIN_PARTITION_FREE_SIZE=100
 OUT_DIR=""
 ROOTFSPATH=rootfs
+SPLIT=0
 UBOOT_RECOVERY=0
 # No devicetree by default
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
 
-while getopts "dho:" Option ; do
+while getopts "cdho:" Option ; do
 	case $Option in
+		c)	SPLIT=1
+			;;
 		d)	UBOOT_RECOVERY=1
 			;;
 		h) 	Usage
@@ -267,6 +271,9 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 #copy to $OUT_DIR
 sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${U_BOOT_BINARY_IT} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
 	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+if [ "$SPLIT" -ge 1 ] ; then
+sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/root.ext3" "$OUT_DIR/root.ext3-"
+fi
 sync
 
 Flash

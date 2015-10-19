@@ -52,6 +52,7 @@ Usage()
 	echo "on the eMMC/NAND or one copied over USB into the module's RAM"
 	echo ""
 	echo "-b           : T20: selects boot device (hsmmc/nand) (default: nand)"
+	echo "-c           : split the resulting rootfs into chunks usable for tftp transmission"
 	echo "-d           : use USB recovery mode to copy/execute U-Boot to the module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
@@ -73,6 +74,7 @@ Usage()
 # initialise options
 BOOT_DEVICE=nand
 EMMC_PARTS="mbr.bin boot.vfat" 
+SPLIT=0
 # no devicetree by default
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
@@ -91,9 +93,11 @@ UBOOT_RECOVERY=0
 MODVERSION=Add_Version_-v
 RAM_SIZE=Add_RAMsize_-r
 
-while getopts "b:dfho:r:sv:" Option ; do
+while getopts "b:cdfho:r:sv:" Option ; do
 	case $Option in
 		b)	BOOT_DEVICE=$OPTARG
+			;;
+		c)	SPLIT=1
 			;;
 		d)	UBOOT_RECOVERY=1
 			;;
@@ -397,6 +401,11 @@ OUT_DIR=`readlink -f $OUT_DIR`
 cd ${BINARIES}
 sudo cp ${CBOOT_IMAGE} ${KERNEL_IMAGETYPE} ${EMMC_PARTS} ${IMAGEFILE}* flash*.img versions.txt "$OUT_DIR"
 cd ..
+if [ "${IMAGEFILE}" = "root.ext3" ] ; then
+	if [ "$SPLIT" -ge 1 ] ; then
+		sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/root.ext3" "$OUT_DIR/root.ext3-"
+	fi
+fi
 sync
 echo "Successfully copied data to target folder."
 echo ""
