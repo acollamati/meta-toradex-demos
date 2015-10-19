@@ -52,21 +52,20 @@ Usage()
 	echo "on the eMMC or one copied over usb into the module's RAM"
 	echo ""
 	echo "-d           : use USB connection to copy and execute U-Boot to the module's RAM"
-	echo "-h           : Prints this message"
+	echo "-h           : prints this message"
 	echo "-o directory : output directory"
 	echo ""
-	echo "Example \"./update.sh\" copies the requiered files to /media/KERNEL/"
-	echo "Example \"./update.sh -o /srv/tftp/\" copies the requiered files to /srv/tftp/"
+	echo "Example \"./update.sh -o /srv/tftp/\" copies the required files to /srv/tftp/"
 	echo ""
 	echo ""
 	Flash
 }
 
-#initialise options
-UBOOT_RECOVERY=0
-OUT_DIR="/media/KERNEL"
+# initialise options
 MIN_PARTITION_FREE_SIZE=100
+OUT_DIR=""
 ROOTFSPATH=rootfs
+UBOOT_RECOVERY=0
 # No devicetree by default
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
@@ -112,7 +111,8 @@ else
 		IMAGEFILE=root.ext3
 		U_BOOT_BINARY=u-boot.imx
 		U_BOOT_BINARY_IT=u-boot-it.imx
-		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb"
+		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
+		                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb "
 		LOCPATH="imx_flash"
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
@@ -193,8 +193,8 @@ grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
 #  ------------------------ ------------ ------------------------
 # | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |
 #  ------------------------ ------------ ------------------------
-# ^                        ^            ^
-# |                        |            |
+# ^                        ^            ^                        ^
+# |                        |            |                        |
 # 0                      4MiB      4MiB + 16MiB              EMMC_SIZE
 #
 # with U-Boot at 1024, the U-Boot environment at 512 * 1024, the config block is at 640 * 1024
