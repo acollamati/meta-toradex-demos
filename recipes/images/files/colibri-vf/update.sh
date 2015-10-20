@@ -180,7 +180,10 @@ grep VF rootfs/etc/issue >> ${BINARIES}/versions.txt
 
 #copy to $OUT_DIR
 sudo cp ${BINARIES}/u-boot-nand.imx ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+#cleanup intermediate files
+sudo rm ${BINARIES}/ubifs.img ${BINARIES}/versions.txt
 sync
+
 echo "Successfully copied data to target folder."
 echo ""
 

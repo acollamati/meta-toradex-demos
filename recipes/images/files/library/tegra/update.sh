@@ -400,13 +400,17 @@ fi
 OUT_DIR=`readlink -f $OUT_DIR`
 cd ${BINARIES}
 sudo cp ${CBOOT_IMAGE} ${KERNEL_IMAGETYPE} ${EMMC_PARTS} ${IMAGEFILE}* flash*.img versions.txt "$OUT_DIR"
+#cleanup intermediate files
+sudo rm ${CBOOT_IMAGE} ${EMMC_PARTS} ${IMAGEFILE}* versions.txt
 cd ..
+
 if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 	if [ "$SPLIT" -ge 1 ] ; then
 		sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/root.ext3" "$OUT_DIR/root.ext3-"
 	fi
 fi
 sync
+
 echo "Successfully copied data to target folder."
 echo ""
 

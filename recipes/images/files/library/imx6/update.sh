@@ -271,9 +271,15 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 #copy to $OUT_DIR
 sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${U_BOOT_BINARY_IT} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
 	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+#cleanup intermediate files
+sudo rm ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat ${BINARIES}/${IMAGEFILE} ${BINARIES}/versions.txt
+
 if [ "$SPLIT" -ge 1 ] ; then
 sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/root.ext3" "$OUT_DIR/root.ext3-"
 fi
 sync
+
+echo "Successfully copied data to target folder."
+echo ""
 
 Flash
