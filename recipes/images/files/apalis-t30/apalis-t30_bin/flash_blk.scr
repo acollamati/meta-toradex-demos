@@ -17,20 +17,20 @@ setenv migrate_5 'mmc dev 0 0; mmc read ${loadaddr} 36000 1; setenv conf_blk_off
 setenv migrate_6 'mmc dev 0 0; mmc read ${loadaddr} 37000 1; setenv conf_blk_offset 0x7ff; crc32 -v $toradex_oui_addr 3 94305232 && mmc dev 0 1 && mmc write $loadaddr $conf_blk_offset 1'
 setenv migrate_configblock 'setexpr toradex_oui_addr $loadaddr + 8; run migrate_1; run migrate_2; run migrate_3; run migrate_4; run migrate_5; run migrate_6'
 
-setenv cp_file_chunk 'load ${interface} ${drive}:1 ${loadaddr} root.ext3 ${filesize} ${filepos}; run set_blkcnt; mmc dev 0 0 && mmc write ${loadaddr} ${blkstart} ${blkcnt}'
+setenv cp_file_chunk 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/root.ext3 ${filesize} ${filepos}; run set_blkcnt; mmc dev 0 0 && mmc write ${loadaddr} ${blkstart} ${blkcnt}'
 
-setenv update_uboot 'load ${interface} ${drive}:1 ${loadaddr} apalis_t30.img && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
+setenv update_uboot 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/apalis_t30.img && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
 
-setenv update_kernel 'load ${interface} ${drive}:1 ${loadaddr} uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
+setenv update_kernel 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
 
-setenv update_fdt 'load ${interface} ${drive}:1 ${loadaddr} ${fdt_file} && fatwrite mmc 0:1 ${loadaddr} ${fdt_file} ${filesize}'
+setenv update_fdt 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/${fdt_file} && fatwrite mmc 0:1 ${loadaddr} ${fdt_file} ${filesize}'
 
-setenv update_configblock 'run check_configblock; load ${interface} ${drive}:1 ${loadaddr} configblock.bin && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} ${blkcnt}'
+setenv update_configblock 'run check_configblock; load ${interface} ${drive}:1 ${loadaddr} ${board_name}/configblock.bin && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} ${blkcnt}'
 
-setenv update_1 'load ${interface} ${drive}:1 ${loadaddr} mbr.bin && mmc dev 0 0 && mmc write ${loadaddr} 0x0 0x1'
-setenv update_2 'load ${interface} ${drive}:1 ${loadaddr} boot.vfat && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 0x2000 ${blkcnt}'
-#do it in chunks of 256M to fit into DDR RAM of the smallest module
-setenv update_3 'setenv filesize 10000000; setenv filepos 0; setenv blkstart a000; while test ${filesize} -eq "10000000"; do run cp_file_chunk; run set_nextpos; done'
+setenv update_1 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/mbr.bin && mmc dev 0 0 && mmc write ${loadaddr} 0x0 0x1'
+setenv update_2 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/boot.vfat && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 0x2000 ${blkcnt}'
+#do it in chunks of 64M to fit into DDR RAM of the smallest module
+setenv update_3 'setenv filesize 4000000; setenv filepos 0; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextpos; done'
 
 setenv echo_v2.3b2 echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.3b2\" to complete update"
 setenv migrate_v2.3b2 'run migrate_configblock; run update_new'

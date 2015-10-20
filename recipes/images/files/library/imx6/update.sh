@@ -95,31 +95,39 @@ if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 0
 fi
 
+# is OUT_DIR an existing directory?
+if [ ! -d "$OUT_DIR" ] ; then
+	echo "$OUT_DIR" "does not exist, exiting"
+	exit 1
+fi
+
 # auto detect MODTYPE from rootfs directory
 CNT=`grep -ic "Colibri.iMX6" rootfs/etc/issue || true`
 if [ "$CNT" -ge 1 ] ; then
 	echo "Colibri iMX6 rootfs detected"
 	MODTYPE=colibri-imx6
-	IMAGEFILE=root.ext3
-	U_BOOT_BINARY=u-boot.imx
-	U_BOOT_BINARY_IT=u-boot.imx
-	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
-	LOCPATH="imx_flash"
 	# assumed minimal eMMC size [in sectors of 512]
 	EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
+	IMAGEFILE=root.ext3
+	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
+	LOCPATH="imx_flash"
+	OUT_DIR="$OUT_DIR/colibri_imx6"
+	U_BOOT_BINARY=u-boot.imx
+	U_BOOT_BINARY_IT=u-boot.imx
 else
 	CNT=`grep -ic "imx6" rootfs/etc/issue || true`
 	if [ "$CNT" -ge 1 ] ; then
 		echo "Apalis iMX6 rootfs detected"
 		MODTYPE=apalis-imx6
+		# assumed minimal eMMC size [in sectors of 512]
+		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext3
-		U_BOOT_BINARY=u-boot.imx
-		U_BOOT_BINARY_IT=u-boot-it.imx
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
 		                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb "
 		LOCPATH="imx_flash"
-		# assumed minimal eMMC size [in sectors of 512]
-		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
+		OUT_DIR="$OUT_DIR/apalis_imx6"
+		U_BOOT_BINARY=u-boot.imx
+		U_BOOT_BINARY_IT=u-boot-it.imx
 	else
 		echo "can not detect module type from ./rootfs/etc/issue"
 		echo "exiting"
@@ -133,12 +141,6 @@ if [ "$UBOOT_RECOVERY" -ge 1 ] ; then
 	cd ${LOCPATH}
 	#the IT timings work for all modules, so use it during recovery
 	sudo ./imx_usb ../${BINARIES}/${U_BOOT_BINARY_IT}
-	exit 1
-fi
-
-# is OUT_DIR an existing directory?
-if [ ! -d "$OUT_DIR" ] ; then
-	echo "$OUT_DIR" "does not exist, exiting"
 	exit 1
 fi
 
@@ -183,6 +185,8 @@ basename "`readlink -e ${BINARIES}/uImage`" >> ${BINARIES}/versions.txt
 $ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
 grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
 
+#create subdirectory for this module type
+sudo mkdir -p "$OUT_DIR"
 
 # The emmc layout used is:
 #
@@ -271,6 +275,9 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 #copy to $OUT_DIR
 sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${U_BOOT_BINARY_IT} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
 	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
+sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
+sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 #cleanup intermediate files
 sudo rm ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat ${BINARIES}/${IMAGEFILE} ${BINARIES}/versions.txt
 

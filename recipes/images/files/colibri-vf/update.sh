@@ -104,6 +104,12 @@ if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 0
 fi
 
+# is OUT_DIR an existing directory?
+if [ ! -d "$OUT_DIR" ] ; then
+	echo "$OUT_DIR" "does not exist, exiting"
+	exit 1
+fi
+
 # auto detect MODTYPE from rootfs directory
 if [ -f rootfs/etc/issue ] ; then
 	CNT=`grep -c "VF" rootfs/etc/issue || true`
@@ -111,8 +117,8 @@ if [ -f rootfs/etc/issue ] ; then
 		echo "Colibri VF rootfs detected"
 		MODTYPE=colibri-vf
 		IMAGEFILE=ubifs.img
-
 		LOCPATH="vf_flash"
+		OUT_DIR="$OUT_DIR/colibri_vf"
 	fi
 fi
 
@@ -134,12 +140,6 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 	read RESULT
 	sudo ${LOCPATH}/imx_uart ${LOADEROPTS} ${UARTDEV} ${LOCPATH}/vybrid_usb_work.conf ${BINARIES}/u-boot.imx
 	exit 0
-fi
-
-# is OUT_DIR an existing directory?
-if [ ! -d "$OUT_DIR" ] ; then
-	echo "$OUT_DIR" "does not exist, exiting"
-	exit 1
 fi
 
 #sanity check for correct untared rootfs
@@ -178,8 +178,14 @@ basename "`readlink -e ${BINARIES}/u-boot.imx`" >> ${BINARIES}/versions.txt
 $ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
 grep VF rootfs/etc/issue >> ${BINARIES}/versions.txt
 
+#create subdirectory for this module type
+sudo mkdir -p "$OUT_DIR"
+
 #copy to $OUT_DIR
 sudo cp ${BINARIES}/u-boot-nand.imx ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
+sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
+sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 #cleanup intermediate files
 sudo rm ${BINARIES}/ubifs.img ${BINARIES}/versions.txt
 sync

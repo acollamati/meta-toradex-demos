@@ -128,6 +128,12 @@ if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 0
 fi
 
+# is OUT_DIR an existing directory?
+if [ ! -d "$OUT_DIR" ] ; then
+	echo "$OUT_DIR" "does not exist, exiting"
+	exit 1
+fi
+
 # auto detect MODTYPE from rootfs directory
 CNT=`grep -ic "apalis" rootfs/etc/issue || true`
 if [ "$CNT" -ge 1 ] ; then
@@ -135,16 +141,17 @@ if [ "$CNT" -ge 1 ] ; then
 	if [ "$CNT" -ge 1 ] ; then
 		echo "Apalis T30 rootfs detected"
 		MODTYPE=apalis-t30
-		IMAGEFILE=root.ext3
-		U_BOOT_BINARY=u-boot-dtb-tegra.bin
-		KERNEL_DEVICETREE="tegra30-apalis-eval.dtb"
-		LOCPATH="tegra-uboot-flasher"
-		# assumed minimal eMMC size [in sectors of 512]
-		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
 #		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
 		BCT=Apalis_T30_2GB_800Mhz.bct
 		CBOOT_IMAGE=apalis_t30.img
 		CBOOT_IMAGE_TARGET=tegra30
+		# assumed minimal eMMC size [in sectors of 512]
+		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
+		IMAGEFILE=root.ext3
+		KERNEL_DEVICETREE="tegra30-apalis-eval.dtb"
+		LOCPATH="tegra-uboot-flasher"
+		OUT_DIR="$OUT_DIR/apalis_t30"
+		U_BOOT_BINARY=u-boot-dtb-tegra.bin
 	else
 		echo "can not detect module type from ./rootfs/etc/issue"
 		echo "exiting"
@@ -157,31 +164,33 @@ else
 		if [ "$CNT" -ge 1 ] ; then
 			echo "Colibri T20 rootfs detected"
 			MODTYPE=colibri-t20
-			IMAGEFILE=ubifs
-			U_BOOT_BINARY=u-boot-dtb-tegra.bin
-			KERNEL_DEVICETREE="tegra20-colibri-eval-v3.dtb"
-			LOCPATH="tegra-uboot-flasher"
 			BCT=colibri_t20-${RAM_SIZE}-${MODVERSION}-${BOOT_DEVICE}.bct
 			CBOOT_IMAGE="colibri_t20-256-v11-nand.img colibri_t20-256-v12-nand.img colibri_t20-512-v11-nand.img colibri_t20-512-v12-nand.img"
 			CBOOT_IMAGE_TARGET=tegra20
+			EMMC_PARTS=""
+			IMAGEFILE=ubifs
+			KERNEL_DEVICETREE="tegra20-colibri-eval-v3.dtb"
 			# zImage but from rootfs/boot
 			KERNEL_IMAGETYPE=""
-			EMMC_PARTS=""
+			LOCPATH="tegra-uboot-flasher"
+			OUT_DIR="$OUT_DIR/colibri_t20"
+			U_BOOT_BINARY=u-boot-dtb-tegra.bin
 		else
 			CNT=`grep -ic "t30" rootfs/etc/issue || true`
 			if [ "$CNT" -ge 1 ] ; then
 				echo "Colibri T30 rootfs detected"
 				MODTYPE=colibri-t30
-				IMAGEFILE=root.ext3
-				U_BOOT_BINARY=u-boot-dtb-tegra.bin
-				KERNEL_DEVICETREE="tegra30-colibri-eval-v3.dtb"
-				LOCPATH="tegra-uboot-flasher"
-				EMMC_SIZE=$(expr 1024 \* 2000 \* 2)
 				# with new kernel, boot with 400MHz, then switch between 400 & 800
 				BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_400MHz.bct
 #				BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_533MHz.bct
 				CBOOT_IMAGE=colibri_t30.img
 				CBOOT_IMAGE_TARGET=tegra30
+				EMMC_SIZE=$(expr 1024 \* 2000 \* 2)
+				IMAGEFILE=root.ext3
+				KERNEL_DEVICETREE="tegra30-colibri-eval-v3.dtb"
+				LOCPATH="tegra-uboot-flasher"
+				OUT_DIR="$OUT_DIR/colibri_t30"
+				U_BOOT_BINARY=u-boot-dtb-tegra.bin
 			else
 				echo "can not detect module type from ./rootfs/etc/issue"
 				echo "exiting"
@@ -222,12 +231,6 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 
 	cd ${LOCPATH}
 	sudo ./tegrarcm --bct=../${BINARIES}/${BCT} --bootloader=../${BINARIES}/${U_BOOT_BINARY} --loadaddr=0x80108000
-	exit 1
-fi
-
-# is OUT_DIR an existing directory?
-if [ ! -d "$OUT_DIR" ] ; then
-	echo "$OUT_DIR" "does not exist, exiting"
 	exit 1
 fi
 
@@ -288,6 +291,9 @@ else
 fi
 $ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
 grep -i t[2-3]0 rootfs/etc/issue >> ${BINARIES}/versions.txt
+
+#create subdirectory for this module type
+sudo mkdir -p "$OUT_DIR"
 
 # The emmc layout used is:
 #
@@ -400,6 +406,9 @@ fi
 OUT_DIR=`readlink -f $OUT_DIR`
 cd ${BINARIES}
 sudo cp ${CBOOT_IMAGE} ${KERNEL_IMAGETYPE} ${EMMC_PARTS} ${IMAGEFILE}* flash*.img versions.txt "$OUT_DIR"
+sudo cp fwd_blk.img "$OUT_DIR/../flash_blk.img"
+sudo cp fwd_eth.img "$OUT_DIR/../flash_eth.img"
+sudo cp fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 #cleanup intermediate files
 sudo rm ${CBOOT_IMAGE} ${EMMC_PARTS} ${IMAGEFILE}* versions.txt
 cd ..

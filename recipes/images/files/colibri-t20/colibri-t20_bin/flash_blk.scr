@@ -1,5 +1,4 @@
 test -n ${interface} || setenv interface mmc
-test -n ${drive} || setenv drive 1
 
 test -n ${hw-version} || if test $lnxoffset = 0x1200000; then setenv hw-version v11; else setenv hw-version v12; fi
 
@@ -12,9 +11,9 @@ setenv migrate_4 'nand read $loadaddr 0x7900000 0x40; crc32 -v $toradex_oui_addr
 setenv migrate_configblock 'setexpr toradex_oui_addr $loadaddr + 8; run migrate_1; run migrate_2; run migrate_3; run migrate_4'
 
 setenv prepare_rootfs 'ubi part ubi && ubi check rootfs || ubi create rootfs'
-setenv update_configblock 'load ${interface} 0:1 ${loadaddr} configblock.bin && nand erase.part cfgblock && nand write ${loadaddr} cfgblock ${filesize}'
-setenv update_uboot 'fatload ${interface} 0:1 ${loadaddr} colibri_t20-${ram-size}-${hw-version}-nand.img && nand erase 0x0 0x300000 && nand write ${loadaddr} 0x0 ${filesize}'
-setenv update_rootfs 'load ${interface} 0:1 ${loadaddr} ubifs_${leb-size}.img && run prepare_rootfs && ubi write ${loadaddr} rootfs ${filesize}'
+setenv update_configblock 'load ${interface} 0:1 ${loadaddr} ${board_name}/configblock.bin && nand erase.part cfgblock && nand write ${loadaddr} cfgblock ${filesize}'
+setenv update_uboot 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/colibri_t20-${ram-size}-${hw-version}-nand.img && nand erase 0x0 0x300000 && nand write ${loadaddr} 0x0 ${filesize}'
+setenv update_rootfs 'load ${interface} 0:1 ${loadaddr} ${board_name}/ubifs_${leb-size}.img && run prepare_rootfs && ubi write ${loadaddr} rootfs ${filesize}'
 
 setenv echo_v2.3b7 echo "successfully updated U-Boot," \${note} "power-cycle and enter \"run setupdate\; run migrate_v2.3b7\" to complete update"
 setenv migrate_v2.3b7 'run migrate_configblock; nand erase.part ubi; run update_new'
