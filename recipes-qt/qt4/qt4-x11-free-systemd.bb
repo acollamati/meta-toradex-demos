@@ -10,17 +10,17 @@ PR = "r1"
 
 inherit allarch systemd
 
-SRC_URI = "file://qtdemo.service \
-           file://qtdemo-init "
+SRC_URI = "file://qt4-x11-demo.service \
+           file://qt4-x11-demo-init "
 
 do_install () {
     install -d ${D}/${bindir}
-    install -m 0755 ${WORKDIR}/qtdemo-init ${D}/${bindir}
+    install -m 0755 ${WORKDIR}/qt4-x11-demo-init ${D}/${bindir}
 
     install -d ${D}${systemd_unitdir}/system/
-    install -m 0644 ${WORKDIR}/qtdemo.service ${D}${systemd_unitdir}/system
+    install -m 0644 ${WORKDIR}/qt4-x11-demo.service ${D}${systemd_unitdir}/system
 }
 
 NATIVE_SYSTEMD_SUPPORT = "1"
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "qtdemo.service"
+SYSTEMD_SERVICE_${PN} = "qt4-x11-demo.service"

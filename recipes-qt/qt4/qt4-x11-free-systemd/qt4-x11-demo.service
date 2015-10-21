@@ -3,8 +3,8 @@ Description=start X and qtdemo
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/qtdemo-init start
-ExecStop=/usr/bin/qtdemo-init stop
+ExecStart=/usr/bin/qt4-x11-demo-init start
+ExecStop=/usr/bin/qt4-x11-demo-init stop
 
 [Install]
 WantedBy=graphical.target
