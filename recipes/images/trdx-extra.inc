@@ -122,8 +122,8 @@ IMAGE_INSTALL += " \
     stress \
     lmbench \
     nbench-byte \
+    tinymembench \
     ethtool \
     \
     trdx-oak-sensors \
 "
-#    openssl-conf 
