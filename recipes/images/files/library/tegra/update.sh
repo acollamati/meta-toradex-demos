@@ -137,7 +137,8 @@ if [ "$CNT" -ge 1 ] ; then
 		LOCPATH="tegra-uboot-flasher"
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
-		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
+#		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
+		BCT=Apalis_T30_2GB_800Mhz.bct
 		CBOOT_IMAGE=apalis_t30.img
 		CBOOT_IMAGE_TARGET=tegra30
 	else
