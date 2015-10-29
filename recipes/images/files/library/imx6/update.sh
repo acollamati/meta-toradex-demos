@@ -96,7 +96,7 @@ if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 fi
 
 # is OUT_DIR an existing directory?
-if [ ! -d "$OUT_DIR" ] ; then
+if [ ! -d "$OUT_DIR" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	echo "$OUT_DIR" "does not exist, exiting"
 	exit 1
 fi
