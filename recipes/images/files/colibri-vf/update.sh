@@ -1,6 +1,6 @@
 #! /bin/sh
-# Prepare files needed for flashing a Colibri VFxx module
-# and copy them into a convenient location for use from a running U-Boot
+# Prepare files needed for flashing a Colibri VF50/VF61 module and
+# copy them to a convenient location for using from a running U-Boot
 
 set -e
 
@@ -9,64 +9,64 @@ ECHO=`which echo`
 
 Flash()
 {
-	echo "To flash the Colibri VFxx module a running U-Boot is required. Boot the"
+	echo "To flash the Colibri VF50/VF61 module a running U-Boot is required. Boot the"
 	echo "module to the U-Boot prompt and"
 	echo ""
-	echo "insert the USB flash drive or SD card and enter:"
-	echo "# run setupdate"
+	echo "insert the SD card, USB flash drive or when using TFTP connect Ethernet only"
+	echo "and enter:"
+	echo "'run setupdate'"
 	echo ""
-	echo "to update all components enter:"
-	echo "# run update"
+	echo "then to update all components enter:"
+	echo "'run update'"
 	echo ""
 	echo "to update a single component enter one of:"
-	echo "# run update_uboot"
-	echo "# run update_rootfs"
+	echo "'run update_uboot'"
+	echo "'run update_rootfs'"
 	echo ""
 	echo ""
-	echo "If you don't have a working U-Boot any more, connect your PC to the module's"
-	echo "UART, bring the module in the serial download mode and start the update.sh"
+	echo "If you don't have a working U-Boot anymore, connect your PC to the module's"
+	echo "UART, bring the module into the serial download mode and start the update.sh"
 	echo "script with the -d option. This will copy U-Boot into the module's RAM and"
-	echo "and execute it. Also bridge RTS/CTS when using the evaluation boards USB to"
-	echo "UART converter."
-	echo "Then use the following commands to get a working U-Boot."
+	echo "execute it. Don't forget to also bridge RTS/CTS if using an USB-to-serial"
+	echo "converter without handshake signals."
 	echo ""
-	echo "\"./update.sh -n -d /dev/ttyUSB0\""
+	echo "Then use the following command to get U-Boot running:"
+	echo "'./update.sh -n -d /dev/ttyUSB0'"
 	echo ""
-	echo "Next, recreate the Boot Configuration Block and the Toradex Config Block"
-	echo ""
-	echo "# run setupdate"
-	echo "# run update_uboot"
-	echo "# run create_bcb"
-	echo "# cfgblock create"
+	echo "Next, recreate the Boot Configuration Block and the Toradex Config Block:"
+	echo "'run setupdate'"
+	echo "'run update_uboot'"
+	echo "'run create_bcb'"
+	echo "'cfgblock create'"
 }
 
 Usage()
 {
 	echo ""
-	echo "Prepares and copies files for flashing the internal NAND of a Colibri VFxx"
+	echo "Prepares and copies files for flashing internal NAND of Colibri VF50/VF61"
 	echo ""
 	echo "The recommended way is to copy the files on a SD card or USB flash drive."
 	echo "The script format_sd.sh may be used to format the SD card."
 	echo ""
 	echo "The flash step requires a running U-Boot on the target. Either one already"
- 	echo "flashed on the NAND or download using serial downloader (argument -d)."
+ 	echo "flashed on the NAND or downloaded using serial downloader (argument -d)."
 	echo ""
-	echo "-d uart_dev  : use UART connection to copy and execute U-Boot from module's RAM"
+	echo "-d uart_dev  : use UART connection to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
-	echo "-h           : Prints this message"
-	echo "-n           : Disable hardware flow control (bridge RTS/CTS!)"
+	echo "-h           : prints this message"
+	echo "-n           : disable hardware flow control (bridge RTS/CTS!)"
 	echo "-o directory : output directory"
 	echo "-s           : optimise file system for 128MB NAND, increases usable space"
 	echo "               on VF50 module a little, but on VF61 uses also only 128MB"
 	echo ""
-	echo "Examples:"
-        echo "\"./update.sh -o /media/KERNEL/\" copies the required files to SD card"
+        echo "Example \"./update.sh -o /media/KERNEL/\" copies the required files to SD card"
 	echo ""
-	echo "*** For detailed recovery/update procedures, refer to the Release Notes ***"
+	echo "*** For detailed recovery/update procedures, refer to the following website: ***"
+        echo "http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules"
 	echo ""
 }
 
-#initialise options
+# initialise options
 UBOOT_RECOVERY=0
 NORTSCTS=0
 OUT_DIR=""
@@ -75,22 +75,22 @@ PAGE=2KiB
 BLOCK=124KiB
 MAXLEB=8112
 
-while getopts "d:fnho:s" Option ; do
+while getopts "d:fhno:s" Option ; do
 	case $Option in
 		d)	UBOOT_RECOVERY=1
 			UARTDEV=$OPTARG
 			;;
-		n)	NORTSCTS=1
+		f)	Flash
+			exit 0
 			;;
 		h)	Usage
 			# Exit if only usage (-h) was specified.
-			if [ $# -eq 1 ] ; then
+			if [ "$#" -eq 1 ] ; then
 				exit 10
 			fi
 			exit 0
 			;;
-		f)	Flash
-			exit 0
+		n)	NORTSCTS=1
 			;;
 		o)	OUT_DIR=$OPTARG
 			;;

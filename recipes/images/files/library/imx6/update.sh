@@ -19,47 +19,48 @@ fi
 
 Flash()
 {
+	echo "To flash the Apalis/Colibri iMX6 module a running U-Boot is required. Boot the"
+	echo "module to the U-Boot prompt and"
 	echo ""
-	echo "To flash the Apalis/Colibri iMX6 module, boot the module to the U-Boot prompt and"
-	echo ""
-	echo "when using a SD-card, insert the SD-card and enter:"
+	echo "insert the SD card, USB flash drive or when using TFTP connect Ethernet only"
+	echo "and enter:"
 	echo "'run setupdate'"
 	echo ""
-	echo "when using tftp, connect Ethernet and enter:"
-	echo "'tftp \$loadaddr flash_eth.img ; source \$loadaddr'"
-	echo ""
-	echo "then enter to update all:"
+	echo "then to update all components enter:"
 	echo "'run update' or 'run update_it'"
 	echo ""
 	echo "to update a single component enter one of:"
 	echo "'run update_uboot' or 'run update_uboot_it'"
 	echo "'run update_kernel'"
+	echo "'run update_rootfs'"
 	echo ""
 	echo "Use the version with '_it' if you have an IT module, e.g. 'Apalis iMX6Q 2GB IT'"
 	echo ""
-	echo "If you don't have a working U-Boot anymore, connect your PC to the module's"
-	echo "USB client port, bring the module in the serial download mode and start"
-	echo "the update.sh script with the -d option. This will copy U-Boot into the"
-	echo "modules RAM and execute it."
+	echo "If you don't have a working U-Boot anymore, connect your PC to the module's USB"
+	echo "client port, bring the module in the serial download mode and start the"
+	echo "update.sh script with the -d option. This will copy U-Boot into the modules RAM"
+	echo "and execute it."
 }
 
 Usage()
 {
 	echo ""
-	echo "Prepares and copies files for flashing the internal eMMC of a Apalis/Colibri iMX6"
+	echo "Prepares and copies files for flashing internal eMMC of Apalis/Colibri iMX6"
 	echo ""
-	echo "Will require a running U-Boot on the target. Either one already flashed"
-	echo "on the eMMC or one copied over usb into the module's RAM"
+	echo "Will require a running U-Boot on the target. Either one already flashed on the"
+	echo "eMMC or one copied over USB into the module's RAM"
 	echo ""
-	echo "-c           : split the resulting rootfs into chunks usable for tftp transmission"
-	echo "-d           : use USB connection to copy and execute U-Boot to the module's RAM"
+	echo "-c           : split resulting rootfs into chunks usable for TFTP transmission"
+	echo "-d           : use USB connection to copy/execute U-Boot to/from module's RAM"
+	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
 	echo "-o directory : output directory"
 	echo ""
 	echo "Example \"./update.sh -o /srv/tftp/\" copies the required files to /srv/tftp/"
 	echo ""
+	echo "*** For detailed recovery/update procedures, refer to the following website: ***"
+        echo "http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules"
 	echo ""
-	Flash
 }
 
 # initialise options
@@ -72,14 +73,17 @@ UBOOT_RECOVERY=0
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
 
-while getopts "cdho:" Option ; do
+while getopts "cdfho:" Option ; do
 	case $Option in
 		c)	SPLIT=1
 			;;
 		d)	UBOOT_RECOVERY=1
 			;;
-		h) 	Usage
-			# Exit if only usage (-h) was specfied.
+		f)	Flash
+			exit 0
+			;;
+		h)	Usage
+			# Exit if only usage (-h) was specified.
 			if [ "$#" -eq 1 ] ; then
 				exit 10
 			fi
