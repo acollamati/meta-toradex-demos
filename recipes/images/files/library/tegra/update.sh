@@ -295,18 +295,18 @@ grep -i t[2-3]0 rootfs/etc/issue >> ${BINARIES}/versions.txt
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"
 
-# The emmc layout used is:
+# The eMMC layout used is:
 #
 # boot area partition 1 aka primary eMMC boot sector:
-# with cbootimage containing BCT and U-Boot boot loader
-# and the configblock at the end of that boot area partition
+# with cbootimage containing BCT and U-Boot boot loader and the U-Boot
+# environment before the configblock at the end of that boot area partition
 #
 # boot area partition 2 aka secondary eMMC boot sector:
-# with the U-Boot environment at the end of that boot area partition
+# reserved
 #
 # user area aka general purpose eMMC region:
 #
-#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved ((not partitioned)
+#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved (not partitioned)
 #    IMAGE_ROOTFS_ALIGNMENT -> BOOT_SPACE                     - kernel and other data
 #    BOOT_SPACE             -> SDIMG_SIZE                     - rootfs
 #

@@ -188,11 +188,18 @@ grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"
 
-# The emmc layout used is:
+# The eMMC layout used is:
+#
+# boot area partition 1 aka primary eMMC boot sector:
+# with U-Boot boot loader and the U-Boot environment before the configblock at
+# the end of that boot area partition
+#
+# boot area partition 2 aka secondary eMMC boot sector:
+# reserved
 #
 # user area aka general purpose eMMC region:
 #
-#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved to bootloader (not partitioned)
+#    0                      -> IMAGE_ROOTFS_ALIGNMENT         - reserved (not partitioned)
 #    IMAGE_ROOTFS_ALIGNMENT -> BOOT_SPACE                     - kernel and other data
 #    BOOT_SPACE             -> SDIMG_SIZE                     - rootfs
 #
@@ -204,8 +211,6 @@ sudo mkdir -p "$OUT_DIR"
 # ^                        ^            ^                        ^
 # |                        |            |                        |
 # 0                      4MiB      4MiB + 16MiB              EMMC_SIZE
-#
-# with U-Boot at 1024, the U-Boot environment at 512 * 1024, the config block is at 640 * 1024
 
 
 # Boot partition [in sectors of 512]
