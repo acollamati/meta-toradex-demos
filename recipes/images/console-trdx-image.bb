@@ -46,7 +46,7 @@ CONMANPKGS_libc-uclibc = ""
 #deploy the X server for the tegras
 #this adds a few MB to the image, but all graphical HW acceleration is
 #available only on top of X
-IMAGE_INSTALL_append_tegra = "${XSERVER} xterm xclock"
+IMAGE_INSTALL_append_tegra = " ${XSERVER} xterm xclock"
 
 IMAGE_INSTALL += " \
     angstrom-packagegroup-boot \
