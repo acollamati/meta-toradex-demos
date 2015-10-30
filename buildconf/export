@@ -9,6 +9,12 @@ fi
 
 . oe-init-build-env ${BUILDDIR}
 
+echo ""
+echo "Toradex targets are:"
+echo "    angstrom-lxde-image"
+echo "    console-trdx-image"
+echo "    angstrom-qt-x11-image"
+
 if [ $FIRST_TIME -eq 1 ]; then
 	mkdir -p conf
 	cp ../stuff/meta-toradex/buildconf/*.conf conf/
