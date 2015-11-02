@@ -34,6 +34,7 @@ IMAGE_INSTALL_append_tegra3 = " \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
+    nv-conf-systemd \
 "
 
 IMAGE_INSTALL_append_apalis-t30 = " \
