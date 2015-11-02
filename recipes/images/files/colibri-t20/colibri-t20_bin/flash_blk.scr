@@ -12,7 +12,7 @@ setenv migrate_configblock 'setexpr toradex_oui_addr $loadaddr + 8; run migrate_
 
 setenv prepare_rootfs 'ubi part ubi && ubi check rootfs || ubi create rootfs'
 setenv update_configblock 'load ${interface} 0:1 ${loadaddr} ${board_name}/configblock.bin && nand erase.part cfgblock && nand write ${loadaddr} cfgblock ${filesize}'
-setenv update_uboot 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/colibri_t20-${ram-size}-${hw-version}-nand.img && nand erase 0x0 0x300000 && nand write ${loadaddr} 0x0 ${filesize}'
+setenv update_uboot 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/${board_name}-${ram-size}-${hw-version}-nand.img && nand erase 0x0 0x300000 && nand write ${loadaddr} 0x0 ${filesize}'
 setenv update_rootfs 'load ${interface} 0:1 ${loadaddr} ${board_name}/ubifs_${leb-size}.img && run prepare_rootfs && ubi write ${loadaddr} rootfs ${filesize}'
 
 setenv echo_v2.3b7 echo "successfully updated U-Boot," \${note} "power-cycle and enter \"run setupdate\; run migrate_v2.3b7\" to complete update"

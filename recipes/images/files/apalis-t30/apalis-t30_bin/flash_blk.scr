@@ -19,7 +19,7 @@ setenv migrate_configblock 'setexpr toradex_oui_addr ${loadaddr} + 8; run migrat
 
 setenv cp_file_chunk 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/root.ext3 ${filesize} ${filepos}; run set_blkcnt; mmc dev 0 0 && mmc write ${loadaddr} ${blkstart} ${blkcnt}'
 
-setenv update_uboot 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/apalis_t30.img && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
+setenv update_uboot 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/${board_name}.img && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 0x0 ${blkcnt}'
 
 setenv update_kernel 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
 
