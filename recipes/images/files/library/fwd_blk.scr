@@ -4,5 +4,5 @@ test -n ${drive} || setenv drive 1
 test "${board_name}" = "colibri_t20" && setenv drive 0
 test "${board_name}" = "colibri_vf" && setenv drive 0
 
-fatload ${interface} ${drive}:1 ${loadaddr} ${board_name}/flash_blk.img
-source ${loadaddr}
+test -n ${board_name} || echo "board_name env not set!" && exit
+fatload ${interface} ${drive}:1 ${loadaddr} ${board_name}/flash_blk.img && source ${loadaddr}

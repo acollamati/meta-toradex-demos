@@ -1,3 +1,3 @@
 #the update.sh script renames this. fwd_eth.scr -> ../flash_eth.img
-tftpboot ${loadaddr} "${board_name}/flash_eth.img"
-source ${loadaddr}
+test -n ${board_name} || echo "board_name env not set!" && exit
+tftpboot ${loadaddr} "${board_name}/flash_eth.img" && source ${loadaddr}
