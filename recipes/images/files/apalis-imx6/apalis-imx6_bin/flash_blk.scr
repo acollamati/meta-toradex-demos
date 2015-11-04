@@ -7,9 +7,9 @@ setenv set_nextpos 'setexpr filepos ${filepos} + ${filesize}; setexpr blkstart $
 setenv check_1 'setenv conf_blk_offset 0x1fff; mmc read ${loadaddr} ${conf_blk_offset} 1'
 setenv check_2 'setenv conf_blk_offset 0xfff; mmc read ${loadaddr} ${conf_blk_offset} 1'
 setenv check_3 'setenv conf_blk_offset 0x7ff; mmc read ${loadaddr} ${conf_blk_offset} 1'
-setenv check_configblock 'setexpr toradex_oui_addr ${loadaddr} + 8; mmc dev 0 1; run check_1 || run check_2 || run check_3; crc32 -v ${toradex_oui_addr} 3 94305232'
+setenv check_configblock 'setexpr toradex_oui_addr ${loadaddr} + 8; mw.l ${kernel_addr_r} 0x002d1400; mmc dev 0 1; run check_1 || run check_2 || run check_3; cmp.b ${kernel_addr_r} ${toradex_oui_addr} 3'
 
-setenv migrate_configblock 'setexpr toradex_oui_addr ${loadaddr} + 8; mmc dev 0 1; run check_1 || run check_2 || run check_3; mmc dev 0 0 && mmc read ${loadaddr} 0x500 1 && crc32 -v ${toradex_oui_addr} 3 94305232 && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} 1'
+setenv migrate_configblock 'run check_configblock; mmc dev 0 0 && mmc read ${loadaddr} 0x500 1 && cmp.b ${kernel_addr_r} ${toradex_oui_addr} 3 && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} 1'
 
 setenv migrate_uboot 'load ${interface} ${drive}:1 ${loadaddr} ${board_name}/u-boot${module_type}.imx && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 2 ${blkcnt}'
 
@@ -30,12 +30,12 @@ setenv update_3 'setenv filesize 4000000; setenv filepos 0; setenv blkstart a000
 
 setenv echo_v2.4b1 echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.4b1\" to complete update"
 setenv echo_v2.4b1-it echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.4b1_it\" to complete update"
-setenv migrate_v2.4b1 'run migrate_configblock; run update_new'
+setenv migrate_v2.4b1 'run migrate_configblock; run update_new; reset'
 setenv migrate_v2.4b1_it 'setenv module_type -it; run migrate_v2.4b1'
-setenv update_v2.4b1 'run migrate_uboot && run echo_v2.4b1${module_type}'
+setenv update_v2.4b1 'run check_configblock || run migrate_configblock; run migrate_uboot && run echo_v2.4b1${module_type}'
 
-setenv update_new 'run check_configblock || run migrate_configblock; run update_uboot; run update_1; run update_2; run update_kernel; run update_fdt; run update_3; reset'
-setenv update 'mmc bootbus 0 2 1 2 && run update_new; run update_v2.4b1'
+setenv update_new 'run update_uboot; run update_1; run update_2; run update_kernel; run update_fdt; run update_3'
+setenv update 'mmc bootbus 0 2 1 2 && run update_new && reset; run update_v2.4b1'
 setenv update_it 'setenv module_type -it; run update'
 
 echo 'enter "run update" or "run update_it" to update the entire module'
