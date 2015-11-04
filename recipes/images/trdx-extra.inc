@@ -53,7 +53,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_mx6 = " \
     u-boot-toradex-fsl-fw-utils \
-    usb-rndis-systemd \
+    libusbg \
     gpio-export \
     curl \
     file \
