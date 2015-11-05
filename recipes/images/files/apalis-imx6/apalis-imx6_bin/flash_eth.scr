@@ -25,7 +25,7 @@ setenv update_2 'tftpboot ${loadaddr} ${board_name}/boot.vfat && run set_blkcnt 
 #do it in chunks of 64M to fit into DDR RAM of the smallest module
 #split root.ext3 into multiple 64M chunks before copying to TFTP folder as follows
 #split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 root.ext3 root.ext3-
-setenv update_3 'setenv filesize 4000000; setenv filenum 10; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextnum; done'
+setenv update_3 'setenv filesize 4000000; setenv filenum 10; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextnum; done; true'
 
 setenv echo_v2.4b1 echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.4b1\" to complete update"
 setenv echo_v2.4b1-it echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.4b1_it\" to complete update"
