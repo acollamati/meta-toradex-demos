@@ -5,14 +5,56 @@ Release Notes:  Linux Image V2.4ff for Colibri T20
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
+- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
   LXDE desktop environment
 
-==> Flashing instructions can be found at the very bottom of this release notes
+==> Flashing instructions can be found on the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.5 Beta 2 (November 6, 2015)
+- U-Boot boot loader:
+  - add return code for cfgblock commands which allows scripting
+  - increase TFTP blocksize for better performance
+  - implement early pmic rail configuration
+  - various UBI/Fastmap fixes
+  - enabled zero bootdelay check (allows entering U-Boot when bootdelay is 0)
+- Linux kernel:
+  - improve PMIC RTC accuracy
+  - integrate ASIX USB-to-Ethernet driver 4.17.0
+  - prevent rare boot lock-up
+  - changed Fusion multi touch event reporting to adhere to multitouch slot
+  - fix HS UART HW buffer overrun issue
+- Linux user-space:
+  - updated to latest Angstrom 2015.06/OpenEmbedded fido:
+    - glibc 2.22
+    - systemd 219
+    - Xorg 1.16.1
+  - glibc: force memcpy_arm to improve memcpy performance
+  - fix USB RNDIS operation
+- OpenEmbedded build system:
+  - change default tune to Thumb-2
+  - local.conf: add Toradex source mirror as pre-mirror
+- Update scripts:
+  - update.sh: delete intermediate files after use
+  - improved update.sh to use module type specific folders allowing update of
+    different modules with just one update media
+
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.5Beta2_20151106
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Note:
+- no SD boot integration yet but copying cbootimage to beginning of SD card
+  will at least boot
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
 
 ********************************************************************************
 Linux Image V2.4 Beta 1 (May 18, 2015)
@@ -115,7 +157,7 @@ Working on latest image:
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS, provided by Android gadget
   - automatic USB device/host detection aka OTG support
-  - analogue input AD0, AD1 /sys/class/power_supply/colibri_t20-analog_inputs 
+  - analogue inputs AD0, AD1 /sys/class/power_supply/colibri_t20-analog_inputs 
   - suspend LP1
   - DVFS power management
   - optional parallel camera interface
@@ -135,81 +177,8 @@ Not working or not tested:
   - RS-422/485
 - Adobe Flash not provided by L4T (and probably never will)
 
-*****************************************************************************************************************************************************************************************
-NAND Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample), Colibri T20 256MB V1.2a, Colibri T20 512MB V1.2a, Colibri T20 256MB IT V1.2a or Colibri T20 512MB IT V1.2a
-*****************************************************************************************************************************************************************************************
+******************************************************************************
+Flashing instruction have been moved to the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Initial Preparation:
-- download and extract Colibri_T20_LinuxImageVx.yz.tar.bz2 package with root
-  permissions
-- use any VFAT formatted SD resp. micro SD card with at least 1000 MB of free
-  space
-- run update.sh script with -o argument pointing to mount point of above
-  mentioned card
-
-Flash NAND:
-- EvalBoard V3.1a
-  - depending on JP17/19 connect serial debug console to UARTA aka FFUART
-    (lower X25) using null modem RS-232 cable resp. X27 using a regular USB
-    cable
-  - insert above prepared SD card into SD/MMC socket (X15)
-- Iris V1.1a
-  - connect serial debug console to UARTA aka FFUART X13 using null modem RS-232
-    cable and a 10 pin IDC to 9 pin D-sub male connector.
-    (DTK or Intel standard)
-  - insert above prepared micro SD card into micro SD card socket (X10)
-- Boot to U-Boot prompt and start the update:
-  - apply power or reset
-  - hit any key to stop auto booting
-  - if you update from a previous image use the following U-Boot commands:
-      setenv drive 0
-      setenv setupdate 'mmc rescan; fatload mmc ${drive}:1 ${loadaddr} flash_blk.img; source ${loadaddr}'
-      saveenv
-  - use 'run setupdate' U-Boot command and then
-  - use 'run update' U-Boot command
-- If you updated from an older image:
-  - power cycle or reset as requested and hit any key to stop auto booting
-  - use 'run setupdate' U-Boot command and then
-  - use 'run migrate_v2.3b7' U-Boot command
-
-Boot from NAND:
-- EvalBoard V3.1a
-  - do no longer press SW9
-- Iris V1.1a
-  - do no longer short any pins of JP1
-- power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes,
-  please be patient
-
-If the boot loader on the module got corrupted this recovers it by loading
-U-Boot over USB into the module's RAM and executing it there:
-- EvalBoard V3.1a
-  - connect USB B (X29) or USB micro A/B (X30) to development workstation using
-    regular or micro USB cable
-  - the jumper JP2 must be open
-  - connect serial debug console as stated above
-  - press and hold recovery mode switch (SW9) during power up
-- Iris V1.1a
-  - connect USB micro A/B (X12) to development workstation using regular micro
-    USB cable
-  - connect serial debug console as stated above
-  - short pin 1-2 of JP1 on Iris for RECOVERY
-(other carrier boards see http://developer.toradex.com/knowledge-base/txx-recovery-mode)
-- make sure that the carrier board supports USB high speed
-  - Iris & EvalBoard V3.1a OK, for other carrier boards see
-    http://developer.toradex.com/knowledge-base/usb-2.0-high-speed-%28480mbps%29
-- have the module in recovery mode and load U-Boot over USB to the module's RAM:
-  - lsusb should show a '0955:7820 NVidia Corp. Tegra 2 AC100 developer mode'
-    device if the module is in recovery mode
-  - run ./update.sh -d
-  - stop at the U-Boot prompt and begin the update as stated above using the
-    'run migrate_v2.3b7' command
-
-*******************************************************************************************************************************************************************************************************************************************************************
-SD Card Boot: Colibri T20 256MB V1.1b (Sample), Colibri T20 512MB V1.1c (Sample), Colibri T20 256MB V1.2a, Colibri T20 512MB V1.2a, Colibri T20 256MB IT V1.2a or Colibri T20 512MB IT V1.2a on Colibri Evaluation Board V3.1a or Iris Pico ITX Carrier Board V1.1a
-*******************************************************************************************************************************************************************************************************************************************************************
-
-no SD boot integration yet but copying cbootimage to beginning of SD card will
-at least boot
-
-Toradex, May 29, 2015
+Toradex, November 6, 2015

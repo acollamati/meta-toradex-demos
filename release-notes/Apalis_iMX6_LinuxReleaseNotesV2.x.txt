@@ -4,16 +4,65 @@ Release Notes:  Linux Image V2.x for Apalis iMX6
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 3.10.17 kernel, based on Freescale's BSP release imx_3.10.17_1.0.2_ga
+- Linux 3.14.28 kernel, based on Freescale's BSP release imx_3.14.28_1.0.0_ga
     and patches from Boundary Devices
-- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
+- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
     LXDE desktop environment
 
-==> Flashing instructions can be found at the very bottom of this release notes
+==> Flashing instructions can be found on the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.5 Beta 2 (November 6, 2015)
+- U-Boot boot loader:
+  - add return code for cfgblock commands which allows scripting
+  - increase TFTP blocksize for better performance
+  - enable eMMC boot support commands (e.g. /dev/mmcblk0boot0)
+  - enabled zero bootdelay check (allows entering U-Boot when bootdelay is 0)
+  - move environment to the end of the eMMC boot area before the config block
+  - enable crc32 verify support
+- Linux kernel:
+  - migrate to Linux 3.14.28 kernel, based on Freescale's BSP release imx_3.14.28_1.0.0_ga
+  - add optional CSI camera support for OmniVision OV5640
+  - changed Fusion multi touch event reporting to adhere to multitouch slot
+- Linux user-space:
+  - updated to latest Angstrom 2015.06/OpenEmbedded fido:
+    - glibc 2.22
+    - systemd 219
+    - Xorg 1.16.1
+  - glibc: force memcpy_arm to improve memcpy performance
+  - fw_printenv/setenv: follow U-Boot environment move
+  - updated Vivante binary graphics/multimedia drivers (some gstreamer plugins changed their names)
+  - fix USB RNDIS operation (still racy due to networkd bug)
+- OpenEmbedded build system:
+  - local.conf: add Toradex source mirror as pre-mirror
+- Update scripts:
+  - Ethernet aka TFTP update: provide option to split rootfs output file
+  - update.sh: delete intermediate files after use
+  - improved update.sh to use module type specific folders allowing update of
+    different modules with just one update media
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.5Beta2_20151106
+  - repository linux-toradex branch toradex_imx_3.14.28_1.0.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- PCIe suspend/resume issue
+- USB RNDIS is racy due to networkd bug
+- missing RS-485 support
+- some USB Thumb drivers don't work well in U-Boot
+- USB hub on Evaluation Board not enabled in U-Boot
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
 
 ********************************************************************************
 Linux Image V2.4 Beta 1 (May 18, 2015)
@@ -311,7 +360,6 @@ Working on latest image:
   - eMMC ext3
   - serial console debug UART1
   - UART2, UART3 and UART4
-  - optional RS485
   - I2C via /dev/i2c-X
   - 8-bit MMC card mmc1
   - 4-bit SD card mmc2
@@ -358,6 +406,7 @@ Not working or not tested:
 - Linux kernel
   - IrDA
   - RS-422
+  - optional RS485
   - All UART control lines on V1.0 HW
   - SIM card
   - HDA audio IF on MXM connector (not possible with i.MX 6)
@@ -373,75 +422,7 @@ Not working or not tested:
   - DSI output
 
 ******************************************************************************
-eMMC Boot: Apalis iMX6Q 1GB V1.0a (Sample), Apalis iMX6D 512MB V1.1a (Sample), 
-           Apalis iMX6Q 1GB V1.1a (Sample), Apalis iMX6Q 2GB IT V1.1a (Sample)
-******************************************************************************
-Note: recompile U-Boot with apalis_imx6q2g config for Apalis iMX6Q 2GB IT V1.1a
+Flashing instruction have been moved to the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Initial Preparation:
-- download and extract Apalis_iMX6_LinuxImageVx.yz.tar.bz2 package with root
-    permissions
-- use any VFAT formatted SD resp. micro SD card with at least 1000 MB of free
-    space
-- run update.sh script with -o argument pointing to mount point of
-    above mentioned card
-
-Flash eMMC:
-- EvalBoard V1.0a
-  - depending on JP10/12 connect serial debug console to lower X28 or X29 using
-      null modem RS-232 or regular USB cable
-  - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
-- Ixora V1.0a
-  - connect serial debug console to X22 using null modem RS-232 cable and a
-      10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
-  - insert above prepared micro SD card into SD card socket (X10)
-  - if you update from a V2.2 image either use an EvalBoard for update or use
-    on Ixora the U-Boot command:
-	  setenv drive 2
-	  setenv setupdate 'fatload mmc ${drive}:1 ${loadaddr} flash_mmc.img; source ${loadaddr}'
-	  save
-- Boot to U-Boot prompt and start the update:
-  - apply power or reset
-  - hit any key to stop auto booting
-  - use 'run setupdate' U-Boot command and then
-  - use 'run update' U-Boot command
-    for "Apalis iMX6Q 2GB IT V1.1a" use 'run update_it' instead
-- If you updated from an older image. (without a device tree)
-  - power cycle or reset and hit any key to stop auto booting
-    - use 'printenv' to get your current u-boot environment
-    - use 'env default -a' to set the u-boot environment to its default value
-    - optionally change the environment to your needs
-    - use 'saveenv' to make the changes permanent
-- Update a single component
-  - U-Boot
-    use 'run setupdate' and then 'run update_uboot'
-    for "Apalis iMX6Q 2GB IT V1.1a" use 'run update_uboot_it' instead
-  - Kernel or Linux Device Tree
-    use 'run setupdate' and then 'run update_kernel' or 'run update_fdt' respectively
-
-Boot from eMMC:
-- above given update command should automatically perform a soft re-boot upon successful completion
-- optionally power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes,
-    please be patient
-
-If the boot loader on the module got corrupted this recovers it by loading U-Boot
-  over USB into the module's RAM and executing it there:
-- EvalBoard V1.0a
-  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
-      micro or regular USB cable
-  - connect serial debug console as stated above
-- Ixora V1.0a
-  - connect USB micro A/B (X9) to development workstation using regular micro USB
-      cable
-  - make sure JP2 is removed and nothing is connected to the lower USB host port
-      X8
-  - for more information please consult Ixora datasheet section 3.3 and chapter 4
-  - connect serial debug console as stated above
-- have the module in recovery mode and load U-Boot over USB to the module's RAM:
-  - lsusb should show a 15a2:0054 Freescale Semiconductor, Inc. device if
-      the module is in recovery mode
-  - run ./update.sh -d
-  - stop at the U-Boot prompt and begin the update as stated above
-
-Toradex, May 22, 2015
+Toradex, November 6, 2015

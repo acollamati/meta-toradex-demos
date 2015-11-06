@@ -5,14 +5,61 @@ Release Notes:  Linux Image V2.x for Apalis T30
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom 2014.12/OpenEmbedded dizzy/Yocto 1.7 based root file system, using
+- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
   LXDE desktop environment
 
-==> Flashing instructions can be found at the very bottom of this release notes
+==> Flashing instructions can be found on the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.5 Beta 2 (November 6, 2015)
+- U-Boot boot loader:
+  - add return code for cfgblock commands which allows scripting
+  - increase TFTP blocksize for better performance
+  - integrate display driver
+  - enabled zero bootdelay check (allows entering U-Boot when bootdelay is 0)
+  - move environment to the end of the eMMC boot area before the config block
+- Linux kernel:
+  - add optional CSI camera support for OmniVision OV5640
+  - fix USB performance regression
+  - fix race condition in USB OTG device/host detection on Ixora
+  - integrate various eMMC fixes
+  - changed Fusion multi touch event reporting to adhere to multitouch slot
+  - fix HS UART HW buffer overrun issue
+- Linux user-space:
+  - updated to latest Angstrom 2015.06/OpenEmbedded fido:
+    - glibc 2.22
+    - systemd 219
+    - Xorg 1.16.1
+  - glibc: force memcpy_arm to improve memcpy performance
+  - fw_printenv/setenv: follow U-Boot environment move
+  - fix USB RNDIS operation
+  - switch to validated 800 MHz BCT
+  - nv-conf-systemd: cpu hot-plug configuration and startup
+- OpenEmbedded build system:
+  - change default tune to Thumb-2
+  - local.conf: add Toradex source mirror as pre-mirror
+- Update scripts:
+  - Ethernet aka TFTP update: provide option to split rootfs output file
+  - update.sh: delete intermediate files after use
+  - improved update.sh to use module type specific folders allowing update of
+    different modules with just one update media
+
+- sources git.toradex.com tag Apalis_T30_LinuxImageV2.5Beta2_20151106
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
 
 ********************************************************************************
 Linux Image V2.4 Beta 1 (May 18, 2015)
@@ -487,6 +534,7 @@ Working on latest image:
   - Toradex Apalis configuration block handling
   - USB storage as host on USB host ports
   - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on USB OTG1 port
+  - TFTLCD framebuffer support
 - Linux kernel
   - GPIOlib /sys/class/gpio
   - temperature sensor /sys/bus/i2c/devices/4-004c
@@ -496,7 +544,7 @@ Working on latest image:
   - serial console debug UARTA aka UART1 ttyS0
   - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
   - I2C via /dev/i2c-X
-  - 8-bit MMC card mmc1
+  - 8-bit MMC card mmc1 (optional UHS support on V1.1A or later HW)
   - 4-bit SD card mmc2
   - PWM LEDs /sys/class/leds/
   - HDMI HDA audio
@@ -516,7 +564,7 @@ Working on latest image:
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS, provided by Android gadget
   - automatic USB device/host/suspend detection aka full OTG support
-  - analogue input
+  - analogue inputs
   - CAN via can0 and can1
   - PCIe (regular ports and mini-PCIe slot)
   - SATA (regular port or mSATA slot)
@@ -536,7 +584,6 @@ Working on latest image:
 Not working or not tested:
 - U-Boot boot loader
   - U-Boot USB keyboard
-  - TFTLCD framebuffer support
 - Linux kernel
   - IrDA
   - RS-422/485
@@ -545,72 +592,8 @@ Not working or not tested:
 - Linux user-space
   - Adobe Flash not provided by L4T (and probably never will)
 
-***********************************************************************
-eMMC Boot: Apalis T30 1GB V1.0a and V1.1a (Sample)
-eMMC Boot: Apalis T30 2GB V1.0a, V1.0b, V1.0c, V1.0e and V1.1a (Sample)
-***********************************************************************
+******************************************************************************
+Flashing instruction have been moved to the Toradex developer article:
+http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Initial Preparation:
-- download and extract Apalis_T30_LinuxImageVx.yz.tar.bz2 package with root
-    permissions
-- use any VFAT formatted SD resp. micro D card with at least 1000 MB of free
-    space
-- run update.sh script with -o argument pointing to mount point of
-    above mentioned card
-
-Flash eMMC:
-- EvalBoard V1.0a
-  - depending on JP10/12 connect serial debug console to lower X28 using null
-    modem RS-232 cable resp. X29 using a regular USB cable
-  - insert above prepared SD card into SD/MMC 8bit (X18) or SD/MMC 4bit (X19) socket
-- Ixora V1.0a
-  - connect serial debug console to X22 using null modem RS-232 cable and a
-      10 pin IDC to 9 pin D-sub male connector. (DTK or Intel standard)
-  - insert above prepared micro SD card into micro SD card socket (X10)
-- Boot to U-Boot prompt and start the update:
-  - apply power or reset
-  - hit any key to stop auto booting
-  - if you update from a previous image use the following U-Boot commands:
-    - using SD/MMC 8bit (X18) socket on EvalBoard:
-        setenv drive 1
-        setenv setupdate 'mmc dev ${drive}; mmc rescan; fatload mmc ${drive}:1 ${loadaddr} flash_blk.img; source ${loadaddr}'
-        saveenv
-    - using SD/MMC 4bit (X19) socket on EvalBoard or micro SD card socket (X10) on Ixora:
-        setenv drive 2
-        setenv setupdate 'mmc dev ${drive}; mmc rescan; fatload mmc ${drive}:1 ${loadaddr} flash_blk.img; source ${loadaddr}'
-        saveenv
-  - use 'run setupdate' U-Boot command and then
-  - use 'run update' U-Boot command unless you are updating from an older image
-    in which case:
-    - use 'run update_uboot' command and power cycle or reset and hit any key
-      to stop auto booting
-    - use 'env default -a' command followed by 'saveenv' command
-    - power cycle or reset again and hit any key to stop auto booting
-    - use 'run setupdate' U-Boot command and then
-    - use 'run migrate_v2.3b2' U-Boot command
-
-Boot from eMMC:
-- EvalBoard V1.0a or Ixora V1.0a
-- power cycle
-- upon first boot post-install scripts are run which takes around 2 minutes,
-    please be patient
-
-If the boot loader on the module got corrupted this recovers it by loading U-Boot
-  over USB into the module's RAM and executing it there:
-- EvalBoard V1.0a
-  - connect USB micro A/B (X49) or USB B (X50) to development workstation using
-      micro or regular USB cable
-  - connect serial debug console as stated above
-- Ixora V1.0a
-  - connect USB micro A/B (X9) to development workstation using regular micro USB
-      cable
-  - make sure JP2 is removed and nothing is connected to the lower USB host port
-      X8
-  - for more information please consult Ixora datasheet section 3.3 and chapter 4
-  - connect serial debug console as stated above
-- have the module in recovery mode and load U-Boot over USB to the module's RAM:
-  - lsusb should show a '0955:7130 NVidia Corp.' device if the module is in recovery mode
-  - run ./update.sh -d
-  - stop at the U-Boot prompt and begin the update as stated above
-
-Toradex, May 22, 2015
+Toradex, November 6, 2015

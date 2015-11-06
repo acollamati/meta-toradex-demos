@@ -4,12 +4,75 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 4.1.5 LTS kernel
+- Linux 4.1.12 LTS kernel
 - Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+
+********************************************************************************
+Linux Image V2.5 Beta 2 (November 6, 2015)
+- U-Boot boot loader:
+  - UBI fastmap fixes backported from Linux
+  - add return code for cfgblock commands which allows scripting
+  - increase TFTP blocksize for better performance
+  - updated NAND flash controller driver to include latest changes and bug fixes
+    implemented during code review of the upstream Linux kernel variant of it
+  - enabled zero bootdelay check (allows entering U-Boot when bootdelay is 0)
+  - increased heap size to avoid out of memory errors attaching UBI partitions
+  - implemented L2 cache for Colibri VF61 (no runtime detection; not enabled by
+    default)
+  - introduced automatic Ethernet aka TFTP update capability
+  - fix global timer udelay to use correct clock rate (fixes PHY detection in
+    U-Boot if boot delay is 0)
+  - added additional environment variables such as board_name and arm
+- Linux kernel:
+  - updated to 4.1.12 LTS long term stable Linux kernel
+  - updated NAND flash controller driver to include latest changes and bug fixes
+    implemented during code review of the upstream variant of it
+  - fixed PWM default pinmuxing
+  - enabled /proc/config.gz support
+  - enabled fbcon Logo support
+  - automatic USB device/host detection using USBC_DET pin
+  - added more USB Gadget drivers such as ECM (ethernet) or mass storage,
+    compile all gadget drivers as modules
+  - fixed SD card using polling mode instead of relying on card-detect GPIO
+  - fixed suspend/resume when using PIT timer as clocksource
+  - disabled UART DMA by default for all UARTs due to issues in current
+    implementation
+  - use pull-down on wakeup-key (avoids immediate wake-up on Iris/Viola)
+  - use reset values as L2 cache latencies
+  - fixed flickers/unstable backlight GPIO during startup
+  - changed Fusion multi touch event reporting to adhere to multitouch slot
+    protocol
+  - added ARM Performance Monitoring Unit (PMU)
+- Linux user-space:
+  - updated to latest Angstrom 2015.06/OpenEmbedded fido:
+    - glibc 2.22
+    - systemd 219
+    - Xorg 1.16.1
+  - glibc: force memcpy_arm to improve memcpy performance
+  - load USB Gadget ConfigFS kernel module by default
+- OpenEmbedded build system:
+  - local.conf: add Toradex source mirror as pre-mirror
+- Update scripts:
+  - use space-fixup in UBIFS image (allowing the image to be flashed using DFU)
+  - update.sh: delete intermediate files after use
+  - improved update.sh to use module type specific folders allowing update of
+    different modules with just one update media
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.5Beta2_20151106
+  - repository linux-toradex branch toradex_vf_4.1
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
+- Standby: Wake-up using UART in DMA mode hangs
+- Serial console on USB peripheral port is not enabled by default; use this command:
+  systemctl enable serial-getty@ttyGS0.service
 
 ********************************************************************************
 Linux Image V2.5 Beta 1 (August 13, 2015)
@@ -551,7 +614,8 @@ Working on latest image:
   - USB webcam
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS
-  - USB device CDCACM
+  - USB device CDC ACM
+  - automatic USB device/host detection aka OTG support
   - analogue inputs /sys/bus/iio/devices/
   - power management (standby is Stop mode)
   - interrupt router (peripheral gets routed on interrupt request)
@@ -562,14 +626,13 @@ Working on latest image:
   - GPIO config tool
   - LXDE
   - Cortex M4 utility mqxboot
-  - multicore communication library libmcc
+  - multicore communication library libmcc v1
 
 Not working or not tested:
 - U-Boot boot loader
   - USB keyboard
 - Linux kernel
   - USB audio driver
-  - automatic USB device/host detection aka OTG support
   - IrDA
   - optional parallel camera interface
 
@@ -577,4 +640,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, August 14, 2015
+Toradex, November 6, 2015
