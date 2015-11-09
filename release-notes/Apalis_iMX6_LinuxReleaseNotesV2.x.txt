@@ -21,14 +21,17 @@ Linux Image V2.5 Beta 2 (November 6, 2015)
 - U-Boot boot loader:
   - add return code for cfgblock commands which allows scripting
   - increase TFTP blocksize for better performance
-  - enable eMMC boot support commands (e.g. /dev/mmcblk0boot0)
   - enabled zero bootdelay check (allows entering U-Boot when bootdelay is 0)
+  - enable eMMC boot support commands (e.g. /dev/mmcblk0boot0)
+  - boot U-Boot from the eMMC boot area (/dev/mmcblk0boot0)
   - move environment to the end of the eMMC boot area before the config block
   - enable crc32 verify support
 - Linux kernel:
   - migrate to Linux 3.14.28 kernel, based on Freescale's BSP release imx_3.14.28_1.0.0_ga
+  - optional RS485 is not yet migrated
   - add optional CSI camera support for OmniVision OV5640
   - changed Fusion multi touch event reporting to adhere to multitouch slot
+  - renamed the device tree for V1.0 HW from imx6q-apalis-eval_v1_0.dtb to imx6q-apalis_v1_0-eval.dtb
 - Linux user-space:
   - updated to latest Angstrom 2015.06/OpenEmbedded fido:
     - glibc 2.22
@@ -36,7 +39,8 @@ Linux Image V2.5 Beta 2 (November 6, 2015)
     - Xorg 1.16.1
   - glibc: force memcpy_arm to improve memcpy performance
   - fw_printenv/setenv: follow U-Boot environment move
-  - updated Vivante binary graphics/multimedia drivers (some gstreamer plugins changed their names)
+  - updated Vivante binary graphics/multimedia drivers (some gstreamer plugins
+    changed their names, notably mfw_v4lsink to imxv4l2sink)
   - fix USB RNDIS operation (still racy due to networkd bug)
 - OpenEmbedded build system:
   - local.conf: add Toradex source mirror as pre-mirror
@@ -53,7 +57,6 @@ Linux Image V2.5 Beta 2 (November 6, 2015)
 Known Issues:
 - PCIe suspend/resume issue
 - USB RNDIS is racy due to networkd bug
-- missing RS-485 support
 - some USB Thumb drivers don't work well in U-Boot
 - USB hub on Evaluation Board not enabled in U-Boot
 - on first boot the resizing process adversely affects system performance for
@@ -425,4 +428,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, November 6, 2015
+Toradex, November 9, 2015
