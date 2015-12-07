@@ -55,6 +55,9 @@ Linux Image V2.5 Beta 2 (November 6, 2015)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
+- When migrating from V2.4 sometimes the bootpartition gets not enabled
+    resulting in the old bootloader being used. For a workaround see:
+    http://developer.toradex.com/software-resources/arm-family/linux/linux/release-details?view=all&issue=14774
 - USB RNDIS is racy due to networkd bug
 - some USB Thumb drivers don't work well in U-Boot
 - connecting an analogue mic to the on module codec resets the codec, so that
