@@ -131,7 +131,7 @@ else
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/apalis_imx6"
 		U_BOOT_BINARY=u-boot.imx
-		U_BOOT_BINARY_IT=u-boot-it.imx
+		U_BOOT_BINARY_IT=u-boot.imx-it
 	else
 		echo "can not detect module type from ./rootfs/etc/issue"
 		echo "exiting"
