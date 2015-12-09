@@ -34,7 +34,7 @@ Flash()
 	echo "'run update_kernel'"
 	echo "'run update_rootfs'"
 	echo ""
-	echo "Use the version with '_it' if you have an IT module, e.g. 'Apalis iMX6Q 2GB IT'"
+	echo "for 'Apalis iMX6Q 2GB IT' use the version with '_it'."
 	echo ""
 	echo "If you don't have a working U-Boot anymore, connect your PC to the module's USB"
 	echo "client port, bring the module in the serial download mode and start the"
