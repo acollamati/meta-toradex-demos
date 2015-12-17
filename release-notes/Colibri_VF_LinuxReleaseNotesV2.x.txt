@@ -4,12 +4,42 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 4.1.12 LTS kernel
+- Linux 4.1.15 LTS kernel
 - Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+
+********************************************************************************
+Linux Image V2.5 Beta 3 (December 15, 2015)
+- Linux kernel:
+  - enable RTL8192CU driver e.g. for LM006 USB Wi-Fi stick
+  - enable PPP and USB ACM support e.g. for Telit 910 modem
+  - add multitouch HID and RAWHID support
+  - fix CTAR Register access in DSPI driver
+  - updated to 4.1.15 LTS long term stable Linux kernel
+- Linux user-space:
+  - make sure USB RNDIS Gadget is started before networkd
+  - use new Toradex feed server as default feed URI
+- OpenEmbedded build system:
+  - fix memcpy performance improvement to only apply to Linaro glibc
+  - remove create_configblock.sh from deployment tarball
+  - add rtl8192cu firmware for LM006 USB Wi-Fi adapter
+  - add README with dependency and contribution information
+  - backport rtl8192cx for latest available firmware
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.5Beta3_20151215
+  - repository linux-toradex branch toradex_vf_4.1
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
+- Standby: Wake-up using UART in DMA mode hangs
+- Serial console on USB peripheral port is not enabled by default; use this command:
+  systemctl enable serial-getty@ttyGS0.service
 
 ********************************************************************************
 Linux Image V2.5 Beta 2 (November 6, 2015)
@@ -640,4 +670,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, November 6, 2015
+Toradex, December 17, 2015

@@ -17,6 +17,48 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.5 Beta 3 (December 15, 2015)
+- U-Boot boot loader:
+  - disable delete-null-pointer-checks compiler flag (needed on Tegras)
+  - use is_cpu_type() to detect module type as relying on RAM size might fail on
+    Colibri iMX6 if DCD is not yet updated to 64-bit DDR bus on Colibri iMX6DL
+  - clear flags for special PHY modes on phy_reset() to fix Ethernet after
+    rebooting from Linux
+- Linux kernel:
+  - enable RTL8192CU driver e.g. for LM006 USB Wi-Fi stick
+  - fix power off by stop mode avoiding stack trace
+- Linux user-space:
+  - make sure USB RNDIS Gadget is started before networkd
+  - use new Toradex feed server as default feed URI
+- OpenEmbedded build system:
+  - fix memcpy.patch to apply to Linaro layer and openembedded layer glibc
+  - remove create_configblock.sh from deployment tarball
+  - add rtl8192cu firmware for LM006 USB Wi-Fi adapter
+  - add README with dependency and contribution information
+  - backport rtl8192cx for latest available firmware
+- Update scripts:
+  - move partconf setting to be done last to avoid any issues when migrating
+      from V2.4
+
+- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.5Beta3_20151215
+  - repository linux-toradex branch toradex_imx_3.14.28_1.0.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- USB RNDIS is racy due to networkd bug
+- some USB Thumb drivers don't work well in U-Boot
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
+
+********************************************************************************
 Linux Image V2.5 Beta 2 (November 6, 2015)
 - U-Boot boot loader:
   - add return code for cfgblock commands which allows scripting
@@ -271,4 +313,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, November 9, 2015
+Toradex, December 17, 2015

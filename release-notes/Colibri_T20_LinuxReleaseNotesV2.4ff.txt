@@ -16,6 +16,36 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.5 Beta 3 (December 15, 2015)
+- U-Boot boot loader:
+  - disable delete-null-pointer-checks compiler flag fixing memory test crashes
+- Linux kernel:
+  - enable RTL8192CU driver e.g. for LM006 USB Wi-Fi stick
+  - add multitouch HID support
+  - ADV7280 V4L2 integration e.g. for new Toradex ACA V2.x (formerly ACM)
+- Linux user-space:
+  - make sure USB RNDIS Gadget is started before networkd
+  - use new Toradex feed server as default feed URI
+- OpenEmbedded build system:
+  - fix memcpy.patch to apply to Linaro layer and openembedded layer glibc
+  - remove create_configblock.sh from deployment tarball
+  - add rtl8192cu firmware for LM006 USB Wi-Fi adapter
+  - add README with dependency and contribution information
+  - backport rtl8192cx for latest available firmware
+
+- sources git.toradex.com tag Colibri_T20_LinuxImageV2.5Beta3_20151215
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Note:
+- no SD boot integration yet but copying cbootimage to beginning of SD card
+  will at least boot
+
+Known Issues:
+- LP1 suspend might fail due to pending USB interrupts
+- LP1 suspend might hang due to display controller issue
+
+********************************************************************************
 Linux Image V2.5 Beta 2 (November 6, 2015)
 - U-Boot boot loader:
   - add return code for cfgblock commands which allows scripting
@@ -181,4 +211,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, November 6, 2015
+Toradex, December 17, 2015
