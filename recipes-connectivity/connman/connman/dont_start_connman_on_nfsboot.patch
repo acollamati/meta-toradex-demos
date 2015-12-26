@@ -1,9 +1,9 @@
---- connman-1.30/src/connman.service.in~	2016-02-10 14:38:03.000000000 +0100
-+++ connman-1.30/src/connman.service.in	2016-02-10 14:40:42.766477619 +0100
-@@ -3,6 +3,8 @@
- After=dbus.service network-pre.target
- Before=network.target remote-fs-pre.target
- Wants=network.target remote-fs-pre.target
+--- connman-1.31/src/connman.service.in~	2016-01-24 13:16:06.000000000 +0100
++++ connman-1.31/src/connman.service.in	2016-01-24 13:43:09.650266502 +0100
+@@ -6,6 +6,8 @@
+ After=dbus.service network-pre.target systemd-sysusers.service
+ Before=network.target multi-user.target shutdown.target
+ Wants=network.target
 +# only if not NFS mount, connman will disconnect your rootfs otherwise!
 +ConditionKernelCommandLine=!root=/dev/nfs
  
