@@ -7,9 +7,9 @@ PACKAGECONFIG ?= ""
 PACKAGECONFIG[tkinter] = ",,tk"
 PACKAGECONFIG_remove_class-native = "tkinter"
 PACKAGECONFIG_remove_class-nativesdk = "tkinter"
-RDEPENDS_${PN}-tkinter_append += "${@base_contains('PACKAGECONFIG', 'tkinter', 'tcl tk', '', d)}"
+RDEPENDS_${PN}-tkinter_append += "${@bb.utils.contains('PACKAGECONFIG', 'tkinter', 'tcl tk', '', d)}"
 SRC_URI += " \
-  ${@base_contains('PACKAGECONFIG', 'tkinter', '', 'file://dont_build_tkinter.patch', d)} \
+  ${@bb.utils.contains('PACKAGECONFIG', 'tkinter', '', 'file://dont_build_tkinter.patch', d)} \
 "
 python __anonymous() {
     if not 'openembedded-layer' in d.getVar('BBFILE_COLLECTIONS'):

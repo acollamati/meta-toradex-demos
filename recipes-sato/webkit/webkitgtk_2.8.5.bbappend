@@ -5,7 +5,7 @@ do_install_append() {
     install -m 0644 -D ${WORKDIR}/minibrowser.desktop ${D}${datadir}/applications/minibrowser.desktop
 }
 
-PACKAGECONFIG = "${@base_contains('DISTRO_FEATURES', 'x11', 'x11', 'wayland' ,d)}"
+PACKAGECONFIG = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11', 'wayland' ,d)}"
 
 ARM_INSTRUCTION_SET_vf = "thumb"
 
