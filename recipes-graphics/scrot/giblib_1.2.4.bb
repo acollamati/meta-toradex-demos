@@ -24,11 +24,15 @@ do_compile_prepend () {
     export DESTDIR=${D}
 }
 
-do_compile_prepend () {
-    export DESTDIR=${D}
+do_compile_append () {
+    for i in $(find ${B} -name "*?.pc") ; do
+        sed -i -e s:${STAGING_DIR_TARGET}::g \
+               -e s:/${TARGET_SYS}::g \
+                  $i
+    done
 }
 
 FILES_${PN}-doc = "/usr/doc"
 
-inherit autotools-brokensep binconfig
+inherit autotools-brokensep binconfig pkgconfig
 
