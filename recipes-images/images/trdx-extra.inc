@@ -34,6 +34,7 @@ IMAGE_INSTALL_append_tegra3 = " \
     fs-init \
     e2fsprogs \
     e2fsprogs-mke2fs \
+    e2fsprogs-resize2fs \
     e2fsprogs-tune2fs \
     nv-conf-systemd \
 "
@@ -84,6 +85,7 @@ IMAGE_INSTALL_append_mx6 = " \
     fs-init \
     e2fsprogs \
     e2fsprogs-mke2fs \
+    e2fsprogs-resize2fs \
     e2fsprogs-tune2fs \
     mimetypes \
 "
