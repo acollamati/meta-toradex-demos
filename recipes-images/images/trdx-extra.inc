@@ -73,7 +73,6 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_mx6 = " \
-    u-boot-toradex-fsl-fw-utils \
     libusbg \
     gpio-export \
     curl \
@@ -90,14 +89,20 @@ IMAGE_INSTALL_append_mx6 = " \
     mimetypes \
 "
 
+IMAGE_INSTALL_append_apalis-imx6 = " \
+    u-boot-toradex-fsl-fw-utils \
+"
+IMAGE_INSTALL_append_colibri-imx6 = " \
+    u-boot-toradex-fsl-fw-utils \
+"
+
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_apalis-imx6 = " \
     pciutils \
 "
 
-IMAGE_INSTALL_append_colibri-vf = " \
-    u-boot-toradex-fsl-fw-utils \
+IMAGE_INSTALL_append_vf = " \
     libusbg \
     ptpd \
     iproute2 \
@@ -107,8 +112,11 @@ IMAGE_INSTALL_append_colibri-vf = " \
     usb-suspend-resume \
 "
 
-IMAGE_INSTALL_append_mx7 = " \
+IMAGE_INSTALL_append_colibri-vf = " \
     u-boot-toradex-fsl-fw-utils \
+"
+
+IMAGE_INSTALL_append_mx7 = " \
     libusbg \
     curl \
     file \
@@ -117,6 +125,10 @@ IMAGE_INSTALL_append_mx7 = " \
     iproute2 \
     canutils \
     mtd-utils-ubifs \
+"
+
+IMAGE_INSTALL_append_colibri-imx7 = " \
+    u-boot-toradex-fsl-fw-utils \
 "
 
 IMAGE_INSTALL += " \
