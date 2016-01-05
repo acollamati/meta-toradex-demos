@@ -1,0 +1,24 @@
+_tkinter module needs tk module along with tcl.
+Force python to not be built with _tkinter.
+
+Upstream-Status: Inappropriate [distribution]
+
+Signed-off-by: Andrei Gherzan <andrei@gherzan.ro>
+
+--- Python-2.7.9/setup.py.orig	2015-12-20 16:56:24.580951972 +0100
++++ Python-2.7.9/setup.py	2015-12-20 17:00:34.524083526 +0100
+@@ -1762,10 +1762,11 @@
+         self.extensions.extend(exts)
+ 
+         # Call the method for detecting whether _tkinter can be compiled
+-        self.detect_tkinter(inc_dirs, lib_dirs)
++        # disable detection of tcl/tk and thus don't build python with _tkinter
++        #self.detect_tkinter(inc_dirs, lib_dirs)
+ 
+-        if '_tkinter' not in [e.name for e in self.extensions]:
+-            missing.append('_tkinter')
++        #if '_tkinter' not in [e.name for e in self.extensions]:
++        #    missing.append('_tkinter')
+ 
+ ##         # Uncomment these lines if you want to play with xxmodule.c
+ ##         ext = Extension('xx', ['xxmodule.c'])
