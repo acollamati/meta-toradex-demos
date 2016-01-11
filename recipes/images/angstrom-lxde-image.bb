@@ -43,7 +43,9 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none
 CONMANPKGS ?= "connman connman-client connman-gnome"
 CONMANPKGS_libc-uclibc = ""
 
-DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
+DEPENDS_tegra += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
+#do not build plugins-ugly because it would require to whitelist LICENCES without deploying them
+DEPENDS += "gstreamer1.0-plugins-good gstreamer1.0-plugins-bad"
 
 #deploy the OpenGL ES headers to the sysroot
 DEPENDS_append_tegra = " nvsamples"
@@ -60,11 +62,66 @@ BAD_RECOMMENDATIONS = "gnome-icon-theme"
 BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
-#    gst-plugins-base-meta
-#    gst-plugins-good-meta
-#    gst-plugins-bad-meta
+#    gstreamer1.0-plugins-base-meta
+#    gstreamer1.0-plugins-good-meta
+#    gstreamer1.0-plugins-bad-meta
 #    gst-ffmpeg
 GSTREAMER = " \
+    gstreamer1.0 \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-base-alsa \
+    gstreamer1.0-plugins-base-audioconvert \
+    gstreamer1.0-plugins-base-audioresample \
+    gstreamer1.0-plugins-base-audiotestsrc \
+    gstreamer1.0-plugins-base-typefindfunctions \
+    gstreamer1.0-plugins-base-ivorbisdec \
+    gstreamer1.0-plugins-base-ogg \
+    gstreamer1.0-plugins-base-theora \
+    gstreamer1.0-plugins-base-videotestsrc \
+    gstreamer1.0-plugins-base-vorbis \
+    gstreamer1.0-plugins-good-audioparsers \
+    gstreamer1.0-plugins-good-autodetect \
+    gstreamer1.0-plugins-good-avi \
+    gstreamer1.0-plugins-good-deinterlace \
+    gstreamer1.0-plugins-good-id3demux \
+    gstreamer1.0-plugins-good-isomp4 \
+    gstreamer1.0-plugins-good-matroska \
+    gstreamer1.0-plugins-good-rtp \
+    gstreamer1.0-plugins-good-rtpmanager \
+    gstreamer1.0-plugins-good-udp \
+    gstreamer1.0-plugins-good-video4linux2 \
+    gstreamer1.0-plugins-good-wavenc \
+    gstreamer1.0-plugins-good-wavparse \
+"
+# No longer available
+#    gst-plugins-base-decodebin \
+#    gst-plugins-base-decodebin2 \
+#    gst-plugins-base-playbin \
+#    gst-plugins-ugly-asf \
+#"
+
+GSTREAMER_append_mx6 = " \
+    gstreamer1.0-plugins-base-ximagesink \
+    gstreamer1.0-plugins-base-xvimagesink \
+    gstreamer1.0-plugins-imx \
+    gst1.0-fsl-plugin \
+    gst1.0-fsl-plugin-gplay \
+    gst1.0-fsl-plugin-grecorder \
+"
+GSTREAMER_append_mx7 = " \
+    gstreamer1.0-plugins-base-ximagesink \
+    gstreamer1.0-plugins-base-xvimagesink \
+    gst1.0-fsl-plugin \
+    gst1.0-fsl-plugin-gplay \
+    gst1.0-fsl-plugin-grecorder \
+"
+# No longer available
+#    gst-plugins-gl \
+#    gst-fsl-plugin \
+#
+
+# use gstreamer-0.10 for tegra
+GSTREAMER_tegra = " \
     gstreamer \
     gst-plugins-base \
     gst-plugins-base-alsa \
@@ -97,12 +154,6 @@ GSTREAMER = " \
 "
 GSTREAMER_append_tegra3 = " \
     gst-plugins-good-jpeg \
-"
-GSTREAMER_append_mx6 = " \
-    gst-plugins-base-ximagesink \
-    gst-plugins-base-xvimagesink \
-    gst-plugins-gl \
-    gst-fsl-plugin \
 "
 GSTREAMER_colibri-vf = ""
 

@@ -95,6 +95,7 @@ GSTREAMER_append_mx6 = " \
     gst-plugins-base-xvimagesink \
     gst-plugins-gl \
     gst-fsl-plugin \
+    gpu-viv-bin-mx6q-libraries \
 "
 GSTREAMER_colibri-vf = ""
 
