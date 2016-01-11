@@ -89,6 +89,15 @@ IMAGE_INSTALL_append_colibri-vf = " \
     usb-suspend-resume \
 "
 
+IMAGE_INSTALL_append_mx7 = " \
+    ptpd \
+    iproute2 \
+    canutils \
+    mtd-utils-ubifs \
+    kernel-modules \
+    imx-kobs \
+"
+
 IMAGE_INSTALL += " \
     max9526-i2c \
     crda \
