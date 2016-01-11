@@ -1,3 +1,3 @@
 #do not build with smb/samba
-PACKAGECONFIG = ""
+PACKAGECONFIG_remove = "samba"
 DEPENDS += "udev"
