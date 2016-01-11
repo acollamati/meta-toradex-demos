@@ -31,7 +31,7 @@ do_mkrmscript () {
     readlink -e ${WORKDIR}/rmscript
     cat ${WORKDIR}/rmscript
 }
-addtask mkrmscript before do_rootfs
+addtask mkrmscript after do_rootfs before do_imagedeploy
 
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
@@ -52,10 +52,8 @@ DEPENDS_append_tegra = " nvsamples"
 
 IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
-IMAGE_BROWSER_colibri-vf = "midori"
+IMAGE_BROWSER_colibri-vf = "webkitgtk-bin"
 
-# this recommends from midori pulls in 8Meg of icons
-BAD_RECOMMENDATIONS = "gnome-icon-theme"
 #don't install some id databases
 #currently having more than one BAD_RECOMMENDATIONS and having
 #a package which exists in more than one compatible feed does not work
@@ -230,7 +228,6 @@ IMAGE_INSTALL += " \
     alsa-states \
     ${IMAGE_BROWSER} \
 "
-
 require recipes/images/lx.inc
 require recipes/images/trdx-extra.inc
 
