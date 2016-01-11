@@ -176,6 +176,13 @@ IMAGE_INSTALL_append_vf = " \
     xf86-video-modesetting \
 "
 
+# Packages which might be empty or no longer available
+RRECOMMENDS_${PN} += " \
+    xserver-xorg-multimedia-modules \
+    xserver-xorg-extension-dbe \
+    xserver-xorg-extension-extmod \
+"
+
 IMAGE_INSTALL += " \
     gconf \
     gnome-vfs \
@@ -202,15 +209,13 @@ IMAGE_INSTALL += " \
     packagegroup-base-extended \
     ${XSERVER} \
     xserver-common \
-    xserver-xorg-extension-dbe \
-    xserver-xorg-extension-extmod \
     xauth \
     xhost \
     xset \
     setxkbmap \
     \
     xrdb \
-    xorg-minimal-fonts xserver-xorg-multimedia-modules xserver-xorg-utils \
+    xorg-minimal-fonts xserver-xorg-utils \
     scrot \
     unclutter \
     \

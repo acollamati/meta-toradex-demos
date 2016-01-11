@@ -144,6 +144,9 @@ IMAGE_INSTALL_append_mx6 = " \
     eglinfo-x11 \
 "
 
+# Packages which might no longer exist
+RRECOMMENDS_${PN} += "xserver-xorg-multimedia-modules"
+
 IMAGE_INSTALL += " \
     ${IMAGE_INSTALL_QT4} \
     \
@@ -174,7 +177,7 @@ IMAGE_INSTALL += " \
     setxkbmap \
     \
     xrdb \
-    xorg-minimal-fonts xserver-xorg-multimedia-modules xserver-xorg-utils \
+    xorg-minimal-fonts xserver-xorg-utils \
     scrot \
     unclutter \
     \
