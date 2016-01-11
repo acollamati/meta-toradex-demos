@@ -3,16 +3,18 @@ SUMMARY = "Image based on qt4-x11-free"
 
 LICENSE = "MIT"
 
-PV = "V2.5"
+PV = "V2.6"
 PR = "r0"
 
 #start of the resulting deployable tarball name
+IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt"
+IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage-qt"
+IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxImage-qt"
+IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxImage-qt"
+IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt"
 IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxImage-qt"
 IMAGE_NAME_colibri-t30 = "Colibri_T30_LinuxImage-qt"
-IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage-qt"
-IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt"
-IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxImage-qt"
-IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt"
+IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxImage-qt"
 IMAGE_NAME = "${MACHINE}_LinuxImage-qt"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"

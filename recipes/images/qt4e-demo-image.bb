@@ -3,7 +3,7 @@ SUMMARY = "Image based on qt4e-demo-image.bb"
 
 LICENSE = "MIT"
 
-PV = "V2.5"
+PV = "V2.6"
 PR = "r0"
 
 #start of the resulting deployable tarball name

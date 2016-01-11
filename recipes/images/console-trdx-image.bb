@@ -3,17 +3,18 @@ SUMMARY = "Image booting to a console"
 
 LICENSE = "MIT"
 
-PV = "V2.5"
+PV = "V2.6"
 PR = "r0"
 
 #start of the resulting deployable tarball name
+IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxConsoleImage"
+IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxConsoleImage"
+IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxConsoleImage"
+IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxConsoleImage"
+IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxConsoleImage"
 IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxConsoleImage"
 IMAGE_NAME_colibri-t30 = "Colibri_T30_LinuxConsoleImage"
-IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxConsoleImage"
-IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxConsoleImage"
 IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxConsoleImage"
-IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxConsoleImage"
-IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxConsoleImage"
 IMAGE_NAME = "${MACHINE}_LinuxConsoleImage"
 
 #create the deployment directory-tree
