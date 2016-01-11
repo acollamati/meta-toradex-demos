@@ -16,17 +16,22 @@ SRC_URI += " \
     file://panel-buttons.patch \
 "
 
-# for colibri-vf50, colibri-vf61 we decide on the target during postinst
-SRC_URI_append_vf += " \
-    file://Wallpaper_ColibriVF50.png \
-    file://Wallpaper_ColibriVF61.png \
-"
-# for apalis-imx6, we decide on the target during postinst
+# for apalis-imx6/colibri-imx6, we decide on the target during postinst
 SRC_URI_append_mx6 += " \
     file://Wallpaper_ApalisiMX6D.png \
     file://Wallpaper_ApalisiMX6Q.png \
     file://Wallpaper_ColibriiMX6DL.png \
     file://Wallpaper_ColibriiMX6S.png \
+"
+# for colibri-imx7 we decide on the target during postinst
+SRC_URI_append_mx7 += " \
+    file://Wallpaper_ColibriiMX7D.png \
+    file://Wallpaper_ColibriiMX7S.png \
+"
+# for colibri-vf50, colibri-vf61 we decide on the target during postinst
+SRC_URI_append_vf += " \
+    file://Wallpaper_ColibriVF50.png \
+    file://Wallpaper_ColibriVF61.png \
 "
 
 do_install_append () {
@@ -80,4 +85,17 @@ pkg_postinst_${PN}_mx6 () {
             ln -sf Wallpaper_Toradex.png ${datadir}/lxde/wallpapers/toradex.png
             ;;
     esac
+}
+
+pkg_postinst_${PN}_mx7 () {
+    # can't do this offline
+    if [ "x$D" != "x" ]; then
+        exit 1
+    fi
+    SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
+    if [ "x$SOC_TYPE" = "xi.MX7D" ]; then
+        ln -sf Wallpaper_ColibriiMX7D.png ${datadir}/lxde/wallpapers/toradex.png
+    else
+        ln -sf Wallpaper_ColibriiMX7S.png ${datadir}/lxde/wallpapers/toradex.png
+    fi
 }
