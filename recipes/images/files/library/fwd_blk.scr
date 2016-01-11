@@ -3,6 +3,7 @@ test -n ${interface} || setenv interface mmc
 test -n ${drive} || setenv drive 1
 test -z "${board_name}" && test "${soc}" = "vf500" && setenv board_name colibri_vf
 test -z "${board_name}" && test "${soc}" = "vf610" && setenv board_name colibri_vf
+test "${board_name}" = "colibri_imx7" && setenv drive 0
 test "${board_name}" = "colibri_t20" && setenv drive 0
 test "${board_name}" = "colibri_vf" && setenv drive 0
 
