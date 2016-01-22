@@ -41,6 +41,12 @@ Linux Image V2.5 Beta 3 (December 15, 2015)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
+- update_it does not find the U-Boot binary. Updating from a V2.5 Beta 1 and
+  older image will fail, updating from a newer image will update all components
+  but U-Boot.
+  workaround: on the update media, (SD-card, TFTP server) make a copy with
+  the correct name. 
+  /srv/tftp/ # cp apalis_imx6/u-boot.imx-it apalis_imx6/u-boot-it.imx
 - PCIe suspend/resume issue
 - USB RNDIS is racy due to networkd bug
 - some USB Thumb drivers don't work well in U-Boot
@@ -465,4 +471,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, December 17, 2015
+Toradex, January 22, 2016
