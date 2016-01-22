@@ -1,5 +1,7 @@
 setenv set_blkcnt 'setexpr blkcnt ${filesize} + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200'
-setenv set_nextnum 'setexpr filenum ${filenum} + 1; setexpr blkstart ${blkstart} + ${blkcnt}'
+#workaround U-Boot counting in hex and split did in decimal
+setenv incr_decimal 'setexpr filenum ${filenum} + 1; setexpr filenrlow ${filenum} % 0x10; test ${filenrlow} -eq "a" && setexpr filenum ${filenum} + 0x6; true'
+setenv set_nextnum 'run incr_decimal; setexpr blkstart ${blkstart} + ${blkcnt}'
 
 setenv check_1 'setenv conf_blk_offset 0x1fff; mmc read ${loadaddr} ${conf_blk_offset} 1'
 setenv check_2 'setenv conf_blk_offset 0xfff; mmc read ${loadaddr} ${conf_blk_offset} 1'
