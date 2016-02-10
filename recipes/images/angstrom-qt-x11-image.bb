@@ -174,7 +174,6 @@ IMAGE_INSTALL_QT4 = " \
     qt4-plugin-imageformat-svg \
     qt4-plugin-imageformat-tga \
     qt4-plugin-imageformat-tiff \
-    qt4-plugin-phonon-backend-gstreamer \
     qt4-plugin-script-dbus \
     qt4-plugin-sqldriver-sqlite \
     qt4-demos \
