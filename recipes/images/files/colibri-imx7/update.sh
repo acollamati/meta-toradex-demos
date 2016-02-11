@@ -30,7 +30,7 @@ Flash()
 	echo "execute it."
 	echo ""
 	echo "Then use the following command to get U-Boot running:"
-	echo "'./update.sh -n -d /dev/ttyUSB0'"
+	echo "'./update.sh -d'"
 	echo ""
 	echo "Next, recreate the Boot Configuration Block and the Toradex Config Block:"
 	echo "'run setupdate'"
@@ -70,10 +70,9 @@ PAGE=2KiB
 BLOCK=124KiB
 MAXLEB=8112
 
-while getopts "d:fhno:s" Option ; do
+while getopts "dfhno:s" Option ; do
 	case $Option in
 		d)	UBOOT_RECOVERY=1
-			UARTDEV=$OPTARG
 			;;
 		f)	Flash
 			exit 0
