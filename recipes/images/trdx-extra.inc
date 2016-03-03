@@ -85,6 +85,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
     libmcc \
     mcc-pingpong \
     kernel-modules \
+    usb-suspend-resume \
 "
 
 IMAGE_INSTALL += " \
