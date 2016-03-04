@@ -134,6 +134,7 @@ IMAGE_INSTALL += " \
     iperf \
     i2c-tools \
     memtester \
+    rt-tests \
     stress \
     lmbench \
     nbench-byte \
