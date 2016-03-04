@@ -171,6 +171,10 @@ IMAGE_INSTALL_append_mx6 = " \
     mime-support \
     eglinfo-x11 \
 "
+IMAGE_INSTALL_append_mx7 = " \
+    gnome-disk-utility \
+    mime-support \
+"
 IMAGE_INSTALL_append_vf = " \
     gpioconfig \
     xf86-video-modesetting \

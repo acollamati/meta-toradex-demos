@@ -90,12 +90,14 @@ IMAGE_INSTALL_append_colibri-vf = " \
 "
 
 IMAGE_INSTALL_append_mx7 = " \
+    libusbg \
+    curl \
+    file \
+    aspell \
     ptpd \
     iproute2 \
     canutils \
     mtd-utils-ubifs \
-    kernel-modules \
-    imx-kobs \
 "
 
 IMAGE_INSTALL += " \
