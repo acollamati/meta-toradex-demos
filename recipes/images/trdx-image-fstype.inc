@@ -83,8 +83,10 @@ imagedeploy_kernel_tegra2() {
 }
 
 imagedeploy_kernel_vf() {
-    # Do nothing, we use the kernel from /boot inside root fs
-    :
+    # put kernel, device-tree into the bin directories
+    cp -pP ${DEPLOY_DIR_IMAGE}/zImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage
 }
 
 fakeroot do_imagedeploy() {
