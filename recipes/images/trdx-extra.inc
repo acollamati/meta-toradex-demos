@@ -82,9 +82,6 @@ IMAGE_INSTALL_append_colibri-vf = " \
     iproute2 \
     canutils \
     mtd-utils-ubifs \
-    mqxboot \
-    libmcc \
-    mcc-pingpong \
     kernel-modules \
     usb-suspend-resume \
 "
