@@ -43,7 +43,7 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none
 CONMANPKGS ?= "connman connman-client connman-gnome"
 CONMANPKGS_libc-uclibc = ""
 
-DEPENDS_tegra += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
+DEPENDS_append_tegra = " gst-plugins-good gst-plugins-bad gst-plugins-ugly"
 #do not build plugins-ugly because it would require to whitelist LICENCES without deploying them
 DEPENDS += "gstreamer1.0-plugins-good gstreamer1.0-plugins-bad"
 
