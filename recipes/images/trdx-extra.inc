@@ -87,6 +87,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
 "
 
 IMAGE_INSTALL_append_mx7 = " \
+    u-boot-toradex-fsl-fw-utils \
     libusbg \
     curl \
     file \
