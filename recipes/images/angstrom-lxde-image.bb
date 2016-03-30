@@ -55,10 +55,11 @@ IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
 IMAGE_BROWSER_colibri-vf = "webkitgtk-bin"
 
-#don't install some id databases
-#currently having more than one BAD_RECOMMENDATIONS and having
-#a package which exists in more than one compatible feed does not work
+# don't install some packages bloating the vybrid image
 BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
+
+# don't install a second icon theme
+BAD_RECOMMENDATIONS_append = " adwaita-icon-theme adwaita-icon-theme-symbolic"
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gstreamer1.0-plugins-base-meta
