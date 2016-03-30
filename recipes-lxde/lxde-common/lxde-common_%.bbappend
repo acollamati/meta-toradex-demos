@@ -92,10 +92,24 @@ pkg_postinst_${PN}_mx7 () {
     if [ "x$D" != "x" ]; then
         exit 1
     fi
-    SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
-    if [ "x$SOC_TYPE" = "xi.MX7D" ]; then
-        ln -sf Wallpaper_ColibriiMX7D.png ${datadir}/lxde/wallpapers/toradex.png
-    else
-        ln -sf Wallpaper_ColibriiMX7S.png ${datadir}/lxde/wallpapers/toradex.png
-    fi
+# Currently the soc bus subsystem seems not to work on i.MX 7Solo
+#    SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
+#    if [ "x$SOC_TYPE" = "xi.MX7D" ]; then
+#        ln -sf Wallpaper_ColibriiMX7D.png ${datadir}/lxde/wallpapers/toradex.png
+#    else
+#        ln -sf Wallpaper_ColibriiMX7S.png ${datadir}/lxde/wallpapers/toradex.png
+#    fi
+    CORES=`grep -c processor /proc/cpuinfo`
+    case $CORES in
+        2)
+            ln -sf Wallpaper_ColibriiMX7D.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+        1)
+            ln -sf Wallpaper_ColibriiMX7S.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+        *)
+            ln -sf Wallpaper_Toradex.png ${datadir}/lxde/wallpapers/toradex.png
+            ;;
+    esac
+
 }
