@@ -10,11 +10,12 @@ setenv check_configblock 'setexpr toradex_oui_addr ${loadaddr} + 8; mw.l ${kerne
 
 setenv migrate_configblock 'run check_configblock; mmc dev 0 0 && mmc read ${loadaddr} 0x500 1 && cmp.b ${kernel_addr_r} ${toradex_oui_addr} 3 && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} 1'
 
-setenv migrate_uboot 'tftpboot ${loadaddr} ${board_name}/u-boot.imx && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 2 ${blkcnt}; patch_ddr_size'
+setenv migrate_uboot_old 'tftpboot ${loadaddr} ${board_name}/u-boot.imx && run set_blkcnt && mmc dev 0 0 && mmc write ${loadaddr} 2 ${blkcnt}; patch_ddr_size'
+setenv migrate_uboot 'tftpboot ${loadaddr} ${board_name}/u-boot.imx && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 2 ${blkcnt} && patch_ddr_size && mmc bootbus 0 2 1 2 && mmc partconf 0 1 1 0'
 
 setenv cp_file_chunk 'tftpboot ${loadaddr} ${board_name}/root.ext3-${filenum}; run set_blkcnt; mmc dev 0 0 && mmc write ${loadaddr} ${blkstart} ${blkcnt}'
 
-setenv update_uboot 'tftpboot ${loadaddr} ${board_name}/u-boot.imx && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 2 ${blkcnt} && patch_ddr_size && mmc bootbus 0 2 1 2 && mmc partconf 0 1 1 0'
+setenv update_uboot 'tftpboot ${loadaddr} ${board_name}/u-boot.imx && run set_blkcnt && mmc dev 0 1 && mmc write ${loadaddr} 2 ${blkcnt} && patch_ddr_size && updt_fuse && mmc bootbus 0 2 0 1 && mmc partconf 0 1 1 0 && mmc rst-function 0 1'
 
 setenv update_kernel 'tftpboot ${loadaddr} ${board_name}/uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
 
@@ -29,11 +30,13 @@ setenv update_2 'tftpboot ${loadaddr} ${board_name}/boot.vfat && run set_blkcnt 
 #split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 root.ext3 root.ext3-
 setenv update_3 'setenv filesize 4000000; setenv filenum 10; setenv blkstart a000; while test ${filesize} -eq "4000000"; do run cp_file_chunk; run set_nextnum; done; true'
 
-setenv echo_v2.4b1 echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate_v2.4b1\" to complete update"
-setenv migrate_v2.4b1 'run migrate_configblock; run update_new; reset'
-setenv update_v2.4b1 'run check_configblock || run migrate_configblock; run migrate_uboot && run echo_v2.4b1'
+setenv echo_migrate echo "successfully updated U-Boot, power-cycle and enter \"run setupdate\; run migrate\" to complete update"
+setenv migrate 'run migrate_configblock; run update_latest; reset'
+setenv update_v2.4b1 'run check_configblock || run migrate_configblock; run migrate_uboot_old && run echo_migrate'
+setenv update_v2.5b3 'run check_configblock || run migrate_configblock; run migrate_uboot && run echo_migrate'
 
-setenv update_new 'run update_uboot; run update_1; run update_2; run update_kernel; run update_fdt; run update_3'
-setenv update 'mmc bootbus 0 2 1 2 && run update_new && reset; run update_v2.4b1'
+setenv update_latest 'run update_uboot; run update_1; run update_2; run update_kernel; run update_fdt; run update_3'
+setenv update_new 'updt_fuse -n && run update_latest && reset; run update_v2.5b3'
+setenv update 'mmc bootbus 0 2 0 1 && run update_new && exit; run update_v2.4b1'
 
 echo 'enter "run update" to update the entire module'
