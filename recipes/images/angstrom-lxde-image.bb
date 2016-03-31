@@ -53,7 +53,7 @@ DEPENDS_append_tegra = " nvsamples"
 
 IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
-IMAGE_BROWSER_colibri-vf = "webkitgtk-bin"
+IMAGE_BROWSER_colibri-vf = ""
 
 # don't install some packages bloating the vybrid image
 BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
