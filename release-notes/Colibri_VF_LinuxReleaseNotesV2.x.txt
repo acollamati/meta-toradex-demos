@@ -4,12 +4,66 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 4.1.15 LTS kernel
-- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
+- Linux 4.4.5 LTS kernel
+- Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+
+********************************************************************************
+Linux Image V2.6 Beta 1 (March 31, 2016)
+
+Note:
+- A new boot schema using static UBI volumes has been introduced. Therefore
+  downgrading is not directly possible. To downgrade a module, the UBI
+  partition needs to be cleared manually using "nand erase.part ubi".
+- The new DRM driver for the display controller might behave differently than
+  the old fbdev based driver. Especially display timings need to be configured
+  using the panel-simple.c driver.
+
+- U-Boot boot loader:
+  - read kernel and device tree from UBI volumes instead of rootfs
+  - increased NAND clock frequency for Colibri VF61
+- Linux kernel:
+  - updated to 4.4.5 LTS long term stable Linux kernel
+  - switched to DRM based driver for the display controller unit (DCU)
+    Note: The display kernel parameter video uses a new identifier (LVDS-1
+    as opposed to dcufb). Specifying display timings in the device tree is
+    currently not possible, custom display timings should be added to the
+    driver panel-simple.c.
+  - removed support for multi-core communication (MCC)
+  - increased NAND clock frequency for Colibri VF61
+  - support creation of SPI devices through /sys/bus/spi/drivers/spidev/new_id
+  - disable PHY power-down mode due to hardware issues on wakeup
+  - enable IP/TCP checksum offloading
+  - add IIO based DAC driver
+- Linux user-space:
+  - use X.org modesetting driver to make use of DRM (instead of fbdev)
+  - restart USB after suspend/resume using a systemd service
+  - removed Midori browser from LXDE image (development discontinued)
+  - drop libmcc and mqxboot since the kernel interfaces have been removed
+- OpenEmbedded build system:
+  - update OpenEmbedded from fido to jethro:
+    - gcc Linaro GCC 5.2-2015.11-2
+    - glibc 2.22
+    - systemd 226
+    - Xorg 1.17.2
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.6Beta1_20160331
+  - repository linux-toradex branch toradex_vf_4.4
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- Standby: Wake-up using UART in DMA mode hangs
+- License text do not get deployed to the root file system.
+- Currently there is no multi-core communication library/framework available.
+
+********************************************************************************
+Linux Image V2.5 (January 6, 2015)
+- none, this version is identical to the previous beta version V2.5 Beta 3
 
 ********************************************************************************
 Linux Image V2.5 Beta 3 (December 15, 2015)
@@ -34,6 +88,10 @@ Linux Image V2.5 Beta 3 (December 15, 2015)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
+- The feeds are missing non-Thumb entires (some packages are only provided in
+  a non-Thumb architecture, e.g. libvorbisdec1 which is required by
+  gst-plugins-base-meta). Use the following command to add non-Thumb feeds:
+  sed -i 'p; s/ http/2 http/; s/armv7at2hf-vfp/armv7ahf-vfp/' /etc/opkg/*feed.conf
 - If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
@@ -604,7 +662,8 @@ Known Issues:
 
 ********************************************************************************
 Notes:
-- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
+- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards
+  resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
 - user account: root with empty password
 - UBIFS flash root file system
 - opkg package manager
@@ -624,10 +683,10 @@ Working on latest image:
   - framebuffer support
 - Linux kernel
   - GPIOlib /sys/class/gpio
-  - temperature sensor /sys/bus/iio/devices/iio\:device0/in_temp_input
-  - RTC (Vybrid internal without wakeup support and board level I2C RTC)
+  - temperature sensor via hwmon /sys/class/hwmon/hwmon0/temp1_input
+  - RTC (Vybrid internal with wakeup support and board level I2C RTC)
   - Ethernet eth0
-  - NAND flash MTD UBIFS with hardware ECC
+  - NAND flash MTD/UBI/UBIFS with hardware ECC
   - serial console debug UARTA ttyLP0
   - serial UARTA/UARTB and UARTC up to 921600, including RTS/CTS
   - RS-422/485
@@ -646,28 +705,25 @@ Working on latest image:
   - USB device Ethernet RNDIS
   - USB device CDC ACM
   - automatic USB device/host detection aka OTG support
-  - analogue inputs /sys/bus/iio/devices/
+  - analogue inputs (ADC) /sys/bus/iio/devices/
+  - analogue outputs (DAC)
   - power management (standby is Stop mode)
   - interrupt router (peripheral gets routed on interrupt request)
-  - optional CAN (Vybrid SoC internal)
+  - optional CAN (Vybrid SoC internal FlexCAN)
 - Linux user-space
   - graphics (DCU aka parallel RGB)
-  - Midori browser
   - GPIO config tool
   - LXDE
-  - Cortex M4 utility mqxboot
-  - multicore communication library libmcc v1
 
 Not working or not tested:
-- U-Boot boot loader
-  - USB keyboard
+- U-Boot USB keyboard
 - Linux kernel
-  - USB audio driver
   - IrDA
+  - USB audio driver
   - optional parallel camera interface
 
 ******************************************************************************
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, December 17, 2015
+Toradex, April 15, 2016

@@ -5,7 +5,7 @@ Release Notes:  Linux Image V2.x for Colibri T30
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
+- Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
@@ -14,6 +14,34 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.6 Beta 1 (March 31, 2016)
+
+- U-Boot boot loader:
+  - no Tegra specific changes
+- Linux kernel:
+  - synchronise USB serial options
+  - kernel: add support for gcc 5
+  - rtl8192cu: add new device IDs
+- Linux user-space:
+  - xserver-xorg: Fix build with GCC 5
+  - bblayers.conf: angstrom now depends on meta-qt5
+  - gstreamer: fix argument parsing when using Bison 3
+- OpenEmbedded build system:
+  - update OpenEmbedded from fido to jethro:
+    - Firefox 38.2.1esr
+    - gcc Linaro GCC 5.2-2015.11-2
+    - glibc 2.22
+    - systemd 226
+    - Xorg 1.14.7 (not upgraded due to L4T dependency)
+
+- sources git.toradex.com tag Colibri_T30_LinuxImageV2.6Beta1_20160331
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- License text do not get deployed to the root file system.
 
 ********************************************************************************
 Linux Image V2.5 Beta 3 (December 15, 2015)
@@ -644,7 +672,7 @@ Working on latest image:
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
   - Firefox browser
-  - Gstreamer video encode and playback, independent dual full HD video decode
+  - Gstreamer 0.10 video encode and playback, independent dual full HD video decode
   - GPIO config tool
   - LXDE
   - tegrastats-gtk, CPU information visible in graphical environment
@@ -654,10 +682,10 @@ Not working or not tested:
 - Linux kernel
   - IrDA
   - RS-422/485
-- Adobe Flash not provided by L4T (and probably never will)
+- Linux user-space Adobe Flash not provided by L4T (and probably never will)
 
 ******************************************************************************
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, December 17, 2015
+Toradex, April 15, 2016

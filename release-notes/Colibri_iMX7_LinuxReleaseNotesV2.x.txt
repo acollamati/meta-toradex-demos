@@ -9,8 +9,7 @@ Contents:
     LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
-tbd. for the time being refer to:
-http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+http://developer.toradex.com/knowledge-base/flashing-linux-on-imx7-modules
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
@@ -27,7 +26,7 @@ Linux Image V2.6 Alpha 1 (March 15, 2016)
   - uses ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
 - sources git.toradex.com tag Colibri_iMX7_LinuxImageV2.6Alpha1_20160315
   - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
-  - repository u-boot-toradex branch 2014.04-toradex
+  - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
 - poweroff and reboot does not work as expected
@@ -36,9 +35,10 @@ Known Issues:
 
 ********************************************************************************
 Notes:
-- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on
-    EvalBoards resp. X27 on V3.1a depending on JP17/19, X13 on Iris)
+- 115200 baud serial debug console on UARTA aka FFUART (lower X25 on EvalBoards
+  resp. X27 on V3.1a depending on JP17/19, X13 on Iris) without any handshake
 - user account: root with empty password
+- UBIFS flash root file system
 - opkg package manager
 - Linux host used for update preparation requires proper 32-bit execution
     environment (e.g. install ia32-libs on 64-bit Ubuntu) and awk (e.g. install
@@ -46,7 +46,7 @@ Notes:
 
 Working on latest image:
 - U-Boot boot loader
-  - environment storage in NAND
+  - environment storage in NAND flash
   - Ethernet
   - MMC/SD cards
   - NAND flash
@@ -60,53 +60,54 @@ Working on latest image:
 - Linux kernel
   - analogue audio playback and capture, resistive touch
   - analogue input via IIO framework
-    /sys/devices/soc.2/30400000.aips-bus/30610000.adc/iio:device0
-    Note the 1.8 Full Scale limitation!
+      /sys/bus/iio/devices/iio:device0
+      Note the 1.8 volt full scale limitation!
   - DVFS power management (i.MX 7Dual only)
-  - Ethernet
+  - Ethernet eth0
   - custom Ethernet MAC address
   - framebuffer console
   - GPIOlib /sys/class/gpio
   - I2C via /dev/i2c-X
+  - NAND flash MTD/UBI/UBIFS with hardware ECC
   - PWMs /sys/class/pwm
-  - NAND UBIFS
-  - 4-bit SD card mmc1
-  - SPI via /dev/spidev2.0
+  - RTC (i.MX 7 internal and board level I2C RTC)
+  - 4-bit MMC/SD card ESDHC2
+  - SPI (ECSPI) via /dev/spidev2.0
   - suspend LP1
-  - temperature sensor CPU /sys/devices/virtual/thermal/thermal_zone0/temp
-  - serial console debug UARTA
-  - UARTB, UARTC
-  - USB host port (Note, i.MX 7Solo only has USBC port)
+  - CPU temperature sensor via hwmon /sys/class/hwmon/hwmon0/temp1_input
+  - serial console debug UARTA ttymxc0
+  - serial UARTA/UARTB and UARTC, including RTS/CTS, ttymxc0/1/2
+  - USB host port (Note, i.MX 7Solo only on USBC port)
   - USB audio driver
-  - automatic USBC switching to host when OTG Host cable detected
 - Linux user-space
+  - graphics (LCDIF aka parallel RGB)
   - Firefox browser
   - LXDE desktop environment
 - Display:
   - backlight PWM with PWM<A>
-  - resolution setting through device tree nodes
+  - resolution setting via device tree nodes
 
 Not working or not tested:
 - U-Boot boot loader
-  - USB device: DFU support (device firmware upgrade)
+  - USB keyboard
+  - USB device firmware upgrade (DFU) as device on USB OTG port
 - Linux kernel
   - CAN via MCP2515
-  - CAN via flexcan can0 and can1, disabled in device tree
+  - optional CAN via flexcan can0 and can1, disabled in device tree
   - IrDA
   - parallel bus
   - optional parallel camera interface
-  - RS-422
-  - optional RS485
-  - serial number and board revision (not passed in from U-Boot)
-  - temperature sensor board
+  - RS-422/485
+  - serial number and board revision (not currently handed over by U-Boot)
+  - module temperature sensor
   - USB webcam
   - USB raw HID device /dev/hidrawX
-  - USB device Ethernet RNDIS, disabled
-  - automatic USB device/host detection aka OTG support (not tested)
+  - USB device, ACM, Ethernet CDC, RNDIS
+  - automatic USB device/host detection aka OTG support
   - watchdog
 - Linux user-space
   - GPIO config tool not available
 
 ******************************************************************************
 
-Toradex, March 29, 2016
+Toradex, April 15, 2016

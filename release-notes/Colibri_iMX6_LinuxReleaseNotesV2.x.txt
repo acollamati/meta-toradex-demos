@@ -4,9 +4,8 @@ Release Notes:  Linux Image V2.x for Colibri iMX6
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 3.14.28 kernel, based on Freescale's BSP release imx_3.14.28_1.0.0_ga
-    and patches from Boundary Devices
-- Angstrom 2015.06/OpenEmbedded fido/Yocto 1.8 based root file system, using
+- Linux 3.14.52 kernel, based on Freescale's BSP release imx_3.14.52_1.1.0_ga
+- Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
     LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
@@ -15,6 +14,55 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.6 Beta 1 (March 31, 2016)
+
+- Booting:
+  - using the eMMC fast boot feature.
+      This requires fusing the bootmode irreversibly into the i.MX 6.
+      It will be done as part of the flashing process, refer to the flashing
+      instructions mentioned above.
+      Fast boot mode addresses issue 15990
+      http://developer.toradex.com/software/linux/linux-software/release-details?view=all&issue=15990
+- U-Boot boot loader:
+  - added updt_fuse command required for the change to fastboot mode
+- Linux kernel:
+  - updated to 3.14.52
+  - disable not serviced DCD/RI UART interrupts
+  - fixed bug preventing gpio-leds dtb configuration
+  - limit SPI clock to datasheet maximum of 23MHz
+- Linux user-space:
+  - deploy GPIOconfig now available for Colibri iMX6
+  - deploy rttest package
+- OpenEmbedded build system:
+  - update OpenEmbedded from fido to jethro:
+    - Firefox 38.2.1esr
+    - gcc Linaro GCC 5.2-2015.11-2
+    - glibc 2.22
+    - systemd 226
+    - Xorg 1.17.2
+
+- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.6Beta1_20160331
+  - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- On the Colibri iMX6DL the RAM configuration is not patched correctly, thus
+    only 256MB are available. Fix in the 2015.04-toradex-next branch
+    available.
+- USB RNDIS is racy due to networkd bug and not started by default
+- some USB Thumb drives don't work well in U-Boot
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
 
 ********************************************************************************
 Linux Image V2.5 Beta 3 (December 15, 2015)
@@ -41,7 +89,7 @@ Linux Image V2.5 Beta 3 (December 15, 2015)
       from V2.4
 
 - sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.5Beta3_20151215
-  - repository linux-toradex branch toradex_imx_3.14.28_1.0.0_ga
+  - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
@@ -259,13 +307,13 @@ Working on latest image:
   - serial console debug UARTA
   - UARTB, UARTC
   - I2C via /dev/i2c-X
-  - 4-bit SD card mmc1
+  - 4-bit MMC/SD card mmc1
   - framebuffer console
   - HDMI audio
   - analogue audio playback and capture, resistive touch
   - optional S/PDIF, disabled in device tree
   - SPI via /dev/spidev32766.0
-  - CAN via flexcan can0 and can1, disabled in device tree
+  - optional CAN via flexcan can0 and can1, disabled in device tree
   - custom Ethernet MAC address
   - serial number and board revision
   - USB host port
@@ -285,6 +333,7 @@ Working on latest image:
   - OpenGL
   - LXDE
   - resize rootfs partition to full eMMC capacity
+  - GPIO config tool
 - Display:
   - only first output used by X11
   - backlight PWM
@@ -303,7 +352,6 @@ Not working or not tested:
   - optional RS485
 - Linux user-space
   - Gstreamer encoding (not tested)
-  - GPIO config tool not available
 - Display:
   - on some monitors HDMI EDID does not negotiate correct timings,
       adding/removing mxc_hdmi.only_cea=1 to the kernel command line may help
@@ -313,4 +361,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, December 17, 2015
+Toradex, April 15, 2016
