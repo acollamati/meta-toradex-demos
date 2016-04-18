@@ -36,6 +36,7 @@ Linux Image V2.6 Beta 1 (March 31, 2016)
   - limit SPI clock to datasheet maximum of 18MHz
 - Linux user-space:
   - deploy rttest package
+  - use gstreamer 1.0. Note that some plugin names changed
 - OpenEmbedded build system:
   - update OpenEmbedded from fido to jethro:
     - Firefox 38.2.1esr
@@ -49,6 +50,14 @@ Linux Image V2.6 Beta 1 (March 31, 2016)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
+- gstreamer freezes when generating its initial database on some modules:
+    (gst-plugin-scanner:683): GLib-GObject-WARNING **: cannot register existing type 'GstImxCompositorPad'
+    The following gets you around this:
+      mv /usr/lib/libgstimxcompositor.so.0.12.0 /usr/lib/libgstimxcompositor.so.0.12.0.orig
+      gst-inspect-1.0
+      mv /usr/lib/libgstimxcompositor.so.0.12.0.orig /usr/lib/libgstimxcompositor.so.0.12.0
+    Alternative one can uninstall libgstimxcompositor0
+      opkg remove --force-depends libgstimxcompositor0
 - PCIe suspend/resume issue
 - USB RNDIS is racy due to networkd bug and not started by default
 - some USB Thumb drives don't work well in U-Boot
@@ -519,4 +528,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, April 15, 2016
+Toradex, April 18, 2016
