@@ -75,10 +75,6 @@ while getopts "dfhno:s" Option ; do
 			exit 0
 			;;
 		h)	Usage
-			# Exit if only usage (-h) was specified.
-			if [ "$#" -eq 1 ] ; then
-				exit 10
-			fi
 			exit 0
 			;;
 		o)	OUT_DIR=$OPTARG
@@ -88,7 +84,7 @@ done
 
 if [ "$OUT_DIR" = "" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	Usage
-	exit 0
+	exit 1
 fi
 
 # is OUT_DIR an existing directory?
