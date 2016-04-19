@@ -201,22 +201,20 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 	if [ "${MODTYPE}" = "colibri-t20" ] ; then
 		#some sanity test, we really need RAM_SIZE and MODVERSION set
 		echo ""
-		echo "256, 512" | grep -q ${RAM_SIZE}
-		if [ $? -eq 1 ] ; then
+		SANITY_CHECK=1
+		if [ "256" != ${RAM_SIZE} ] && [ "512" != ${RAM_SIZE} ]; then
 			printf "\033[1mplease specify your RAM size with the -r parameter\033[0m\n"
+			SANITY_CHECK=0
 		fi
 
-		echo "v11, v12" | grep -q ${MODVERSION}
-		if [ $? -eq 1 ] ; then
+		if [ "v11" != ${MODVERSION} ] && [ "v12" != ${MODVERSION} ]; then
 			printf "\033[1mplease specify your module version with the -v parameter\033[0m\n"
-			Usage
-			exit 0
+			SANITY_CHECK=0
 		fi
 
-		echo "256, 512" | grep -q ${RAM_SIZE}
-		if [ $? -eq 1 ] ; then
+		if [ ${SANITY_CHECK} -eq 0 ] ; then
 			Usage
-			exit 0
+			exit 1
 		fi
 	fi
 
