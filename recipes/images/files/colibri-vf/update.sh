@@ -158,8 +158,11 @@ if [ "$CNT" -eq 0 ] ; then
 	exit 1
 fi
 
-# Prepare full flashing
-#build ${IMAGEFILE} if it does not exist
+#Install trap to write a sensible message in case any of the commands below
+#exit premature...
+trap '{ printf "\033[31mScript aborted unexpectedly...\033[0m\n"; }' EXIT
+
+#Prepare full flashing
 sudo $LOCPATH/mkfs.ubifs --space-fixup -c ${MAXLEB} -e ${BLOCK} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE} -r rootfs/ -v
 
 echo ""
@@ -198,7 +201,8 @@ sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 sudo rm ${BINARIES}/ubifs.img ${BINARIES}/versions.txt
 sync
 
-echo "Successfully copied data to target folder."
-echo ""
+#Remove trap and report success!
+trap - EXIT
+printf "\033[32mSuccessfully copied data to target folder.\033[0m\n\n"
 
 Flash

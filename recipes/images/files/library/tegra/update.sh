@@ -255,6 +255,10 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	fi
 fi
 
+#Install trap to write a sensible message in case any of the commands below
+#exit premature...
+trap '{ printf "\033[31mScript aborted unexpectedly...\033[0m\n"; }' EXIT
+
 #make the directory with the outputfiles writable
 sudo chown $USER: ${BINARIES}
 
@@ -399,7 +403,8 @@ if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 fi
 sync
 
-echo "Successfully copied data to target folder."
-echo ""
+#Remove trap and report success!
+trap - EXIT
+printf "\033[32mSuccessfully copied data to target folder.\033[0m\n\n"
 
 Flash

@@ -159,6 +159,10 @@ MKFSVFAT=`command -v mkfs.vfat` || MKFSVFAT=`sudo -s command -v mkfs.vfat` || { 
 MKFSEXT3=`command -v mkfs.ext3` || MKFSEXT3=`sudo -s command -v mkfs.ext3` || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 
+#Install trap to write a sensible message in case any of the commands below
+#exit premature...
+trap '{ printf "\033[31mScript aborted unexpectedly...\033[0m\n"; }' EXIT
+
 #make the directory with the outputfiles writable
 sudo chown $USER: ${BINARIES}
 
@@ -278,7 +282,8 @@ sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/roo
 fi
 sync
 
-echo "Successfully copied data to target folder."
-echo ""
+#Remove trap and report success!
+trap - EXIT
+printf "\033[32mSuccessfully copied data to target folder.\033[0m\n\n"
 
 Flash
