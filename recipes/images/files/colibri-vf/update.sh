@@ -148,7 +148,7 @@ then
 fi
 
 #sanity check, can we execute mkfs.ubifs, e.g. see the help text?
-CNT=`sudo $LOCPATH/mkfs.ubifs -h | grep -c space-fixup`  
+CNT=`sudo $LOCPATH/mkfs.ubifs -h | grep -c space-fixup || true`
 if [ "$CNT" -eq 0 ] ; then
 	echo "The program mkfs.ubifs can not be executed or does not provide --space-fixup"
 	echo "option."

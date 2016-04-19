@@ -239,12 +239,12 @@ MKFSVFAT=`command -v mkfs.vfat` || MKFSVFAT=`sudo -s command -v mkfs.vfat` || { 
 MKFSEXT3=`command -v mkfs.ext3` || MKFSEXT3=`sudo -s command -v mkfs.ext3` || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 
-CBOOT_CNT=`tegra-uboot-flasher/cbootimage -h | grep -c outputimage`
+CBOOT_CNT=`tegra-uboot-flasher/cbootimage -h | grep -c outputimage || true`
 [ "$CBOOT_CNT" -gt 0 ] || { echo >&2 "Program cbootimage not available. 32bit compatibility libs?  Aborting."; exit 1; }
 
 if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	#sanity check, can we execute mkfs.ubifs, e.g. see the help text?
-	CNT=`sudo $LOCPATH/mkfs.ubifs -h | grep -c space-fixup`  
+	CNT=`sudo $LOCPATH/mkfs.ubifs -h | grep -c space-fixup || true`
 	if [ "$CNT" -eq 0 ] ; then
 		echo "The program mkfs.ubifs can not be executed or does not provide --space-fixup"
 		echo "option."
