@@ -6,8 +6,6 @@
 # exit on error
 set -e
 
-# sometimes we need the binary echo, not the shell builtin
-ECHO=`which echo`
 #some distros have fs tools only in root's path
 PARTED=`which parted` 2> /dev/null || true
 if [ -e "$PARTED" ] ; then
@@ -156,9 +154,9 @@ AWKTEST=`echo 100000000 | awk -v min=100 -v f=10000 '{rootfs_size=$1+f*512;rootf
 DEV_OWNER=`ls -ld rootfs/dev | awk '{print $3}'`
 if [ "${DEV_OWNER}x" != "rootx" ]
 then
-	$ECHO -e "rootfs/dev is not owned by root, but it should!"
-	$ECHO -e "\033[1mPlease unpack the tarball with root rights.\033[0m"
-	$ECHO -e "e.g. sudo tar xjvf Apalis_iMX6_LinuxImageV2.1_20140201.tar.bz2"
+	printf "rootfs/dev is not owned by root, but it should!\n"
+	printf "\033[1mPlease unpack the tarball with root rights.\033[0m\n"
+	printf "e.g. sudo tar xjvf Apalis_iMX6_LinuxImageV2.6_20160331.tar.bz2\n"
 	exit 1
 fi
 
@@ -186,8 +184,8 @@ echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/uImage`" >> ${BINARIES}/versions.txt
-$ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
-grep -i imx6 rootfs/etc/issue >> ${BINARIES}/versions.txt
+ROOTFSVERSION=`grep -i imx6 rootfs/etc/issue`
+echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"

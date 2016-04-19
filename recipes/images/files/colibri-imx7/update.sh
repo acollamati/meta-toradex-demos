@@ -4,9 +4,6 @@
 
 set -e
 
-# sometimes we need the binary echo, not the shell builtin
-ECHO=`which echo`
-
 Flash()
 {
 	echo "To flash the Colibri iMX7 module a running U-Boot is required. Boot the"
@@ -131,9 +128,9 @@ fi
 DEV_OWNER=`ls -ld rootfs/dev | awk '{print $3}'`
 if [ "${DEV_OWNER}x" != "rootx" ]
 then
-	$ECHO -e "rootfs/dev is not owned by root, but it should!"
-	$ECHO -e "\033[1mPlease unpack the tarball with root rights.\033[0m"
-	$ECHO -e "e.g. sudo tar xjvf Colibri_iMX7_LinuxImageV2.6_20160101.tar.bz2"
+	printf "rootfs/dev is not owned by root, but it should!\n"
+	printf "\033[1mPlease unpack the tarball with root rights.\033[0m\n"
+	printf "e.g. sudo tar xjvf Colibri_iMX7_LinuxImageV2.6_20160331.tar.bz2\n"
 	exit 1
 fi
 
@@ -143,8 +140,8 @@ if [ "$CNT" -eq 0 ] ; then
 	echo "The program mkfs.ubifs can not be executed or does not provide --space-fixup"
 	echo "option."
 	echo "Are you on a 64bit Linux host without installed 32bit execution environment?"
-	$ECHO -e  "\033[1mPlease install e.g. ia32-libs on 64-bit Ubuntu\033[0m"
-	$ECHO -e  "\033[1mMaybe others are needed e.g. liblzo2:i386 on 64-bit Ubuntu\033[0m"
+	printf "\033[1mPlease install e.g. ia32-libs on 64-bit Ubuntu\033[0m"
+	printf "\033[1mMaybe others are needed e.g. liblzo2:i386 on 64-bit Ubuntu\033[0m"
 	exit 1
 fi
 
@@ -160,8 +157,8 @@ sudo touch ${BINARIES}/versions.txt
 sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/u-boot.imx`" >> ${BINARIES}/versions.txt
-$ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
-grep MX7 rootfs/etc/issue >> ${BINARIES}/versions.txt
+ROOTFSVERSION=`grep MX7 rootfs/etc/issue`
+echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"

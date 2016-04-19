@@ -5,8 +5,6 @@
 # exit on error
 set -e
 
-# sometimes we need the binary echo, not the shell builtin
-ECHO=`which echo`
 #some distros have fs tools only in root's path
 PARTED=`which parted` 2> /dev/null || true
 if [ -e "$PARTED" ] ; then
@@ -209,12 +207,12 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 		echo ""
 		echo "256, 512" | grep -q ${RAM_SIZE}
 		if [ $? -eq 1 ] ; then
-			$ECHO -e "\033[1mplease specify your RAM size with the -r parameter\033[0m"
+			printf "\033[1mplease specify your RAM size with the -r parameter\033[0m\n"
 		fi
 
 		echo "v11, v12" | grep -q ${MODVERSION}
 		if [ $? -eq 1 ] ; then
-			$ECHO -e "\033[1mplease specify your module version with the -v parameter\033[0m"
+			printf "\033[1mplease specify your module version with the -v parameter\033[0m\n"
 			Usage
 			exit 0
 		fi
@@ -239,9 +237,9 @@ AWKTEST=`echo 100000000 | awk -v min=100 -v f=10000 '{rootfs_size=$1+f*512;rootf
 DEV_OWNER=`ls -ld rootfs/dev | awk '{print $3}'`
 if [ "${DEV_OWNER}x" != "rootx" ]
 then
-	$ECHO -e "rootfs/dev is not owned by root, but it should!"
-	$ECHO -e "\033[1mPlease unpack the tarball with root rights.\033[0m"
-	$ECHO -e "e.g. sudo tar xjvf Apalis_T30_LinuxImageV2.3Beta5_20141219.tar.bz2"
+	printf "rootfs/dev is not owned by root, but it should!\n"
+	printf "\033[1mPlease unpack the tarball with root rights.\033[0m\n"
+	printf "e.g. sudo tar xjvf Apalis_T30_LinuxImageV2.6Beta1_20160331.tar.bz2\n"
 	exit 1
 fi
 
@@ -267,8 +265,8 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 		echo "The program mkfs.ubifs can not be executed or does not provide --space-fixup"
 		echo "option."
 		echo "Are you on a 64-bit Linux host without installed 32-bit execution environment?"
-		$ECHO -e  "\033[1mPlease install e.g. ia32-libs on 64-bit Ubuntu\033[0m"
-		$ECHO -e  "\033[1mMaybe others are needed e.g. liblzo2:i386 on 64-bit Ubuntu\033[0m"
+		printf "\033[1mPlease install e.g. ia32-libs on 64-bit Ubuntu\033[0m\n"
+		printf "\033[1mMaybe others are needed e.g. liblzo2:i386 on 64-bit Ubuntu\033[0m\n"
 		exit 1
 	fi
 fi
@@ -286,8 +284,8 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 else
 	basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
 fi
-$ECHO -n "Rootfs " >> ${BINARIES}/versions.txt
-grep -i t[2-3]0 rootfs/etc/issue >> ${BINARIES}/versions.txt
+ROOTFSVERSION=`grep -i t[2-3]0 rootfs/etc/issue`
+echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"
