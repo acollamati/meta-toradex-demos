@@ -117,7 +117,7 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 	echo "Put the module in recovery mode and press [ENTER]..."
 	read RESULT
 	sudo ${LOCPATH}/imx_usb ${BINARIES}/u-boot.imx
-	exit 0
+	exit
 fi
 
 #sanity check for correct untared rootfs

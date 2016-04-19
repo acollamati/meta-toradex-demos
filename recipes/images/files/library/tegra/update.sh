@@ -220,7 +220,7 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 
 	cd ${LOCPATH}
 	sudo ./tegrarcm --bct=../${BINARIES}/${BCT} --bootloader=../${BINARIES}/${U_BOOT_BINARY} --loadaddr=0x80108000
-	exit 1
+	exit
 fi
 
 #sanity check for awk programs

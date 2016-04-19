@@ -139,7 +139,7 @@ if [ "$UBOOT_RECOVERY" -ge 1 ] ; then
 	cd ${LOCPATH}
 	#the IT timings work for all modules, so use it during recovery
 	sudo ./imx_usb ../${BINARIES}/${U_BOOT_BINARY_IT}
-	exit 1
+	exit
 fi
 
 #sanity check for awk programs
