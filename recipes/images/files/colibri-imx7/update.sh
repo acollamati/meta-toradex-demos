@@ -149,7 +149,7 @@ trap '{ printf "\033[31mScript aborted unexpectedly...\033[0m\n"; }' EXIT
 sudo $LOCPATH/mkfs.ubifs --space-fixup -c ${MAXLEB} -e ${BLOCK} -m ${PAGE} -o ${BINARIES}/${IMAGEFILE} -r rootfs/ -v
 
 echo ""
-echo "UBI image of root file system generated, coping data to target folder..."
+echo "UBI image of root file system generated, copying data to target folder..."
 
 #make a file with the used versions for U-Boot, kernel and rootfs
 sudo touch ${BINARIES}/versions.txt

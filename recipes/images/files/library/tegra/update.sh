@@ -317,7 +317,7 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	done
 
 	echo ""
-	echo "UBI image of root file system generated, coping data to target folder..."
+	echo "UBI image of root file system generated, copying data to target folder..."
 else
 	if [ "${MODTYPE}" = "apalis-t30" ] || [ "${MODTYPE}" = "colibri-t30" ] ; then
 		# Boot partition [in sectors of 512]
@@ -346,7 +346,7 @@ else
 
 
 		echo ""
-		echo "Creating VFAT partion image with the kernel"
+		echo "Creating VFAT partition image with the kernel"
 		rm -f ${BINARIES}/boot.vfat
 		${MKFSVFAT} -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${BINARIES}/boot.vfat $BOOT_BLOCKS 
 		export MTOOLS_SKIP_CHECK=1
@@ -371,7 +371,7 @@ else
 		fi
 
 		echo ""
-		echo "Creating rootfs partion image"
+		echo "Creating rootfs partition image"
 		#make the partition size size(rootfs used + MIN_PARTITION_FREE_SIZE)
 		#add about 4% to the rootfs to account for fs overhead. (/1024/985 instead of /1024/1024).
 		#add 512 bytes per file to account for small files
