@@ -101,8 +101,10 @@ imagedeploy_kernel_mx7() {
 }
 
 imagedeploy_kernel_tegra2() {
-    # Do nothing, we use the kernel from /boot inside root fs
-    :
+    # put kernel into the bin directories
+    rm -f ${IMAGE_ROOTFS}/boot/${KERNEL_IMAGETYPE}* ${IMAGE_ROOTFS}/boot/*.dtb
+    cp -pP ${DEPLOY_DIR_IMAGE}/zImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage
 }
 
 imagedeploy_kernel_vf() {

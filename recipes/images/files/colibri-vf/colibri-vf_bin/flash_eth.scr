@@ -7,8 +7,8 @@ setenv prepare_rootfs 'ubi create rootfs 0 dynamic'
 setenv prepare_ubi 'ubi part ubi && if ubi check rootfs; then if ubi check kernel; then else ubi remove rootfs && run prepare_kernel_dtb && run prepare_rootfs; fi; else run prepare_kernel_dtb && run prepare_rootfs; fi'
 
 setenv update_uboot 'tftpboot ${loadaddr} ${board_name}/u-boot-nand.imx && nand erase.part u-boot && nand erase.part u-boot-env && nand write ${loadaddr} u-boot'
-setenv update_kernel 'tftpboot ${loadaddr} ${loadaddr} ${board_name}/zImage && ubi write ${loadaddr} kernel ${filesize}'
-setenv update_dtb 'tftpboot ${loadaddr} ${loadaddr} ${board_name}/${soc}-colibri-${fdt_board}.dtb && ubi write ${loadaddr} dtb ${filesize}'
+setenv update_kernel 'tftpboot ${loadaddr} ${board_name}/zImage && ubi write ${loadaddr} kernel ${filesize}'
+setenv update_dtb 'tftpboot ${loadaddr} ${board_name}/${soc}-colibri-${fdt_board}.dtb && ubi write ${loadaddr} dtb ${filesize}'
 setenv update_rootfs 'tftpboot ${loadaddr} ${board_name}/ubifs.img && ubi write ${loadaddr} rootfs ${filesize}'
 
 setenv update_new 'run update_uboot; run prepare_ubi && run update_kernel && run update_dtb && run update_rootfs; reset'

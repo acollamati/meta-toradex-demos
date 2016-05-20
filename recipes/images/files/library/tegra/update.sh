@@ -152,8 +152,7 @@ else
 			EMMC_PARTS=""
 			IMAGEFILE=ubifs
 			KERNEL_DEVICETREE="tegra20-colibri-eval-v3.dtb"
-			# zImage but from rootfs/boot
-			KERNEL_IMAGETYPE=""
+			KERNEL_IMAGETYPE="zImage"
 			LOCPATH="tegra-uboot-flasher"
 			OUT_DIR="$OUT_DIR/colibri_t20"
 			U_BOOT_BINARY=u-boot-dtb-tegra.bin
@@ -267,11 +266,7 @@ rm -f ${BINARIES}/versions.txt
 touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
-if [ "${MODTYPE}" = "colibri-t20" ] ; then
-	basename "`readlink -m rootfs/boot/zImage`" >> ${BINARIES}/versions.txt
-else
-	basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
-fi
+basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
 ROOTFSVERSION=`grep -i t[2-3]0 rootfs/etc/issue`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
