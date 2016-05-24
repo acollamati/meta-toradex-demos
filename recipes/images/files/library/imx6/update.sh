@@ -155,7 +155,7 @@ fi
 #Sanity check for some programs. Some distros have fs tools only in root's path
 MCOPY=`command -v mcopy` || { echo >&2 "Program mcopy not available.  Aborting."; exit 1; }
 PARTED=`command -v parted` || PARTED=`sudo -s command -v parted` || { echo >&2 "Program parted not available.  Aborting."; exit 1; }
-MKFSVFAT=`command -v mkfs.vfat` || MKFSVFAT=`sudo -s command -v mkfs.vfat` || { echo >&2 "Program mkfs.vfat not available.  Aborting."; exit 1; }
+MKFSVFAT=`command -v mkfs.fat` || MKFSVFAT=`sudo -s command -v mkfs.fat` || { echo >&2 "Program mkfs.fat not available.  Aborting."; exit 1; }
 MKFSEXT3=`command -v mkfs.ext3` || MKFSEXT3=`sudo -s command -v mkfs.ext3` || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 

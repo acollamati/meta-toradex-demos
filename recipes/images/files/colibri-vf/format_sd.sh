@@ -91,7 +91,7 @@ sudo umount ${DEV}${PART_PREFIX}?
 # partition and format the vfat partition
 sudo parted -s $DEV   mklabel msdos   mkpart primary fat32 1MB 512MB   mkpart primary ext3 512MB 100%
 sudo umount ${DEV}${PART_PREFIX}1
-sudo mkfs.vfat -n UPDATE ${DEV}${PART_PREFIX}1
+sudo mkfs.fat -n UPDATE ${DEV}${PART_PREFIX}1
 
 # dd U-Boot onto the SD card
 sudo dd if=colibri-vf_bin/u-boot.imx of=${DEV} bs=512 seek=2
