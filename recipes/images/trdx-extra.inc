@@ -130,6 +130,7 @@ IMAGE_INSTALL += " \
     evtest \
     hdparm \
     iperf \
+    iperf3 \
     i2c-tools \
     memtester \
     rt-tests \
