@@ -66,6 +66,8 @@ OUT_DIR=""
 PAGE=2KiB
 BLOCK=124KiB
 MAXLEB=8112
+KERNEL_DEVICETREE="imx7s-colibri-eval-v3.dtb imx7d-colibri-eval-v3.dtb"
+KERNEL_IMAGETYPE="zImage"
 
 while getopts "dfhno:s" Option ; do
 	case $Option in
@@ -162,8 +164,20 @@ echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 #create subdirectory for this module type
 sudo mkdir -p "$OUT_DIR"
 
+# Copy device tree file
+COPIED=false
+if test -n "${KERNEL_DEVICETREE}"; then
+	for DTB_FILE in ${KERNEL_DEVICETREE}; do
+		if [ -e "${BINARIES}/${KERNEL_IMAGETYPE}-${DTB_FILE}" ]; then
+			sudo cp ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTB_FILE} "$OUT_DIR/${DTB_FILE}"
+			COPIED=true
+		fi
+	done
+	[ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; }
+fi
+
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/u-boot-nand.imx ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+sudo cp ${BINARIES}/u-boot-nand.imx ${BINARIES}/zImage ${BINARIES}/ubifs.img ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
 sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
 sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
 #cleanup intermediate files
