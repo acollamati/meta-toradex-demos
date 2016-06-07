@@ -32,6 +32,8 @@ Known Issues:
 - poweroff and reboot does not work as expected
 - display resolution can be set in the device tree
 - flashing the ubifs rootfs with U-Boot may fail depending on HW
+- FreeRTOS firmwares for Cortex-M4 core cause Linux to freeze during boot-up
+  (resolved in latest kernel version toradex_imx_3.14.52_1.1.0_ga-next branch)
 
 ********************************************************************************
 Notes:
@@ -110,4 +112,4 @@ Not working or not tested:
 
 ******************************************************************************
 
-Toradex, April 15, 2016
+Toradex, June 7, 2016
