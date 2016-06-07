@@ -50,7 +50,7 @@ imagedeploytools_append_mx7() {
 
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
-    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb*
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_work.conf ${IMAGE_ROOT}/
 }
