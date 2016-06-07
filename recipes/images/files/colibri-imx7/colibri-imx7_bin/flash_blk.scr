@@ -11,6 +11,8 @@ setenv update_kernel 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/zImage 
 setenv update_dtb 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/${soc}-colibri-${fdt_board}.dtb && ubi write ${loadaddr} dtb ${filesize}'
 setenv update_rootfs 'fatload ${interface} 0:1 ${loadaddr} ${board_name}/ubifs.img && ubi write ${loadaddr} rootfs ${filesize}'
 
-setenv update 'mtdparts default; run update_uboot; run prepare_ubi && run update_kernel && run update_dtb && run update_rootfs; reset'
+setenv upgrade_alpha1_msg 'Updated U-Boot, please reset the board and use "run setupdate && run update" again.'
+setenv prepare_alpha1_uboot 'if test "${soc}" = "mx7"; then run update_uboot && echo ${upgrade_alpha1_msg} && reset; fi'
+setenv update 'mtdparts default && run prepare_alpha1_uboot; run update_uboot && run prepare_ubi && run update_kernel && run update_dtb && run update_rootfs && reset'
 
 echo 'enter "run update" to update the entire module'
