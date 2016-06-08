@@ -22,7 +22,7 @@ Flash()
 	echo "'run prepare_ubi'"
 	echo "followed by one of:"
 	echo "'run update_kernel'"
-	echo "'run update_rootfs'"
+	echo "'run update_dtb'"
 	echo "'run update_rootfs'"
 	echo ""
 	echo ""
@@ -188,7 +188,6 @@ sudo mkdir -p "$OUT_DIR"
 COPIED=false
 if test -n "${KERNEL_DEVICETREE}"; then
 	for DTB_FILE in ${KERNEL_DEVICETREE}; do
-		echo ${BINARIES}/${KERNEL_IMAGETYPE}-${DTB_FILE}
 		if [ -e "${BINARIES}/${KERNEL_IMAGETYPE}-${DTB_FILE}" ]; then
 			sudo cp ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTB_FILE} "$OUT_DIR/${DTB_FILE}"
 			COPIED=true
