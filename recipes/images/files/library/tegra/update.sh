@@ -139,9 +139,25 @@ if [ "$CNT" -ge 1 ] ; then
 		OUT_DIR="$OUT_DIR/apalis_t30"
 		U_BOOT_BINARY=u-boot-dtb-tegra.bin
 	else
-		echo "can not detect module type from ./rootfs/etc/issue"
-		echo "exiting"
-		exit 1
+		CNT=`grep -ic "tk1" rootfs/etc/issue || true`
+		if [ "$CNT" -ge 1 ] ; then
+			echo "Apalis TK1 rootfs detected"
+			MODTYPE=apalis-tk1
+			BCT=PM375_Hynix_2GB_H5TC4G63AFR_RDA_924MHz.bct
+			CBOOT_IMAGE=apalis-tk1.img
+			CBOOT_IMAGE_TARGET=tegra124
+			# assumed minimal eMMC size [in sectors of 512]
+			EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
+			IMAGEFILE=root.ext3
+			KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
+			LOCPATH="tegra-uboot-flasher"
+			OUT_DIR="$OUT_DIR/apalis-tk1"
+			U_BOOT_BINARY=u-boot-dtb-tegra.bin
+		else
+			echo "can not detect module type from ./rootfs/etc/issue"
+			echo "exiting"
+			exit 1
+		fi
 	fi
 else
 	CNT=`grep -ic "colibri" rootfs/etc/issue || true`
@@ -271,7 +287,7 @@ touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
-ROOTFSVERSION=`grep -i t[2-3]0 rootfs/etc/issue`
+ROOTFSVERSION=`egrep -i 't([2-3]0|k1)' rootfs/etc/issue`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type
@@ -318,7 +334,7 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	echo ""
 	echo "UBI image of root file system generated, copying data to target folder..."
 else
-	if [ "${MODTYPE}" = "apalis-t30" ] || [ "${MODTYPE}" = "colibri-t30" ] ; then
+	if [ "${MODTYPE}" = "apalis-t30" ] || [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "colibri-t30" ] ; then
 		# Boot partition [in sectors of 512]
 		BOOT_START=$(expr 4096 \* 2)
 		# Rootfs partition [in sectors of 512]
@@ -367,6 +383,7 @@ else
 					fi
 				fi
 			done
+			[ "${MODTYPE}" = "apalis-tk1" ] && ([ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; })
 		fi
 
 		echo ""
