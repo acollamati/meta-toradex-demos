@@ -21,7 +21,7 @@ Flash()
 	echo "to update a component stored in UBI enter:"
 	echo "'run prepare_ubi'"
 	echo "'run update_kernel'"
-	echo "'run update_dtb'"
+	echo "'run update_fdt'"
 	echo "'run update_rootfs'"
 	echo ""
 	echo ""

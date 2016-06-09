@@ -22,7 +22,7 @@ Flash()
 	echo "'run prepare_ubi'"
 	echo "followed by one of:"
 	echo "'run update_kernel'"
-	echo "'run update_dtb'"
+	echo "'run update_fdt'"
 	echo "'run update_rootfs'"
 	echo ""
 	echo ""

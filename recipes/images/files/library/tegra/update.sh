@@ -23,7 +23,7 @@ Flash()
 	echo "'run prepare_ubi'"
 	echo "followed by one of:"
 	echo "'run update_kernel'"
-	echo "'run update_dtb' (for vanilla kernels)"
+	echo "'run update_fdt' (for device tree enabled kernels)"
 	echo "'run update_rootfs'"
 	echo ""
 	echo ""
