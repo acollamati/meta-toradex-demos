@@ -269,8 +269,9 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 
 
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${U_BOOT_BINARY_IT} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
+sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
 	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
+[ "${U_BOOT_BINARY}x" != "${U_BOOT_BINARY_IT}x" ] && sudo cp ${BINARIES}/${U_BOOT_BINARY_IT} "$OUT_DIR"
 sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
 sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
