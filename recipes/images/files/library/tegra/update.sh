@@ -1,5 +1,5 @@
 #!/bin/sh
-# Prepare files needed for flashing an Apalis/Colibri T20/T30 module and
+# Prepare files needed for flashing an Apalis/Colibri T20/T30/TK1 module and
 # copy them to a convenient location for using from a running U-Boot
 
 # exit on error
@@ -7,7 +7,7 @@ set -e
 
 Flash()
 {
-	echo "To flash the Apalis/Colibri T20/T30 module a running U-Boot is required. Boot"
+	echo "To flash the Apalis/Colibri T20/T30/TK1 module a running U-Boot is required. Boot"
 	echo "the module to the U-Boot prompt and"
 	echo ""
 	echo "insert the SD card, USB flash drive or when using TFTP connect Ethernet only"
@@ -20,7 +20,7 @@ Flash()
 	echo "Alternatively, to update U-Boot enter:"
 	echo "'run update_uboot'"
 	echo "to update a component stored in UBI enter:"
-	echo "'run prepare_ubi'"
+	echo "'run prepare_ubi' (for Colibri T20)"
 	echo "followed by one of:"
 	echo "'run update_kernel'"
 	echo "'run update_fdt' (for device tree enabled kernels)"
@@ -36,7 +36,7 @@ Flash()
 Usage()
 {
 	echo ""
-	echo "Prepares and copies files for flashing internal eMMC/NAND of Apalis T30 and"
+	echo "Prepares and copies files for flashing internal eMMC/NAND of Apalis T30/TK1 and"
 	echo "Colibri T20/T30"
 	echo ""
 	echo "Will require a running U-Boot on the target. Either one already flashed on the"
@@ -47,6 +47,11 @@ Usage()
 	echo "-d           : use USB recovery mode to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
+	echo "-m           : module type: 0: autodetect from ./rootfs/etc/issues (default)"
+	echo "                            1: Apalis T30"
+	echo "                            2: Apalis TK1"
+	echo "                            3: Colibri T20"
+	echo "                            4: Colibri T30"
 	echo "-o directory : output directory"
 	echo "-r           : T20 recovery mode: select RAM size (256 | 512)"
 	echo "-s           : T20: optimise file system for V1.1 or 256MB V1.2 modules,"
@@ -64,11 +69,11 @@ Usage()
 # initialise options
 BOOT_DEVICE=nand
 EMMC_PARTS="mbr.bin boot.vfat" 
-SPLIT=0
 # no devicetree by default
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
 MIN_PARTITION_FREE_SIZE=100
+MODTYPE_DETECT=0
 
 # NAND parameters
 BLOCK="248KiB 504KiB"
@@ -77,13 +82,14 @@ PAGE="4KiB"
 
 OUT_DIR=""
 ROOTFSPATH=rootfs
+SPLIT=0
 UBOOT_RECOVERY=0
 
 # don't provide working defaults which may lead to wrong HW/SW combination
 MODVERSION=Add_Version_-v
 RAM_SIZE=Add_RAMsize_-r
 
-while getopts "b:cdfho:r:sv:" Option ; do
+while getopts "b:cdfhm:o:r:sv:" Option ; do
 	case $Option in
 		b)	BOOT_DEVICE=$OPTARG
 			;;
@@ -96,6 +102,8 @@ while getopts "b:cdfho:r:sv:" Option ; do
 			;;
 		h)	Usage
 			exit 0
+			;;
+		m)	MODTYPE_DETECT=$OPTARG
 			;;
 		o)	OUT_DIR=$OPTARG
 			;;
@@ -120,13 +128,66 @@ if [ ! -d "$OUT_DIR" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 1
 fi
 
-# auto detect MODTYPE from rootfs directory
-CNT=`grep -ic "apalis" rootfs/etc/issue || true`
-if [ "$CNT" -ge 1 ] ; then
-	CNT=`grep -ic "t30" rootfs/etc/issue || true`
-	if [ "$CNT" -ge 1 ] ; then
-		echo "Apalis T30 rootfs detected"
-		MODTYPE=apalis-t30
+case $MODTYPE_DETECT in
+	0)	# auto detect MODTYPE from rootfs directory
+		if [ -f rootfs/etc/issue ] ; then
+			CNT=`grep -ic "apalis" rootfs/etc/issue || true`
+			if [ "$CNT" -ge 1 ] ; then
+				CNT=`grep -ic "t30" rootfs/etc/issue || true`
+				if [ "$CNT" -ge 1 ] ; then
+					echo "Apalis T30 rootfs detected"
+					MODTYPE=apalis-t30
+				else
+					CNT=`grep -ic "tk1" rootfs/etc/issue || true`
+					if [ "$CNT" -ge 1 ] ; then
+						echo "Apalis TK1 rootfs detected"
+						MODTYPE=apalis-tk1
+					fi
+				fi
+			else
+				CNT=`grep -ic "colibri" rootfs/etc/issue || true`
+				if [ "$CNT" -ge 1 ] ; then
+					CNT=`grep -ic "t20" rootfs/etc/issue || true`
+					if [ "$CNT" -ge 1 ] ; then
+						echo "Colibri T20 rootfs detected"
+						MODTYPE=colibri-t20
+					else
+						CNT=`grep -ic "t30" rootfs/etc/issue || true`
+						if [ "$CNT" -ge 1 ] ; then
+							echo "Colibri T30 rootfs detected"
+							MODTYPE=colibri-t30
+						fi
+					fi
+				fi
+			fi
+		fi
+		if [ -e $MODTYPE ] ; then
+			echo "can not detect module type from ./rootfs/etc/issue"
+			echo "please specify the module type with the -m parameter"
+			echo "see help: '$ ./update.sh -h'"
+			echo "exiting"
+			exit 1
+		fi
+		;;
+	1)	MODTYPE=apalis-t30
+		echo "Apalis T30 rootfs specified"
+		;;
+	2)	MODTYPE=apalis-tk1
+		echo "Apalis TK1 rootfs specified"
+		;;
+	3)	MODTYPE=colibri-t20
+		echo "Colibri T20 rootfs specified"
+		;;
+	4)	MODTYPE=colibri-t30
+		echo "Colibri T30 rootfs specified"
+		;;
+	*)	echo "-m paramter specifies an unknown value"
+		exit 1
+		;;
+esac
+
+case "$MODTYPE" in
+	"apalis-t30")
 #		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
 		BCT=Apalis_T30_2GB_800Mhz.bct
 		CBOOT_IMAGE=apalis_t30.img
@@ -138,72 +199,49 @@ if [ "$CNT" -ge 1 ] ; then
 		LOCPATH="tegra-uboot-flasher"
 		OUT_DIR="$OUT_DIR/apalis_t30"
 		U_BOOT_BINARY=u-boot-dtb-tegra.bin
-	else
-		CNT=`grep -ic "tk1" rootfs/etc/issue || true`
-		if [ "$CNT" -ge 1 ] ; then
-			echo "Apalis TK1 rootfs detected"
-			MODTYPE=apalis-tk1
-			BCT=PM375_Hynix_2GB_H5TC4G63AFR_RDA_924MHz.bct
-			CBOOT_IMAGE=apalis-tk1.img
-			CBOOT_IMAGE_TARGET=tegra124
-			# assumed minimal eMMC size [in sectors of 512]
-			EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
-			IMAGEFILE=root.ext3
-			KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
-			LOCPATH="tegra-uboot-flasher"
-			OUT_DIR="$OUT_DIR/apalis-tk1"
-			U_BOOT_BINARY=u-boot-dtb-tegra.bin
-		else
-			echo "can not detect module type from ./rootfs/etc/issue"
-			echo "exiting"
-			exit 1
-		fi
-	fi
-else
-	CNT=`grep -ic "colibri" rootfs/etc/issue || true`
-	if [ "$CNT" -ge 1 ] ; then
-		CNT=`grep -ic "t20" rootfs/etc/issue || true`
-		if [ "$CNT" -ge 1 ] ; then
-			echo "Colibri T20 rootfs detected"
-			MODTYPE=colibri-t20
-			BCT=colibri_t20-${RAM_SIZE}-${MODVERSION}-${BOOT_DEVICE}.bct
-			CBOOT_IMAGE="colibri_t20-256-v11-nand.img colibri_t20-256-v12-nand.img colibri_t20-512-v11-nand.img colibri_t20-512-v12-nand.img"
-			CBOOT_IMAGE_TARGET=tegra20
-			EMMC_PARTS=""
-			IMAGEFILE=ubifs
-			KERNEL_DEVICETREE="tegra20-colibri-eval-v3.dtb"
-			KERNEL_IMAGETYPE="zImage"
-			LOCPATH="tegra-uboot-flasher"
-			OUT_DIR="$OUT_DIR/colibri_t20"
-			U_BOOT_BINARY=u-boot-dtb-tegra.bin
-		else
-			CNT=`grep -ic "t30" rootfs/etc/issue || true`
-			if [ "$CNT" -ge 1 ] ; then
-				echo "Colibri T30 rootfs detected"
-				MODTYPE=colibri-t30
-				# with new kernel, boot with 400MHz, then switch between 400 & 800
-				BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_400MHz.bct
-#				BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_533MHz.bct
-				CBOOT_IMAGE=colibri_t30.img
-				CBOOT_IMAGE_TARGET=tegra30
-				EMMC_SIZE=$(expr 1024 \* 2000 \* 2)
-				IMAGEFILE=root.ext3
-				KERNEL_DEVICETREE="tegra30-colibri-eval-v3.dtb"
-				LOCPATH="tegra-uboot-flasher"
-				OUT_DIR="$OUT_DIR/colibri_t30"
-				U_BOOT_BINARY=u-boot-dtb-tegra.bin
-			else
-				echo "can not detect module type from ./rootfs/etc/issue"
-				echo "exiting"
-				exit 1
-			fi
-		fi
-	else
-		echo "can not detect module type from ./rootfs/etc/issue"
-		echo "exiting"
+		;;
+	"apalis-tk1")
+		BCT=PM375_Hynix_2GB_H5TC4G63AFR_RDA_924MHz.bct
+		CBOOT_IMAGE=apalis-tk1.img
+		CBOOT_IMAGE_TARGET=tegra124
+		# assumed minimal eMMC size [in sectors of 512]
+		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
+		IMAGEFILE=root.ext3
+		KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
+		LOCPATH="tegra-uboot-flasher"
+		OUT_DIR="$OUT_DIR/apalis-tk1"
+		U_BOOT_BINARY=u-boot-dtb-tegra.bin
+		;;
+	"colibri-t20")
+		BCT=colibri_t20-${RAM_SIZE}-${MODVERSION}-${BOOT_DEVICE}.bct
+		CBOOT_IMAGE="colibri_t20-256-v11-nand.img colibri_t20-256-v12-nand.img colibri_t20-512-v11-nand.img colibri_t20-512-v12-nand.img"
+		CBOOT_IMAGE_TARGET=tegra20
+		EMMC_PARTS=""
+		IMAGEFILE=ubifs
+		KERNEL_DEVICETREE="tegra20-colibri-eval-v3.dtb"
+		KERNEL_IMAGETYPE="zImage"
+		LOCPATH="tegra-uboot-flasher"
+		OUT_DIR="$OUT_DIR/colibri_t20"
+		U_BOOT_BINARY=u-boot-dtb-tegra.bin
+		;;
+	"colibri-t30")
+		# with new kernel, boot with 400MHz, then switch between 400 & 800
+		BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_400MHz.bct
+#		BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_533MHz.bct
+		CBOOT_IMAGE=colibri_t30.img
+		CBOOT_IMAGE_TARGET=tegra30
+		EMMC_SIZE=$(expr 1024 \* 2000 \* 2)
+		IMAGEFILE=root.ext3
+		KERNEL_DEVICETREE="tegra30-colibri-eval-v3.dtb"
+		LOCPATH="tegra-uboot-flasher"
+		OUT_DIR="$OUT_DIR/colibri_t30"
+		U_BOOT_BINARY=u-boot-dtb-tegra.bin
+		;;
+	*)	echo "script internal error, unknown module type set"
 		exit 1
-	fi
-fi
+		;;
+esac
+
 BINARIES=${MODTYPE}_bin
 
 #is only U-Boot to be copied to RAM?

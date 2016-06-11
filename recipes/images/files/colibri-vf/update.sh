@@ -56,6 +56,8 @@ Usage()
 	echo "-d uart_dev  : use UART connection to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
+	echo "-m           : module type: 0: autodetect from ./rootfs/etc/issues (default)"
+	echo "                            1: Colibri VF50/VF61"
 	echo "-n           : disable hardware flow control (bridge RTS/CTS!)"
 	echo "-o directory : output directory"
 	echo "-s           : optimise file system for 128MB NAND, increases usable space"
@@ -69,17 +71,18 @@ Usage()
 }
 
 # initialise options
-UBOOT_RECOVERY=0
+KERNEL_DEVICETREE="vf500-colibri-eval-v3.dtb vf610-colibri-eval-v3.dtb"
+KERNEL_IMAGETYPE="zImage"
+MODTYPE_DETECT=0
 NORTSCTS=0
 OUT_DIR=""
+UBOOT_RECOVERY=0
 # NAND parameters
 PAGE=2KiB
 BLOCK=124KiB
 MAXLEB=8112
-KERNEL_DEVICETREE="vf500-colibri-eval-v3.dtb vf610-colibri-eval-v3.dtb"
-KERNEL_IMAGETYPE="zImage"
 
-while getopts "d:fhno:s" Option ; do
+while getopts "d:fhm:no:s" Option ; do
 	case $Option in
 		d)	UBOOT_RECOVERY=1
 			UARTDEV=$OPTARG
@@ -89,6 +92,8 @@ while getopts "d:fhno:s" Option ; do
 			;;
 		h)	Usage
 			exit 0
+			;;
+		m)	MODTYPE_DETECT=$OPTARG
 			;;
 		n)	NORTSCTS=1
 			;;
@@ -110,23 +115,42 @@ if [ ! -d "$OUT_DIR" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 1
 fi
 
-# auto detect MODTYPE from rootfs directory
-if [ -f rootfs/etc/issue ] ; then
-	CNT=`grep -c "VF" rootfs/etc/issue || true`
-	if [ "$CNT" -ge 1 ] ; then
-		echo "Colibri VF rootfs detected"
-		MODTYPE=colibri-vf
+case $MODTYPE_DETECT in
+	0)	# auto detect MODTYPE from rootfs directory
+		if [ -f rootfs/etc/issue ] ; then
+			CNT=`grep -c "VF" rootfs/etc/issue || true`
+			if [ "$CNT" -ge 1 ] ; then
+				echo "Colibri VF rootfs detected"
+				MODTYPE=colibri-vf
+			fi
+		fi
+		if [ -e $MODTYPE ] ; then
+			echo "can not detect module type from ./rootfs/etc/issue"
+			echo "please specify the module type with the -m parameter"
+			echo "see help: '$ ./update.sh -h'"
+			echo "exiting"
+			exit 1
+		fi
+		;;
+	1)	MODTYPE=colibri-vf
+		echo "Colibri VF rootfs specified"
+		;;
+	*)	echo "-m paramter specifies an unknown value"
+		exit 1
+		;;
+esac
+
+case "$MODTYPE" in
+	"colibri-vf")
 		IMAGEFILE=ubifs.img
 		LOCPATH="vf_flash"
 		OUT_DIR="$OUT_DIR/colibri_vf"
-	fi
-fi
+		;;
+	*)	echo "script internal error, unknown module type set"
+		exit 1
+		;;
+esac
 
-if [ -e $MODTYPE ] ; then
-	echo "can not detect module type from ./rootfs/etc/issue"
-	echo "exiting"
-	exit 1
-fi
 BINARIES=${MODTYPE}_bin
 
 #is only U-Boot to be copied to RAM?

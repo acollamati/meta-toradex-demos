@@ -49,31 +49,36 @@ Usage()
 	echo "The script format_sd.sh may be used to format the SD card."
 	echo ""
 	echo "The flash step requires a running U-Boot on the target. Either one already"
- 	echo "flashed on the NAND or downloaded using serial downloader (argument -d)."
+	echo "flashed on the NAND or downloaded using serial downloader (argument -d)."
 	echo ""
 	echo "-d           : use a USB connection to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
+	echo "-m           : module type: 0: autodetect from ./rootfs/etc/issues (default)"
+	echo "                            1: Colibri iMX7"
 	echo "-o directory : output directory"
 	echo ""
-        echo "Example \"./update.sh -o /media/KERNEL/\" copies the required files to SD card"
+	echo "Example \"./update.sh -o /media/KERNEL/\" copies the required files to SD card"
 	echo ""
 	echo "*** For detailed recovery/update procedures, refer to the following website: ***"
-        echo "http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules"
+	echo "http://developer.toradex.com/knowledge-base/flashing-embedded-linux-to-imx7-modules"
 	echo ""
 }
 
 # initialise options
-UBOOT_RECOVERY=0
-OUT_DIR=""
-# NAND parameters
-PAGE=2KiB
-BLOCK=124KiB
-MAXLEB=8112
 KERNEL_DEVICETREE="imx7s-colibri-eval-v3.dtb imx7d-colibri-eval-v3.dtb"
 KERNEL_IMAGETYPE="zImage"
+MODTYPE_DETECT=0
 
-while getopts "dfhno:s" Option ; do
+# NAND parameters
+BLOCK=124KiB
+MAXLEB=8112
+PAGE=2KiB
+
+OUT_DIR=""
+UBOOT_RECOVERY=0
+
+while getopts "dfhm:o:" Option ; do
 	case $Option in
 		d)	UBOOT_RECOVERY=1
 			;;
@@ -82,6 +87,8 @@ while getopts "dfhno:s" Option ; do
 			;;
 		h)	Usage
 			exit 0
+			;;
+		m)	MODTYPE_DETECT=$OPTARG
 			;;
 		o)	OUT_DIR=$OPTARG
 			;;
@@ -99,23 +106,42 @@ if [ ! -d "$OUT_DIR" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 1
 fi
 
-# auto detect MODTYPE from rootfs directory
-if [ -f rootfs/etc/issue ] ; then
-	CNT=`grep -c "MX7" rootfs/etc/issue || true`
-	if [ "$CNT" -ge 1 ] ; then
-		echo "Colibri iMX7 rootfs detected"
-		MODTYPE=colibri-imx7
+case $MODTYPE_DETECT in
+	0)	# auto detect MODTYPE from rootfs directory
+		if [ -f rootfs/etc/issue ] ; then
+			CNT=`grep -c "MX7" rootfs/etc/issue || true`
+			if [ "$CNT" -ge 1 ] ; then
+				echo "Colibri iMX7 rootfs detected"
+				MODTYPE=colibri-imx7
+			fi
+		fi
+		if [ -e $MODTYPE ] ; then
+			echo "can not detect module type from ./rootfs/etc/issue"
+			echo "please specify the module type with the -m parameter"
+			echo "see help: '$ ./update.sh -h'"
+			echo "exiting"
+			exit 1
+		fi
+		;;
+	1)	MODTYPE=colibri-imx7
+		echo "Colibri iMX7 rootfs specified"
+		;;
+	*)	echo "-m paramter specifies an unknown value"
+		exit 1
+		;;
+esac
+
+case "$MODTYPE" in
+	"colibri-imx7")
 		IMAGEFILE=ubifs.img
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx7"
-	fi
-fi
+		;;
+	*)	echo "script internal error, unknown module type set"
+		exit 1
+		;;
+esac
 
-if [ -e $MODTYPE ] ; then
-	echo "can not detect module type from ./rootfs/etc/issue"
-	echo "exiting"
-	exit 1
-fi
 BINARIES=${MODTYPE}_bin
 
 #is only U-Boot to be copied to RAM?

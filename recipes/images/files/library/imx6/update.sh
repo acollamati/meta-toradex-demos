@@ -21,6 +21,7 @@ Flash()
 	echo "to update a single component enter one of:"
 	echo "'run update_uboot' or 'run update_uboot_it'"
 	echo "'run update_kernel'"
+	echo "'run update_fdt'"
 	echo "'run update_rootfs'"
 	echo ""
 	echo "for 'Apalis iMX6Q 2GB IT' use the version with '_it'."
@@ -43,6 +44,9 @@ Usage()
 	echo "-d           : use USB connection to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
+	echo "-m           : module type: 0: autodetect from ./rootfs/etc/issues (default)"
+	echo "                            1: Apalis iMX6"
+	echo "                            2: Colibri iMX6"
 	echo "-o directory : output directory"
 	echo ""
 	echo "Example \"./update.sh -o /srv/tftp/\" copies the required files to /srv/tftp/"
@@ -53,16 +57,15 @@ Usage()
 }
 
 # initialise options
+KERNEL_IMAGETYPE="uImage"
 MIN_PARTITION_FREE_SIZE=100
+MODTYPE_DETECT=0
 OUT_DIR=""
 ROOTFSPATH=rootfs
 SPLIT=0
 UBOOT_RECOVERY=0
-# No devicetree by default
-KERNEL_DEVICETREE=""
-KERNEL_IMAGETYPE="uImage"
 
-while getopts "cdfho:" Option ; do
+while getopts "cdfhm:o:" Option ; do
 	case $Option in
 		c)	SPLIT=1
 			;;
@@ -73,6 +76,8 @@ while getopts "cdfho:" Option ; do
 			;;
 		h)	Usage
 			exit 0
+			;;
+		m)	MODTYPE_DETECT=$OPTARG
 			;;
 		o)	OUT_DIR=$OPTARG
 			;;
@@ -90,24 +95,42 @@ if [ ! -d "$OUT_DIR" ] && [ "$UBOOT_RECOVERY" = "0" ] ; then
 	exit 1
 fi
 
-# auto detect MODTYPE from rootfs directory
-CNT=`grep -ic "Colibri.iMX6" rootfs/etc/issue || true`
-if [ "$CNT" -ge 1 ] ; then
-	echo "Colibri iMX6 rootfs detected"
-	MODTYPE=colibri-imx6
-	# assumed minimal eMMC size [in sectors of 512]
-	EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
-	IMAGEFILE=root.ext3
-	KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
-	LOCPATH="imx_flash"
-	OUT_DIR="$OUT_DIR/colibri_imx6"
-	U_BOOT_BINARY=u-boot.imx
-	U_BOOT_BINARY_IT=u-boot.imx
-else
-	CNT=`grep -ic "imx6" rootfs/etc/issue || true`
-	if [ "$CNT" -ge 1 ] ; then
-		echo "Apalis iMX6 rootfs detected"
-		MODTYPE=apalis-imx6
+case $MODTYPE_DETECT in
+	0)	# auto detect MODTYPE from rootfs directory
+		if [ -f rootfs/etc/issue ] ; then
+			CNT=`grep -ic "Colibri.iMX6" rootfs/etc/issue || true`
+			if [ "$CNT" -ge 1 ] ; then
+				echo "Colibri iMX6 rootfs detected"
+				MODTYPE=colibri-imx6
+			else
+				CNT=`grep -ic "imx6" rootfs/etc/issue || true`
+				if [ "$CNT" -ge 1 ] ; then
+					echo "Apalis iMX6 rootfs detected"
+					MODTYPE=apalis-imx6
+				fi
+			fi
+		fi
+		if [ -e $MODTYPE ] ; then
+			echo "can not detect module type from ./rootfs/etc/issue"
+			echo "please specify the module type with the -m parameter"
+			echo "see help: '$ ./update.sh -h'"
+			echo "exiting"
+			exit 1
+		fi
+		;;
+	1)	MODTYPE=apalis-imx6
+		echo "Apalis T30 rootfs specified"
+		;;
+	2)	MODTYPE=colibri-imx6
+		echo "Colibri T20 rootfs specified"
+		;;
+	*)	echo "-m paramter specifies an unknown value"
+		exit 1
+		;;
+esac
+
+case "$MODTYPE" in
+	"apalis-imx6")
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext3
@@ -117,12 +140,22 @@ else
 		OUT_DIR="$OUT_DIR/apalis_imx6"
 		U_BOOT_BINARY=u-boot.imx
 		U_BOOT_BINARY_IT=u-boot.imx-it
-	else
-		echo "can not detect module type from ./rootfs/etc/issue"
-		echo "exiting"
+		;;
+	"colibri-imx6")
+		# assumed minimal eMMC size [in sectors of 512]
+		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
+		IMAGEFILE=root.ext3
+		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
+		LOCPATH="imx_flash"
+		OUT_DIR="$OUT_DIR/colibri_imx6"
+		U_BOOT_BINARY=u-boot.imx
+		U_BOOT_BINARY_IT=u-boot.imx
+		;;
+	*)	echo "script internal error, unknown module type set"
 		exit 1
-	fi
-fi
+		;;
+esac
+
 BINARIES=${MODTYPE}_bin
 
 #is only U-Boot to be copied to RAM?
