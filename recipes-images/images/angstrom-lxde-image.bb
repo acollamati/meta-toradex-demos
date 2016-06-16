@@ -103,13 +103,13 @@ GSTREAMER = " \
 GSTREAMER_append_mx6 = " \
     gstreamer1.0-plugins-base-ximagesink \
     gstreamer1.0-plugins-imx \
-    gst1.0-fsl-plugin \
-    gst1.0-fsl-plugin-gplay \
-    gst1.0-fsl-plugin-grecorder \
+    imx-gst1.0-plugin \
+    imx-gst1.0-plugin-gplay \
+    imx-gst1.0-plugin-grecorder \
 "
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
-    gst1.0-fsl-plugin \
+    imx-gst1.0-plugin \
 "
 # No longer available
 #    gst-plugins-gl \
