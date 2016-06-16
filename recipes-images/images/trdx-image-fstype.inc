@@ -23,7 +23,8 @@ DEPENDS_append_tegra124 = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
 #we need mkimage to produce the U-Boot scripts even if not building a uImage kernel
-DEPENDS_append = " virtual/bootloader u-boot-mkimage-native"
+DEPENDS_append_arm = " virtual/bootloader u-boot-mkimage-native"
+DEPENDS_remove_qemuarm = "virtual/bootloader"
 
 imagedeploytools() {
     # default to nothing to deploy
@@ -131,9 +132,13 @@ do_imagedeploy_kernel_dtb() {
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/zImage
 }
 
-fakeroot do_imagedeploy() {
+fakeroot imagedeploy() {
+    :
+}
+
+fakeroot imagedeploy_arm() {
     cd ${WORKDIR}
-    cp -pLr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
+    cp -Lr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
 
     cd ${IMAGE_NAME}${PV}/${MACHINE}_bin
     ./mk-u-boot-scripts.sh
@@ -141,7 +146,7 @@ fakeroot do_imagedeploy() {
 
     imagedeploy_kernel
 
-    cp -pP ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    cp -P ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${U_BOOT_EXT}
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_BINARY}
 
@@ -160,4 +165,7 @@ fakeroot do_imagedeploy() {
     tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${PV}_${DATE}.tar.bz2 ${IMAGE_NAME}${PV}
 }
 
+fakeroot do_imagedeploy() {
+    imagedeploy
+}
 addtask imagedeploy after do_rootfs before do_build
