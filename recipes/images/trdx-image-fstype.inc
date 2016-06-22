@@ -9,14 +9,17 @@ U_BOOT_EXT_mx7 = "imx"
 U_BOOT_EXT_vf = "imx"
 U_BOOT_SYMLINK = "u-boot-${MACHINE}.${U_BOOT_EXT}"
 U_BOOT_SYMLINK_tegra = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
+U_BOOT_SYMLINK_tegra124 = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
 U_BOOT_BINARY = "u-boot.${U_BOOT_EXT}"
 U_BOOT_BINARY_tegra = "u-boot-dtb-tegra.${U_BOOT_EXT}"
+U_BOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${U_BOOT_EXT}"
 
 #we need some native tools for deployment
 DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
 #FIXME: 32-bit tegrarcm built on F20 does not run on 64-bit F20 even with properly installed 32-bit libs!
 DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
+DEPENDS_append_tegra124 = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
 #we need mkimage to produce the U-Boot scripts even if not building a uImage kernel
@@ -70,6 +73,17 @@ imagedeploytools_append_tegra2() {
     # add the mkfs.ubifs binary
     cp ${STAGING_DIR_NATIVE}/usr/sbin/mkfs.ubifs ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/mkfs.ubifs
+}
+
+imagedeploytools_append_tegra124() {
+    IMAGE_ROOT="${IMAGE_ROOTFS}/../tegra-uboot-flasher/"
+    mkdir -p ${IMAGE_ROOT}
+
+    # add cbootimage and tegrarcm
+    cp ${STAGING_BINDIR_NATIVE}/cbootimage ${IMAGE_ROOT}/
+    cp ${STAGING_BINDIR_NATIVE}/tegrarcm ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/cbootimage
+    ${BUILD_STRIP} ${IMAGE_ROOT}/tegrarcm
 }
 
 imagedeploytools_append_vf() {
