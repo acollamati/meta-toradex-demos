@@ -38,6 +38,23 @@ IMAGE_INSTALL_append_tegra3 = " \
     nv-conf-systemd \
 "
 
+#usb-rndis-systemd
+IMAGE_INSTALL_append_tegra124 = " \
+    aspell \
+    canutils \
+    curl \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-tune2fs \
+    file \
+    fs-init \
+    kernel-modules \
+    pciutils \
+    ptpd \
+    tegrastats \
+    u-boot-toradex-fw-utils \
+"
+
 IMAGE_INSTALL_append_apalis-t30 = " \
     pciutils \
     ptpd \
