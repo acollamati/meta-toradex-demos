@@ -9,6 +9,7 @@ PR = "r0"
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxConsoleImage"
 IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxConsoleImage"
+IMAGE_NAME_apalis-tk1 = "Apalis_TK1_LinuxConsoleImage"
 IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxConsoleImage"
 IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxConsoleImage"
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxConsoleImage"
@@ -48,6 +49,7 @@ CONMANPKGS_libc-uclibc = ""
 #this adds a few MB to the image, but all graphical HW acceleration is
 #available only on top of X
 IMAGE_INSTALL_append_tegra = " ${XSERVER} xterm xclock"
+IMAGE_INSTALL_append_tegra124 = " ${XSERVER} xterm xclock"
 
 IMAGE_INSTALL += " \
     angstrom-packagegroup-boot \

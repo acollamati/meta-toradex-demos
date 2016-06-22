@@ -11,6 +11,7 @@ PR = "r0"
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt5"
 IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage-qt5"
+IMAGE_NAME_apalis-tk1 = "Apalis_TK1_LinuxImage-qt5"
 IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxImage-qt5"
 IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxImage-qt5"
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt5"
@@ -147,6 +148,13 @@ GSTREAMER_tegra = " \
 GSTREAMER_append_tegra3 = " \
     gst-plugins-good-jpeg \
 "
+GSTREAMER_append_tegra124 = " \
+    gstreamer1.0-libav \
+    gstreamer1.0-plugins-bad-videoparsersbad \
+    libgstcodecparsers-1.0 \
+    libgstnvegl \
+    libgstomx \
+"
 GSTREAMER_colibri-vf = ""
 
 
@@ -158,6 +166,12 @@ IMAGE_INSTALL_QT5 = " \
 
 IMAGE_INSTALL_append_tegra = " \
     eglinfo-x11 \
+"
+IMAGE_INSTALL_append_tegra124 = " \
+    eglinfo-x11 \
+    libglu \
+    mesa-glut \
+    tiff \
 "
 IMAGE_INSTALL_append_mx6 = " \
     packagegroup-fsl-tools-gpu \
