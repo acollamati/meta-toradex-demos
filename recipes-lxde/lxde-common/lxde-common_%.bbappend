@@ -2,6 +2,7 @@ WALLPAPER-MACHINE = "Wallpaper_Toradex.png"
 WALLPAPER-MACHINE_colibri-t20 = "Wallpaper_ColibriT20.png"
 WALLPAPER-MACHINE_colibri-t30 = "Wallpaper_ColibriT30.png"
 WALLPAPER-MACHINE_apalis-t30 = "Wallpaper_ApalisT30.png"
+WALLPAPER-MACHINE_apalis-tk1 = "Wallpaper_ApalisTK1.png"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/lxde-common:"
 
