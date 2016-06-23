@@ -38,7 +38,6 @@ IMAGE_INSTALL_append_tegra3 = " \
     nv-conf-systemd \
 "
 
-#usb-rndis-systemd
 IMAGE_INSTALL_append_tegra124 = " \
     aspell \
     canutils \
@@ -53,6 +52,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     ptpd \
     tegrastats \
     u-boot-toradex-fw-utils \
+    usb-rndis-systemd \
 "
 
 IMAGE_INSTALL_append_apalis-t30 = " \
