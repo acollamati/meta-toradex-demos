@@ -101,7 +101,6 @@ GSTREAMER_append_mx6 = " \
 "
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
-    gstreamer1.0-plugins-base-xvimagesink \
     gst1.0-fsl-plugin \
     gst1.0-fsl-plugin-gplay \
     gst1.0-fsl-plugin-grecorder \
