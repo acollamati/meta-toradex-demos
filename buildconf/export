@@ -7,7 +7,7 @@ if [ ! -f ${BUILDDIR}/conf/local.conf ]; then
 	FIRST_TIME=1
 fi
 
-. oe-init-build-env ${BUILDDIR}
+. ./oe-init-build-env ${BUILDDIR}
 
 echo ""
 echo "Toradex targets are:"
