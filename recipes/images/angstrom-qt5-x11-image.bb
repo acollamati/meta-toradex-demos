@@ -95,7 +95,6 @@ GSTREAMER = " \
 
 GSTREAMER_append_mx6 = " \
     gstreamer1.0-plugins-base-ximagesink \
-    gstreamer1.0-plugins-base-xvimagesink \
     gstreamer1.0-plugins-imx \
     gst1.0-fsl-plugin \
     gst1.0-fsl-plugin-gplay \
@@ -165,12 +164,14 @@ IMAGE_INSTALL_QT5 = " \
 
 IMAGE_INSTALL_append_tegra = " \
     eglinfo-x11 \
+    xvinfo \
 "
 IMAGE_INSTALL_append_tegra124 = " \
     eglinfo-x11 \
     libglu \
     mesa-glut \
     tiff \
+    xvinfo \
 "
 IMAGE_INSTALL_append_mx6 = " \
     packagegroup-fsl-tools-gpu \
@@ -184,7 +185,6 @@ IMAGE_INSTALL += " \
     ${IMAGE_INSTALL_QT5} \
     \
     xdg-utils \
-    xvinfo \
     \
     initscripts \
     libgsf \

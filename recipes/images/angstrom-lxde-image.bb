@@ -103,7 +103,6 @@ GSTREAMER = " \
 
 GSTREAMER_append_mx6 = " \
     gstreamer1.0-plugins-base-ximagesink \
-    gstreamer1.0-plugins-base-xvimagesink \
     gstreamer1.0-plugins-imx \
     gst1.0-fsl-plugin \
     gst1.0-fsl-plugin-gplay \
@@ -168,6 +167,7 @@ IMAGE_INSTALL_append_tegra = " \
     gnome-disk-utility \
     mime-support \
     eglinfo-x11 \
+    xvinfo \
 "
 IMAGE_INSTALL_append_tegra124 = " \
     eglinfo-x11 \
@@ -176,6 +176,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     mesa-glut \
     mime-support \
     tiff \
+    xvinfo \
 "
 IMAGE_INSTALL_append_mx6 = " \
     gpioconfig \
@@ -207,7 +208,6 @@ IMAGE_INSTALL += " \
     gvfs \
     gvfsd-trash \
     xdg-utils \
-    xvinfo \
     \
     initscripts \
     libgsf \
