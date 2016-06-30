@@ -48,6 +48,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     file \
     fs-init \
     kernel-modules \
+    lvds-tegra124 \
     pciutils \
     ptpd \
     tegrastats \
