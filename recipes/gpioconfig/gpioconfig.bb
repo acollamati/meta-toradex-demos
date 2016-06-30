@@ -37,7 +37,7 @@ pkg_postinst_${PN}() {
 	cp ${datadir}/applications/GPIOConfig.desktop ${base_prefix}/home/root/Desktop/
 }
 
-pkg_postremove_${PN}() {
+pkg_postrm_${PN}() {
         rm -f ${base_prefix}/home/Desktop/GPIOConfig.desktop
 }
 
