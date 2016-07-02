@@ -4,4 +4,3 @@ PACKAGECONFIG_remove = "samba"
 PACKAGECONFIG_remove = "libgphoto2"
 
 DEPENDS += "udev"
-
