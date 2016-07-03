@@ -183,7 +183,7 @@ fi
 #sanity check for existence of U-Boot and kernel
 [ -e ${BINARIES}/${U_BOOT_BINARY} ] || { echo "${BINARIES}/${U_BOOT_BINARY} does not exist"; exit 1; }
 [ -e ${BINARIES}/${U_BOOT_BINARY_IT} ] || { echo "${BINARIES}/${U_BOOT_BINARY_IT} does not exist"; exit 1; }
-[ -e ${BINARIES}/uImage ] || { echo "${BINARIES}/uImage does not exist"; exit 1; }
+[ -e ${BINARIES}/${KERNEL_IMAGETYPE} ] || { echo "${BINARIES}/${KERNEL_IMAGETYPE} does not exist"; exit 1; }
 
 #Sanity check for some programs. Some distros have fs tools only in root's path
 MCOPY=`command -v mcopy` || { echo >&2 "Program mcopy not available.  Aborting."; exit 1; }
@@ -205,7 +205,7 @@ touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
-basename "`readlink -e ${BINARIES}/uImage`" >> ${BINARIES}/versions.txt
+basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
 ROOTFSVERSION=`grep -i imx6 rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
@@ -267,7 +267,7 @@ echo "Creating VFAT partition image with the kernel"
 rm -f ${BINARIES}/boot.vfat
 ${MKFSVFAT} -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${BINARIES}/boot.vfat $BOOT_BLOCKS 
 export MTOOLS_SKIP_CHECK=1
-mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/uImage ::/uImage
+mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/${KERNEL_IMAGETYPE} ::/${KERNEL_IMAGETYPE}
 
 # Copy device tree file
 COPIED=false
@@ -302,7 +302,7 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 
 
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/uImage ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
+sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${KERNEL_IMAGETYPE} ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
 	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
 [ "${U_BOOT_BINARY}x" != "${U_BOOT_BINARY_IT}x" ] && sudo cp ${BINARIES}/${U_BOOT_BINARY_IT} "$OUT_DIR"
 sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
