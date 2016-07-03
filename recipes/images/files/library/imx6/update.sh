@@ -119,10 +119,10 @@ case $MODTYPE_DETECT in
 		fi
 		;;
 	1)	MODTYPE=apalis-imx6
-		echo "Apalis T30 rootfs specified"
+		echo "Apalis iMX6 rootfs specified"
 		;;
 	2)	MODTYPE=colibri-imx6
-		echo "Colibri T20 rootfs specified"
+		echo "Colibri iMX6 rootfs specified"
 		;;
 	*)	echo "-m paramter specifies an unknown value"
 		exit 1
@@ -206,7 +206,7 @@ echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/uImage`" >> ${BINARIES}/versions.txt
-ROOTFSVERSION=`grep -i imx6 rootfs/etc/issue`
+ROOTFSVERSION=`grep -i imx6 rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type

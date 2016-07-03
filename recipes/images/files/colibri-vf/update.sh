@@ -202,7 +202,7 @@ sudo touch ${BINARIES}/versions.txt
 sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/u-boot.imx`" >> ${BINARIES}/versions.txt
-ROOTFSVERSION=`grep VF rootfs/etc/issue`
+ROOTFSVERSION=`grep VF rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type

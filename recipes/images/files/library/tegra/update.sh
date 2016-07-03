@@ -325,7 +325,7 @@ touch ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
-ROOTFSVERSION=`egrep -i 't([2-3]0|k1)' rootfs/etc/issue`
+ROOTFSVERSION=`egrep -i 't([2-3]0|k1)' rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
 #create subdirectory for this module type
