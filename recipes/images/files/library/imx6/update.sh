@@ -200,8 +200,8 @@ trap '{ printf "\033[31mScript aborted unexpectedly...\033[0m\n"; }' EXIT
 sudo chown $USER: ${BINARIES}
 
 #make a file with the used versions for U-Boot, kernel and rootfs
-rm -f ${BINARIES}/versions.txt
-touch ${BINARIES}/versions.txt
+sudo touch ${BINARIES}/versions.txt
+sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
