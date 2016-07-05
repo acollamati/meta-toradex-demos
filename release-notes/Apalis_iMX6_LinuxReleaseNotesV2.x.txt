@@ -16,6 +16,50 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6 Beta 2 (June 30, 2016)
+
+- U-Boot boot loader:
+  - fix Ethernet when using gigabit switch
+  - synchronize/improve memory options
+  - net: increase maximum frame size to accommodate VLAN packets
+  - update: make set<media>update self contained
+  - increase maximum temperature for booting linux
+- Linux kernel:
+  - follow changed OV5640 compatibility string
+  - mxc_v4l2_capture: Allow clock setting for de-interlaced video input
+  - media: Add support for ADV7280 decoder driver as found on ACA
+  - video: mxc: ldb: Add support for LVDS configuration via kernel boot arguments
+- Linux user-space:
+  - trdx-extra.inc: add iperf3 to all images
+  - florence: update to latest version 0.5.4, build without sound and drop
+    gstreamer 0.10 dependency
+  - gpioconfig: fix pkg_postrm
+- OpenEmbedded build system:
+  - linux-toradex-fsl-rt: Added a real-time kernel recipe for 3.14.52
+  - further clean-up update.sh update script
+  - angstrom-qt5-x11-image: add a recipe which deploys qt5 and starts a demo
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.6Beta2_20160701
+  - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- PCIe suspend/resume issue
+- some USB Thumb drives don't work well in U-Boot
+- USB hub on Evaluation Board not enabled in U-Boot
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 Beta 1 (March 31, 2016)
 
 - Booting:
@@ -458,7 +502,7 @@ Working on latest image:
   - GPIOlib /sys/class/gpio
   - PWM LEDs /sys/class/leds/
   - temperature sensor CPU /sys/devices/virtual/thermal/thermal_zone0/temp
-      board: /sys/devices/soc0/soc.1/2100000.aips-bus/21a4000.i2c/i2c-1/1-0041/stmpe-adc/iio:device0/in_temp8_raw
+      board: /sys/devices/soc0/soc.0/2100000.aips-bus/21a4000.i2c/i2c-2/2-0041/stmpe-adc/iio:device0/in_temp8_raw
   - Gigabit Ethernet (i.MX 6 errata, only 400 Mbps sustainable data rate)
   - eMMC ext3
   - serial console debug UART1
@@ -472,7 +516,7 @@ Working on latest image:
     - audio noise is high on V1.0 HW, workaround is to set headphone volume
         to maximum and use the DAC volume
   - S/PDIF
-  - SPI via /dev/spidev32766.0 aka SPI1 and /dev/spidev32765.0 aka SPI2
+  - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev1.0 aka SPI2
   - custom Ethernet MAC address
   - serial number and board revision
   - USB host port
@@ -528,4 +572,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, April 18, 2016
+Toradex, July 5, 2016

@@ -16,6 +16,38 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6 Beta 2 (July 1, 2016)
+
+- U-Boot boot loader:
+  - net: increase maximum frame size to accommodate VLAN packets
+  - update: make set<media>update self contained
+  - fix cam_mclk_pcc0 pin muxing being locked
+  - VDD core PMIC handling
+- Linux kernel:
+  - Epson S2D13P04 analogue multi-camera decoder integration
+  - modularise Wi-Fi configuration
+  - mmc: host: sdhci: fix suspend/resume issue
+  - mmc: sdhci: handle command timeout after transfer complete interrupt
+  - arm: smp: sched: clean-up and silence CPU hot-plugging debug messages
+  - initialise TPS65911 GPIOs
+  - disable TPS62362 pull-downs and use vdd_core set 0
+- Linux user-space:
+  - trdx-extra.inc: add iperf3 to all images
+  - florence: update to latest version 0.5.4, build without sound and drop
+    gstreamer 0.10 dependency
+  - gpioconfig: fix pkg_postrm
+- OpenEmbedded build system:
+  - further clean-up update.sh update script
+  - angstrom-qt5-x11-image: add a recipe which deploys qt5 and starts a demo
+
+- sources git.toradex.com tag Colibri_T30_LinuxImageV2.6Beta2_20160701
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 Beta 1 (March 31, 2016)
 
 - U-Boot boot loader:
@@ -688,4 +720,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, April 15, 2016
+Toradex, July 5, 2016

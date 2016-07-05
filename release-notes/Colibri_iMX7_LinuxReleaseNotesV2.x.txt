@@ -4,7 +4,7 @@ Release Notes:  Linux Image V2.x for Colibri iMX7
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 3.14.52 kernel, based on Freescale's BSP release imx_3.14.52_1.1.0_ga
+- Linux 4.1.15 kernel, based on Freescale's BSP release imx_4.1.15_1.1.0_ga
 - Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
     LXDE desktop environment
 
@@ -16,14 +16,61 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6 Beta 2 (June 30, 2016)
+- U-Boot boot loader:
+  - synchronize/improve memory options
+  - update: make set<media>update self contained
+  - net: increase maximum frame size to accommodate VLAN packets
+  - read kernel and device tree from UBI volumes instead of rootfs
+  - add RN5T567 PMIC support which enables reliable board reset
+  - runtime detection of i.MX 7Solo/Dual to construct device tree name
+  - add fdt_board variable and construct device tree name with carrier board name
+    (e.g. imx7d-colibri-eval-v3.dtb)
+  - fixed crash when starting USB on i.MX 7Solo
+  - increase maximum temperature for booting linux
+- Linux kernel:
+  - updated to 4.1.15 LTS long term stable Linux kernel as part of NXP/Freescale's
+    1.1.0 GA release
+  - renamed device trees to add carrier board name as part of the device tree
+    (e.g. imx7d-colibri-eval-v3.dtb)
+  - resynchronized resistive touch driver AD7879 with upstream version
+  - use PMIC for board reset (on reboot)
+  - fix poweroff
+  - fix clock control when Cortex-M4 is running
+  - add MCP2515 and spidev to device tree (the former being the default)
+  - added support for TouchRevolution Fusion capacitive multi-touch controller
+- Linux user-space:
+  - trdx-extra.inc: add iperf3 to all images
+  - florence: update to latest version 0.5.4, build without sound and drop
+    gstreamer 0.10 dependency
+  - alsa-state: add asound.state for Colibri iMX7 modules
+- OpenEmbedded build system:
+  - further clean-up update.sh update script
+  - angstrom-qt5-x11-image: add a recipe which deploys qt5 and starts a demo
+
+- sources git.toradex.com tag Colibri_iMX7_LinuxImageV2.6Beta2_20160701
+  - repository linux-toradex branch toradex_imx_4.1.15_1.1.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Note:
+- A new boot schema using static UBI volumes has been introduced. Therefore
+  downgrading is not directly possible. To downgrade a module, the UBI
+  partition needs to be cleared manually using "nand erase.part ubi".
+
+Known Issues:
+- display resolution can be set in the device tree
+- flashing the ubifs rootfs with U-Boot may fail depending on HW
+
+********************************************************************************
 Linux Image V2.6 Alpha 1 (March 15, 2016)
-- U-Boot:
+- U-Boot boot loader:
   - initial release
 - Linux kernel:
   - initial release
-- rootfs / oe-core:
+- Linux user-space:
   - initial release
   - uses ARMv7 hard-float Thumb2 builds (armv7at2hf-vfp-neon)
+
 - sources git.toradex.com tag Colibri_iMX7_LinuxImageV2.6Alpha1_20160315
   - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
   - repository u-boot-toradex branch 2015.04-toradex
@@ -74,13 +121,14 @@ Working on latest image:
   - PWMs /sys/class/pwm
   - RTC (i.MX 7 internal and board level I2C RTC)
   - 4-bit MMC/SD card ESDHC2
-  - SPI (ECSPI) via /dev/spidev2.0
+  - SPI (ECSPI) via /dev/spidev2.0, disabled in device tree
   - suspend LP1
   - CPU temperature sensor via hwmon /sys/class/hwmon/hwmon0/temp1_input
   - serial console debug UARTA ttymxc0
   - serial UARTA/UARTB and UARTC, including RTS/CTS, ttymxc0/1/2
   - USB host port (Note, i.MX 7Solo only on USBC port)
   - USB audio driver
+  - CAN via MCP2515 on Evaluation Board
 - Linux user-space
   - graphics (LCDIF aka parallel RGB)
   - Firefox browser
@@ -94,7 +142,6 @@ Not working or not tested:
   - USB keyboard
   - USB device firmware upgrade (DFU) as device on USB OTG port
 - Linux kernel
-  - CAN via MCP2515
   - optional CAN via flexcan can0 and can1, disabled in device tree
   - IrDA
   - parallel bus
@@ -112,4 +159,4 @@ Not working or not tested:
 
 ******************************************************************************
 
-Toradex, June 7, 2016
+Toradex, July 5, 2016
