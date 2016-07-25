@@ -117,7 +117,6 @@ IMAGE_INSTALL_append_mx7 = " \
 "
 
 IMAGE_INSTALL += " \
-    max9526-i2c \
     crda \
     linux-firmware-ralink \
     linux-firmware-rtl8192cu \
