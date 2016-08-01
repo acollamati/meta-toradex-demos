@@ -22,7 +22,7 @@ setenv update_uboot 'tftpboot ${loadaddr} ${board_name}/${board_name}.img && run
 
 setenv update_kernel 'tftpboot ${loadaddr} ${board_name}/uImage && fatwrite mmc 0:1 ${loadaddr} uImage ${filesize}'
 
-setenv update_fdt 'tftpboot ${loadaddr} ${board_name}/${soc}-apalis-${fdt_board}.dtb && fatwrite mmc 0:1 ${loadaddr} ${fdt_file} ${filesize}'
+setenv update_fdt 'tftpboot ${loadaddr} ${board_name}/${soc}-colibri-${fdt_board}.dtb && fatwrite mmc 0:1 ${loadaddr} ${soc}-colibri-${fdt_board}.dtb ${filesize}'
 
 setenv update_configblock 'run check_configblock; tftpboot ${loadaddr} ${board_name}/configblock.bin && mmc dev 0 1 && mmc write ${loadaddr} ${conf_blk_offset} 1'
 
