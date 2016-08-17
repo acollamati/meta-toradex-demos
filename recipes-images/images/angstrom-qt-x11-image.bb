@@ -21,7 +21,7 @@ IMAGE_NAME = "${MACHINE}_LinuxImage-qt"
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
 #create the deployment directory-tree
-require recipes/images/trdx-image-fstype.inc
+require recipes-images/images/trdx-image-fstype.inc
 
 #remove interfering sysv scripts, connman systemd service
 do_mkrmscript () {
@@ -254,7 +254,7 @@ IMAGE_INSTALL += " \
     alsa-states \
 "
 
-require recipes/images/trdx-extra.inc
+require recipes-images/images/trdx-extra.inc
 
 IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
