@@ -16,6 +16,10 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6 (August 26, 2016)
+- none, this version is identical to the previous beta version V2.6 Beta 2
+
+********************************************************************************
 Linux Image V2.6 Beta 2 (July 1, 2016)
 
 - U-Boot boot loader:
@@ -720,4 +724,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, July 5, 2016
+Toradex, August 26, 2016
