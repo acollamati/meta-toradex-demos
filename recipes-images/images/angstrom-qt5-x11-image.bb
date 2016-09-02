@@ -25,6 +25,8 @@ SYSTEMD_DEFAULT_TARGET = "graphical.target"
 #create the deployment directory-tree
 require recipes-images/images/trdx-image-fstype.inc
 
+inherit populate_sdk_qt5
+
 #remove interfering sysv scripts, connman systemd service
 do_mkrmscript () {
     echo "for i in ${IMAGE_ROOTFS}/etc/rc0.d ${IMAGE_ROOTFS}/etc/rc1.d ${IMAGE_ROOTFS}/etc/rc2.d ${IMAGE_ROOTFS}/etc/rc3.d ${IMAGE_ROOTFS}/etc/rc4.d ${IMAGE_ROOTFS}/etc/rc5.d ${IMAGE_ROOTFS}/etc/rc6.d ${IMAGE_ROOTFS}/etc/rcS.d ; do" > ${WORKDIR}/rmscript
