@@ -3,8 +3,7 @@ SUMMARY = "Image booting to a console"
 
 LICENSE = "MIT"
 
-PV = "V2.6"
-PR = "r0"
+PV = "V2.6.1"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxConsoleImage"

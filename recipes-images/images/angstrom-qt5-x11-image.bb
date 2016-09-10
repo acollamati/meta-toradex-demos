@@ -5,8 +5,7 @@ SUMMARY = "Qt5 demo image with X11 backend"
 
 LICENSE = "MIT"
 
-PV = "V2.6"
-PR = "r0"
+PV = "V2.6.1"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt5"
