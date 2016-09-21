@@ -47,6 +47,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     e2fsprogs-tune2fs \
     file \
     fs-init \
+    hdmi-hotplug \
     kernel-modules \
     lvds-tegra124 \
     pciutils \
