@@ -169,9 +169,9 @@ IMAGE_INSTALL_append_tegra = " \
     xvinfo \
 "
 IMAGE_INSTALL_append_tegra124 = " \
-    eglinfo-x11 \
     gnome-disk-utility \
     libglu \
+    mesa-demos \
     mesa-glut \
     mime-support \
     tiff \

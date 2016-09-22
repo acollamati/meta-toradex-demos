@@ -168,8 +168,8 @@ IMAGE_INSTALL_append_tegra = " \
     xvinfo \
 "
 IMAGE_INSTALL_append_tegra124 = " \
-    eglinfo-x11 \
     libglu \
+    mesa-demos \
     mesa-glut \
     tiff \
     xvinfo \
