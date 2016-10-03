@@ -3,3 +3,4 @@
 # e.g.: gst-launch-1.0: ../imxvpuapi/imxvpuapi_vpulib.c:2349: imx_vpu_dec_mark_framebuffer_as_displayed: Assertion `framebuffer != ((void *)0)' failed.
 # not building the vpu plugins works around the issue
 PACKAGECONFIG_mx6q_remove = "vpu"
+PACKAGECONFIG_mx6dl_remove = "vpu"
