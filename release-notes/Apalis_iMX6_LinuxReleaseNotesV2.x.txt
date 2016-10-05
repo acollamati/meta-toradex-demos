@@ -16,6 +16,44 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6.1 Beta 1 (September 29, 2016)
+
+- U-Boot boot loader:
+  - backport patches needed if compiling with GCC 6
+  - add fdt_fixup environment variable as a hook to modify device tree
+  - configblock: add 'Apalis iMX6 Dual 1GB IT'
+- Linux kernel:
+  - backport patches needed if compiling with GCC 6
+  - add support for RS-485 (#19323)
+- Linux user-space:
+  - deploy GPIOConfig V1.4 which corrects the iomux offset of PAD_SD4_DATA6
+  - improve fw_printenv/setenv concerning /etc/fw_env.config
+- OpenEmbedded build system:
+  - split meta-toradex into BSP layers meta-toradex-bsp-common and
+    meta-toradex-nxp as well as the software layer meta-toradex-demos
+  - rename the parent directory from stuff to layers
+  - mv from build/out*/deploy to deploy
+  - rename TMPDIR from out to tmp
+  - deploy qt5 tools into the sdk as part of optional angstrom-qt5-x11-image.bb
+
+- sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.6.1Beta1_20160929
+  - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- PCIe suspend/resume issue
+- some USB Thumb drives don't work well in U-Boot
+- USB hub on Evaluation Board not enabled in U-Boot
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 (August 26, 2016)
 - none, this version is identical to the previous beta version V2.6 Beta 2
 
@@ -51,9 +89,6 @@ Known Issues:
 - PCIe suspend/resume issue
 - some USB Thumb drives don't work well in U-Boot
 - USB hub on Evaluation Board not enabled in U-Boot
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
-    connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
 - Display resolution can be set for some output configurations, set the U-Boot
@@ -110,9 +145,6 @@ Known Issues:
 - USB RNDIS is racy due to networkd bug and not started by default
 - some USB Thumb drives don't work well in U-Boot
 - USB hub on Evaluation Board not enabled in U-Boot
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
-    connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
 - Display resolution can be set for some output configurations, set the U-Boot
@@ -253,8 +285,8 @@ Note:
 Known Issues:
 - some USB Thumb drivers don't work well in U-Boot
 - USB hub on Evaluation Board not enabled in U-Boot
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec,
+    so that neither headphone out nor mic in works anymore. Workaround: Have mic
     connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
@@ -386,8 +418,8 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
   - repository u-boot-toradex branch 2014.04-toradex
 
 Known Issues:
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec,
+    so that neither headphone out nor mic in works anymore. Workaround: Have mic
     connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
@@ -431,8 +463,8 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
   - repository u-boot-toradex branch 2014.04-toradex
 
 Known Issues:
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec,
+    so that neither headphone out nor mic in works anymore. Workaround: Have mic
     connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
@@ -463,8 +495,8 @@ Linux Image V2.2 Beta 1 (April 04, 2014)
 - sources git.toradex.com tag Apalis_iMX6_LinuxImageV2.2Beta1_20140404
 
 Known Issues:
-- connecting an analogue mic to the on module codec resets the codec, so that
-    neither headphone out nor mic in works anymore. Workaround: Have mic
+- on V1.0 HW connecting an analogue mic to the on module codec resets the codec,
+    so that neither headphone out nor mic in works anymore. Workaround: Have mic
     connected before boot or change the output source between DAC/LineIn
 - on first boot the resizing process adversely affects system performance for
     the first few minutes until completed
@@ -511,6 +543,7 @@ Working on latest image:
   - eMMC ext3
   - serial console debug UART1
   - UART2, UART3 and UART4
+  - optional RS485
   - I2C via /dev/i2c-X
   - 8-bit MMC card mmc1
   - 4-bit SD card mmc2
@@ -531,6 +564,7 @@ Working on latest image:
   - automatic USB device/host/suspend detection aka full OTG support
   - analog input via IIO framework
   - parallel camera interface
+  - CSI2 camera interface
   - CAN via can0 and can1
   - PCIe (regular ports and mini-PCIe slot)
   - SATA (regular port or mSATA slot)
@@ -556,13 +590,13 @@ Not working or not tested:
   - USB OTG1 support
 - Linux kernel
   - IrDA
-  - RS-422
-  - optional RS485
   - All UART control lines on V1.0 HW
   - SIM card
   - HDA audio IF on MXM connector (not possible with i.MX 6)
+  - on V1.0 HW connecting an analogue mic to the on module codec resets the codec,
+    so that neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
   - I2S / AC97 on MXM connector
-  - CSI2 camera interface
 - Linux user-space
   - Gstreamer encoding (not tested)
 - Display:
@@ -576,4 +610,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, August 26, 2016
+Toradex, October 5, 2016

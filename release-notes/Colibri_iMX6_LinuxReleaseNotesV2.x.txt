@@ -16,6 +16,45 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6.1 Beta 1 (September 29, 2016)
+
+- U-Boot boot loader:
+  - backport patches needed if compiling with GCC 6
+  - add fdt_fixup environment variable as a hook to modify device tree
+- Linux kernel:
+  - backport patches needed if compiling with GCC 6
+  - add support for RS-485 (#19323)
+- Linux user-space:
+  - deploy GPIOConfig V1.4 which corrects 'SODIMM Pin'/'EvalLoc' columns for
+    pads DI0_PIN15, NANDF_D4, NANDF_D6 and SD1_CLK
+  - improve fw_printenv/setenv concerning /etc/fw_env.config
+- OpenEmbedded build system:
+  - split meta-toradex into BSP layers meta-toradex-bsp-common and
+    meta-toradex-nxp as well as the software layer meta-toradex-demos
+  - rename the parent directory from stuff to layers
+  - mv from build/out*/deploy to deploy
+  - rename TMPDIR from out to tmp
+  - deploy qt5 tools into the sdk as part of optional angstrom-qt5-x11-image.bb
+
+- sources git.toradex.com tag Colibri_iMX6_LinuxImageV2.6.1Beta1_20160929
+  - repository linux-toradex branch toradex_imx_3.14.52_1.1.0_ga
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- some USB Thumb drives don't work well in U-Boot
+- connecting an analogue mic to the on module codec resets the codec, so that
+    neither headphone out nor mic in works anymore. Workaround: Have mic
+    connected before boot or change the output source between DAC/LineIn
+- on first boot the resizing process adversely affects system performance for
+    the first few minutes until completed
+- Display resolution can be set for some output configurations, set the U-Boot
+    environment variable vidargs accordingly.
+- X uses only the fb0 device
+- Ethernet aka TFTP update requires manual splitting of the root.ext3 file
+    which can be taken care of by the -c argument of our update.sh script.
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 (August 26, 2016)
 - none, this version is identical to the previous beta version V2.6 Beta 2
 
@@ -364,6 +403,7 @@ Working on latest image:
   - eMMC ext3
   - serial console debug UARTA
   - UARTB, UARTC
+  - optional RS485
   - I2C via /dev/i2c-X
   - 4-bit MMC/SD card mmc1
   - framebuffer console
@@ -406,8 +446,6 @@ Not working or not tested:
   - USB device/host switching
 - Linux kernel
   - IrDA
-  - RS-422
-  - optional RS485
 - Linux user-space
   - Gstreamer encoding (not tested)
 - Display:
@@ -419,4 +457,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
 
-Toradex, August 26, 2016
+Toradex, October 5, 2016

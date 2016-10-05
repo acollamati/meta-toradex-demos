@@ -4,12 +4,49 @@ Release Notes:  Linux Image V2.x for Colibri VF50/VF61
 
 Contents:
 - U-Boot 2015.04 boot loader
-- Linux 4.4.14 LTS kernel
+- Linux 4.4.21 LTS kernel
 - Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
   LXDE desktop environment
 
 ==> Flashing instructions can be found on the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+
+********************************************************************************
+Linux Image V2.6.1 Beta 1 (September 30, 2016)
+- U-Boot boot loader:
+  - backport patches needed if compiling with GCC 6
+  - allow USBC port to use in both roles (device/host)
+- Linux kernel:
+  - updated to 4.4.21 LTS long term stable Linux kernel
+  - bind spidev driver to the standard SPI port by default
+  - add rpmsg support along with the example drivers pingpong and tty copied
+    from the i.MX 7 BSP (#10772 and #20274)
+  - add remoteproc support which allows to load the Cortex-M4 firmware from
+    within Linux (optional)
+  - enable DMA for SPI (#15694)
+  - add fixes useful when using the I2C bus recovery functionality
+  - fix restoring of fbdev console after closing X (or any other DRM context)
+  - add SoC level definition of DSPI2/3 (disabled by default)
+- Linux user-space:
+  - improve fw_printenv/setenv concerning /etc/fw_env.config
+  - deploy virtio/rpmsg as kernel modules and load them by default
+  - add xorg.conf for Vybrid
+- OpenEmbedded build system:
+  - split meta-toradex into BSP layers meta-toradex-bsp-common and
+    meta-toradex-nxp as well as the software layer meta-toradex-demos
+  - rename the parent directory from stuff to layers
+  - mv from build/out*/deploy to deploy
+  - rename TMPDIR from out to tmp
+  - deploy qt5 tools into the sdk as part of optional angstrom-qt5-x11-image.bb
+
+- sources git.toradex.com tag Colibri_VF_LinuxImageV2.6.1Beta1_20161001
+  - repository linux-toradex branch toradex_vf_4.4
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+  (This has been observed on an Evaluation Board V2.1C)
+- License texts do not get deployed to the root file system.
 
 ********************************************************************************
 Linux Image V2.6 Beta 2 (June 30, 2016)
@@ -720,7 +757,7 @@ Working on latest image:
   - NAND flash MTD/UBI/UBIFS with hardware ECC
   - serial console debug UARTA ttyLP0
   - serial UARTA/UARTB and UARTC up to 921600, including RTS/CTS
-  - RS-422/485
+  - RS-485
   - I2C via /dev/i2c-X
   - MMC/SD card ESDHC2
   - PWM /sys/class/pwm/
@@ -758,4 +795,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, July 5, 2016
+Toradex, October 4, 2016

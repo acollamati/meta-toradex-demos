@@ -16,6 +16,46 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6.1 Beta 1 (September 29, 2016)
+
+- U-Boot boot loader:
+  - backport patches needed if compiling with GCC 6
+  - add fdt_fixup environment variable as a hook to modify device tree
+  - fix autoboot not prevented in recovery mode
+  - add optional PCIe evalboard initialisation
+- Linux kernel:
+  - optimised RAM settings
+  - allow easy integration of a custom Linux boot logo
+  - backport patches needed if compiling with GCC 6
+- Linux user-space:
+  - use HDMI hotplug udev rule as well
+  - deploy full mesa-demos in favour of segfaulting eglinfo-x11
+  - configure LVDS in extended mode by default (#18669)
+  - add udev rule to start an X output on HDMI hotplug
+  - disable NVIDIA logo shown exlusively on LVDS
+  - deploy additional gstreamer components namely for camera, vidconv and JPEG
+    (#20394)
+  - update OpenCV4Tegra to 2.4.12.3
+  - improve fw_printenv/setenv concerning /etc/fw_env.config
+- OpenEmbedded build system:
+  - split meta-toradex into BSP layers meta-toradex-bsp-common and
+    meta-toradex-tegra as well as the software layer meta-toradex-demos
+  - rename the parent directory from stuff to layers
+  - mv from build/out*/deploy to deploy
+  - rename TMPDIR from out to tmp
+  - deploy Qt5 tools into the sdk as part of optional angstrom-qt5-x11-image.bb
+  - update to watatuki's meta-jetson-tk1 based on L4T R21.5
+
+- sources git.toradex.com tag Apalis_TK1_LinuxImageV2.6.1Beta1_20160929
+  - repository linux-toradex branch toradex_tk1_l4t_r21.5
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- power consumption under full load may exceed the carrier boards power budget
+    see http://developer.toradex.com/products/apalis-tk1#errata for more infos
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 Beta 2 (July 1, 2016)
 
 - U-Boot boot loader:
@@ -110,7 +150,7 @@ Not working or not tested:
   - CAN via can0 and can1
   - optional CSI2 camera interface
   - IrDA
-  - RS-422/485
+  - RS-485
   - SIM card
   - suspend
   - USB 3.0 host on OTG port
@@ -121,4 +161,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, July 5, 2016
+Toradex, October 5, 2016

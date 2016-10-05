@@ -16,6 +16,38 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6.1 Beta 1 (September 29, 2016)
+
+- U-Boot boot loader:
+  - backport patches needed if compiling with GCC 6
+  - add fdt_fixup environment variable as a hook to modify device tree
+  - add mem alloc for bmp colour conversion map
+  - pull-down multiplexed camera input pins saves 100mW
+- Linux kernel:
+  - fix unsupported HDMI screen crash
+  - allow more HDMI aspect ratios
+  - backport patches needed if compiling with GCC 6
+  - pull-down multiplexed camera input pins saves 100mW
+- Linux user-space:
+  - improve fw_printenv/setenv concerning /etc/fw_env.config
+- OpenEmbedded build system:
+  - fix dtb file name in u-boot update scripts
+  - split meta-toradex into BSP layers meta-toradex-bsp-common and
+    meta-toradex-tegra as well as the software layer meta-toradex-demos
+  - rename the parent directory from stuff to layers
+  - mv from build/out*/deploy to deploy
+  - rename TMPDIR from out to tmp
+  - deploy qt5 tools into the sdk as part of optional angstrom-qt5-x11-image.bb
+  - download binary blobs for trdx-nv-binaries
+
+- sources git.toradex.com tag Colibri_T30_LinuxImageV2.6.1Beta1_20160929
+  - repository linux-toradex branch tegra
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6 (August 26, 2016)
 - none, this version is identical to the previous beta version V2.6 Beta 2
 
@@ -717,11 +749,11 @@ Not working or not tested:
 - U-Boot USB keyboard
 - Linux kernel
   - IrDA
-  - RS-422/485
+  - RS-485
 - Linux user-space Adobe Flash not provided by L4T (and probably never will)
 
 ******************************************************************************
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, August 26, 2016
+Toradex, October 5, 2016
