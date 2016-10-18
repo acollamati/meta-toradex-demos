@@ -1,4 +1,5 @@
-SUMMARY = "Qt5 demo image with X11 backend"
+SUMMARY = "Toradex Embedded Linux Qt5 Demo With X11"
+
 # after the boot systemd starts X and then a qt5 application
 # check recipes-qt/qt5/qt5-x11-free-systemd.bb for the systemd service
 # responsible for this

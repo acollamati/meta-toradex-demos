@@ -1,5 +1,4 @@
-#Angstrom image
-SUMMARY = "Image based on the LXDE desktop"
+SUMMARY = "Toradex Embedded Linux Demo with LXDE"
 
 LICENSE = "MIT"
 

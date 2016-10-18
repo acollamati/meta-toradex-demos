@@ -1,5 +1,4 @@
-#Angstrom image
-SUMMARY = "Image booting to a console"
+SUMMARY = "Toradex Embedded Linux Console Demo"
 
 LICENSE = "MIT"
 

@@ -1,5 +1,4 @@
-#Angstrom image
-SUMMARY = "Image based on qt4e-demo-image.bb"
+SUMMARY = "Toradex Embedded Linux Qt4 Demo With QWS"
 
 LICENSE = "MIT"
 
