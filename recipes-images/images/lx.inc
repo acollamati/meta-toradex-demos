@@ -6,9 +6,7 @@ IMAGE_INSTALL += " \
     openbox \
     openbox-theme-clearlooks \
     openbox-theme-onyx \
-    obconf \
     hicolor-icon-theme \
-    gtk-theme-clearlooks \
     lxdm \
-    leafpad \
+    l3afpad \
 "
