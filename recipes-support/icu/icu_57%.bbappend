@@ -6,7 +6,7 @@
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRC_URI_colibri-vf = "${BASE_SRC_URI} file://icudt55l.zip"
+SRC_URI_colibri-vf = "${BASE_SRC_URI} file://icudt57l.zip"
 
 do_configure_append_colibri-vf () {
     rm  -f ${S}/data/in/icudt*l.dat
