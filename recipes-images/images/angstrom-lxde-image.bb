@@ -238,7 +238,7 @@ IMAGE_INSTALL += " \
     libxdamage libxvmc libxinerama \
     libxcursor \
     \
-    florence \
+    florence3 \
     bash \
     \
     ${GSTREAMER} \
