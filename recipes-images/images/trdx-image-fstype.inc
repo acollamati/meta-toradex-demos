@@ -161,7 +161,6 @@ fakeroot imagedeploy_arm() {
     rm -f ${IMAGE_NAME}${PV}/rootfs.lock
 
     #create tarball
-    DATE=`date +%Y%m%d`
     tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${PV}_${DATE}.tar.bz2 ${IMAGE_NAME}${PV}
 }
 
