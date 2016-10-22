@@ -195,7 +195,7 @@ IMAGE_INSTALL_append_tegra = " \
 IMAGE_INSTALL_append_tegra124 = " \
     libglu \
     mesa-demos \
-    mesa-glut \
+    freeglut \
     tiff \
     xvinfo \
 "
