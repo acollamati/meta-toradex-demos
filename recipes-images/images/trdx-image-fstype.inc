@@ -168,3 +168,4 @@ fakeroot do_imagedeploy() {
     imagedeploy
 }
 addtask imagedeploy after do_rootfs before do_build
+do_imagedeploy[vardepsexclude] = "DATE"
