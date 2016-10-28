@@ -210,7 +210,6 @@ IMAGE_INSTALL += " \
     \
     initscripts \
     libgsf \
-    libwnck \
     libxres \
     makedevs \
     xcursor-transparent-theme \
