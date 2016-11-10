@@ -185,6 +185,7 @@ IMAGE_INSTALL_append_mx6 = " \
     eglinfo-x11 \
 "
 IMAGE_INSTALL_append_mx7 = " \
+    gpioconfig \
     gnome-disk-utility \
     mime-support \
 "
