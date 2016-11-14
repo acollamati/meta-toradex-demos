@@ -50,6 +50,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     fs-init \
     hdmi-hotplug \
     kernel-modules \
+    linuxptp \
     lvds-tegra124 \
     pciutils \
     ptpd \
@@ -59,6 +60,7 @@ IMAGE_INSTALL_append_tegra124 = " \
 "
 
 IMAGE_INSTALL_append_apalis-t30 = " \
+    linuxptp \
     pciutils \
     ptpd \
     iproute2 \
@@ -74,6 +76,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_mx6 = " \
     libusbg \
+    linuxptp \
     gpio-export \
     curl \
     file \
@@ -103,6 +106,7 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
 "
 
 IMAGE_INSTALL_append_vf = " \
+    linuxptp \
     libusbg \
     ptpd \
     iproute2 \
@@ -117,6 +121,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
 "
 
 IMAGE_INSTALL_append_mx7 = " \
+    linuxptp \
     libusbg \
     curl \
     file \
