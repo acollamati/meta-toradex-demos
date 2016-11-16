@@ -64,6 +64,9 @@ OUT_DIR=""
 ROOTFSPATH=rootfs
 SPLIT=0
 UBOOT_RECOVERY=0
+U_BOOT_BINARY=u-boot.imx-spl
+U_BOOT_RECOVER_BINARY=u-boot.imx
+SPL_BINARY=SPL
 
 while getopts "cdfhm:o:" Option ; do
 	case $Option in
@@ -138,8 +141,6 @@ case "$MODTYPE" in
 		                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb "
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/apalis_imx6"
-		U_BOOT_BINARY=u-boot.imx
-		U_BOOT_BINARY_IT=u-boot.imx-it
 		;;
 	"colibri-imx6")
 		# assumed minimal eMMC size [in sectors of 512]
@@ -148,8 +149,6 @@ case "$MODTYPE" in
 		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx6"
-		U_BOOT_BINARY=u-boot.imx
-		U_BOOT_BINARY_IT=u-boot.imx
 		;;
 	*)	echo "script internal error, unknown module type set"
 		exit 1
@@ -162,7 +161,7 @@ BINARIES=${MODTYPE}_bin
 if [ "$UBOOT_RECOVERY" -ge 1 ] ; then
 	cd ${LOCPATH}
 	#the IT timings work for all modules, so use it during recovery
-	sudo ./imx_usb ../${BINARIES}/${U_BOOT_BINARY_IT}
+	sudo ./imx_usb ../${BINARIES}/${U_BOOT_RECOVER_BINARY}
 	exit
 fi
 
@@ -182,7 +181,7 @@ fi
 
 #sanity check for existence of U-Boot and kernel
 [ -e ${BINARIES}/${U_BOOT_BINARY} ] || { echo "${BINARIES}/${U_BOOT_BINARY} does not exist"; exit 1; }
-[ -e ${BINARIES}/${U_BOOT_BINARY_IT} ] || { echo "${BINARIES}/${U_BOOT_BINARY_IT} does not exist"; exit 1; }
+[ -e ${BINARIES}/${SPL_BINARY} ] || { echo "${BINARIES}/${SPL_BINARY} does not exist"; exit 1; }
 [ -e ${BINARIES}/${KERNEL_IMAGETYPE} ] || { echo "${BINARIES}/${KERNEL_IMAGETYPE} does not exist"; exit 1; }
 
 #Sanity check for some programs. Some distros have fs tools only in root's path
@@ -204,7 +203,7 @@ sudo touch ${BINARIES}/versions.txt
 sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY}`" >> ${BINARIES}/versions.txt
-basename "`readlink -e ${BINARIES}/${U_BOOT_BINARY_IT}`" >> ${BINARIES}/versions.txt
+basename "`readlink -e ${BINARIES}/${SPL_BINARY}`" >> ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
 ROOTFSVERSION=`grep -i imx6 rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
@@ -302,9 +301,8 @@ sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || 
 
 
 #copy to $OUT_DIR
-sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${KERNEL_IMAGETYPE} ${BINARIES}/mbr.bin ${BINARIES}/boot.vfat \
-	${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
-[ "${U_BOOT_BINARY}x" != "${U_BOOT_BINARY_IT}x" ] && sudo cp ${BINARIES}/${U_BOOT_BINARY_IT} "$OUT_DIR"
+sudo cp ${BINARIES}/${U_BOOT_BINARY} ${BINARIES}/${SPL_BINARY} ${BINARIES}/${KERNEL_IMAGETYPE} ${BINARIES}/mbr.bin \
+	${BINARIES}/boot.vfat ${BINARIES}/${IMAGEFILE} ${BINARIES}/flash*.img ${BINARIES}/versions.txt "$OUT_DIR"
 sudo cp ${BINARIES}/fwd_blk.img "$OUT_DIR/../flash_blk.img"
 sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
