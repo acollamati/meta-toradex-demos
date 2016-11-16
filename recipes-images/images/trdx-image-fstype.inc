@@ -147,6 +147,10 @@ fakeroot imagedeploy_arm() {
     imagedeploy_kernel
 
     cp -P ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    if [ -e ${DEPLOY_DIR_IMAGE}/SPL ]
+    then
+        cp -P ${DEPLOY_DIR_IMAGE}/SPL* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    fi
     rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${U_BOOT_EXT}
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_BINARY}
 
