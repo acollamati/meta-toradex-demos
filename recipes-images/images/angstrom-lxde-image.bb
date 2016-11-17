@@ -179,7 +179,8 @@ IMAGE_INSTALL_append_tegra124 = " \
 "
 IMAGE_INSTALL_append_mx6 = " \
     gpioconfig \
-    packagegroup-fsl-tools-gpu \
+    packagegroup-fsl-gpu-libs \
+    libopencl-mx6 \
     gnome-disk-utility \
     mime-support \
     eglinfo-x11 \

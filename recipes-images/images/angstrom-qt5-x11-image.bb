@@ -173,7 +173,8 @@ IMAGE_INSTALL_append_tegra124 = " \
     xvinfo \
 "
 IMAGE_INSTALL_append_mx6 = " \
-    packagegroup-fsl-tools-gpu \
+    packagegroup-fsl-gpu-libs \
+    libopencl-mx6 \
     eglinfo-x11 \
 "
 
