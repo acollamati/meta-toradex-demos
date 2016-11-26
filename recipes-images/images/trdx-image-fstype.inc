@@ -111,7 +111,7 @@ imagedeploy_kernel() {
 }
 
 imagedeploy_kernel_mx7() {
-    do_imagedeploy_kernel_dtb
+    imagedeploy_kernel_dtb
 }
 
 imagedeploy_kernel_tegra2() {
@@ -122,10 +122,10 @@ imagedeploy_kernel_tegra2() {
 }
 
 imagedeploy_kernel_vf() {
-    do_imagedeploy_kernel_dtb
+    imagedeploy_kernel_dtb
 }
 
-do_imagedeploy_kernel_dtb() {
+imagedeploy_kernel_dtb() {
     # put kernel, device-tree into the bin directories
     cp -pP ${DEPLOY_DIR_IMAGE}/zImage* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
