@@ -16,6 +16,47 @@ Licensing:
 - customer required to obtain proper re-distribution license
 
 ********************************************************************************
+Linux Image V2.6.1 Beta 2 (November 22, 2016)
+
+- U-Boot boot loader:
+  - remove GPIOs used as special function pins
+  - fix device tree pre-fix in DFU_ALT_EMMC_INFO
+  - clean-up AS3722 PMIC configuration
+  - pull-up GPIO_PI6 connected to TMP451's ALERT#/THERM2#
+  - configure DP_HPD_PFF0 pin as optional DisplayPort hot-plug detect
+  - adjust pin muxing for V1.1 HW
+  - sd card detect SD1_CD# applicable for V1.1 modules using GPIO_PV2
+- Linux kernel:
+  - enable UART4
+  - fix CL-DVFS and soctherm to unlock full performance
+  - remove GPIO functionality from DP_HPD and GPIO_PFF2 pins
+  - optional eDP support requiring DP_HPD_PFF0 pin as optional hot-plug detect
+  - integrate ADV7280-M, AP1302, OV5640 and TC358743 camera support
+  - revert introduction of 2 kthreads for camera capture
+  - configure IPv6 SIT driver as module
+  - fix PCIe clock and reset not conforming to specification
+  - fix some mistakes in Tegra124 concerning pin muxing
+  - add 200 MHz tap hole coefficients for UHS-I tuning on SDMMC1
+  - pull-up GPIO_PI6 connected to TMP451's ALERT#/THERM2#
+  - adjust pin muxing for V1.1 HW
+  - sd card detect SD1_CD# applicable for V1.1 modules using GPIO_PV2
+  - no longer do card detect polling on V1.1 HW
+- Linux user-space:
+  - add initial asound.state
+- OpenEmbedded build system:
+  - fix buildtime warnings in linux-driver-package
+  - Qt4 patch which fixes 24-bit colour depth
+  - QtQuickControls only built if QtBase configured with accessibility
+  - update toradex-mirrors to V2.6
+
+- sources git.toradex.com tag Apalis_TK1_LinuxImageV2.6.1Beta2_20161122
+  - repository linux-toradex branch toradex_tk1_l4t_r21.5
+  - repository u-boot-toradex branch 2015.04-toradex
+
+Known Issues:
+- License texts do not get deployed to the root file system.
+
+********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
 
 - U-Boot boot loader:
@@ -109,8 +150,10 @@ Working on latest image:
   - Gigabit Ethernet enpXs0, X being its PCIe bus number
   - eMMC ext3
   - serial console debug UARTA aka UART1 ttyS0
+  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
+  - I2C via /dev/i2c-X
   - 4-bit MMC card mmc1 (full UHS-I support)
-  - 4-bit SD card mmc2 (full UHS-I support, polled card detect)
+  - 4-bit SD card mmc2 (full UHS-I support)
   - PWM /sys/class/pwm/pwmchip0
   - HDMI HDA audio hw:1,3
   - analogue audio capture and playback hw:0,0
@@ -127,6 +170,8 @@ Working on latest image:
   - SATA (regular port or mSATA slot)
   - DVFS power management including low-power core migration
   - single channel LVDS
+  - optional eDP
+  - optional CSI2 camera interface
 - Linux user-space
   - graphics (HDMI-0 aka DVI-D and LVDS-0)
   - tegrastats
@@ -139,8 +184,6 @@ Not working or not tested:
   - U-Boot USB keyboard
 - Linux kernel
   - RTC (board level I2C RTC)
-  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
-  - I2C via /dev/i2c-X
   - HDA audio (on Eval Board V1.0a: check datasheet/schematics for patch
       instructions)
   - resistive touch
@@ -148,7 +191,6 @@ Not working or not tested:
   - watchdog
   - analogue inputs
   - CAN via can0 and can1
-  - optional CSI2 camera interface
   - IrDA
   - RS-485
   - SIM card
@@ -161,4 +203,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, October 5, 2016
+Toradex, November 26, 2016
