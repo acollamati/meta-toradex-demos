@@ -161,7 +161,7 @@ GSTREAMER_append_tegra124 = " \
 GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL_append_tegra = " \
-    gpioconfig \
+    gpio-tool \
     tegrastats-gtk \
     gnome-disk-utility \
     mime-support \
@@ -178,7 +178,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     xvinfo \
 "
 IMAGE_INSTALL_append_mx6 = " \
-    gpioconfig \
+    gpio-tool \
     packagegroup-fsl-gpu-libs \
     libopencl-mx6 \
     gnome-disk-utility \
@@ -186,12 +186,12 @@ IMAGE_INSTALL_append_mx6 = " \
     eglinfo-x11 \
 "
 IMAGE_INSTALL_append_mx7 = " \
-    gpioconfig \
+    gpio-tool \
     gnome-disk-utility \
     mime-support \
 "
 IMAGE_INSTALL_append_vf = " \
-    gpioconfig \
+    gpio-tool \
     xf86-video-modesetting \
 "
 

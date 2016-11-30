@@ -8,9 +8,9 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 DEPENDS = "gtk+"
 RDEPENDS_{PN} = "gtk+"
 
-SRC_URI =  "file://GPIOConfig"
-SRC_URI += "file://GPIOConfig.desktop"
-SRC_URI += "file://GPIOConfig.png"
+SRC_URI =  "file://gpio-tool"
+SRC_URI += "file://gpio-tool.desktop"
+SRC_URI += "file://gpio-tool.png"
 
 PACKAGES = "${PN}"
 
@@ -27,18 +27,18 @@ do_install() {
         install -d ${D}/${bindir}
 	install -d ${D}/${datadir}/applications
 	install -d ${D}/${datadir}/pixmaps
-        install -m 755 ${WORKDIR}/GPIOConfig ${D}/${bindir}
-	install -m 644 ${WORKDIR}/GPIOConfig.desktop ${D}/${datadir}/applications
-        install -m 644 ${WORKDIR}/GPIOConfig.png ${D}/${datadir}/pixmaps/GPIOConfig.png
+        install -m 755 ${WORKDIR}/gpio-tool ${D}/${bindir}/
+	install -m 644 ${WORKDIR}/gpio-tool.desktop ${D}/${datadir}/applications/
+        install -m 644 ${WORKDIR}/gpio-tool.png ${D}/${datadir}/pixmaps/
 }
 
 pkg_postinst_${PN}() {
 	mkdir -p ${base_prefix}/home/root/Desktop
-	cp ${datadir}/applications/GPIOConfig.desktop ${base_prefix}/home/root/Desktop/
+	cp ${datadir}/applications/gpio-tool.desktop ${base_prefix}/home/root/Desktop/
 }
 
 pkg_postrm_${PN}() {
-        rm -f ${base_prefix}/home/Desktop/GPIOConfig.desktop
+        rm -f ${base_prefix}/home/Desktop/gpio-tool.desktop
 }
 
 
