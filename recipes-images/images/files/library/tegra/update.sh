@@ -43,7 +43,6 @@ Usage()
 	echo "eMMC/NAND or one copied over USB into the module's RAM"
 	echo ""
 	echo "-b           : T20: selects boot device (hsmmc/nand) (default: nand)"
-	echo "-c           : split resulting rootfs into chunks usable for TFTP transmission"
 	echo "-d           : use USB recovery mode to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
@@ -82,18 +81,16 @@ PAGE="4KiB"
 
 OUT_DIR=""
 ROOTFSPATH=rootfs
-SPLIT=0
+SPLIT=1
 UBOOT_RECOVERY=0
 
 # don't provide working defaults which may lead to wrong HW/SW combination
 MODVERSION=Add_Version_-v
 RAM_SIZE=Add_RAMsize_-r
 
-while getopts "b:cdfhm:o:r:sv:" Option ; do
+while getopts "b:dfhm:o:r:sv:" Option ; do
 	case $Option in
 		b)	BOOT_DEVICE=$OPTARG
-			;;
-		c)	SPLIT=1
 			;;
 		d)	UBOOT_RECOVERY=1
 			;;

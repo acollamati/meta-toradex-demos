@@ -40,7 +40,6 @@ Usage()
 	echo "Will require a running U-Boot on the target. Either one already flashed on the"
 	echo "eMMC or one copied over USB into the module's RAM"
 	echo ""
-	echo "-c           : split resulting rootfs into chunks usable for TFTP transmission"
 	echo "-d           : use USB connection to copy/execute U-Boot to/from module's RAM"
 	echo "-f           : flash instructions"
 	echo "-h           : prints this message"
@@ -62,16 +61,14 @@ MIN_PARTITION_FREE_SIZE=100
 MODTYPE_DETECT=0
 OUT_DIR=""
 ROOTFSPATH=rootfs
-SPLIT=0
+SPLIT=1
 UBOOT_RECOVERY=0
 U_BOOT_BINARY=u-boot.imx-spl
 U_BOOT_RECOVER_BINARY=u-boot.imx
 SPL_BINARY=SPL
 
-while getopts "cdfhm:o:" Option ; do
+while getopts "dfhm:o:" Option ; do
 	case $Option in
-		c)	SPLIT=1
-			;;
 		d)	UBOOT_RECOVERY=1
 			;;
 		f)	Flash
