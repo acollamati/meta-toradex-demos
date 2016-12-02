@@ -439,19 +439,22 @@ fi
 #copy to $OUT_DIR
 OUT_DIR=`readlink -f $OUT_DIR`
 cd ${BINARIES}
-sudo cp ${CBOOT_IMAGE} ${KERNEL_IMAGETYPE} ${EMMC_PARTS} ${IMAGEFILE}* flash*.img versions.txt "$OUT_DIR"
+sudo cp ${CBOOT_IMAGE} ${KERNEL_IMAGETYPE} ${EMMC_PARTS} flash*.img versions.txt "$OUT_DIR"
 sudo cp fwd_blk.img "$OUT_DIR/../flash_blk.img"
 sudo cp fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
-#cleanup intermediate files
-sudo rm ${CBOOT_IMAGE} ${EMMC_PARTS} ${IMAGEFILE}* versions.txt
-cd ..
 
 if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 	if [ "$SPLIT" -ge 1 ] ; then
-		sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 "$OUT_DIR/root.ext3" "$OUT_DIR/root.ext3-"
+		sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 ${IMAGEFILE} "$OUT_DIR/root.ext3-"
 	fi
+else
+	sudo cp ${IMAGEFILE}* "$OUT_DIR"
 fi
+
+#cleanup intermediate files
+sudo rm ${CBOOT_IMAGE} ${EMMC_PARTS} ${IMAGEFILE}* versions.txt
+cd ..
 sync
 
 #Remove trap and report success!
