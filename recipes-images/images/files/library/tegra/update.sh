@@ -446,7 +446,7 @@ sudo cp fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 
 if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 	if [ "$SPLIT" -ge 1 ] ; then
-		sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 ${IMAGEFILE} "$OUT_DIR/root.ext3-"
+		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "$OUT_DIR/root.ext3-"
 	fi
 else
 	sudo cp ${IMAGEFILE}* "$OUT_DIR"

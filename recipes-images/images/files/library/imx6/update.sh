@@ -305,7 +305,7 @@ sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 
 if [ "$SPLIT" -ge 1 ] ; then
-sudo split -a 2 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=10 ${BINARIES}/${IMAGEFILE} "$OUT_DIR/root.ext3-"
+sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${BINARIES}/${IMAGEFILE} "$OUT_DIR/root.ext3-"
 fi
 
 #cleanup intermediate files
