@@ -202,7 +202,7 @@ case "$MODTYPE" in
 		CBOOT_IMAGE=apalis-tk1.img
 		CBOOT_IMAGE_TARGET=tegra124
 		# assumed minimal eMMC size [in sectors of 512]
-		EMMC_SIZE=$(expr 1024 \* 7450 \* 2)
+		EMMC_SIZE=$(expr 1024 \* 15020 \* 2)
 		IMAGEFILE=root.ext3
 		KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
 		LOCPATH="tegra-uboot-flasher"
