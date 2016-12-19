@@ -8,6 +8,7 @@ PV = "V2.6.2"
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage"
 IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage"
 IMAGE_NAME_apalis-tk1 = "Apalis_TK1_LinuxImage"
+IMAGE_NAME_apalis-tk1-mainline = "Apalis_TK1_Mainline_LinuxImage"
 IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxImage"
 IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxImage"
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage"
@@ -160,6 +161,14 @@ IMAGE_INSTALL_append_tegra124 = " \
     gnome-disk-utility \
     libglu \
     mesa-demos \
+    freeglut \
+    mime-support \
+    tiff \
+    xvinfo \
+"
+IMAGE_INSTALL_append_tegra124m = " \
+    gnome-disk-utility \
+    libglu \
     freeglut \
     mime-support \
     tiff \

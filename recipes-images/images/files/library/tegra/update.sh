@@ -139,7 +139,14 @@ case $MODTYPE_DETECT in
 					if [ "$CNT" -ge 1 ] ; then
 						echo "Apalis TK1 rootfs detected"
 						MODTYPE=apalis-tk1
+
+						CNT=`grep -ic "mainline" rootfs/etc/issue || true`
+						if [ "$CNT" -ge 1 ] ; then
+							echo "Mainline variant"
+							MODTYPE=apalis-tk1-mainline
+						fi
 					fi
+
 				fi
 			else
 				CNT=`grep -ic "colibri" rootfs/etc/issue || true`
@@ -197,7 +204,7 @@ case "$MODTYPE" in
 		OUT_DIR="$OUT_DIR/apalis_t30"
 		U_BOOT_BINARY=u-boot-dtb-tegra.bin
 		;;
-	"apalis-tk1")
+    "apalis-tk1" | "apalis-tk1-mainline")
 		BCT=PM375_Hynix_2GB_H5TC4G63AFR_RDA_924MHz.bct
 		CBOOT_IMAGE=apalis-tk1.img
 		CBOOT_IMAGE_TARGET=tegra124
@@ -369,7 +376,7 @@ if [ "${MODTYPE}" = "colibri-t20" ] ; then
 	echo ""
 	echo "UBI image of root file system generated, copying data to target folder..."
 else
-	if [ "${MODTYPE}" = "apalis-t30" ] || [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "colibri-t30" ] ; then
+	if [ "${MODTYPE}" = "apalis-t30" ] || [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ] || [ "${MODTYPE}" = "colibri-t30" ] ; then
 		# Boot partition [in sectors of 512]
 		BOOT_START=$(expr 4096 \* 2)
 		# Rootfs partition [in sectors of 512]
@@ -418,7 +425,7 @@ else
 					fi
 				fi
 			done
-			[ "${MODTYPE}" = "apalis-tk1" ] && ([ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; })
+            ([ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ]) && ([ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; })
 		fi
 
 		echo ""
