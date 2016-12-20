@@ -64,7 +64,7 @@ ROOTFSPATH=rootfs
 SPLIT=1
 UBOOT_RECOVERY=0
 U_BOOT_BINARY=u-boot.imx-spl
-U_BOOT_RECOVER_BINARY=u-boot.imx
+U_BOOT_RECOVER_BINARY=u-boot.imx-recover
 SPL_BINARY=SPL
 
 while getopts "dfhm:o:" Option ; do
