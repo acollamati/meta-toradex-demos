@@ -32,10 +32,13 @@ export DISPLAY
 export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
 
 # Serial consoles are not able to autoresize. Set size once upon login.
-# Make sure we are on a serial console (i.e. the device used starts with /dev/tty),
-# otherwise we confuse e.g. the eclipse launcher which tries do use ssh
-LOGINDEV=`tty | cut -c1-8`
-test "$LOGINDEV" = "/dev/tty" && resize
+if [ -x /usr/bin/resize ] && termpath="`tty`"; then
+  # Make sure we are on a serial console (i.e. the device used starts with /dev/tty),
+  # otherwise we confuse e.g. the eclipse launcher which tries do use ssh
+  case "$termpath" in
+  /dev/tty*) resize >/dev/null
+  esac
+fi
 
 umask 022
 
