@@ -21,7 +21,7 @@ echo &&
 echo 'NOTE: The U-Boot provided with this BSP version does not support the' &&
 echo 'early tapeout/stepping of i.MX 7 used on your module. You still can' &&
 echo 'update the kernel/device-tree/rootfs manually using: ' &&
-echo '# run prepare_ubi && run update_kernel && run update_fdt && update_rootfs' &&
+echo '# run prepare_ubi && run update_kernel && run update_fdt && run update_rootfs' &&
 echo && setenv update_uboot; setenv update_uboot_old; setenv update
 else
 echo 'enter "run update" to update the entire module'
