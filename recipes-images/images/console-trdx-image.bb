@@ -2,7 +2,7 @@ SUMMARY = "Toradex Embedded Linux Console Demo"
 
 LICENSE = "MIT"
 
-PV = "V2.6.2"
+PV = "V2.7"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxConsoleImage"
