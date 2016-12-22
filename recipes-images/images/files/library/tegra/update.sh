@@ -234,7 +234,7 @@ case "$MODTYPE" in
 #		BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_533MHz.bct
 		CBOOT_IMAGE=colibri_t30.img
 		CBOOT_IMAGE_TARGET=tegra30
-		EMMC_SIZE=$(expr 1024 \* 2000 \* 2)
+		EMMC_SIZE=$(expr 1024 \* 3640 \* 2)
 		IMAGEFILE=root.ext3
 		KERNEL_DEVICETREE="tegra30-colibri-eval-v3.dtb"
 		LOCPATH="tegra-uboot-flasher"
