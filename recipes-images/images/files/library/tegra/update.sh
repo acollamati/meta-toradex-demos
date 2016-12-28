@@ -271,7 +271,7 @@ if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 	fi
 
 	cd ${LOCPATH}
-	sudo ./tegrarcm --bct=../${BINARIES}/${BCT} --bootloader=../${BINARIES}/${U_BOOT_BINARY} --loadaddr=0x80108000
+	sudo ./tegrarcm --bct=../${BINARIES}/${BCT} --bootloader=../${BINARIES}/${U_BOOT_BINARY} --loadaddr=0x80108000 --usb-timeout=5000
 	exit
 fi
 
