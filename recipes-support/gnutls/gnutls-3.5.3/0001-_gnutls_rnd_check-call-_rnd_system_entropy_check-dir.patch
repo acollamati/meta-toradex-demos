@@ -1,0 +1,105 @@
+From 4d49e06e8850ed3ffb89f6856555a2435962fedd Mon Sep 17 00:00:00 2001
+From: Nikos Mavrogiannopoulos <nmav@redhat.com>
+Date: Mon, 31 Oct 2016 11:40:12 +0100
+Subject: [PATCH 1/3] _gnutls_rnd_check: call _rnd_system_entropy_check
+ directly
+
+Upstream-Status: Backport
+
+diff --git a/lib/crypto-backend.h b/lib/crypto-backend.h
+index 3d979d8..6f4b743 100644
+--- a/lib/crypto-backend.h
++++ b/lib/crypto-backend.h
+@@ -73,8 +73,7 @@ typedef struct {
+ } gnutls_crypto_digest_st;
+ 
+ typedef struct gnutls_crypto_rnd {
+-	int (*init) (void **ctx);
+-	int (*check) (void **ctx);
++	int (*init) (void **ctx); /* called prior to first usage of randomness */
+ 	int (*rnd) (void *ctx, int level, void *data, size_t datasize);
+ 	void (*rnd_refresh) (void *ctx);
+ 	void (*deinit) (void *ctx);
+diff --git a/lib/nettle/rnd-fips.c b/lib/nettle/rnd-fips.c
+index ef64649..59795a9 100644
+--- a/lib/nettle/rnd-fips.c
++++ b/lib/nettle/rnd-fips.c
+@@ -226,15 +226,6 @@ static void _rngfips_deinit(void *_ctx)
+ 	free(ctx);
+ }
+ 
+-/* This is called when gnutls_global_init() is called for second time.
+- * It must check whether any resources are still available.
+- * The particular problem it solves is to verify that the urandom fd is still
+- * open (for applications that for some reason closed all fds */
+-static int _rndfips_check(void **ctx)
+-{
+-	return _rnd_system_entropy_check();
+-}
+-
+ static void _rngfips_refresh(void *_ctx)
+ {
+ 	/* this is predictable RNG. Don't refresh */
+@@ -260,7 +251,6 @@ static int selftest_kat(void)
+ 
+ gnutls_crypto_rnd_st _gnutls_fips_rnd_ops = {
+ 	.init = _rngfips_init,
+-	.check = _rndfips_check,
+ 	.deinit = _rngfips_deinit,
+ 	.rnd = _rngfips_rnd,
+ 	.rnd_refresh = _rngfips_refresh,
+diff --git a/lib/nettle/rnd.c b/lib/nettle/rnd.c
+index 8a5a762..39b99e1 100644
+--- a/lib/nettle/rnd.c
++++ b/lib/nettle/rnd.c
+@@ -257,15 +257,6 @@ static int wrap_nettle_rnd_init(void **ctx)
+ 	return 0;
+ }
+ 
+-/* This is called when gnutls_global_init() is called for second time.
+- * It must check whether any resources are still available.
+- * The particular problem it solves is to verify that the urandom fd is still
+- * open (for applications that for some reason closed all fds */
+-static int wrap_nettle_rnd_check(void **ctx)
+-{
+-	return _rnd_system_entropy_check();
+-}
+-
+ static int
+ wrap_nettle_rnd_nonce(void *_ctx, void *data, size_t datasize)
+ {
+@@ -373,7 +364,6 @@ int crypto_rnd_prio = INT_MAX;
+ 
+ gnutls_crypto_rnd_st _gnutls_rnd_ops = {
+ 	.init = wrap_nettle_rnd_init,
+-	.check = wrap_nettle_rnd_check,
+ 	.deinit = wrap_nettle_rnd_deinit,
+ 	.rnd = wrap_nettle_rnd,
+ 	.rnd_refresh = wrap_nettle_rnd_refresh,
+diff --git a/lib/random.h b/lib/random.h
+index 59e3f3c..1538ec8 100644
+--- a/lib/random.h
++++ b/lib/random.h
+@@ -25,6 +25,7 @@
+ 
+ #include <gnutls/crypto.h>
+ #include <crypto-backend.h>
++#include "nettle/rnd-common.h"
+ 
+ extern int crypto_rnd_prio;
+ extern void *gnutls_rnd_ctx;
+@@ -50,10 +51,7 @@ int _gnutls_rnd_init(void);
+ 
+ inline static int _gnutls_rnd_check(void)
+ {
+-	if (_gnutls_rnd_ops.check)
+-		return _gnutls_rnd_ops.check(gnutls_rnd_ctx);
+-	else
+-		return 0;
++	return _rnd_system_entropy_check();
+ }
+ 
+ #ifndef _WIN32
+-- 
+2.6.6
+

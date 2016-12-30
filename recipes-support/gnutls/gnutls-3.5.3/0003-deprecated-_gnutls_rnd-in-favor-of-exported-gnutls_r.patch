@@ -1,0 +1,315 @@
+From e146eedb13d94752609553bceb13c70cb7c05a4d Mon Sep 17 00:00:00 2001
+From: Nikos Mavrogiannopoulos <nmav@redhat.com>
+Date: Mon, 17 Oct 2016 14:10:08 +0200
+Subject: [PATCH 3/3] deprecated _gnutls_rnd() in favor of exported
+ gnutls_rnd()
+
+Conflict:
+code from lib/x509/privkey_pkcs8.c refactored into lib/x509/pkcs7-crypt.c 
+
+Upstream-Status: Backport
+
+diff --git a/lib/auth/psk_passwd.c b/lib/auth/psk_passwd.c
+index 2ef2c9c..0412b04 100644
+--- a/lib/auth/psk_passwd.c
++++ b/lib/auth/psk_passwd.c
+@@ -94,7 +94,7 @@ static int _randomize_psk(gnutls_datum_t * psk)
+ 
+ 	psk->size = 16;
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_NONCE, (char *) psk->data, 16);
++	ret = gnutls_rnd(GNUTLS_RND_NONCE, (char *) psk->data, 16);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		return ret;
+diff --git a/lib/auth/rsa.c b/lib/auth/rsa.c
+index 505fbee..b54d415 100644
+--- a/lib/auth/rsa.c
++++ b/lib/auth/rsa.c
+@@ -178,7 +178,7 @@ proc_rsa_client_kx(gnutls_session_t session, uint8_t * data,
+ 
+ 	/* we do not need strong random numbers here.
+ 	 */
+-	ret = _gnutls_rnd(GNUTLS_RND_NONCE, rndkey.data,
++	ret = gnutls_rnd(GNUTLS_RND_NONCE, rndkey.data,
+ 			  rndkey.size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+@@ -265,7 +265,7 @@ _gnutls_gen_rsa_client_kx(gnutls_session_t session,
+ 		return GNUTLS_E_MEMORY_ERROR;
+ 	}
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, session->key.key.data,
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, session->key.key.data,
+ 			  session->key.key.size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+diff --git a/lib/auth/rsa_psk.c b/lib/auth/rsa_psk.c
+index a14baa1..151e88d 100644
+--- a/lib/auth/rsa_psk.c
++++ b/lib/auth/rsa_psk.c
+@@ -156,7 +156,7 @@ _gnutls_gen_rsa_psk_client_kx(gnutls_session_t session,
+ 	}
+ 
+ 	/* Generate random */
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, premaster_secret.data,
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, premaster_secret.data,
+ 			  premaster_secret.size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+@@ -370,7 +370,7 @@ _gnutls_proc_rsa_psk_client_kx(gnutls_session_t session, uint8_t * data,
+ 
+ 		/* we do not need strong random numbers here.
+ 		 */
+-		ret = _gnutls_rnd(GNUTLS_RND_NONCE, premaster_secret.data,
++		ret = gnutls_rnd(GNUTLS_RND_NONCE, premaster_secret.data,
+ 				  premaster_secret.size);
+ 		if (ret < 0) {
+ 			gnutls_assert();
+diff --git a/lib/auth/srp_passwd.c b/lib/auth/srp_passwd.c
+index 4e00f88..8ebcdfa 100644
+--- a/lib/auth/srp_passwd.c
++++ b/lib/auth/srp_passwd.c
+@@ -400,7 +400,7 @@ static int _randomize_pwd_entry(SRP_PWD_ENTRY * entry,
+ 		return GNUTLS_E_MEMORY_ERROR;
+ 	}
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, entry->v.data, 20);
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, entry->v.data, 20);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		return ret;
+diff --git a/lib/cipher.c b/lib/cipher.c
+index 50096df..73e18ad 100644
+--- a/lib/cipher.c
++++ b/lib/cipher.c
+@@ -323,9 +323,9 @@ compressed_to_ciphertext(gnutls_session_t session,
+ 	/* Calculate the encrypted length (padding etc.)
+ 	 */
+ 	if (algo_type == CIPHER_BLOCK) {
+-		/* Call _gnutls_rnd() once. Get data used for the IV
++		/* Call gnutls_rnd() once. Get data used for the IV
+ 		 */
+-		ret = _gnutls_rnd(GNUTLS_RND_NONCE, nonce, blocksize);
++		ret = gnutls_rnd(GNUTLS_RND_NONCE, nonce, blocksize);
+ 		if (ret < 0)
+ 			return gnutls_assert_val(ret);
+ 
+diff --git a/lib/crypto-api.c b/lib/crypto-api.c
+index 7d3d5ed..71bf935 100644
+--- a/lib/crypto-api.c
++++ b/lib/crypto-api.c
+@@ -608,7 +608,7 @@ int gnutls_key_generate(gnutls_datum_t * key, unsigned int key_size)
+ 		return GNUTLS_E_MEMORY_ERROR;
+ 	}
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, key->data, key->size);
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, key->data, key->size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		_gnutls_free_datum(key);
+diff --git a/lib/ext/heartbeat.c b/lib/ext/heartbeat.c
+index 180d59a..26a0928 100644
+--- a/lib/ext/heartbeat.c
++++ b/lib/ext/heartbeat.c
+@@ -194,7 +194,7 @@ gnutls_heartbeat_ping(gnutls_session_t session, size_t data_size,
+ 			return gnutls_assert_val(ret);
+ 
+ 		ret =
+-		    _gnutls_rnd(GNUTLS_RND_NONCE,
++		    gnutls_rnd(GNUTLS_RND_NONCE,
+ 				session->internals.hb_local_data.data,
+ 				data_size);
+ 		if (ret < 0)
+diff --git a/lib/ext/session_ticket.c b/lib/ext/session_ticket.c
+index 5a957f0..feb6507 100644
+--- a/lib/ext/session_ticket.c
++++ b/lib/ext/session_ticket.c
+@@ -234,7 +234,7 @@ encrypt_ticket(gnutls_session_t session, session_ticket_ext_st * priv,
+ 
+ 	t = gnutls_time(0);
+ 	memcpy(iv, &t, 4);
+-	ret = _gnutls_rnd(GNUTLS_RND_NONCE, iv+4, IV_SIZE-4);
++	ret = gnutls_rnd(GNUTLS_RND_NONCE, iv+4, IV_SIZE-4);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		goto cleanup;
+diff --git a/lib/handshake.c b/lib/handshake.c
+index 7dccae6..f8d7b2d 100644
+--- a/lib/handshake.c
++++ b/lib/handshake.c
+@@ -204,7 +204,7 @@ static int create_tls_random(uint8_t * dst)
+ 	_gnutls_write_uint32(tim, dst);
+ 
+ 	ret =
+-	    _gnutls_rnd(GNUTLS_RND_NONCE, &dst[3], GNUTLS_RANDOM_SIZE - 3);
++	    gnutls_rnd(GNUTLS_RND_NONCE, &dst[3], GNUTLS_RANDOM_SIZE - 3);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		return ret;
+@@ -3349,7 +3349,7 @@ int _gnutls_generate_session_id(uint8_t * session_id, uint8_t * len)
+ 	*len = GNUTLS_MAX_SESSION_ID_SIZE;
+ 
+ 	ret =
+-	    _gnutls_rnd(GNUTLS_RND_NONCE, session_id,
++	    gnutls_rnd(GNUTLS_RND_NONCE, session_id,
+ 			GNUTLS_MAX_SESSION_ID_SIZE);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+diff --git a/lib/mpi.c b/lib/mpi.c
+index 828a0b8..491a8ef 100644
+--- a/lib/mpi.c
++++ b/lib/mpi.c
+@@ -60,7 +60,7 @@ _gnutls_mpi_random_modp(bigint_t r, bigint_t p,
+ 		buf_release = 1;
+ 	}
+ 
+-	ret = _gnutls_rnd(level, buf, size);
++	ret = gnutls_rnd(level, buf, size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		goto cleanup;
+diff --git a/lib/nettle/pk.c b/lib/nettle/pk.c
+index b41ebfb..34688d2 100644
+--- a/lib/nettle/pk.c
++++ b/lib/nettle/pk.c
+@@ -54,7 +54,7 @@ static inline const struct ecc_curve *get_supported_nist_curve(int curve);
+ 
+ static void rnd_func(void *_ctx, size_t length, uint8_t * data)
+ {
+-	if (_gnutls_rnd(GNUTLS_RND_RANDOM, data, length) < 0) {
++	if (gnutls_rnd(GNUTLS_RND_RANDOM, data, length) < 0) {
+ #ifdef ENABLE_FIPS140
+ 		_gnutls_switch_lib_state(LIB_STATE_ERROR);
+ #else
+@@ -1454,7 +1454,7 @@ wrap_nettle_pk_generate_keys(gnutls_pk_algorithm_t algo,
+ 				goto fail;
+ 			}
+ 
+-			ret = _gnutls_rnd(GNUTLS_RND_RANDOM, params->raw_priv.data, size);
++			ret = gnutls_rnd(GNUTLS_RND_RANDOM, params->raw_priv.data, size);
+ 			if (ret < 0) {
+ 				ret = gnutls_assert_val(GNUTLS_E_MEMORY_ERROR);
+ 				goto fail;
+diff --git a/lib/opencdk/misc.c b/lib/opencdk/misc.c
+index 391bd09..7c41168 100644
+--- a/lib/opencdk/misc.c
++++ b/lib/opencdk/misc.c
+@@ -161,7 +161,7 @@ FILE *_cdk_tmpfile(void)
+ 	FILE *fp;
+ 	int fd, i;
+ 
+-	_gnutls_rnd(GNUTLS_RND_NONCE, rnd, DIM(rnd));
++	gnutls_rnd(GNUTLS_RND_NONCE, rnd, DIM(rnd));
+ 	for (i = 0; i < DIM(rnd) - 1; i++) {
+ 		char c = letters[(unsigned char) rnd[i] % 26];
+ 		rnd[i] = c;
+diff --git a/lib/pkcs11_secret.c b/lib/pkcs11_secret.c
+index aa3e5ce..b9a8854 100644
+--- a/lib/pkcs11_secret.c
++++ b/lib/pkcs11_secret.c
+@@ -72,7 +72,7 @@ gnutls_pkcs11_copy_secret_key(const char *token_url, gnutls_datum_t * key,
+ 	}
+ 
+ 	/* generate a unique ID */
+-	ret = _gnutls_rnd(GNUTLS_RND_NONCE, id, sizeof(id));
++	ret = gnutls_rnd(GNUTLS_RND_NONCE, id, sizeof(id));
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		return ret;
+diff --git a/lib/random.h b/lib/random.h
+index 2ef7bc4..e89efb9 100644
+--- a/lib/random.h
++++ b/lib/random.h
+@@ -31,9 +31,6 @@ extern int crypto_rnd_prio;
+ extern void *gnutls_rnd_ctx;
+ extern gnutls_crypto_rnd_st _gnutls_rnd_ops;
+ 
+-#define _gnutls_rnd gnutls_rnd
+-#define _gnutls_rnd_refresh gnutls_rnd_refresh
+-
+ void _gnutls_rnd_deinit(void);
+ int _gnutls_rnd_preinit(void);
+ 
+diff --git a/lib/srp.c b/lib/srp.c
+index 655b4a3..6d111e5 100644
+--- a/lib/srp.c
++++ b/lib/srp.c
+@@ -532,7 +532,7 @@ gnutls_srp_allocate_server_credentials(gnutls_srp_server_credentials_t *
+ 		goto cleanup;
+ 	}
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, (*sc)->fake_salt_seed.data,
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, (*sc)->fake_salt_seed.data,
+ 				DEFAULT_FAKE_SALT_SEED_SIZE);
+ 
+ 	if (ret < 0) {
+diff --git a/lib/tpm.c b/lib/tpm.c
+index 4ec9a95..5f4c851 100644
+--- a/lib/tpm.c
++++ b/lib/tpm.c
+@@ -768,7 +768,7 @@ static int randomize_uuid(TSS_UUID * uuid)
+ 	uint8_t raw_uuid[16];
+ 	int ret;
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_NONCE, raw_uuid, sizeof(raw_uuid));
++	ret = gnutls_rnd(GNUTLS_RND_NONCE, raw_uuid, sizeof(raw_uuid));
+ 	if (ret < 0)
+ 		return gnutls_assert_val(ret);
+ 
+@@ -1391,7 +1391,7 @@ gnutls_tpm_privkey_generate(gnutls_pk_algorithm_t pk, unsigned int bits,
+ 	}
+ 
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, buf, sizeof(buf));
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, buf, sizeof(buf));
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		goto err_cc;
+diff --git a/lib/x509/pkcs12.c b/lib/x509/pkcs12.c
+index e39dcde..b3bd287 100644
+--- a/lib/x509/pkcs12.c
++++ b/lib/x509/pkcs12.c
+@@ -880,7 +880,7 @@ int gnutls_pkcs12_generate_mac2(gnutls_pkcs12_t pkcs12, gnutls_mac_algorithm_t m
+ 
+ 	/* Generate the salt.
+ 	 */
+-	result = _gnutls_rnd(GNUTLS_RND_NONCE, salt, sizeof(salt));
++	result = gnutls_rnd(GNUTLS_RND_NONCE, salt, sizeof(salt));
+ 	if (result < 0) {
+ 		gnutls_assert();
+ 		return result;
+diff --git a/lib/x509/privkey_pkcs8.c b/lib/x509/privkey_pkcs8.c
+index f84d913..acacc91 100644
+--- a/lib/x509/privkey_pkcs8.c
++++ b/lib/x509/privkey_pkcs8.c
+@@ -2094,7 +2094,7 @@ generate_key(schema_id schema,
+ 	if (password)
+ 		pass_len = strlen(password);
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, rnd, 2);
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, rnd, 2);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+ 		return ret;
+@@ -2116,7 +2116,7 @@ generate_key(schema_id schema,
+ 		return GNUTLS_E_INVALID_REQUEST;
+ 	}
+ 
+-	ret = _gnutls_rnd(GNUTLS_RND_RANDOM, kdf_params->salt,
++	ret = gnutls_rnd(GNUTLS_RND_RANDOM, kdf_params->salt,
+ 			  kdf_params->salt_size);
+ 	if (ret < 0) {
+ 		gnutls_assert();
+@@ -2145,7 +2145,7 @@ generate_key(schema_id schema,
+ 				 kdf_params->key_size, key->data);
+ 
+ 		if (enc_params->iv_size) {
+-			ret = _gnutls_rnd(GNUTLS_RND_NONCE,
++			ret = gnutls_rnd(GNUTLS_RND_NONCE,
+ 					  enc_params->iv,
+ 					  enc_params->iv_size);
+ 			if (ret < 0) {
+-- 
+2.6.6
+
