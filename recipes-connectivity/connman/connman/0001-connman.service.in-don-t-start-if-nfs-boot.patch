@@ -1,0 +1,33 @@
+From 2f92fd3d8c5e22d77c445869675a10aa2e0c15ea Mon Sep 17 00:00:00 2001
+From: Max Krummenacher <max.krummenacher@toradex.com>
+Date: Fri, 30 Dec 2016 13:43:52 +0100
+Subject: [PATCH 1/3] connman.service.in: don't start if nfs boot
+
+connman reconnects its NIC's. If doing a NFS boot the rootfs
+connection drops and the boot will fail.
+As a simple workaround do not manage the network with connman
+at all.
+Alternatively one could black list the network interface used
+for NFS in /etc/connman/main.conf.
+
+Signed-off-by: Max Krummenacher <max.krummenacher@toradex.com>
+---
+ src/connman.service.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/connman.service.in b/src/connman.service.in
+index 57eaaf9..a81f29a 100644
+--- a/src/connman.service.in
++++ b/src/connman.service.in
+@@ -6,6 +6,8 @@ RequiresMountsFor=@localstatedir@/lib/connman
+ After=dbus.service network-pre.target systemd-sysusers.service
+ Before=network.target multi-user.target shutdown.target
+ Wants=network.target
++# only if not NFS mount, connman will disconnect your rootfs otherwise!
++ConditionKernelCommandLine=!root=/dev/nfs
+ 
+ [Service]
+ Type=dbus
+-- 
+2.6.6
+

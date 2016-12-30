@@ -1,7 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/connman:"
 
 SRC_URI += " \
-    file://dont_start_connman_on_nfsboot.patch \
+    file://0001-connman.service.in-don-t-start-if-nfs-boot.patch \
     file://main.conf \
 "
 
