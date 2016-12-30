@@ -6,7 +6,7 @@ PR = "r3"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 DEPENDS = "gtk+"
-RDEPENDS_{PN} = "gtk+"
+RDEPENDS_${PN} = "gtk+"
 
 SRC_URI =  "file://gpio-tool"
 SRC_URI += "file://gpio-tool.desktop"
