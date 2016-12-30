@@ -4,6 +4,7 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 DEPENDS = "glib-2.0 gtk+3 libcanberra libdvdread libnotify libpwquality libsecret libunique udisks2 avahi-ui virtual/libx11 libatasmart gnome-doc-utils intltool-native libgnome-keyring xz"
+RDEPENDS_${PN} = "adwaita-icon-theme-symbolic"
 
 PR = "r4"
 
