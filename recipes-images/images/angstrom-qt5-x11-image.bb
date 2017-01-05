@@ -183,7 +183,6 @@ IMAGE_INSTALL += " \
     \
     xdg-utils \
     \
-    initscripts \
     libgsf \
     libxres \
     makedevs \

@@ -208,7 +208,6 @@ IMAGE_INSTALL += " \
     gvfsd-trash \
     xdg-utils \
     \
-    initscripts \
     libgsf \
     libxres \
     makedevs \
