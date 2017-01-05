@@ -158,6 +158,7 @@ IMAGE_INSTALL_append_tegra = " \
     xvinfo \
 "
 IMAGE_INSTALL_append_tegra124 = " \
+    gpio-tool \
     gnome-disk-utility \
     libglu \
     mesa-demos \
