@@ -170,6 +170,7 @@ IMAGE_INSTALL_append_tegra124 = " \
 IMAGE_INSTALL_append_tegra124m = " \
     gnome-disk-utility \
     libglu \
+    mesa-demos \
     freeglut \
     mime-support \
     tiff \
