@@ -165,5 +165,5 @@ fakeroot imagedeploy_arm() {
 fakeroot do_imagedeploy() {
     imagedeploy
 }
-addtask imagedeploy after do_rootfs before do_build
+addtask imagedeploy after do_rootfs before do_image_complete
 do_imagedeploy[vardepsexclude] = "DATE"
