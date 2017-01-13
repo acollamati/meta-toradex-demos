@@ -1,19 +1,25 @@
-***********************************************
-Release Notes:  Linux Image V2.x for Apalis T30
-***********************************************
+******************************************************
+Release Notes:  Embedded Linux BSP V2.x for Apalis T30
+******************************************************
 
 Contents:
-- U-Boot 2015.04 boot loader
+- U-Boot 2016.11 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
-- Angstrom 2015.12/OpenEmbedded jethro/Yocto 2.0 based root file system, using
-  LXDE desktop environment
+- Angstrom 2016.12/OpenEmbedded morty/Yocto 2.2 based root file system, using
+    LXDE desktop environment
 
-==> Flashing instructions can be found on the Toradex developer article:
+==> Flashing instructions can be found in the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
+
+********************************************************************************
+Linux Image V2.7 Beta 1 (January 12, 2017)
+
+==> Release details can be found in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
@@ -726,4 +732,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, October 5, 2016
+Toradex, January 13, 2017
