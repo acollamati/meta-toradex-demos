@@ -9,6 +9,7 @@ PACKAGECONFIG_EXAMPLES ?= "examples"
 # |              } else if (QStyleHelper::isInstanceOf(groupBox->styleObject, QAccessible::Grouping)) {
 
 PACKAGECONFIG_append = " accessibility"
+PACKAGECONFIG_FONTS_append = " fontconfig"
 
 #qtbase must be configured with icu for qtwebkit
 PACKAGECONFIG_append_tegra = " \
