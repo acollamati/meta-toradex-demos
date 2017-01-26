@@ -231,6 +231,6 @@ IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
 
-export IMAGE_BASENAME = "qt-image"
+export IMAGE_BASENAME = "qt5-image"
 
 inherit core-image
