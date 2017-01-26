@@ -148,6 +148,7 @@ GSTREAMER_colibri-vf = ""
 
 IMAGE_INSTALL_QT5 = " \
     packagegroup-qt5 \
+    liberation-fonts \
     qtsmarthome \
     qt5-x11-free-systemd \
 "
