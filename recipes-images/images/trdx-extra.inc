@@ -92,7 +92,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_mx6 = " \
-    libusbg \
+    libusbgx \
     linuxptp \
     gpio-export \
     curl \
@@ -124,7 +124,7 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
 
 IMAGE_INSTALL_append_vf = " \
     linuxptp \
-    libusbg \
+    libusbgx \
     ptpd \
     iproute2 \
     canutils \
@@ -139,7 +139,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
 
 IMAGE_INSTALL_append_mx7 = " \
     linuxptp \
-    libusbg \
+    libusbgx \
     curl \
     file \
     aspell \
