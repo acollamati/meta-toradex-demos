@@ -6,9 +6,6 @@ COPY_LIC_MANIFEST ?= "1"
 COPY_LIC_DIRS ?= "0"
 COPY_LIC_DIRS_colibri-vf = "0"
 
-#the following builds cross gdb and gdbserver
-DEPENDS += "gdb-cross-${TARGET_ARCH}"
-
 add_rootfs_version () {
     echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
     echo " ${TDX_VERDATE}" | sed 's/-//' >>${IMAGE_ROOTFS}/etc/issue
