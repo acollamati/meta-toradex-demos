@@ -189,7 +189,6 @@ IMAGE_INSTALL += " \
     devmem2 \
     evtest \
     hdparm \
-    iperf \
     iperf3 \
     i2c-tools \
     memtester \
