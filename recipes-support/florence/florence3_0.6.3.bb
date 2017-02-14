@@ -16,7 +16,10 @@ RPROVIDES_${PN} += "florence"
 RREPLACES_${PN} += "florence"
 RCONFLICTS_${PN} += "florence"
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/florence/florence/${PV}/florence-${PV}.tar.bz2"
+SRC_URI = " \
+    ${SOURCEFORGE_MIRROR}/florence/florence/${PV}/florence-${PV}.tar.bz2 \
+    file://0001-src-Makefile.am-add-missing-dependency.patch \
+"
 SRC_URI[md5sum] = "8775051d7352f75dec5a86dc9964e8e0"
 SRC_URI[sha256sum] = "422992fd07d285be73cce721a203e22cee21320d69b0fda1579ce62944c5091e"
 S = "${WORKDIR}/florence-${PV}"
