@@ -39,15 +39,19 @@ This layer depends on the relevant BSP layers for your machine and:
   branch: morty
   revision: HEAD
 
-  URI: git://git.yoctoproject.org/meta-fsl-arm
+  URI: git://git.yoctoproject.org/meta-freescale
   branch: morty
   revision: HEAD
 
-  URI: https://github.com/freescale/meta-fsl-demos.git
+  URI: https://github.com/freescale/meta-freescale-distro.git
   branch: morty
   revision: HEAD
 
   URI: git://git.toradex.com/meta-lxde.git
+  branch: morty
+  revision: HEAD
+
+  URI: https://github.com/meta-qt5/meta-qt4
   branch: morty
   revision: HEAD
 
