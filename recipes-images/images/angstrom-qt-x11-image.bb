@@ -54,7 +54,6 @@ GSTREAMER = " \
     gstreamer1.0-plugins-base-audioresample \
     gstreamer1.0-plugins-base-audiotestsrc \
     gstreamer1.0-plugins-base-typefindfunctions \
-    gstreamer1.0-plugins-base-ivorbisdec \
     gstreamer1.0-plugins-base-ogg \
     gstreamer1.0-plugins-base-theora \
     gstreamer1.0-plugins-base-videotestsrc \
