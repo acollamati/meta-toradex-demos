@@ -118,9 +118,7 @@ imagedeploytools_append_vf() {
 }
 
 imagedeploy_kernel() {
-    # remove the kernel/dtb from the rootfs/boot if they exist
     # put kernel, existing device-tree(s) into the bin directories
-    rm -f ${IMAGE_ROOTFS}/boot/${KERNEL_IMAGETYPE}* ${IMAGE_ROOTFS}/boot/*.dtb
     cp -pP ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${KERNEL_IMAGETYPE}-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/${KERNEL_IMAGETYPE}
