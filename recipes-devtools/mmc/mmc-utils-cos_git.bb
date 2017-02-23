@@ -3,6 +3,11 @@ HOMEPAGE = "http://chromium.googlesource.com/chromiumos/third_party/mmc-utils.gi
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://mmc.c;beginline=1;endline=17;md5=d7747fc87f1eb22b946ef819969503f0"
 
+inherit update-alternatives
+
+ALTERNATIVE_${PN} = "mmc"
+ALTERNATIVE_PRIORITY = "5"
+
 SRCBRANCH ?= "master"
 SRCREV = "bcc3e2e4246431be511be3959a11cd9733bedd29"
 
