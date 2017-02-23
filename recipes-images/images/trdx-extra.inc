@@ -187,6 +187,7 @@ IMAGE_INSTALL += " \
     iperf3 \
     i2c-tools \
     memtester \
+    mmc-utils-cos \
     rt-tests \
     stress \
     lmbench \
