@@ -3,7 +3,10 @@ SUMMARY = "GNOME disk utility"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-DEPENDS = "glib-2.0 gtk+3 libcanberra libdvdread libnotify libpwquality libsecret libunique udisks2 avahi-ui virtual/libx11 libatasmart gnome-doc-utils intltool-native libgnome-keyring xz"
+DEPENDS = "avahi-ui glib-2.0 gnome-doc-utils gtk+3 intltool-native \
+           libatasmart libcanberra libdvdread libgnome-keyring \
+           libnotify libpwquality libsecret libunique libxslt-native \
+           pkgconfig-native udisks2 virtual/libx11 xmlto-native xz"
 RDEPENDS_${PN} = "adwaita-icon-theme-symbolic"
 
 PR = "r4"
