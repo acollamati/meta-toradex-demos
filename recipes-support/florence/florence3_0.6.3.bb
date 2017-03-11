@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 PR = "r1"
 
-DEPENDS = "gtk+3 libxml2 libglade librsvg libxtst gconf cairo intltool-native gnome-doc-utils libnotify gstreamer1.0"
+DEPENDS = "cairo gconf glib-2.0-native gnome-doc-utils gstreamer1.0 gtk+3 intltool-native libglade libnotify librsvg libxml2 libxtst"
 
 PROVIDES += "florence"
 
