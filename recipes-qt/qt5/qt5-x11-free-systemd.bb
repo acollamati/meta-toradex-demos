@@ -7,8 +7,10 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 
 inherit allarch systemd
 
-SRC_URI = "file://qt5-x11-demo.service \
-           file://qt5-x11-demo-init "
+SRC_URI = " \
+    file://qt5-x11-demo.service \
+    file://qt5-x11-demo-init \
+"
 
 do_install () {
     install -d ${D}/${bindir}

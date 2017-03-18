@@ -1,8 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/systemd:"
 
-SRC_URI += " \
-    file://rndis.network \
-"
+SRC_URI += "file://rndis.network"
 
 PACKAGECONFIG_append = " networkd"
 

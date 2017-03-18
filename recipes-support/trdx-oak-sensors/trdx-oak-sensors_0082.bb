@@ -1,7 +1,7 @@
 SUMMARY = "Sample code to access the toradex oak sensors"
 LICENSE = "PD"
 
-S="${WORKDIR}/OakLinux_${PV}"
+S = "${WORKDIR}/OakLinux_${PV}"
 
 SRC_URI = "http://files.toradex.com/Oak/Linux/OakLinux_${PV}.tar.bz2"
 

@@ -6,5 +6,7 @@ LICENSE = "GPL"
 
 INC_PR = "r2"
 
-SRC_URI  = "${SOURCEFORGE_MIRROR}/rdesktop/rdesktop-${PV}.tar.gz"
-SRC_URI += "file://add_ioctl_serial_get_properties.patch"
+SRC_URI = " \
+    ${SOURCEFORGE_MIRROR}/rdesktop/rdesktop-${PV}.tar.gz \
+    file://add_ioctl_serial_get_properties.patch \
+"

@@ -14,15 +14,7 @@ PR = "r4"
 inherit gnomebase gtk-icon-cache
 SRC_URI[archive.md5sum] = "265ed1aede9ef0570228ca6908e9df59"
 SRC_URI[archive.sha256sum] = "f39508226268f39dafa8977ebcec1d36e694f8aa7c4a404d1ac50f76e8e57739"
-GNOME_COMPRESS_TYPE="xz"
-
-#SRC_URI += "\
-#    file://disable-scrollkeeper.patch \
-#    file://fix-dbus-interfaces.patch \
-#    file://sysrooted-pkg-config.patch \
-#    file://0001-Add-support-for-DeviceAutomountHint.patch \
-#    file://0002-Require-libnotify-0.6.1.patch \
-#"
+GNOME_COMPRESS_TYPE = "xz"
 
 EXTRA_OECONF += "--disable-gsd-plugin"
 

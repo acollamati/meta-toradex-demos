@@ -1,1 +1,1 @@
-EXTRA_OECONF +=  "--disable-sdl"
+EXTRA_OECONF += "--disable-sdl"

@@ -1,7 +1,7 @@
 SECTION = "multimedia"
 SUMMARY = "hda-verb sendS HD-audio commands to ALSA HDA devices"
 HOMEPAGE = ""
-LICENSE ="GPLv2+"
+LICENSE = "GPLv2+"
 
 SRCREV = "4bf54c5003af304e9da8ef40475a481086d80d85"
 SRC_URI = "git://git.alsa-project.org/alsa-tools.git;protocol=git"

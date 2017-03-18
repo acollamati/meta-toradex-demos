@@ -1,10 +1,10 @@
-HOMEPAGE="mediainfo.sourceforge.net"
+HOMEPAGE = "mediainfo.sourceforge.net"
 SUMMARY = "Mediainfo is a tool to analyze multimedia files"
 LICENSE = "GPLv2_modified"
 
 inherit autotools
 
-SRC_URI="http://mediaarea.net/download/binary/mediainfo/0.7.62/MediaInfo_CLI_${PV}_GNU_FromSource.tar.bz2"
+SRC_URI = "http://mediaarea.net/download/binary/mediainfo/0.7.62/MediaInfo_CLI_${PV}_GNU_FromSource.tar.bz2"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/MediaInfo_CLI_GNU_FromSource/MediaInfo/License.html;md5=7f3735d23c6ef724bbd1475e4f82edcf"
 
 SRC_URI[md5sum] = "ba10422974111fdff5cf1bb38410c9a1"
