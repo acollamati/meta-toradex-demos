@@ -12,12 +12,9 @@ PACKAGECONFIG_append = " accessibility"
 PACKAGECONFIG_FONTS_append = " fontconfig"
 
 #qtbase must be configured with icu for qtwebkit
-PACKAGECONFIG_append_tegra = " \
+PACKAGECONFIG_append = " \
     icu \
     ${PACKAGECONFIG_EXAMPLES} \
 "
 
-PACKAGECONFIG_append_vf = " \
-    icu \
-    ${PACKAGECONFIG_EXAMPLES} \
-"
+PACKAGE_ARCH_tegra = "${MACHINE_ARCH}"
