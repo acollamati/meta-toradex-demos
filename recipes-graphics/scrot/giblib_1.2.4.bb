@@ -2,7 +2,7 @@ SECTION = "graphic/utils"
 SUMMARY = "giblib is a simple library which wraps imlib2"
 HOMEPAGE = "http://linuxbrit.co.uk/software/"
 LICENSE ="BSD"
-RDEPENDS_${PN} = "imlib2"
+
 DEPENDS = "imlib2"
 
 MIRRORS_prepend () {

@@ -3,7 +3,8 @@ SUMMARY = "scrot (SCReen shOT), screen capture utility"
 DESCRIPTION = "scrot (SCReen shOT) is a simple commandline screen capture utility that uses imlib2 to grab and save images"
 HOMEPAGE = "http://linuxbrit.co.uk/software/"
 LICENSE ="BSD"
-RDEPENDS_${PN} = "imlib2 giblib imlib2-loaders"
+
+RDEPENDS_${PN} = "imlib2-loaders"
 DEPENDS = "imlib2 giblib"
 
 MIRRORS_prepend () {

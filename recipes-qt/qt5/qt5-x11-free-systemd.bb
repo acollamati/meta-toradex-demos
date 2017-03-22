@@ -1,6 +1,5 @@
 SECTION = "x11/libs"
 SUMMARY = "systemd qtapplication autostart"
-RDEPENDS_${PN} = ""
 # The license is meant for this recipe and the files it installs.
 # RNDIS is part of the kernel, udhcpd is part of busybox
 LICENSE = "MIT"
