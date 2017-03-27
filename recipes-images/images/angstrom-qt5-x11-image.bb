@@ -9,17 +9,18 @@ LICENSE = "MIT"
 PV = "${TDX_VER_INT}"
 
 #start of the resulting deployable tarball name
-IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt5"
-IMAGE_NAME_apalis-t30 = "Apalis_T30_LinuxImage-qt5"
-IMAGE_NAME_apalis-tk1 = "Apalis_TK1_LinuxImage-qt5"
-IMAGE_NAME_apalis-tk1-mainline = "Apalis_TK1_Mainline_LinuxImage-qt5"
-IMAGE_NAME_colibri-imx6 = "Colibri_iMX6_LinuxImage-qt5"
-IMAGE_NAME_colibri-imx7 = "Colibri_iMX7_LinuxImage-qt5"
-IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qt5"
-IMAGE_NAME_colibri-t20 = "Colibri_T20_LinuxImage-qt5"
-IMAGE_NAME_colibri-t30 = "Colibri_T30_LinuxImage-qt5"
-IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxImage-qt5"
-IMAGE_NAME = "${MACHINE}_LinuxImage-qt5"
+export IMAGE_BASENAME = "Qt5-X11-Image"
+IMAGE_NAME_apalis-imx6 = "Apalis-iMX6_${IMAGE_BASENAME}"
+IMAGE_NAME_apalis-t30 = "Apalis-T30_${IMAGE_BASENAME}"
+IMAGE_NAME_apalis-tk1 = "Apalis-TK1_${IMAGE_BASENAME}"
+IMAGE_NAME_apalis-tk1-mainline = "Apalis-TK1-Mainline_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-imx6 = "Colibri-iMX6_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-t20 = "Colibri-T20_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-t30 = "Colibri-T30_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
+IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
@@ -230,7 +231,5 @@ IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
-
-export IMAGE_BASENAME = "qt5-image"
 
 inherit core-image

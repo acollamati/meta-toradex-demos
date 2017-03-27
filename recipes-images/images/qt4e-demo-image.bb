@@ -5,9 +5,10 @@ LICENSE = "MIT"
 PV = "${TDX_VER_INT}"
 
 #start of the resulting deployable tarball name
-IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qte"
-IMAGE_NAME_colibri-vf = "Colibri_VF_LinuxImage-qte"
-IMAGE_NAME = "${MACHINE}_LinuxImage-qte"
+export IMAGE_BASENAME = "Qt4e-Image"
+IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 
 #start graphical target by default (start new qt-demo-init systemd service)
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
@@ -56,7 +57,5 @@ IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
-
-export IMAGE_BASENAME = "qt-image"
 
 inherit core-image
