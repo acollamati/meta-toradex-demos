@@ -1,7 +1,10 @@
 #create the deployment directory-tree
 
+include conf/tdx_version.conf
+
 BURNFLASH := "${THISDIR}/files/${MACHINE}"
-IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_NAME}${PV}/rootfs"
+IMAGE_DIR = "${IMAGE_NAME}_${PV}"
+IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
 U_BOOT_EXT = "bin"
 U_BOOT_EXT_mx6 = "imx"
@@ -19,7 +22,6 @@ U_BOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${U_BOOT_EXT}"
 #we need some native tools for deployment
 DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
-#FIXME: 32-bit tegrarcm built on F20 does not run on 64-bit F20 even with properly installed 32-bit libs!
 DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra124 = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra124m = " cbootimage-native tegrarcm-native"
@@ -130,9 +132,9 @@ fakeroot imagedeploy() {
 
 fakeroot imagedeploy_arm() {
     cd ${WORKDIR}
-    cp -Lr ${BURNFLASH}/* ${IMAGE_NAME}${PV}/
+    cp -Lr ${BURNFLASH}/* ${IMAGE_DIR}/
 
-    cd ${IMAGE_NAME}${PV}/${MACHINE}_bin
+    cd ${IMAGE_DIR}/${MACHINE}_bin
     ./mk-u-boot-scripts.sh
     cd ${WORKDIR}
 
@@ -147,21 +149,24 @@ fakeroot imagedeploy_arm() {
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_BINARY}
 
     # add the rootfs version to the welcome banner
-    echo "${IMAGE_NAME}${PV}_${DATE}" >> ${IMAGE_ROOTFS}/etc/issue
+    echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
+    echo " ${TDX_VERDATE}" | sed 's/-//' >> ${IMAGE_ROOTFS}/etc/issue
     echo "" >> ${IMAGE_ROOTFS}/etc/issue
 
     # add additional tools if required
     imagedeploytools
 
     # remove intermediate file rootfs.lock
-    rm -f ${IMAGE_NAME}${PV}/rootfs.lock
+    rm -f ${IMAGE_DIR}/rootfs.lock
 
     #create tarball
-    tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${PV}_${DATE}.tar.bz2 ${IMAGE_NAME}${PV}
+    tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_EXT}.tar.bz2 ${IMAGE_DIR}
 }
 
 fakeroot do_imagedeploy() {
     imagedeploy
 }
 addtask imagedeploy after do_rootfs before do_image_complete
-do_imagedeploy[vardepsexclude] = "DATE"
+
+# make sure to rerun do_rootfs before do_imagedeploy is executed
+do_imagedeploy[vardep] = "do_rootfs"
