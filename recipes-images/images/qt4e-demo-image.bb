@@ -2,7 +2,7 @@ SUMMARY = "Toradex Embedded Linux Qt4 Demo With QWS"
 
 LICENSE = "MIT"
 
-PV = "V2.7"
+PV = "${TDX_VER_INT}"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_colibri-pxa = "Colibri_PXA_LinuxImage-qte"

@@ -2,7 +2,7 @@ SUMMARY = "Toradex Embedded Linux Qt4 Demo With X11"
 
 LICENSE = "MIT"
 
-PV = "V2.7"
+PV = "${TDX_VER_INT}"
 
 #start of the resulting deployable tarball name
 IMAGE_NAME_apalis-imx6 = "Apalis_iMX6_LinuxImage-qt"
