@@ -250,7 +250,7 @@ IMAGE_INSTALL += " \
     ${IMAGE_BROWSER} \
 "
 require recipes-images/images/lx.inc
-require recipes-images/images/trdx-extra.inc
+require recipes-images/images/tdx-extra.inc
 
 IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"

@@ -18,9 +18,9 @@ IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
 IMAGE_INSTALL_append_tegra = " \
     u-boot-toradex-fw-utils \
     tegrastats \
-    trdx-nv-binaries \
-    trdx-nv-binaries-nv-gstapps \
-    trdx-nv-binaries-restricted-codecs \
+    tdx-nv-binaries \
+    tdx-nv-binaries-nv-gstapps \
+    tdx-nv-binaries-restricted-codecs \
     usb-rndis-systemd \
     hdmi-hotplug \
     \
