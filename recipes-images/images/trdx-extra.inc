@@ -195,5 +195,5 @@ IMAGE_INSTALL += " \
     tinymembench \
     ethtool \
     \
-    trdx-oak-sensors \
+    tdx-oak-sensors \
 "
