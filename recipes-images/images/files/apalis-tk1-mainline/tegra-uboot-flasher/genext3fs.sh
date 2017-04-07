@@ -4,7 +4,7 @@
 # sometimes we need the binary echo, not the shell builtin
 ECHO=`which echo`
 
-MOUNTPOINT="mnt/trdx-rootfs"
+MOUNTPOINT="mnt/tdx-rootfs"
 
 Usage()
 {
