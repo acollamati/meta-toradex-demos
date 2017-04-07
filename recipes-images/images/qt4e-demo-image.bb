@@ -14,7 +14,7 @@ IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
 #create the deployment directory-tree
-require recipes-images/images/trdx-image-fstype.inc
+require recipes-images/images/tdx-image-fstype.inc
 
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
