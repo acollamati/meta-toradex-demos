@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.x for Colibri T30
 *******************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2015.04 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
@@ -14,12 +17,6 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
@@ -311,7 +308,8 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
   - fw_printenv integration
 - Linux kernel:
   - add a mapping for H.264 payloads to the UVC aka USB webcam driver
-  - various analogue audio codec fixes/improvements noteworthy driver probe after reset
+  - various analogue audio codec fixes/improvements noteworthy driver probe
+    after reset
   - mark host as eMMC CMD23 capable to force using reliable write command
   - fix audio hub lock-up
   - prevent null pointer dereference in Tegra nvmap video driver
@@ -364,7 +362,8 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
   - Fix issue with slow SPDIF clock
   - Enable CONFIG_FHANDLE required for later systemd
   - Swap on-board vs. HDA sound card order and use HDA HDMI audio
-  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up systemd boot-up
+  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up
+    systemd boot-up
   - Enable VLAN functionality
   - Fix memset-related crashes caused by recent GCC (4.7.2) optimisations
 - Linux user-space
@@ -483,8 +482,8 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - Support default watchdog API (see
       http://developer.toradex.com/knowledge-base/watchdog-(linux)).
   - Disable magic SysRq key configuration as this is not only a potential
-       security thread but can cause serious trouble if for some reason UART pins
-       are left floating and therefore cause unexpected break conditions.
+    security thread but can cause serious trouble if for some reason UART pins
+    are left floating and therefore cause unexpected break conditions.
   - Add DDR speed definition for 400 and 800 MHz.
   - HDMI: Retry EDID reads up to 4 times until failing.
 
@@ -551,7 +550,8 @@ Known Issues:
 ********************************************************************************
 Linux Image V2.0 Beta 2 (June 26, 2013)
 - U-Boot:
-  - integrate NVIDIA partition table parsing incl. Toradex Colibri configuration block
+  - integrate NVIDIA partition table parsing incl. Toradex Colibri configuration
+    block
   - increase CPU frequency at boot
   - decrease boot delay
   - fix overflow in HCD conversion
@@ -632,7 +632,8 @@ Linux Image V2.0 Alpha 1 (January 22, 2013)
 - U-Boot:
   - moved to proper machine type
 - Linux kernel:
-  - added one wire platform data (conditional, CONFIG_W1_MASTER_TEGRA must be enabled)
+  - added one wire platform data (conditional, CONFIG_W1_MASTER_TEGRA must be
+    enabled)
   - fix USB hang on device insertion
   - added correct spidev platform data (/dev/spidev0.0)
   - PWM B, PWM C, PWM D now accessible from userspace, /sys/class/leds/
@@ -645,7 +646,8 @@ Linux Image V2.0 Alpha 1 (January 22, 2013)
   - fix PMIC regulator platform data
 - oe-core:
   - use latest u-boot and Linux kernel
-  - use latest GPIOConfig, fixes issues with tristated pins and GPIO with num >222
+  - use latest GPIOConfig, fixes issues with tristated pins and GPIO with num
+    >222
   
 - sources git.toradex.com tag T30_LinuxImageV2.0Alpha1_20130122
 
@@ -709,7 +711,8 @@ Working on latest image:
   - serial console debug UARTA
   - Toradex Colibri configuration block handling
   - USB storage as host on USB host port
-  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on USB OTG port
+  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on
+    USB OTG port
   - TFTLCD framebuffer support
 - Linux kernel
   - GPIOlib /sys/class/gpio
@@ -724,7 +727,8 @@ Working on latest image:
   - PWM LEDs /sys/class/leds/
   - HDMI HDA audio
   - analogue audio capture, playback and resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
+    - audio noise is high, workaround is to set headphone volume to maximum and
+      use the DAC volume
     - touch has some jitter
   - SPI via /dev/spidev0.0
   - GMI with multiplexed nPWE and RDnWR
@@ -746,7 +750,8 @@ Working on latest image:
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
   - Firefox browser
-  - Gstreamer 0.10 video encode and playback, independent dual full HD video decode
+  - Gstreamer 0.10 video encode and playback, independent dual full HD video
+    decode
   - GPIO config tool
   - LXDE
   - tegrastats-gtk, CPU information visible in graphical environment
@@ -762,4 +767,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017

@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.x for Colibri iMX7
 ********************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2016.11 boot loader
 - Linux 4.1.35 kernel, based on 4.1-2.0.x-imx branch of FSL community aka
@@ -15,12 +18,6 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-imx7-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
@@ -88,13 +85,13 @@ Linux Image V2.6 Beta 2 (June 30, 2016)
   - read kernel and device tree from UBI volumes instead of rootfs
   - add RN5T567 PMIC support which enables reliable board reset
   - runtime detection of i.MX 7Solo/Dual to construct device tree name
-  - add fdt_board variable and construct device tree name with carrier board name
-    (e.g. imx7d-colibri-eval-v3.dtb)
+  - add fdt_board variable and construct device tree name with carrier board
+    name (e.g. imx7d-colibri-eval-v3.dtb)
   - fixed crash when starting USB on i.MX 7Solo
   - increase maximum temperature for booting linux
 - Linux kernel:
-  - updated to 4.1.15 LTS long term stable Linux kernel as part of NXP/Freescale's
-    1.0.0 GA release
+  - updated to 4.1.15 LTS long term stable Linux kernel as part of
+    NXP/Freescale's 1.0.0 GA release
   - renamed device trees to add carrier board name as part of the device tree
     (e.g. imx7d-colibri-eval-v3.dtb)
   - resynchronized resistive touch driver AD7879 with upstream version
@@ -223,4 +220,4 @@ Not working or not tested:
 
 ******************************************************************************
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017

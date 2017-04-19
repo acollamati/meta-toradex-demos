@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.4ff for Colibri T20
 *********************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2016.11 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
@@ -14,12 +17,6 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
@@ -278,7 +275,7 @@ Working on latest image:
   - USB raw HID device /dev/hidrawX
   - USB device Ethernet RNDIS, provided by Android gadget
   - automatic USB device/host detection aka OTG support
-  - analogue inputs AD0, AD1 /sys/class/power_supply/colibri_t20-analog_inputs 
+  - analogue inputs AD0, AD1 /sys/class/power_supply/colibri_t20-analog_inputs
   - suspend LP1
   - DVFS power management
   - optional parallel camera interface
@@ -286,7 +283,8 @@ Working on latest image:
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
   - Firefox browser
-  - Gstreamer 0.10 video encode and playback, independent dual full HD video decode
+  - Gstreamer 0.10 video encode and playback, independent dual full HD video
+    decode
   - GPIO config tool
   - LXDE
   - tegrastats-gtk, CPU information visible in graphical environment
@@ -302,4 +300,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017

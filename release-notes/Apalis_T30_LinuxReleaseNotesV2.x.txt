@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.x for Apalis T30
 ******************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2016.11 boot loader
 - Linux 3.1.10 kernel, based on NVIDIA's Linux for Tegra (L4T) release R16.5
@@ -14,12 +17,6 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 29, 2016)
@@ -313,7 +310,8 @@ Linux Image V2.3 Beta 3 (October 31, 2014)
   - common config block code
   - fw_printenv integration
 - Linux kernel:
-  - various analogue audio codec fixes/improvements noteworthy driver probe after reset
+  - various analogue audio codec fixes/improvements noteworthy driver probe
+    after reset
   - mark host as eMMC CMD23 capable to force using reliable write command
   - fix audio hub lock-up
   - prevent null pointer dereference in Tegra nvmap video driver
@@ -390,7 +388,8 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
   - Fix issue with slow SPDIF clock
   - Enable CONFIG_FHANDLE required for later systemd
   - Swap on-board vs. HDA sound card order
-  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up systemd boot-up
+  - Remove synchronize_rcu() from cgroup_attach_{task|proc}() to speed-up
+    systemd boot-up
   - Enable VLAN functionality
   - Fix memset-related crashes caused by recent GCC (4.7.2) optimisations
 - Linux user-space
@@ -511,8 +510,8 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - Support default watchdog API (see
       http://developer.toradex.com/knowledge-base/watchdog-(linux)).
   - Disable magic SysRq key configuration as this is not only a potential
-       security thread but can cause serious trouble if for some reason UART
-	   pins are left floating and therefore cause unexpected break conditions.
+    security thread but can cause serious trouble if for some reason UART
+    pins are left floating and therefore cause unexpected break conditions.
   - HDMI: Retry EDID reads up to 4 times until failing.
 
 - rootfs / oe-core:
@@ -670,7 +669,8 @@ Working on latest image:
   - serial console debug UARTA aka UART1
   - Toradex Apalis configuration block handling
   - USB storage as host on USB host ports
-  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on USB OTG1 port
+  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on
+    USB OTG1 port
   - TFTLCD framebuffer support
 - Linux kernel
   - GPIOlib /sys/class/gpio
@@ -679,7 +679,8 @@ Working on latest image:
   - Gigabit Ethernet enpXs0, X being its PCIe bus number
   - eMMC ext3
   - serial console debug UARTA aka UART1 ttyS0
-  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
+  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2
+    ttyHSX
   - I2C via /dev/i2c-X
   - 8-bit MMC card mmc1 (optional UHS support on V1.1A or later HW)
   - 4-bit SD card mmc2
@@ -688,7 +689,8 @@ Working on latest image:
   - HDA audio (on Eval Board V1.0a: check datasheet/schematics for patch
       instructions)
   - analogue audio capture, playback and resistive touch
-    - audio noise is high, workaround is to set headphone volume to maximum and use the DAC volume
+    - audio noise is high, workaround is to set headphone volume to maximum and
+      use the DAC volume
     - touch has some jitter
   - SPI via /dev/spidev0.0 aka SPI1 and /dev/spidev4.2 aka SPI2
   - framebuffer console
@@ -712,11 +714,13 @@ Working on latest image:
   - graphics (LVDS-1 aka TFTLCD and HDMI-1 aka DVI-D)
   - tegrastats
   - Firefox browser
-  - Gstreamer 0.10 video encode and playback, independent dual full HD video decode
+  - Gstreamer 0.10 video encode and playback, independent dual full HD video
+    decode
   - GPIO config tool
   - LXDE
   - tegrastats-gtk, CPU information visible in graphical environment
-  - LVDS transmitter configuration (see lvds-dual-channel.sh resp. lvds-single-channel.sh)
+  - LVDS transmitter configuration (see lvds-dual-channel.sh resp.
+    lvds-single-channel.sh)
 
 Not working or not tested:
 - U-Boot boot loader
@@ -728,8 +732,8 @@ Not working or not tested:
   - suspend LP1 (igb/PCIe failing)
 - Linux user-space Adobe Flash not provided by L4T (and probably never will)
 
-******************************************************************************
+********************************************************************************
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017

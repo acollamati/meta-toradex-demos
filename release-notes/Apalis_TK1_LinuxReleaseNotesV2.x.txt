@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.x for Apalis TK1
 ******************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2016.11 boot loader
 - Linux 3.10.40 kernel, based on NVIDIA's Linux for Tegra (L4T) release R21.5
@@ -14,12 +17,6 @@ http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 Licensing:
 - proprietary multimedia codecs included for evaluation purpose only
 - customer required to obtain proper re-distribution license
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 2 (November 22, 2016)
@@ -148,7 +145,8 @@ Working on latest image:
   - serial console debug UARTA aka UART1
   - Toradex Apalis configuration block handling
   - USB storage as host on USB host ports
-  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on USB OTG1 port
+  - USB device firmware upgrade (DFU) and USB mass storage (UMS) as device on
+    USB OTG1 port
 - Linux kernel
   - GPIOlib /sys/class/gpio
   - temperature sensor /sys/class/hwmon/hwmon{4|5}/temp1_input
@@ -156,7 +154,8 @@ Working on latest image:
   - Gigabit Ethernet enpXs0, X being its PCIe bus number
   - eMMC ext3
   - serial console debug UARTA aka UART1 ttyS0
-  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2 ttyHSX
+  - high speed serial UARTB aka UART3, UARTC aka UART4 and UARTD aka UART2
+    ttyHSX
   - I2C via /dev/i2c-X
   - 4-bit MMC card mmc1 (full UHS-I support)
   - 4-bit SD card mmc2 (full UHS-I support)
@@ -209,4 +208,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-tegra-modules
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017

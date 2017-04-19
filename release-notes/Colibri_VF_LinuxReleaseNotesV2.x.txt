@@ -2,6 +2,9 @@
 Release Notes:  Embedded Linux BSP V2.x for Colibri VF50/VF61
 *************************************************************
 
+==> For newer images find the release details in the Toradex developer article:
+http://developer.toradex.com/software/linux/linux-software/release-details
+
 Contents:
 - U-Boot 2016.11 boot loader
 - Linux 4.4.39 LTS kernel
@@ -10,12 +13,6 @@ Contents:
 
 ==> Flashing instructions can be found in the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
-
-********************************************************************************
-Linux Image V2.7 Beta 1 (January 12, 2017)
-
-==> Release details can be found in the Toradex developer article:
-http://developer.toradex.com/software/linux/linux-software/release-details
 
 ********************************************************************************
 Linux Image V2.6.1 Beta 1 (September 30, 2016)
@@ -50,7 +47,8 @@ Linux Image V2.6.1 Beta 1 (September 30, 2016)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - License texts do not get deployed to the root file system.
 
@@ -80,7 +78,8 @@ Linux Image V2.6 Beta 2 (June 30, 2016)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - License texts do not get deployed to the root file system.
 - Currently there is no multi-core communication library/framework available.
@@ -129,7 +128,8 @@ Note:
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Standby: Wake-up using UART in DMA mode hangs
 - License text do not get deployed to the root file system.
@@ -166,11 +166,13 @@ Known Issues:
   a non-Thumb architecture, e.g. libvorbisdec1 which is required by
   gst-plugins-base-meta). Use the following command to add non-Thumb feeds:
   sed -i 'p; s/ http/2 http/; s/armv7at2hf-vfp/armv7ahf-vfp/' /etc/opkg/*feed.conf
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
 - Standby: Wake-up using UART in DMA mode hangs
-- Serial console on USB peripheral port is not enabled by default; use this command:
+- Serial console on USB peripheral port is not enabled by default; use this
+  command:
   systemctl enable serial-getty@ttyGS0.service
 
 ********************************************************************************
@@ -229,11 +231,13 @@ Linux Image V2.5 Beta 2 (November 6, 2015)
   - repository u-boot-toradex branch 2015.04-toradex
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
 - Standby: Wake-up using UART in DMA mode hangs
-- Serial console on USB peripheral port is not enabled by default; use this command:
+- Serial console on USB peripheral port is not enabled by default; use this
+  command:
   systemctl enable serial-getty@ttyGS0.service
 
 ********************************************************************************
@@ -292,7 +296,8 @@ Note:
   => vf610-colibri-mycarrier.dtb
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Suspend-to-Memory: USB devices on the USB host port get disconnected on resume
 - Standby: Wake-up using UART in DMA mode hangs
@@ -362,7 +367,8 @@ Note:
   => vf610-colibri-mycarrier.dtb
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Downgrade is not possible through "run update" due to NAND ECC layout changes
   refer to the flashing instruction article to flash the module from scratch
@@ -416,7 +422,8 @@ Note:
   => vf610-colibri-mycarrier.dtb
 
 Known Issues:
-- If the module does not boot, remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot, remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Downgrade does not work with "run setupdate". For downgrade, use
   mmc rescan && && fatload mmc 0:1 ${loadaddr} flash_mmc.img && source ${loadaddr}
@@ -478,7 +485,8 @@ Note:
   => vf610-colibri-mycarrier.dtb
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1C)
 - Analogue audio and Touchscreen are not yet working on the Colibri VF61
 - SPI and CAN over SPI (using MCP251x) do not work yet on the new kernel
@@ -517,7 +525,8 @@ Note:
   alter those scripts accordingly.
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
 - USB client is not reliable (communication freezes when using RNDIS/g_ether)
@@ -556,7 +565,8 @@ Linux Image V2.3 Beta 1 (August 4, 2014)
   - repository u-boot-toradex branch 2014.04-toradex
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
 - USB client is not reliable (communication freezes when using RNDIS/g_ether)
@@ -587,10 +597,12 @@ Linux Image V2.2 Beta 1 (June 03, 2014)
   - Update GPIO config tool to V1.2
   - Add mcc-pingpong demo application for communication with Cortex M4 core
 
-- sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF_LinuxImageV2.2Beta1_20140603
+- sources git.toradex.com linux/u-boot branches colibri_vf
+  tag Colibri_VF_LinuxImageV2.2Beta1_20140603
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
 - SSH password authentication is disabled by default (see PasswordAuthentication
@@ -619,26 +631,33 @@ Linux Image V2.1 Beta 3 (March 18, 2014)
   - GPIO config tool.
   - Add Cortex M4 utility mqxboot and communication library libmcc.
 
-- sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF_LinuxImageV2.1Beta3_20140318
+- sources git.toradex.com linux/u-boot branches colibri_vf
+  tag Colibri_VF_LinuxImageV2.1Beta3_20140318
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1)
 - Analogue audio is not working on the Colibri VF61
-- An input on UART_A during bootup can lead to a hang (stuck at "rtc-ds1307 0-0068: hctosys: unable to
-  read the hardware clock"). Make sure UART_A is connected before powering up and not written to.
+- An input on UART_A during bootup can lead to a hang (stuck at "rtc-ds1307
+  0-0068: hctosys: unable to read the hardware clock"). Make sure UART_A is
+  connected before powering up and not written to.
 
 ********************************************************************************
 Linux Image V2.1 Beta 2 (November 29, 2013)
 - U-Boot:
   - Add initial Colibri VF61 support.
   - Implement memory size auto detection.
-  - Implement module type (e.g. VF50 vs. VF61) auto detection based on L2 cache availability.
-  - Set specific ARM core clock (e.g. 400 vs. 500 MHz) as well as Linux machine id number.
-  - Rename configuration to colibri_vf to be universally used for Colibri VF50 as well as VF61.
+  - Implement module type (e.g. VF50 vs. VF61) auto detection based on L2 cache
+    availability.
+  - Set specific ARM core clock (e.g. 400 vs. 500 MHz) as well as Linux machine
+    id number.
+  - Rename configuration to colibri_vf to be universally used for Colibri VF50
+    as well as VF61.
 - Linux kernel:
   - Various ADC resp. VF50 touch improvements/fixes.
-  - Implement internal temperature sensor exposed via /sys/class/hwmon/hwmon0/device/temp1_input.
+  - Implement internal temperature sensor exposed via
+    /sys/class/hwmon/hwmon0/device/temp1_input.
   - Fix VESA VGA display timing.
   - Use 16 bpp framebuffer by default to avoid buffer underruns.
   - Add the following additional display timings for manual activation:
@@ -648,22 +667,26 @@ Linux Image V2.1 Beta 2 (November 29, 2013)
     - 1024x768@60
   - Allow for 396 as well as 500 MHz A5 core frequency.
   - Add the Colibri VF61 machine id and its corresponding machine definition.
-  - Rename configuration to colibri_vf to be universally used for Colibri VF50 as well as VF61.
+  - Rename configuration to colibri_vf to be universally used for Colibri VF50
+    as well as VF61.
   - Enable watchdog configuration.
   - Fix Freescale's magic daisy chain aka select input IOMUX stuff.
   - Fix pixel clock polarity.
 - rootfs / oe-core:
   - Use branch 'LinuxImageV2.1' in toradex-bsp-platform.git 
   - Fix recipe to follow the changed khronos headers checksum
-  - Rename machine to colibri-vf to be universally used for Colibri VF50 as well as VF61
+  - Rename machine to colibri-vf to be universally used for Colibri VF50 as well
+    as VF61
   - Unify files for use with VF50/VF61 or add VF61 specific ones
   - Don't statically populate /dev. The VFxx console fails on this.
   - Improve the console and qt4e image recipe
 
-- sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF_LinuxImageV2.1Beta2_20131129
+- sources git.toradex.com linux/u-boot branches colibri_vf
+  tag Colibri_VF_LinuxImageV2.1Beta2_20131129
 
 Known Issues:
-- If the module does not boot remove all displays connected to HSYNC, VSYNC and reset.
+- If the module does not boot remove all displays connected to HSYNC, VSYNC and
+  reset.
   (This has been observed on an Evaluation Board V2.1)
 - LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution.
 - Resistive touch and analogue audio are not working on a Colibri VF61
@@ -671,14 +694,18 @@ Known Issues:
 ********************************************************************************
 Linux Image V2.1 Beta 1 (October 22, 2013)
 - U-Boot:
-  - Fix long standing boot hang issue introduced by Freescale's Vybrid 1.1 silicon.
+  - Fix long standing boot hang issue introduced by Freescale's Vybrid 1.1
+    silicon.
   - Fix possible uninitialised array member issue in serial number to
       hexadecimal coded decimal conversion routine (e.g. as used for
       /proc/cpuinfo in Linux).
-  - Migrate default NAND vs. SD card boot configuration (in-line with Colibri T20)
+  - Migrate default NAND vs. SD card boot configuration (in-line with
+    Colibri T20)
   - Integrate config block handling
-  - Increase the available space for the U-Boot binary to half a megabyte by booting from gfxRAM rather than sysRAM0.
-  - Initial support based off Timesys' implementation for Freescale's Vybrid Tower System TWR-VF65GS10:
+  - Increase the available space for the U-Boot binary to half a megabyte by
+    booting from gfxRAM rather than sysRAM0.
+  - Initial support based off Timesys' implementation for Freescale's Vybrid
+    Tower System TWR-VF65GS10:
     - New machine ID.
     - Default UART_A on SCI0.
     - ESDHC2 only.
@@ -695,19 +722,23 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - Integrate backlight using both BL_ON GPIO and PWM<A>.
   - Re-worked IOMUX pin muxing.
   - Disable magic SysRq key configuration as this is not only a potential
-       security thread but can cause serious trouble if for some reason UART pins
+       security thread but can cause serious trouble if for some reason UART
+       pins
        are left floating and therefore cause unexpected break conditions.
   - Decrease DMA zone size configuration.
   - Enable tmpfs POSIX ACL configuration.
-  - Re-enable L2 cache kernel configuration as it is now only enabled if actually present on chip.
+  - Re-enable L2 cache kernel configuration as it is now only enabled if
+    actually present on chip.
   - Implement resistive touch screen driver using ADCs and GPIOs.
-  - Add Eon Silicon Solutions manufacturer ID and integrate mxc_nand platform data handling.
+  - Add Eon Silicon Solutions manufacturer ID and integrate mxc_nand platform
+    data handling.
   - Disable NAND controller software ECC in order to use hardware ECC.
   - Enable ADC driver as well as debugfs file system.
-  - Fix DCU clock rounding, set DCU clock to 150.7 MHz, increase display pin drive strength and
-      configure DCU for VESA VGA with a 30 MHz pixel clock
+  - Fix DCU clock rounding, set DCU clock to 150.7 MHz, increase display pin
+    drive strength and configure DCU for VESA VGA with a 30 MHz pixel clock
   - Enable CPU idle, NEON, ASRC and printk time.
-  - Initial support based off Timesys' implementation for Freescale's Vybrid Tower System TWR-VF65GS10:
+  - Initial support based off Timesys' implementation for Freescale's Vybrid
+    Tower System TWR-VF65GS10:
     - New machine ID.
     - FEC1 only.
     - ESDHC2 only with card detect interrupt.
@@ -729,7 +760,8 @@ Linux Image V2.1 Beta 1 (October 22, 2013)
   - browser: use midori
   - burnflash: script for config block generation
   - systemd-journald: limit journal size
-- sources git.toradex.com linux/u-boot branches colibri_vf tag Colibri_VF50_LinuxImageV2.1Beta1_20131022
+- sources git.toradex.com linux/u-boot branches colibri_vf
+  tag Colibri_VF50_LinuxImageV2.1Beta1_20131022
 
 Known Issues:
 - LVDS aka TFTLCD resolution hard-coded in kernel to VESA VGA resolution.
@@ -801,4 +833,4 @@ Not working or not tested:
 Flashing instruction have been moved to the Toradex developer article:
 http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
 
-Toradex, January 13, 2017
+Toradex, April 19, 2017
