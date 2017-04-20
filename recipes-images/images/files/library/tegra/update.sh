@@ -71,7 +71,7 @@ EMMC_PARTS="mbr.bin boot.vfat"
 # no devicetree by default
 KERNEL_DEVICETREE=""
 KERNEL_IMAGETYPE="uImage"
-MIN_PARTITION_FREE_SIZE=100
+MIN_PARTITION_FREE_SIZE=300
 MODTYPE_DETECT=0
 
 # NAND parameters
@@ -192,6 +192,7 @@ esac
 
 case "$MODTYPE" in
 	"apalis-t30")
+                # note: requires changing apalis-t30_bin/apalis_t30.img.cfg as well
 #		BCT=apalis_t30_12MHz_MT41K512M8RH-125_533MHz.bct
 		BCT=Apalis_T30_2GB_800Mhz.bct
 		CBOOT_IMAGE=apalis_t30.img
@@ -230,6 +231,7 @@ case "$MODTYPE" in
 		;;
 	"colibri-t30")
 		# with new kernel, boot with 400MHz, then switch between 400 & 800
+		# note: requires changing colibri-t30_bin/colibri_t30.img.cfg as well
 		BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_400MHz.bct
 #		BCT=colibri_t30_12MHz_NT5CC256M16CP-DI_533MHz.bct
 		CBOOT_IMAGE=colibri_t30.img
