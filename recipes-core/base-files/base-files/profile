@@ -27,9 +27,10 @@ if [ -d /etc/profile.d ]; then
 fi
 
 test -z "$DISPLAY" && DISPLAY=":0.0" # have the X display defined, unless it is already set, e.g. by a ssh connection
-export DISPLAY
 
-export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
+SYSTEMD_COLORS=0
+
+export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM DISPLAY SYSTEMD_COLORS
 
 # Serial consoles are not able to autoresize. Set size once upon login.
 if [ -x /usr/bin/resize ] && termpath="`tty`"; then
