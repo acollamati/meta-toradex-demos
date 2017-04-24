@@ -4,6 +4,8 @@ SRC_URI += "file://rndis.network"
 
 PACKAGECONFIG_append = " networkd"
 
+PACKAGECONFIG[acl] = "--enable-acl,--disable-acl,acl"
+
 do_install_append() {
     # The network files need to be in /usr/lib/systemd, not ${systemd_unitdir}...
     install -d ${D}${prefix}/lib/systemd/network/
