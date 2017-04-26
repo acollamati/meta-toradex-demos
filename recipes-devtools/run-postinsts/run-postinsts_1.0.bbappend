@@ -1,1 +1,1 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/opkg:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/run-postinsts:"
