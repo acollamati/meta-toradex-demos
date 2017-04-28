@@ -33,11 +33,6 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none
 CONMANPKGS ?= "connman connman-client connman-gnome"
 CONMANPKGS_libc-uclibc = ""
 
-DEPENDS_append_tegra = " gst-plugins-good gst-plugins-bad gst-plugins-ugly"
-#do not build plugins-ugly because it would require to whitelist LICENCES without deploying them
-DEPENDS += "gstreamer1.0-plugins-good gstreamer1.0-plugins-bad"
-DEPENDS_remove_tegra = "gstreamer1.0-plugins-good gstreamer1.0-plugins-bad"
-
 #deploy the OpenGL ES headers to the sysroot
 DEPENDS_append_tegra = " nvsamples"
 

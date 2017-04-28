@@ -33,8 +33,6 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none
 CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
 CONMANPKGS_libc-uclibc = ""
 
-DEPENDS += "gst-plugins-good gst-plugins-bad gst-plugins-ugly"
-
 #deploy the OpenGL ES headers to the sysroot
 DEPENDS_append_tegra = " nvsamples"
 
