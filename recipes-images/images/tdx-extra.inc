@@ -6,9 +6,6 @@ COPY_LIC_MANIFEST ?= "1"
 COPY_LIC_DIRS ?= "0"
 COPY_LIC_DIRS_colibri-vf = "0"
 
-#build some ipk which are needed together with CAN, but do not yet install them
-DEPENDS += "canutils libsocketcan iproute2"
-
 #the following builds cross gdb and gdbserver
 DEPENDS += "gdb-cross-${TARGET_ARCH}"
 
@@ -24,7 +21,6 @@ IMAGE_INSTALL_append_tegra = " \
     usb-rndis-systemd \
     hdmi-hotplug \
     \
-    curl \
     file \
     aspell \
     kernel-modules \
@@ -41,8 +37,6 @@ IMAGE_INSTALL_append_tegra3 = " \
 
 IMAGE_INSTALL_append_tegra124 = " \
     aspell \
-    canutils \
-    curl \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
@@ -60,8 +54,6 @@ IMAGE_INSTALL_append_tegra124 = " \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     aspell \
-    canutils \
-    curl \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-tune2fs \
@@ -80,8 +72,6 @@ IMAGE_INSTALL_append_apalis-t30 = " \
     linuxptp \
     pciutils \
     ptpd \
-    iproute2 \
-    canutils \
     lvds-ctrl \
 "
 
@@ -96,12 +86,9 @@ IMAGE_INSTALL-MX6QDL = " \
     libusbgx \
     linuxptp \
     gpio-export \
-    curl \
     file \
     aspell \
     ptpd \
-    iproute2 \
-    canutils \
     fs-init \
     e2fsprogs \
     e2fsprogs-mke2fs \
@@ -124,8 +111,6 @@ IMAGE_INSTALL_append_mx6ull = " \
     libusbgx \
     linuxptp \
     ptpd \
-    iproute2 \
-    canutils \
     mtd-utils-ubifs \
 "
 
@@ -139,8 +124,6 @@ IMAGE_INSTALL_append_vf = " \
     linuxptp \
     libusbgx \
     ptpd \
-    iproute2 \
-    canutils \
     mtd-utils-ubifs \
     kernel-modules \
     usb-suspend-resume \
@@ -153,12 +136,9 @@ IMAGE_INSTALL_append_colibri-vf = " \
 IMAGE_INSTALL_append_mx7 = " \
     linuxptp \
     libusbgx \
-    curl \
     file \
     aspell \
     ptpd \
-    iproute2 \
-    canutils \
 "
 
 IMAGE_INSTALL_append_colibri-imx7-emmc = " \
@@ -184,6 +164,7 @@ IMAGE_INSTALL += " \
     sqlite3 \
     \
     curl \
+    canutils \
     nfs-utils-client \
     openssh-scp \
     openssh-sftp \
