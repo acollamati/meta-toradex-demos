@@ -141,7 +141,7 @@ case "$MODTYPE" in
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext3
-		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb"
+		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb imx6dl-colibri-aster.dtb"
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx6"
 		;;
