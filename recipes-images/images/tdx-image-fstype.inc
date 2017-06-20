@@ -6,18 +6,18 @@ BURNFLASH := "${THISDIR}/files/${MACHINE}"
 IMAGE_DIR = "${IMAGE_NAME}_${PV}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
-U_BOOT_EXT = "bin"
-U_BOOT_EXT_mx6 = "imx"
-U_BOOT_EXT_mx7 = "imx"
-U_BOOT_EXT_vf = "imx"
-U_BOOT_SYMLINK = "u-boot-${MACHINE}.${U_BOOT_EXT}"
-U_BOOT_SYMLINK_tegra = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
-U_BOOT_SYMLINK_tegra124 = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
-U_BOOT_SYMLINK_tegra124m = "u-boot-dtb-tegra-${MACHINE}.${U_BOOT_EXT}"
-U_BOOT_BINARY = "u-boot.${U_BOOT_EXT}"
-U_BOOT_BINARY_tegra = "u-boot-dtb-tegra.${U_BOOT_EXT}"
-U_BOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${U_BOOT_EXT}"
-U_BOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${U_BOOT_EXT}"
+UBOOT_EXT = "bin"
+UBOOT_EXT_mx6 = "imx"
+UBOOT_EXT_mx7 = "imx"
+UBOOT_EXT_vf = "imx"
+UBOOT_SYMLINK = "u-boot-${MACHINE}.${UBOOT_EXT}"
+UBOOT_SYMLINK_tegra = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
+UBOOT_SYMLINK_tegra124 = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
+UBOOT_SYMLINK_tegra124m = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
+UBOOT_BINARY = "u-boot.${UBOOT_EXT}"
+UBOOT_BINARY_tegra = "u-boot-dtb-tegra.${UBOOT_EXT}"
+UBOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${UBOOT_EXT}"
+UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 
 #we need some native tools for deployment
 DEPENDS_append_mx6 = " imx-loader-native"
@@ -145,8 +145,8 @@ fakeroot imagedeploy_arm() {
     then
         cp -P ${DEPLOY_DIR_IMAGE}/SPL* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
     fi
-    rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${U_BOOT_EXT}
-    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${U_BOOT_BINARY}
+    rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${UBOOT_EXT}
+    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY}
 
     # add the rootfs version to the welcome banner
     echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
