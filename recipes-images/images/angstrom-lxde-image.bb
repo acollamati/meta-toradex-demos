@@ -158,6 +158,10 @@ IMAGE_INSTALL_append_tegra = " \
     eglinfo-x11 \
     xvinfo \
 "
+IMAGE_INSTALL_append_tegra3 = " \
+    \
+    packagegroup-snapd \
+"
 IMAGE_INSTALL_append_tegra124 = " \
     gpio-tool \
     gnome-disk-utility \
@@ -167,6 +171,8 @@ IMAGE_INSTALL_append_tegra124 = " \
     mime-support \
     tiff \
     xvinfo \
+    \
+    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     gpio-tool \
@@ -177,6 +183,8 @@ IMAGE_INSTALL_append_tegra124m = " \
     mime-support \
     tiff \
     xvinfo \
+    \
+    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_mx6 = " \
     gpio-tool \
@@ -185,6 +193,8 @@ IMAGE_INSTALL_append_mx6 = " \
     gnome-disk-utility \
     mime-support \
     eglinfo-x11 \
+    \
+    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_mx7 = " \
     gpio-tool \
