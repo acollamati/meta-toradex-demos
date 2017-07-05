@@ -149,7 +149,7 @@ BINARIES=${MODTYPE}_bin
 if [ "$UBOOT_RECOVERY" -eq 1 ] ; then
 	echo "Put the module in recovery mode and press [ENTER]..."
 	read RESULT
-	sudo ${LOCPATH}/imx_usb ${BINARIES}/u-boot.imx
+	sudo ${LOCPATH}/imx_usb ${BINARIES}/u-boot-nand.imx
 	exit
 fi
 
@@ -188,7 +188,7 @@ echo "UBI image of root file system generated, copying data to target folder..."
 sudo touch ${BINARIES}/versions.txt
 sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
-basename "`readlink -e ${BINARIES}/u-boot.imx`" >> ${BINARIES}/versions.txt
+basename "`readlink -e ${BINARIES}/u-boot-nand.imx`" >> ${BINARIES}/versions.txt
 ROOTFSVERSION=`grep MX7 rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
