@@ -189,6 +189,7 @@ sudo touch ${BINARIES}/versions.txt
 sudo chmod ugo+w ${BINARIES}/versions.txt
 echo "Component Versions" > ${BINARIES}/versions.txt
 basename "`readlink -e ${BINARIES}/u-boot-nand.imx`" >> ${BINARIES}/versions.txt
+basename "`readlink -e ${BINARIES}/${KERNEL_IMAGETYPE}`" >> ${BINARIES}/versions.txt
 ROOTFSVERSION=`grep MX7 rootfs/etc/issue || echo "Version Unknown"`
 echo "Rootfs ${ROOTFSVERSION}" >> ${BINARIES}/versions.txt
 
