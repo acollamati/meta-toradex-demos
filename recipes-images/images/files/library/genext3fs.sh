@@ -58,7 +58,7 @@ while [ "$MOUNTED" -eq  "0" ] ; do
 	MOUNTED=`mount | grep -c "$MOUNTPOINT"`
 done
 #extract rootfs into the file
-sudo cp -rpP $SRCPATH/* $MOUNTPOINT
+sudo cp -a $SRCPATH/* $MOUNTPOINT
 if [ "$?" -ne "0" ] ; then
 	$ECHO -e "\033[1mCopying the rootfs failed.\033[0m"
 	echo "Check for error messages from cp"
