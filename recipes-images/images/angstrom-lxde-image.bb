@@ -214,6 +214,7 @@ RRECOMMENDS_${PN} += " \
 "
 
 IMAGE_INSTALL += " \
+    eject \
     gconf \
     gnome-vfs \
     gnome-vfs-plugin-file \
