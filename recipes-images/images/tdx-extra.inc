@@ -92,6 +92,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL_append_mx6 = " \
+    bmode-usb \
     libusbgx \
     linuxptp \
     gpio-export \
