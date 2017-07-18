@@ -133,7 +133,8 @@ case "$MODTYPE" in
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext3
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
-		                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb "
+                                  imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb \
+                                  imx6q-apalis-ixora-v1.1.dtb"
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/apalis_imx6"
 		;;
