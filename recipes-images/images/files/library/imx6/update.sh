@@ -131,7 +131,7 @@ case "$MODTYPE" in
 	"apalis-imx6")
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
-		IMAGEFILE=root.ext3
+		IMAGEFILE=root.ext4
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
                                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb \
                                   imx6q-apalis-ixora-v1.1.dtb"
@@ -141,7 +141,7 @@ case "$MODTYPE" in
 	"colibri-imx6")
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
-		IMAGEFILE=root.ext3
+		IMAGEFILE=root.ext4
 		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb imx6dl-colibri-aster.dtb"
 		LOCPATH="imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx6"
@@ -184,7 +184,7 @@ fi
 MCOPY=`command -v mcopy` || { echo >&2 "Program mcopy not available.  Aborting."; exit 1; }
 PARTED=`command -v parted` || PARTED=`sudo -s command -v parted` || { echo >&2 "Program parted not available.  Aborting."; exit 1; }
 MKFSVFAT=`command -v mkfs.fat` || MKFSVFAT=`sudo -s command -v mkfs.fat` || { echo >&2 "Program mkfs.fat not available.  Aborting."; exit 1; }
-MKFSEXT3=`command -v mkfs.ext3` || MKFSEXT3=`sudo -s command -v mkfs.ext3` || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
+MKFSEXT4=`command -v mkfs.ext4` || MKFSEXT4=`sudo -s command -v mkfs.ext4` || { echo >&2 "Program mkfs.ext4 not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 
 #Install trap to write a sensible message in case any of the commands below
@@ -247,7 +247,7 @@ ${PARTED} -s ${BINARIES}/mbr.bin mklabel msdos
 ${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary fat32 ${BOOT_START} $(expr ${ROOTFS_START} - 1 )
 # the partition spans to the end of the disk, even though the fs size will be smaller
 # on the target the fs is then grown to the full size
-${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext2 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext4 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
 ${PARTED} -s ${BINARIES}/mbr.bin unit s print 
 # get the size of the VFAT partition
 BOOT_BLOCKS=$(LC_ALL=C ${PARTED} -s ${BINARIES}/mbr.bin unit b print \
@@ -293,7 +293,7 @@ NUMBER_OF_FILES=`sudo find ${ROOTFSPATH} | wc -l`
 EXT_SIZE=`sudo du -DsB1 ${ROOTFSPATH} | awk -v min=$MIN_PARTITION_FREE_SIZE -v f=${NUMBER_OF_FILES} \
 		'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 rm -f ${BINARIES}/${IMAGEFILE}
-sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
+sudo $LOCPATH/genext4fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
 
 
 #copy to $OUT_DIR
@@ -304,7 +304,7 @@ sudo cp ${BINARIES}/fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp ${BINARIES}/fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 
 if [ "$SPLIT" -ge 1 ] ; then
-sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${BINARIES}/${IMAGEFILE} "$OUT_DIR/root.ext3-"
+sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${BINARIES}/${IMAGEFILE} "$OUT_DIR/root.ext4-"
 fi
 
 #cleanup intermediate files
