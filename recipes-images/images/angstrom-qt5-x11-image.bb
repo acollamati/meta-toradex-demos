@@ -140,9 +140,40 @@ GSTREAMER_append_tegra3 = " \
 GSTREAMER_append_tegra124 = " \
     gstreamer1.0-libav \
     gstreamer1.0-plugins-bad-videoparsersbad \
+    gstreamer \
+    gst-plugins-base \
+    gst-plugins-base-alsa \
+    gst-plugins-base-audioconvert \
+    gst-plugins-base-audioresample \
+    gst-plugins-base-audiotestsrc \
+    gst-plugins-base-decodebin \
+    gst-plugins-base-decodebin2 \
+    gst-plugins-base-playbin \
+    gst-plugins-base-typefindfunctions \
+    gst-plugins-base-ogg \
+    gst-plugins-base-theora \
+    gst-plugins-base-videotestsrc \
+    gst-plugins-base-vorbis \
+    gst-plugins-base-ximagesink \
+    gst-plugins-base-xvimagesink \
+    gst-plugins-good \
+    gst-plugins-good-audioparsers \
+    gst-plugins-good-autodetect \
+    gst-plugins-good-avi \
+    gst-plugins-good-deinterlace \
+    gst-plugins-good-id3demux \
+    gst-plugins-good-isomp4 \
+    gst-plugins-good-matroska \
+    gst-plugins-good-rtp \
+    gst-plugins-good-rtpmanager \
+    gst-plugins-good-udp \
+    gst-plugins-good-video4linux2 \
+    gst-plugins-good-wavenc \
+    gst-plugins-good-wavparse \
     libgstcodecparsers-1.0 \
     libgstnvegl \
     libgstomx \
+    libgstomx1 \
 "
 GSTREAMER_colibri-vf = ""
 
