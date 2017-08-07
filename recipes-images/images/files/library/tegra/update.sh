@@ -211,7 +211,7 @@ case "$MODTYPE" in
 		CBOOT_IMAGE_TARGET=tegra124
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 15020 \* 2)
-		IMAGEFILE=root.ext3
+		IMAGEFILE=root.ext4
 		KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
 		LOCPATH="tegra-uboot-flasher"
 		OUT_DIR="$OUT_DIR/apalis-tk1"
@@ -300,6 +300,7 @@ MCOPY=`command -v mcopy` || { echo >&2 "Program mcopy not available.  Aborting."
 PARTED=`command -v parted` || PARTED=`sudo -s command -v parted` || { echo >&2 "Program parted not available.  Aborting."; exit 1; }
 MKFSVFAT=`command -v mkfs.fat` || MKFSVFAT=`sudo -s command -v mkfs.fat` || { echo >&2 "Program mkfs.fat not available.  Aborting."; exit 1; }
 MKFSEXT3=`command -v mkfs.ext3` || MKFSEXT3=`sudo -s command -v mkfs.ext3` || { echo >&2 "Program mkfs.ext3 not available.  Aborting."; exit 1; }
+MKFSEXT4=`command -v mkfs.ext4` || MKFSEXT4=`sudo -s command -v mkfs.ext4` || { echo >&2 "Program mkfs.ext4 not available.  Aborting."; exit 1; }
 dd --help >/dev/null 2>&1 || { echo >&2 "Program dd not available.  Aborting."; exit 1; }
 
 CBOOT_CNT=`tegra-uboot-flasher/cbootimage -h | grep -c outputimage || true`
@@ -394,7 +395,11 @@ else
 		${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary fat32 ${BOOT_START} $(expr ${ROOTFS_START} - 1 )
 		# the partition spans to the end of the disk, even though the fs size will be smaller
 		# on the target the fs is then grown to the full size
-		${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext2 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+		if [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ] ; then
+			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext4 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+		else
+			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext2 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+		fi
 		${PARTED} -s ${BINARIES}/mbr.bin unit s print 
 		# get the size of the VFAT partition
 		BOOT_BLOCKS=$(LC_ALL=C ${PARTED} -s ${BINARIES}/mbr.bin unit b print \
@@ -441,7 +446,11 @@ else
 				'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 
 		rm -f ${BINARIES}/${IMAGEFILE}
-		sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
+		if [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ] ; then
+			sudo $LOCPATH/genext4fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
+		else
+			sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
+		fi
 	fi
 fi
 
@@ -456,6 +465,10 @@ sudo cp fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 	if [ "$SPLIT" -ge 1 ] ; then
 		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "$OUT_DIR/root.ext3-"
+	fi
+elif [ "${IMAGEFILE}" = "root.ext4" ] ; then
+	if [ "$SPLIT" -ge 1 ] ; then
+		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "$OUT_DIR/root.ext4-"
 	fi
 else
 	sudo cp ${IMAGEFILE}* "$OUT_DIR"
