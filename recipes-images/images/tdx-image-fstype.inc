@@ -2,8 +2,9 @@
 
 include conf/tdx_version.conf
 
+PV = "${TDX_VER_EXT_MIN}"
 BURNFLASH := "${THISDIR}/files/${MACHINE}"
-IMAGE_DIR = "${IMAGE_NAME}_${PV}"
+IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_INT}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
 UBOOT_EXT = "bin"

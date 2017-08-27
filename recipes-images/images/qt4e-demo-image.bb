@@ -2,8 +2,6 @@ SUMMARY = "Toradex Embedded Linux Qt4 Demo With QWS"
 
 LICENSE = "MIT"
 
-PV = "${TDX_VER_INT}"
-
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "Qt4e-Image"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"

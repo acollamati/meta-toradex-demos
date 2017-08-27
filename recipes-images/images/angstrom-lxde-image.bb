@@ -2,8 +2,6 @@ SUMMARY = "Toradex Embedded Linux Demo with LXDE"
 
 LICENSE = "MIT"
 
-PV = "${TDX_VER_INT}"
-
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "LXDE-Image"
 IMAGE_NAME_apalis-imx6 = "Apalis-iMX6_${IMAGE_BASENAME}"
