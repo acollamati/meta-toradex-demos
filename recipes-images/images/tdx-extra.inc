@@ -91,7 +91,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
-IMAGE_INSTALL_append_mx6 = " \
+IMAGE_INSTALL-MX6QDL = " \
     bmode-usb \
     libusbgx \
     linuxptp \
@@ -109,12 +109,24 @@ IMAGE_INSTALL_append_mx6 = " \
     e2fsprogs-tune2fs \
     mimetypes \
 "
+IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL-MX6QDL}"
+IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL-MX6QDL}"
 
 IMAGE_INSTALL_append_apalis-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
 "
 IMAGE_INSTALL_append_colibri-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
+"
+
+IMAGE_INSTALL_append_mx6ull = " \
+    bmode-usb \
+    libusbgx \
+    linuxptp \
+    ptpd \
+    iproute2 \
+    canutils \
+    mtd-utils-ubifs \
 "
 
 #note that the kernel-modules meta package gets installed from

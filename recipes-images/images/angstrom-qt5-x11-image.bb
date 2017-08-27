@@ -13,6 +13,7 @@ IMAGE_NAME_apalis-t30 = "Apalis-T30_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1 = "Apalis-TK1_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1-mainline = "Apalis-TK1-Mainline_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx6 = "Colibri-iMX6_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-t20 = "Colibri-T20_${IMAGE_BASENAME}"
@@ -84,13 +85,16 @@ GSTREAMER = " \
 #    gst-plugins-ugly-asf \
 #"
 
-GSTREAMER_append_mx6 = " \
+GSTREAMER_MX6QDL = " \
     gstreamer1.0-plugins-base-ximagesink \
     gstreamer1.0-plugins-imx \
     imx-gst1.0-plugin \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
 "
+GSTREAMER_append_mx6q = "${GSTREAMER_MX6QDL}"
+GSTREAMER_append_mx6dl = "${GSTREAMER_MX6QDL}"
+
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
     imx-gst1.0-plugin \
@@ -200,11 +204,13 @@ IMAGE_INSTALL_append_tegra124m = " \
     tiff \
     xvinfo \
 "
-IMAGE_INSTALL_append_mx6 = " \
+IMAGE_INSTALL_MX6QDL = " \
     packagegroup-fsl-gpu-libs \
     libopencl-mx6 \
     eglinfo-x11 \
 "
+IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL_MX6QDL}"
+IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL_MX6QDL}"
 
 # Packages which might no longer exist
 RRECOMMENDS_${PN} += "xserver-xorg-multimedia-modules"

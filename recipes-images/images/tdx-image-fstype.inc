@@ -23,6 +23,7 @@ UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 
 #we need some native tools for deployment
 DEPENDS_append_mx6 = " imx-loader-native"
+DEPENDS_append_mx6ull = " mtd-utils-native imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
 DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra124 = " cbootimage-native tegrarcm-native"
@@ -50,6 +51,24 @@ imagedeploytools_append_mx6() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_work.conf ${IMAGE_ROOT}/
 }
 
+imagedeploytools_append_mx6ull() {
+    IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
+    rm -f ${IMAGE_ROOT}/mkfs.ubifs  ${IMAGE_ROOT}/imx_usb
+    mkdir -p ${IMAGE_ROOT}
+
+    # add the mkfs.ubifs binary
+    cp ${STAGING_DIR_NATIVE}/usr/sbin/mkfs.ubifs ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/mkfs.ubifs
+
+    # add imx-loader and its configuration files
+    cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
+
+# FIXME
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_work.conf ${IMAGE_ROOT}/
+}
+
 imagedeploytools_append_mx7() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
     rm -f ${IMAGE_ROOT}/mkfs.ubifs  ${IMAGE_ROOT}/imx_usb
@@ -64,6 +83,7 @@ imagedeploytools_append_mx7() {
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_work.conf ${IMAGE_ROOT}/
+    cp ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY} ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot.imx
 }
 
 imagedeploytools_append_tegra() {
