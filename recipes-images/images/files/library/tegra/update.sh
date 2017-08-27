@@ -420,7 +420,7 @@ else
 		COPIED=false
 		if test -n "${KERNEL_DEVICETREE}"; then
 			for DTS_FILE in ${KERNEL_DEVICETREE}; do
-				DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
+				DTS_BASE_NAME=`basename ${DTS_FILE} .dtb`
 				if [ -e "${BINARIES}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb" ]; then
 					kernel_bin="`readlink ${BINARIES}/${KERNEL_IMAGETYPE}`"
 					kernel_bin_for_dtb="`readlink ${BINARIES}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb | sed "s,$DTS_BASE_NAME,${MODTYPE},g;s,\.dtb$,.bin,g"`"
