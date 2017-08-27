@@ -3,6 +3,7 @@ WALLPAPER-MACHINE_colibri-t20 = "Wallpaper_ColibriT20.png"
 WALLPAPER-MACHINE_colibri-t30 = "Wallpaper_ColibriT30.png"
 WALLPAPER-MACHINE_apalis-t30 = "Wallpaper_ApalisT30.png"
 WALLPAPER-MACHINE_apalis-tk1 = "Wallpaper_ApalisTK1.png"
+WALLPAPER-MACHINE_mx6ull = "Wallpaper_ColibriiMX6ULL.png"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/lxde-common:"
 
@@ -18,12 +19,15 @@ SRC_URI += " \
 "
 
 # for apalis-imx6/colibri-imx6, we decide on the target during postinst
-SRC_URI_append_mx6 += " \
+SRC_URI-MX6QDL = " \
     file://Wallpaper_ApalisiMX6D.png \
     file://Wallpaper_ApalisiMX6Q.png \
     file://Wallpaper_ColibriiMX6DL.png \
     file://Wallpaper_ColibriiMX6S.png \
 "
+SRC_URI_append_mx6q += " ${SRC_URI-MX6QDL}"
+SRC_URI_append_mx6dl += " ${SRC_URI-MX6QDL}"
+
 # for colibri-imx7 we decide on the target during postinst
 SRC_URI_append_mx7 += " \
     file://Wallpaper_ColibriiMX7D.png \
@@ -86,6 +90,12 @@ pkg_postinst_${PN}_mx6 () {
             ln -sf Wallpaper_Toradex.png ${datadir}/lxde/wallpapers/toradex.png
             ;;
     esac
+}
+
+# the ull is in the mx6 soc family, so give a more specific override here
+pkg_postinst_${PN}_mx6ull () {
+    # do nothing
+    exit 0
 }
 
 pkg_postinst_${PN}_mx7 () {
