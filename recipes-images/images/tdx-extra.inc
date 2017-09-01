@@ -170,6 +170,8 @@ IMAGE_INSTALL += " \
     openssh-scp \
     openssh-sftp \
     \
+    libunwind \
+    \
     bzip2 \
     gdbserver \
     grep \
