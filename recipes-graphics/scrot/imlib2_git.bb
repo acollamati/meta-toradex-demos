@@ -7,7 +7,7 @@ PROVIDES = "virtual/imlib2"
 PV = "1.4.6+gitr${SRCPV}"
 SRCREV = "560a58e61778d84953944f744a025af6ce986334"
 
-inherit efl binconfig
+inherit autotools binconfig pkgconfig
 SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git"
 S = "${WORKDIR}/git"
 
@@ -29,11 +29,12 @@ EXTRA_OECONF = "--with-x \
 OE_LT_RPATH_ALLOW = "any"
 OE_LT_RPATH_ALLOW[export]="1"
 
-PACKAGES =+ "imlib2-loaders-dbg imlib2-filters-dbg imlib2-loaders imlib2-filters"
+PACKAGES =+ "imlib2-loaders-dbg imlib2-filters-dbg imlib2-loaders imlib2-filters ${PN}-bin imlib2-themes "
 FILES_${PN} = "${libdir}/lib*.so.* ${libdir}/imlib2/*/*.so"
 FILES_${PN}-dbg = "${libdir}/.debug/ ${bindir}/.debug/ ${prefix}/src/debug/"
 FILES_${PN}-dev += "${bindir}/imlib2-config ${libdir}/*.so ${includedir}"
 FILES_${PN}-bin = "${bindir}"
+FILES_imlib2-themes = "${datadir}/imlib2/data"
 FILES_imlib2-loaders = "${libdir}/imlib2/loaders/*.so"
 FILES_imlib2-filters = "${libdir}/imlib2/filters/*.so"
 FILES_imlib2-loaders-dbg += "${libdir}/imlib2/loaders/.debug"
@@ -43,3 +44,13 @@ FILES_imlib2-filters-dbg += "${libdir}/imlib2/filters/.debug"
 PRIVATE_LIBS_imlib2-loaders = "pnm.so lbm.so argb.so tiff.so zlib.so bmp.so tga.so gif.so xpm.so bz2.so"
 
 PRIVATE_LIBS_imlib2-filters = "bumpmap.so colormod.so testfilter.so"
+
+do_configure_prepend() {
+    autopoint || touch config.rpath
+}
+
+do_install_prepend () {
+    for i in `find ${B}/ -name "*.pc" -type f` ; do \
+        sed -i -e 's:-L${STAGING_LIBDIR}:-L\$\{libdir\}:g' -e 's:-I${STAGING_LIBDIR}:-I\$\{libdir\}:g' -e 's:-I${STAGING_INCDIR}:-I\$\{includedir\}:g' $i
+    done
+}
