@@ -30,7 +30,7 @@ IMAGE_LINGUAS = "en-us"
 DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
-CONMANPKGS ?= "connman connman-systemd connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
+CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
 CONMANPKGS_libc-uclibc = ""
 
 #deploy the OpenGL ES headers to the sysroot
