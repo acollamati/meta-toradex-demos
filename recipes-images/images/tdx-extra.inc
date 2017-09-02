@@ -13,7 +13,7 @@ DEPENDS += "canutils libsocketcan iproute2"
 DEPENDS += "gdb-cross-${TARGET_ARCH}"
 
 #create the file /etc/timestamp
-IMAGE_PREPROCESS_COMMAND = "rootfs_update_timestamp"
+IMAGE_PREPROCESS_COMMAND_append = " rootfs_update_timestamp;"
 
 IMAGE_INSTALL_append_tegra = " \
     u-boot-toradex-fw-utils \
