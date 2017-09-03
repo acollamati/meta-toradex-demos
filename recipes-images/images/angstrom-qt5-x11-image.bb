@@ -86,16 +86,12 @@ GSTREAMER = " \
 GSTREAMER_MX6QDL = " \
     gstreamer1.0-plugins-base-ximagesink \
     gstreamer1.0-plugins-imx \
-    imx-gst1.0-plugin \
-    imx-gst1.0-plugin-gplay \
-    imx-gst1.0-plugin-grecorder \
 "
 GSTREAMER_append_mx6q = "${GSTREAMER_MX6QDL}"
 GSTREAMER_append_mx6dl = "${GSTREAMER_MX6QDL}"
 
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
-    imx-gst1.0-plugin \
 "
 # No longer available
 #    gst-plugins-gl \
