@@ -186,7 +186,10 @@ fakeroot imagedeploy_arm() {
 }
 
 fakeroot do_imagedeploy() {
-    imagedeploy
+    if [ -e ${BURNFLASH} ]
+    then
+        imagedeploy
+    fi
 }
 addtask imagedeploy after do_rootfs before do_image_complete
 
