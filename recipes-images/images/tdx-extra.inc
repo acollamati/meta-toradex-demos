@@ -159,11 +159,15 @@ IMAGE_INSTALL_append_mx7 = " \
     ptpd \
     iproute2 \
     canutils \
-    mtd-utils-ubifs \
+"
+
+IMAGE_INSTALL_append_colibri-imx7-emmc = " \
+    u-boot-toradex-fsl-fw-utils \
 "
 
 IMAGE_INSTALL_append_colibri-imx7 = " \
     u-boot-toradex-fsl-fw-utils \
+    mtd-utils-ubifs \
 "
 
 IMAGE_INSTALL += " \
