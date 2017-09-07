@@ -43,6 +43,7 @@ DEPENDS_append_tegra = " nvsamples"
 
 IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
+IMAGE_BROWSER_colibri-imx6ull = ""
 IMAGE_BROWSER_colibri-vf = ""
 
 # don't install some packages bloating the vybrid image
