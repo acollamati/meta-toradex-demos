@@ -171,6 +171,8 @@ IMAGE_INSTALL_append_colibri-imx7 = " \
 "
 
 IMAGE_INSTALL += " \
+    packagegroup-dotnet-deps \
+    \
     crda \
     linux-firmware-ralink \
     linux-firmware-rtl8192cu \
@@ -185,8 +187,6 @@ IMAGE_INSTALL += " \
     nfs-utils-client \
     openssh-scp \
     openssh-sftp \
-    \
-    libunwind \
     \
     bzip2 \
     gdbserver \
