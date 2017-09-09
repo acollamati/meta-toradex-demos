@@ -171,11 +171,6 @@ fakeroot imagedeploy_arm() {
     rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${UBOOT_EXT}
     mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY}
 
-    # add the rootfs version to the welcome banner
-    echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
-    echo " ${TDX_VERDATE}" | sed 's/-//' >> ${IMAGE_ROOTFS}/etc/issue
-    echo "" >> ${IMAGE_ROOTFS}/etc/issue
-
     # add additional tools if required
     imagedeploytools
 

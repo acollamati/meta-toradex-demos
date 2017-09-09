@@ -9,8 +9,16 @@ COPY_LIC_DIRS_colibri-vf = "0"
 #the following builds cross gdb and gdbserver
 DEPENDS += "gdb-cross-${TARGET_ARCH}"
 
-#create the file /etc/timestamp
+add_rootfs_version () {
+    echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
+    echo " ${TDX_VERDATE}" | sed 's/-//' >>${IMAGE_ROOTFS}/etc/issue
+    echo "" >> ${IMAGE_ROOTFS}/etc/issue
+}
+
+# create the file /etc/timestamp
 IMAGE_PREPROCESS_COMMAND_append = " rootfs_update_timestamp;"
+# add the rootfs version to the welcome banner
+ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
 IMAGE_INSTALL_append_tegra = " \
     u-boot-toradex-fw-utils \
