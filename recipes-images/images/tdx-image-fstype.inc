@@ -189,7 +189,7 @@ fakeroot do_imagedeploy() {
         imagedeploy
     fi
 }
-addtask imagedeploy after do_rootfs before do_image_complete
+addtask imagedeploy after do_image before do_image_complete
 
 # make sure to rerun do_rootfs before do_imagedeploy is executed
 do_imagedeploy[vardep] = "do_rootfs"
