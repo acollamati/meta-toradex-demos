@@ -15,8 +15,6 @@ add_rootfs_version () {
     echo "" >> ${IMAGE_ROOTFS}/etc/issue
 }
 
-# create the file /etc/timestamp
-IMAGE_PREPROCESS_COMMAND_append = " rootfs_update_timestamp;"
 # add the rootfs version to the welcome banner
 ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
