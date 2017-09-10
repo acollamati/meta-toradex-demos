@@ -23,6 +23,7 @@ UBOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${UBOOT_EXT}"
 UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 
 #we need some native tools for deployment
+DEPENDS_append = " pbzip2-native"
 DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_mx6ull = " mtd-utils-native imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
@@ -178,7 +179,8 @@ fakeroot imagedeploy_arm() {
     rm -f ${IMAGE_DIR}/rootfs.lock
 
     #create tarball
-    tar -cjf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_EXT}.tar.bz2 ${IMAGE_DIR}
+    # ignore return code 1 "file changed as we read it" as other tasks(e.g. do_image_wic) may be hardlinking rootfs
+    tar --use-compress-prog=pbzip2 -cf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_EXT}.tar.bz2 ${IMAGE_DIR} || true
 }
 
 fakeroot do_imagedeploy() {
