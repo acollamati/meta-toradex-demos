@@ -6,6 +6,7 @@ LICENSE = "MIT"
 export IMAGE_BASENAME = "Qt4e-Image"
 IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
+IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 
