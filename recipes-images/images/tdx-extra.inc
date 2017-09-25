@@ -215,6 +215,7 @@ BACKPORTS_APALIS = " \
     linux-firmware-sd8797    \
     linux-firmware-ralink    \
     linux-firmware-rtl8192cu \
+    linux-firmware-rtl8188eu \
 "
 
 BACKPORTS_COLIBRI = " \
@@ -226,6 +227,7 @@ BACKPORTS_COLIBRI = " \
     linux-firmware-sd8797    \
     linux-firmware-ralink    \
     linux-firmware-rtl8192cu \
+    linux-firmware-rtl8188eu \
 "
 
 IMAGE_INSTALL_append_apalis-tk1 = " \
