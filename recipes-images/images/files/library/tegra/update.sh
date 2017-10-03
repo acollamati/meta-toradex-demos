@@ -212,7 +212,7 @@ case "$MODTYPE" in
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 15020 \* 2)
 		IMAGEFILE=root.ext4
-		KERNEL_DEVICETREE="tegra124-apalis-eval.dtb"
+		KERNEL_DEVICETREE="tegra124-apalis-eval.dtb tegra124-apalis-v1.2-eval.dtb"
 		LOCPATH="tegra-uboot-flasher"
 		OUT_DIR="$OUT_DIR/apalis-tk1"
 		U_BOOT_BINARY=u-boot-dtb-tegra.bin
