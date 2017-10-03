@@ -395,10 +395,10 @@ else
 		${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary fat32 ${BOOT_START} $(expr ${ROOTFS_START} - 1 )
 		# the partition spans to the end of the disk, even though the fs size will be smaller
 		# on the target the fs is then grown to the full size
-		if [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ] ; then
-			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext4 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+		if [ "${IMAGEFILE}" = "root.ext3" ] ; then
+			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext3 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
 		else
-			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext2 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
+			${PARTED} -a none -s ${BINARIES}/mbr.bin unit s mkpart primary ext4 ${ROOTFS_START} $(expr ${EMMC_SIZE} \- ${ROOTFS_START} \- 1)
 		fi
 		${PARTED} -s ${BINARIES}/mbr.bin unit s print 
 		# get the size of the VFAT partition
@@ -446,10 +446,10 @@ else
 				'{rootfs_size=$1+f*512;rootfs_size=int(rootfs_size/1024/985); print (rootfs_size+min) }'`
 
 		rm -f ${BINARIES}/${IMAGEFILE}
-		if [ "${MODTYPE}" = "apalis-tk1" ] || [ "${MODTYPE}" = "apalis-tk1-mainline" ] ; then
-			sudo $LOCPATH/genext4fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
-		else
+		if [ "${IMAGEFILE}" = "root.ext3" ] ; then
 			sudo $LOCPATH/genext3fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
+		else
+			sudo $LOCPATH/genext4fs.sh -d rootfs -b ${EXT_SIZE} ${BINARIES}/${IMAGEFILE} || exit 1
 		fi
 	fi
 fi
@@ -462,13 +462,9 @@ sudo cp fwd_blk.img "$OUT_DIR/../flash_blk.img"
 sudo cp fwd_eth.img "$OUT_DIR/../flash_eth.img"
 sudo cp fwd_mmc.img "$OUT_DIR/../flash_mmc.img"
 
-if [ "${IMAGEFILE}" = "root.ext3" ] ; then
+if [ "${IMAGEFILE}" = "root.ext3" ] || [ "${IMAGEFILE}" = "root.ext4" ] ; then
 	if [ "$SPLIT" -ge 1 ] ; then
-		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "$OUT_DIR/root.ext3-"
-	fi
-elif [ "${IMAGEFILE}" = "root.ext4" ] ; then
-	if [ "$SPLIT" -ge 1 ] ; then
-		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "$OUT_DIR/root.ext4-"
+		sudo split -a 3 -b `expr 64 \* 1024 \* 1024` --numeric-suffixes=100 ${IMAGEFILE} "${OUT_DIR}/${IMAGEFILE}-"
 	fi
 else
 	sudo cp ${IMAGEFILE}* "$OUT_DIR"
