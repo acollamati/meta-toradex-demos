@@ -180,8 +180,8 @@ GSTREAMER_append_tegra124 = " \
     gst-plugins-good-wavparse \
     libgstcodecparsers-1.0 \
     libgstnvegl \
-    libgstomx \
-    libgstomx1 \
+    libgstomx-0.10 \
+    libgstomx-1.0 \
 "
 GSTREAMER_colibri-vf = ""
 
