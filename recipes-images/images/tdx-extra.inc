@@ -160,8 +160,6 @@ IMAGE_INSTALL += " \
     packagegroup-dotnet-deps \
     \
     crda \
-    linux-firmware-ralink \
-    linux-firmware-rtl8192cu \
     \
     alsa-utils \
     alsa-utils-aplay \
