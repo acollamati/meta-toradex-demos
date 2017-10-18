@@ -252,6 +252,10 @@ IMAGE_INSTALL_append_colibri-imx6 = " \
     ${BACKPORTS_COLIBRI} \
 "
 
+IMAGE_INSTALL_append_colibri-imx6ull = " \
+    ${BACKPORTS_COLIBRI} \
+"
+
 IMAGE_INSTALL_append_colibri-imx7 = " \
     ${BACKPORTS_COLIBRI} \
 "
