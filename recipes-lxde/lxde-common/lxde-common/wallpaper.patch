@@ -1,14 +1,13 @@
-diff -Naur lxde-common-0.5.5.orig/pcmanfm/pcmanfm.conf.in lxde-common-0.5.5/pcmanfm/pcmanfm.conf.in
---- lxde-common-0.5.5.orig/pcmanfm/pcmanfm.conf.in	2012-01-04 12:57:31.904011602 +0100
-+++ lxde-common-0.5.5/pcmanfm/pcmanfm.conf.in	2012-01-04 12:58:35.854063347 +0100
+--- a/pcmanfm/pcmanfm.conf.in~	2017-10-21 14:03:07.000000000 +0200
++++ b/pcmanfm/pcmanfm.conf.in	2017-10-21 14:10:22.138605232 +0200
 @@ -3,9 +3,9 @@
  su_cmd=xdg-su -c '%s'
  
  [desktop]
--wallpaper_mode=1
+-wallpaper_mode=crop
 -wallpaper=@prefix@/share/lxde/wallpapers/lxde_blue.jpg
 -desktop_bg=#000000
-+wallpaper_mode=3
++wallpaper_mode=center
 +wallpaper=@prefix@/share/lxde/wallpapers/toradex.png
 +desktop_bg=#00508c
  desktop_fg=#ffffff
