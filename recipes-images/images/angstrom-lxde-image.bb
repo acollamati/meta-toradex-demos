@@ -101,6 +101,8 @@ GSTREAMER_MX6QDL = " \
 GSTREAMER_append_mx6q = "${GSTREAMER_MX6QDL}"
 GSTREAMER_append_mx6dl = "${GSTREAMER_MX6QDL}"
 
+GSTREAMER_colibri-imx6ull = ""
+
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
     imx-gst1.0-plugin \
