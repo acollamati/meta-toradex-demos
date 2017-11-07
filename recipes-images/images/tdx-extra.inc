@@ -167,6 +167,7 @@ IMAGE_INSTALL += " \
     \
     sqlite3 \
     \
+    ${BACKPORTS_WIFI} \
     curl \
     canutils \
     nfs-utils-client \
@@ -201,12 +202,12 @@ IMAGE_INSTALL += " \
     \
     tdx-oak-sensors \
 "
+
 #Backports
-BACKPORTS_APALIS = " \
+
+BACKPORTS_WIFI = " \
     backports \
     linux-firmware-ath10k    \
-    linux-firmware-ath9k     \
-    linux-firmware-iwlwifi   \
     linux-firmware-sd8686    \
     linux-firmware-sd8688    \
     linux-firmware-sd8787    \
@@ -215,51 +216,19 @@ BACKPORTS_APALIS = " \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8188eu \
 "
-
-BACKPORTS_COLIBRI = " \
-    backports \
-    linux-firmware-ath10k    \
-    linux-firmware-sd8686    \
-    linux-firmware-sd8688    \
-    linux-firmware-sd8787    \
-    linux-firmware-sd8797    \
-    linux-firmware-ralink    \
-    linux-firmware-rtl8192cu \
-    linux-firmware-rtl8188eu \
+BACKPORTS_WIFI_EXTRA = " \
+    linux-firmware-ath9k     \
+    linux-firmware-iwlwifi   \
 "
 
 IMAGE_INSTALL_append_apalis-tk1 = " \
-    ${BACKPORTS_APALIS} \
+     ${BACKPORTS_WIFI_EXTRA} \
 "
 
 IMAGE_INSTALL_append_apalis-t30 = " \
-    ${BACKPORTS_APALIS} \
+    ${BACKPORTS_WIFI_EXTRA} \
 "
 
 IMAGE_INSTALL_append_apalis-imx6 = " \
-    ${BACKPORTS_APALIS} \
-"
-
-IMAGE_INSTALL_append_colibri-t30 = " \
-    ${BACKPORTS_COLIBRI} \
-"
-
-IMAGE_INSTALL_append_colibri-t20 = " \
-    ${BACKPORTS_COLIBRI} \
-"
-
-IMAGE_INSTALL_append_colibri-imx6 = " \
-    ${BACKPORTS_COLIBRI} \
-"
-
-IMAGE_INSTALL_append_colibri-imx6ull = " \
-    ${BACKPORTS_COLIBRI} \
-"
-
-IMAGE_INSTALL_append_colibri-imx7 = " \
-    ${BACKPORTS_COLIBRI} \
-"
-
-IMAGE_INSTALL_append_colibri-vf = " \
-    ${BACKPORTS_COLIBRI} \
+    ${BACKPORTS_WIFI_EXTRA} \
 "
