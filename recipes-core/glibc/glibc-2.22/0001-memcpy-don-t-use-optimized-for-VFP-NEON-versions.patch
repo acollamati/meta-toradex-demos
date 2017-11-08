@@ -1,4 +1,4 @@
-From a086ff98ad0bb996241037689188caf394f6c633 Mon Sep 17 00:00:00 2001
+From 3cb3db5c200bb0cfdcfdfcd64e385895e47725f8 Mon Sep 17 00:00:00 2001
 From: Max Krummenacher <max.krummenacher@toradex.com>
 Date: Fri, 12 Jun 2015 13:27:55 +0200
 Subject: [PATCH] memcpy: don't use optimized for VFP/NEON versions
@@ -10,31 +10,32 @@ __memcpy_neon or __memcpy_vfp.
 Tests on Apalis iMX6 confirm this, although running only around 1.3 times faster.
 ---
  sysdeps/arm/armv7/multiarch/Makefile          |  3 ---
- sysdeps/arm/armv7/multiarch/ifunc-impl-list.c | 18 ------------------
+ sysdeps/arm/armv7/multiarch/ifunc-impl-list.c | 20 --------------------
  sysdeps/arm/armv7/multiarch/memcpy.S          | 17 -----------------
  sysdeps/arm/armv7/multiarch/memcpy_neon.S     |  9 ---------
  sysdeps/arm/armv7/multiarch/memcpy_vfp.S      |  7 -------
- 5 files changed, 54 deletions(-)
+ 5 files changed, 56 deletions(-)
 
 diff --git a/sysdeps/arm/armv7/multiarch/Makefile b/sysdeps/arm/armv7/multiarch/Makefile
-index e834cc9..e69de29 100644
+index 9e1e61c21a..e69de29bb2 100644
 --- a/sysdeps/arm/armv7/multiarch/Makefile
 +++ b/sysdeps/arm/armv7/multiarch/Makefile
 @@ -1,3 +0,0 @@
 -ifeq ($(subdir),string)
--sysdep_routines += memcpy_neon memcpy_vfp
+-sysdep_routines += memcpy_neon memcpy_vfp memchr_neon
 -endif
 diff --git a/sysdeps/arm/armv7/multiarch/ifunc-impl-list.c b/sysdeps/arm/armv7/multiarch/ifunc-impl-list.c
-index 2515418..322eae6 100644
+index 8f33156317..1d11e03290 100644
 --- a/sysdeps/arm/armv7/multiarch/ifunc-impl-list.c
 +++ b/sysdeps/arm/armv7/multiarch/ifunc-impl-list.c
-@@ -31,25 +31,7 @@ __libc_ifunc_impl_list (const char *name, struct libc_ifunc_impl *array,
+@@ -31,30 +31,10 @@ __libc_ifunc_impl_list (const char *name, struct libc_ifunc_impl *array,
  {
    size_t i = 0;
  
 -  bool use_neon = true;
 -#ifdef __ARM_NEON__
 -# define __memcpy_neon	memcpy
+-# define __memchr_neon	memchr
 -#else
 -  use_neon = (GLRO(dl_hwcap) & HWCAP_ARM_NEON) != 0;
 -#endif
@@ -53,9 +54,13 @@ index 2515418..322eae6 100644
 -#endif
  	      IFUNC_IMPL_ADD (array, i, memcpy, 1, __memcpy_arm));
  
+   IFUNC_IMPL (i, name, memchr,
+-	      IFUNC_IMPL_ADD (array, i, memchr, use_neon, __memchr_neon)
+ 	      IFUNC_IMPL_ADD (array, i, memchr, 1, __memchr_noneon));
+ 
    return i;
 diff --git a/sysdeps/arm/armv7/multiarch/memcpy.S b/sysdeps/arm/armv7/multiarch/memcpy.S
-index c4f4e80..9ee4d73 100644
+index 8a53bdaf91..e1e13f8d2f 100644
 --- a/sysdeps/arm/armv7/multiarch/memcpy.S
 +++ b/sysdeps/arm/armv7/multiarch/memcpy.S
 @@ -23,37 +23,20 @@
@@ -97,7 +102,7 @@ index c4f4e80..9ee4d73 100644
  /* These versions of memcpy are defined not to clobber any VFP or NEON
     registers so they must always call the ARM variant of the memcpy code.  */
 diff --git a/sysdeps/arm/armv7/multiarch/memcpy_neon.S b/sysdeps/arm/armv7/multiarch/memcpy_neon.S
-index e60d1cc..e69de29 100644
+index e60d1cc0e1..e69de29bb2 100644
 --- a/sysdeps/arm/armv7/multiarch/memcpy_neon.S
 +++ b/sysdeps/arm/armv7/multiarch/memcpy_neon.S
 @@ -1,9 +0,0 @@
@@ -111,7 +116,7 @@ index e60d1cc..e69de29 100644
 -#define MEMCPY_NEON
 -#include "memcpy_impl.S"
 diff --git a/sysdeps/arm/armv7/multiarch/memcpy_vfp.S b/sysdeps/arm/armv7/multiarch/memcpy_vfp.S
-index e008c04..e69de29 100644
+index e008c041ed..e69de29bb2 100644
 --- a/sysdeps/arm/armv7/multiarch/memcpy_vfp.S
 +++ b/sysdeps/arm/armv7/multiarch/memcpy_vfp.S
 @@ -1,7 +0,0 @@
@@ -123,5 +128,5 @@ index e008c04..e69de29 100644
 -# include "memcpy_impl.S"
 -#endif
 -- 
-1.9.3
+2.12.0
 
