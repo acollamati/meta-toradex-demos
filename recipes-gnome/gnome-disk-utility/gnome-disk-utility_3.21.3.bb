@@ -7,7 +7,6 @@ DEPENDS = "avahi-ui glib-2.0 gnome-doc-utils gtk+3 intltool-native \
            libatasmart libcanberra libdvdread libgnome-keyring \
            libnotify libpwquality libsecret libunique libxslt-native \
            pkgconfig-native udisks2 virtual/libx11 xmlto-native xz"
-RDEPENDS_${PN} = "adwaita-icon-theme-symbolic"
 
 PR = "r4"
 
