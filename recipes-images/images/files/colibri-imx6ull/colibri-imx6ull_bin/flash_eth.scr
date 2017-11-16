@@ -7,7 +7,7 @@ setenv prepare_ubi 'ubi part ubi && if ubi check rootfs; then else run prepare_k
 
 setenv update_uboot 'tftpboot ${fdt_addr_r} ${board_name}/u-boot-nand.imx && nand erase.part u-boot1 && nand write ${fdt_addr_r} u-boot1 ${filesize} && nand erase.part u-boot2 && nand write ${fdt_addr_r} u-boot2 ${filesize}'
 setenv update_kernel 'tftpboot ${fdt_addr_r} ${board_name}/zImage && ubi write ${fdt_addr_r} kernel ${filesize}'
-setenv update_fdt 'tftpboot ${fdt_addr_r} ${board_name}/i${soc}ull-colibri-${fdt_board}.dtb && ubi write ${fdt_addr_r} dtb ${filesize}'
+setenv update_fdt 'tftpboot ${fdt_addr_r} ${board_name}/imx6ull-colibri${variant}-${fdt_board}.dtb && ubi write ${fdt_addr_r} dtb ${filesize}'
 setenv update_rootfs 'tftpboot ${fdt_addr_r} ${board_name}/ubifs.img && ubi write ${fdt_addr_r} rootfs ${filesize}'
 
 setenv update 'mtdparts default && run update_uboot && run prepare_ubi && run update_kernel && run update_fdt && run update_rootfs && reset'
