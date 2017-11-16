@@ -2,9 +2,9 @@
 
 include conf/tdx_version.conf
 
-PV = "${TDX_VER_EXT_MIN}"
+PV = "${TDX_VER_PACKAGE_MIN}"
 BURNFLASH := "${THISDIR}/files/${MACHINE}"
-IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_INT}"
+IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_ITEM}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
 UBOOT_EXT = "bin"
@@ -180,7 +180,7 @@ fakeroot imagedeploy_arm() {
 
     #create tarball
     # ignore return code 1 "file changed as we read it" as other tasks(e.g. do_image_wic) may be hardlinking rootfs
-    tar --use-compress-prog=pbzip2 -cf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_EXT}.tar.bz2 ${IMAGE_DIR} || true
+    tar --use-compress-prog=pbzip2 -cf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_PACKAGE}.tar.bz2 ${IMAGE_DIR} || true
 }
 
 fakeroot do_imagedeploy() {
