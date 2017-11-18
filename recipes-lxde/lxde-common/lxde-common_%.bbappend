@@ -15,7 +15,7 @@ SRC_URI += " \
     file://wallpaper.patch \
     file://desktop.conf \
     file://defaults.list \
-    file://panel-buttons.patch \
+    file://0001-panel.in-add-to-panel-configuration.patch \
 "
 
 # for apalis-imx6/colibri-imx6, we decide on the target during postinst

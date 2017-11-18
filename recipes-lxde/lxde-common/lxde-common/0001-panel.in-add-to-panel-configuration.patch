@@ -1,0 +1,76 @@
+From acbd5b137a53d8d5c947aab4d84b72adf71be2d4 Mon Sep 17 00:00:00 2001
+From: Max Krummenacher <max.krummenacher@toradex.com>
+Date: Sat, 18 Nov 2017 14:33:59 +0100
+Subject: [PATCH 1/2] panel.in: add to panel configuration
+
+fix the firefox.desktop file name
+add lxterminal
+add network stat plugin
+add temperature plugin
+add logout
+
+Signed-off-by: Max Krummenacher <max.krummenacher@toradex.com>
+---
+ lxpanel/panel.in | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/lxpanel/panel.in b/lxpanel/panel.in
+index 865c432..8d51814 100644
+--- a/lxpanel/panel.in
++++ b/lxpanel/panel.in
+@@ -55,7 +55,10 @@ Plugin {
+             id=pcmanfm.desktop
+         }
+         Button {
+-            id=firefox.desktop
++            id=mozilla-firefox.desktop
++        }
++        Button {
++            id=lxterminal.desktop
+         }
+     }
+ }
+@@ -112,6 +115,10 @@ Plugin {
+ }
+ 
+ Plugin {
++  type = netstat
++}
++
++Plugin {
+     type = cpu
+ }
+ 
+@@ -129,6 +136,19 @@ Plugin {
+ }
+ 
+ Plugin {
++    type = thermal
++    Config {
++        NormalColor=#00ff00
++        Warning1Color=#fff000
++        Warning2Color=#ff0000
++        AutomaticLevels=1
++        Warning1Temp=75
++        Warning2Temp=80
++        AutomaticSensor=1
++    }
++}
++
++Plugin {
+     type = dclock
+     Config {
+         ClockFmt=%R
+@@ -141,9 +161,6 @@ Plugin {
+     type = launchbar
+     Config {
+         Button {
+-            id=lxde-screenlock.desktop
+-        }
+-        Button {
+             id=lxde-logout.desktop
+         }
+     }
+-- 
+2.13.6
+
