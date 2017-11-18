@@ -17,6 +17,7 @@ SRC_URI += " \
     file://defaults.list \
     file://0001-panel.in-add-to-panel-configuration.patch \
 "
+SRC_URI_append_apalis-tk1 = "file://0002-panel.in-change-displayed-on-hdmi-monitor-configurat.patch"
 
 # for apalis-imx6/colibri-imx6, we decide on the target during postinst
 SRC_URI-MX6QDL = " \
@@ -47,6 +48,11 @@ do_install_append () {
     install -m 0644 ${WORKDIR}/desktop.conf ${D}/etc/xdg/lxsession/LXDE/
     install -m 0755 -d ${D}/${datadir}/applications/
     install -m 0644 ${WORKDIR}/defaults.list ${D}/${datadir}/applications/
+}
+
+do_install_append_apalis-tk1 () {
+    install -m 0644 ${D}/etc/xdg/lxpanel/LXDE/panels/panel ${D}/etc/xdg/lxpanel/LXDE/panels/panel2
+    sed -i 's/monitor=1/monitor=0/' ${D}/etc/xdg/lxpanel/LXDE/panels/panel2
 }
 
 pkg_postinst_${PN}_vf () {

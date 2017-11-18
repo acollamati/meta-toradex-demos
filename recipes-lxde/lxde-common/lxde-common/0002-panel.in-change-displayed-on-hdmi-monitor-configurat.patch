@@ -1,0 +1,25 @@
+From 54ee792d11fae38a222d16970f14dabdcd01fe0f Mon Sep 17 00:00:00 2001
+From: Max Krummenacher <max.krummenacher@toradex.com>
+Date: Sat, 18 Nov 2017 14:37:54 +0100
+Subject: [PATCH 2/2] panel.in: change displayed on hdmi monitor configuration
+
+Signed-off-by: Max Krummenacher <max.krummenacher@toradex.com>
+---
+ lxpanel/panel.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lxpanel/panel.in b/lxpanel/panel.in
+index 8d51814..336e148 100644
+--- a/lxpanel/panel.in
++++ b/lxpanel/panel.in
+@@ -19,6 +19,7 @@ Global {
+     fontcolor=#ffffff
+     background=1
+     backgroundfile=@prefix@/share/lxpanel/images/background.png
++    monitor=1
+ }
+ 
+ Plugin {
+-- 
+2.13.6
+
