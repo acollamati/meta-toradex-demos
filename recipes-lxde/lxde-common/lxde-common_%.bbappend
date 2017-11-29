@@ -93,9 +93,10 @@ pkg_postinst_${PN}_mx6 () {
 }
 
 # the ull is in the mx6 soc family, so give a more specific override here
+# do nothing, but do not prevent the injected update-alternatives to run on
+# the target.
 pkg_postinst_${PN}_mx6ull () {
-    # do nothing
-    exit 0
+    :
 }
 
 pkg_postinst_${PN}_mx7 () {
