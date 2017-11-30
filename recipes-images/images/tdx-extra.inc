@@ -226,6 +226,14 @@ IMAGE_INSTALL_append_apalis-tk1 = " \
      ${BACKPORTS_WIFI_EXTRA} \
 "
 
+IMAGE_INSTALL_append_apalis-tk1-mainline = " \
+     ${BACKPORTS_WIFI_EXTRA} \
+"
+
+IMAGE_INSTALL_remove_apalis-tk1-mainline = " \
+    backports \
+"
+
 IMAGE_INSTALL_append_apalis-t30 = " \
     ${BACKPORTS_WIFI_EXTRA} \
 "
