@@ -90,6 +90,7 @@ IMAGE_INSTALL_append_colibri-t20 = " \
 IMAGE_INSTALL-MX6QDL = " \
     bmode-usb \
     libusbgx \
+    libusbgx-examples \
     linuxptp \
     gpio-export \
     file \
@@ -115,6 +116,7 @@ IMAGE_INSTALL_append_colibri-imx6 = " \
 IMAGE_INSTALL_append_mx6ull = " \
     bmode-usb \
     libusbgx \
+    libusbgx-examples \
     linuxptp \
     ptpd \
     mtd-utils-ubifs \
@@ -129,6 +131,7 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
 IMAGE_INSTALL_append_vf = " \
     linuxptp \
     libusbgx \
+    libusbgx-examples \
     ptpd \
     mtd-utils-ubifs \
     kernel-modules \
@@ -142,6 +145,7 @@ IMAGE_INSTALL_append_colibri-vf = " \
 IMAGE_INSTALL_append_mx7 = " \
     linuxptp \
     libusbgx \
+    libusbgx-examples \
     file \
     aspell \
     ptpd \
