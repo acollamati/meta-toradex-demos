@@ -222,7 +222,7 @@ IMAGE_INSTALL_append_tegra124m = " \
 "
 IMAGE_INSTALL_MX6QDL = " \
     packagegroup-fsl-gpu-libs \
-    libopencl-mx6 \
+    libopencl-imx \
     eglinfo-x11 \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL_MX6QDL}"
