@@ -157,6 +157,11 @@ IMAGE_INSTALL_append_colibri-imx7 = " \
     mtd-utils-ubifs \
 "
 
+IMAGE_INSTALL_append_colibri-imx6ull = " \
+    u-boot-toradex-fsl-fw-utils \
+    mtd-utils-ubifs \
+"
+
 IMAGE_INSTALL += " \
     packagegroup-dotnet-deps \
     \
