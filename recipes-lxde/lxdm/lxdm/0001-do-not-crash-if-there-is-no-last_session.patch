@@ -1,0 +1,27 @@
+From 28e38e6fc6efcee28ea1c85589ebcece3e9a5efe Mon Sep 17 00:00:00 2001
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 22 Dec 2017 09:58:41 +0100
+Subject: [LXDM][PATCH] do not crash if there is no last_session
+
+Upstream-Status: Pending
+
+---
+ src/lxdm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/lxdm.c b/src/lxdm.c
+index a37f051..b36debf 100644
+--- a/src/lxdm.c
++++ b/src/lxdm.c
+@@ -1276,7 +1276,7 @@ void lxdm_do_login(struct passwd *pw, char *session, char *lang, char *option)
+ 	LXSession *s,*prev;
+ 	
+ 	lxdm_save_login(session,lang);
+-	if(!strcmp(session,"__default__"))
++	if(session && !strcmp(session,"__default__"))
+ 		session=NULL;
+ 
+ 	if(!session ||!session[0] || !lang || !lang[0])
+-- 
+2.15.1
+
