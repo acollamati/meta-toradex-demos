@@ -221,6 +221,7 @@ BACKPORTS_WIFI = " \
     linux-firmware-ralink    \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8188eu \
+    hostapd \
 "
 BACKPORTS_WIFI_EXTRA = " \
     linux-firmware-ath9k     \
