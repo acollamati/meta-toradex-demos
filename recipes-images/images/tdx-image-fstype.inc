@@ -180,7 +180,7 @@ fakeroot imagedeploy_arm() {
 
     #create tarball
     # ignore return code 1 "file changed as we read it" as other tasks(e.g. do_image_wic) may be hardlinking rootfs
-    tar --use-compress-prog=pbzip2 -cf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_PACKAGE}.tar.bz2 ${IMAGE_DIR} || true
+    tar --use-compress-prog=pbzip2 --numeric-owner -cf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}_${TDX_VER_PACKAGE}.tar.bz2 ${IMAGE_DIR} || true
 }
 
 fakeroot do_imagedeploy() {
