@@ -189,7 +189,6 @@ IMAGE_INSTALL_append_tegra = " \
 "
 IMAGE_INSTALL_append_tegra3 = " \
     \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_tegra124 = " \
     gpio-tool \
@@ -201,7 +200,6 @@ IMAGE_INSTALL_append_tegra124 = " \
     tiff \
     xvinfo \
     \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     gpio-tool \
@@ -213,7 +211,6 @@ IMAGE_INSTALL_append_tegra124m = " \
     tiff \
     xvinfo \
     \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_MX6QDL = " \
     gpio-tool \
@@ -223,7 +220,6 @@ IMAGE_INSTALL_MX6QDL = " \
     mime-support \
     eglinfo-x11 \
     \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL_MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL_MX6QDL}"
