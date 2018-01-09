@@ -240,6 +240,10 @@ IMAGE_INSTALL_append_vf = " \
     xf86-video-modesetting \
 "
 
+IMAGE_INSTALL_append_colibri-imx6ull = " \
+    gpio-tool \
+"
+
 # Packages which might be empty or no longer available
 RRECOMMENDS_${PN} += " \
     xserver-xorg-multimedia-modules \
