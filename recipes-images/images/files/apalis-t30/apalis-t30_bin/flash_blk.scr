@@ -25,7 +25,7 @@ setenv cp_file_chunk 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/r
 
 setenv update_uboot 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/${board_name}.img && run set_blkcnt && mmc dev 0 1 && mmc write ${fdt_addr_r} 0x0 ${blkcnt}'
 
-setenv update_kernel 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/uImage && fatwrite mmc 0:1 ${fdt_addr_r} uImage ${filesize}'
+setenv update_kernel 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/zImage && fatwrite mmc 0:1 ${fdt_addr_r} zImage ${filesize}'
 
 setenv update_fdt 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/${soc}-apalis-${fdt_board}.dtb && fatwrite mmc 0:1 ${fdt_addr_r} ${soc}-apalis-${fdt_board}.dtb ${filesize}'
 

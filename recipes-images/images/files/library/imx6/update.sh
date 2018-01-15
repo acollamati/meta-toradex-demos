@@ -54,7 +54,7 @@ Usage()
 }
 
 # initialise options
-KERNEL_IMAGETYPE="uImage"
+KERNEL_IMAGETYPE="zImage"
 MIN_PARTITION_FREE_SIZE=100
 MODTYPE_DETECT=0
 OUT_DIR=""

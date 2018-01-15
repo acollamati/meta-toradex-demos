@@ -70,7 +70,7 @@ BOOT_DEVICE=nand
 EMMC_PARTS="mbr.bin boot.vfat" 
 # no devicetree by default
 KERNEL_DEVICETREE=""
-KERNEL_IMAGETYPE="uImage"
+KERNEL_IMAGETYPE="zImage"
 MIN_PARTITION_FREE_SIZE=300
 MODTYPE_DETECT=0
 
