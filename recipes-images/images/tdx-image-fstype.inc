@@ -8,7 +8,8 @@ IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_ITEM}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
 UBOOT_EXT = "bin"
-UBOOT_EXT_mx6 = "imx"
+UBOOT_EXT_mx6 = "img"
+UBOOT_EXT_colibri-imx6ull = "imx"
 UBOOT_EXT_mx7 = "imx"
 UBOOT_EXT_vf = "imx"
 UBOOT_SYMLINK = "u-boot-${MACHINE}.${UBOOT_EXT}"
@@ -50,7 +51,7 @@ imagedeploytools_append_mx6() {
     cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_work.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_*.conf ${IMAGE_ROOT}/
 }
 
 imagedeploytools_append_mx6ull() {
@@ -68,7 +69,7 @@ imagedeploytools_append_mx6ull() {
 
 # FIXME
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_work.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_*.conf ${IMAGE_ROOT}/
 }
 
 imagedeploytools_append_mx7() {
@@ -84,7 +85,7 @@ imagedeploytools_append_mx7() {
     cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_work.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_*.conf ${IMAGE_ROOT}/
     cp ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY} ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot.imx
 }
 
@@ -140,7 +141,7 @@ imagedeploytools_append_vf() {
     # add imx-loader and its configuration files
     cp ${STAGING_BINDIR_NATIVE}/imx_uart ${IMAGE_ROOT}/
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_uart*
-    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/vybrid_usb_work.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/vybrid_usb_*.conf ${IMAGE_ROOT}/
 }
 
 imagedeploy_kernel() {

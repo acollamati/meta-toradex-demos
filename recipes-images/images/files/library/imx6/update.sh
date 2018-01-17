@@ -61,8 +61,7 @@ OUT_DIR=""
 ROOTFSPATH=rootfs
 SPLIT=1
 UBOOT_RECOVERY=0
-U_BOOT_BINARY=u-boot.imx-spl
-U_BOOT_RECOVER_BINARY=u-boot.imx-recover
+U_BOOT_BINARY=u-boot.img
 SPL_BINARY=SPL
 
 while getopts "dfhm:o:" Option ; do
@@ -135,7 +134,7 @@ case "$MODTYPE" in
 		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
                                   imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb \
                                   imx6q-apalis-ixora-v1.1.dtb"
-		LOCPATH="imx_flash"
+		LOCPATH="`pwd`/imx_flash"
 		OUT_DIR="$OUT_DIR/apalis_imx6"
 		;;
 	"colibri-imx6")
@@ -143,7 +142,7 @@ case "$MODTYPE" in
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext4
 		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb imx6dl-colibri-aster.dtb"
-		LOCPATH="imx_flash"
+		LOCPATH="`pwd`/imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx6"
 		;;
 	*)	echo "script internal error, unknown module type set"
@@ -155,9 +154,9 @@ BINARIES=${MODTYPE}_bin
 
 #is only U-Boot to be copied to RAM?
 if [ "$UBOOT_RECOVERY" -ge 1 ] ; then
-	cd ${LOCPATH}
-	#the IT timings work for all modules, so use it during recovery
-	sudo ./imx_usb ../${BINARIES}/${U_BOOT_RECOVER_BINARY}
+	cd ${BINARIES}
+	# do a load chain of first loading SPL then u-boot.img
+	sudo ${LOCPATH}/imx_usb
 	exit
 fi
 
