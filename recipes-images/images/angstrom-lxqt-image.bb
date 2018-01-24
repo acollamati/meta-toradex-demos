@@ -32,7 +32,9 @@ IMAGE_LINGUAS = "en-us"
 DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
-CONMANPKGS ?= "connman connman-client"
+# for a more complete configuration tool consider replacing lxqt-connman-applet
+# with cmst at the price of a bigger footprint
+CONMANPKGS ?= "connman connman-client lxqt-connman-applet"
 CONMANPKGS_libc-uclibc = ""
 
 #deploy the OpenGL ES headers to the sysroot
