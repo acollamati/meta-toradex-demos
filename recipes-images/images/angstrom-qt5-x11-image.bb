@@ -178,7 +178,7 @@ IMAGE_INSTALL_QT5 = " \
     packagegroup-qt5 \
     liberation-fonts \
     qtsmarthome \
-    qt5-x11-free-systemd \
+    x-window-simple-app \
 "
 
 IMAGE_INSTALL_append_tegra = " \
@@ -235,6 +235,8 @@ IMAGE_INSTALL += " \
     xhost \
     xset \
     setxkbmap \
+    \
+    xserver-nodm-init \
     \
     xrdb \
     xorg-minimal-fonts xserver-xorg-utils \
