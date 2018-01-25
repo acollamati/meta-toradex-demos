@@ -231,14 +231,14 @@ RRECOMMENDS_${PN} += " \
 # deploy these unconditionally, so that they are there for development/debugging
 # for a final image this is unnedded and the applications will pull in whatever needed
 # through their RRECOMMENDS
-QT5_LIBS = " \
+
+# check the licensing at http://doc.qt.io/qt-5/licensing.html
+QT5_LIBS ?= " \
     qt3d \
     qt5-plugin-generic-vboxtouch \
     qtbase \
     qtcanvas3d \
-    qtcharts \
     qtconnectivity \
-    qtdatavis3d \
     qtdeclarative \
     qtenginio \
     qtgraphicaleffects \
@@ -255,12 +255,16 @@ QT5_LIBS = " \
     qtsystems \
     qttools \
     qttranslations \
-    qtvirtualkeyboard \
     qtwebchannel \
     qtwebkit-examples \
     qtwebkit \
     qtwebsockets \
     qtxmlpatterns \
+"
+QT5_LIBS_GPLv3 ?= " \
+    qtcharts \
+    qtdatavis3d \
+    qtvirtualkeyboard \
 "
 
 IMAGE_INSTALL += " \
@@ -307,6 +311,7 @@ IMAGE_INSTALL += " \
     ${IMAGE_BROWSER} \
     sddm \
     ${QT5_LIBS} \
+    ${QT5_LIBS_GPLv3} \
     packagegroup-lxqt-base \
     qedit \
     liberation-fonts \
