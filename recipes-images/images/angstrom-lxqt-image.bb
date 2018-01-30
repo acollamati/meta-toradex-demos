@@ -48,9 +48,6 @@ IMAGE_BROWSER_colibri-vf = ""
 # don't install some packages bloating the vybrid image
 BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
 
-# don't install a second icon theme
-BAD_RECOMMENDATIONS_append = " adwaita-icon-theme adwaita-icon-theme-symbolic"
-
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gstreamer1.0-plugins-base-meta
 #    gstreamer1.0-plugins-good-meta
