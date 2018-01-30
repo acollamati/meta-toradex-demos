@@ -63,6 +63,7 @@ GSTREAMER = " \
     gstreamer1.0-plugins-good-id3demux \
     gstreamer1.0-plugins-good-isomp4 \
     gstreamer1.0-plugins-good-matroska \
+    gstreamer1.0-plugins-good-multifile \
     gstreamer1.0-plugins-good-rtp \
     gstreamer1.0-plugins-good-rtpmanager \
     gstreamer1.0-plugins-good-udp \
