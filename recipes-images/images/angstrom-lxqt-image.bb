@@ -178,10 +178,6 @@ IMAGE_INSTALL_append_tegra = " \
     eglinfo-x11 \
     xvinfo \
 "
-IMAGE_INSTALL_append_tegra3 = " \
-    \
-    packagegroup-snapd \
-"
 IMAGE_INSTALL_append_tegra124 = " \
     libglu \
     mesa-demos \
@@ -189,8 +185,6 @@ IMAGE_INSTALL_append_tegra124 = " \
     mime-support \
     tiff \
     xvinfo \
-    \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     libglu \
@@ -199,15 +193,11 @@ IMAGE_INSTALL_append_tegra124m = " \
     mime-support \
     tiff \
     xvinfo \
-    \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_MX6QDL = " \
     packagegroup-fsl-gpu-libs \
     mime-support \
     eglinfo-x11 \
-    \
-    packagegroup-snapd \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL_MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL_MX6QDL}"
