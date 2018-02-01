@@ -30,7 +30,7 @@ IMAGE_LINGUAS = "en-us"
 #ROOTFS_POSTPROCESS_COMMAND += 'install_linguas; '
 
 DISTRO_UPDATE_ALTERNATIVES ??= ""
-ROOTFS_PKGMANAGE_PKGS ?= '${@base_conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
+ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
 # for a more complete configuration tool consider replacing lxqt-connman-applet
 # with cmst at the price of a bigger footprint
