@@ -1,4 +1,5 @@
 SUMMARY = "Toradex Embedded Linux Qt4 Demo With X11"
+SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 
 LICENSE = "MIT"
 

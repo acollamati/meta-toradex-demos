@@ -1,4 +1,5 @@
 SUMMARY = "Toradex Embedded Linux Qt5 Demo With X11"
+SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 
 # after the boot systemd starts X and then a qt5 application
 # check recipes-qt/qt5/qt5-x11-free-systemd.bb for the systemd service

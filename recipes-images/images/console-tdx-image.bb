@@ -1,4 +1,5 @@
 SUMMARY = "Toradex Embedded Linux Console Demo"
+SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 
 LICENSE = "MIT"
 
