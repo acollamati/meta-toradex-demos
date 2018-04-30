@@ -1,3 +1,5 @@
+test -n ${fdt_module} || setenv fdt_module apalis
+
 setenv set_blkcnt 'setexpr blkcnt ${filesize} + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200'
 #workaround U-Boot counting in hex and split did in decimal
 setenv incr_decimal 'setexpr filenum ${filenum} + 1; setexpr filenrlow1 ${filenum} % 0x100; setexpr filenrlow2 ${filenrlow1} % 0x10; test ${filenrlow1} -eq "9a" && test ${filenrlow2} -ne "9" && setexpr filenum ${filenum} + 0x66; test ${filenrlow1} -ne "9a" && test ${filenrlow2} -eq "a" && setexpr filenum ${filenum} + 0x6; true'
@@ -11,7 +13,7 @@ setenv update_uboot 'tftpboot ${fdt_addr_r} ${board_name}/${board_name}.img && r
 
 setenv update_kernel 'tftpboot ${fdt_addr_r} ${board_name}/zImage && fatwrite mmc 0:1 ${fdt_addr_r} zImage ${filesize}'
 
-setenv update_fdt 'tftpboot ${fdt_addr_r} ${board_name}/${soc}-apalis-${fdt_board}.dtb && fatwrite mmc 0:1 ${fdt_addr_r} ${soc}-apalis-${fdt_board}.dtb ${filesize}'
+setenv update_fdt 'tftpboot ${fdt_addr_r} ${board_name}/${soc}-${fdt_module}-${fdt_board}.dtb && fatwrite mmc 0:1 ${fdt_addr_r} ${soc}-${fdt_module}-${fdt_board}.dtb ${filesize}'
 
 setenv update_configblock 'run check_configblock; tftpboot ${fdt_addr_r} ${board_name}/configblock.bin && mmc dev 0 1 && mmc write ${fdt_addr_r} ${conf_blk_offset} 1'
 

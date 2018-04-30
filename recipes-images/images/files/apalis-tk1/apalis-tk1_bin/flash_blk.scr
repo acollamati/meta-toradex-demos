@@ -1,5 +1,6 @@
-test -n ${interface} || setenv interface mmc
 test -n ${drive} || setenv drive 1
+test -n ${fdt_module} || setenv fdt_module apalis
+test -n ${interface} || setenv interface mmc
 
 setenv set_blkcnt 'setexpr blkcnt ${filesize} + 0x1ff && setexpr blkcnt ${blkcnt} / 0x200'
 #workaround U-Boot counting in hex and split did in decimal
@@ -14,7 +15,7 @@ setenv update_uboot 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/${
 
 setenv update_kernel 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/zImage && fatwrite mmc 0:1 ${fdt_addr_r} zImage ${filesize}'
 
-setenv update_fdt 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/${soc}-apalis-${fdt_board}.dtb && fatwrite mmc 0:1 ${fdt_addr_r} ${soc}-apalis-${fdt_board}.dtb ${filesize}'
+setenv update_fdt 'load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/${soc}-${fdt_module}-${fdt_board}.dtb && fatwrite mmc 0:1 ${fdt_addr_r} ${soc}-${fdt_module}-${fdt_board}.dtb ${filesize}'
 
 setenv update_configblock 'run check_configblock; load ${interface} ${drive}:1 ${fdt_addr_r} ${board_name}/configblock.bin && mmc dev 0 1 && mmc write ${fdt_addr_r} ${conf_blk_offset} 1'
 
