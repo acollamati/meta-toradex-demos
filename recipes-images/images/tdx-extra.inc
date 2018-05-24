@@ -161,6 +161,7 @@ IMAGE_INSTALL_append_colibri-imx6ull = " \
     u-boot-toradex-fsl-fw-utils \
     mtd-utils-ubifs \
     bluez-alsa \
+    mwifiexap \
 "
 
 IMAGE_INSTALL += " \
