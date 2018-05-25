@@ -198,6 +198,7 @@ IMAGE_INSTALL += " \
     hdparm \
     iperf3 \
     i2c-tools \
+    libsoc \
     memtester \
     mmc-utils-cos \
     rt-tests \
