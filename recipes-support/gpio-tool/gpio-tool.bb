@@ -28,16 +28,13 @@ do_install() {
     install -d ${D}/${bindir}
     install -d ${D}/${datadir}/applications
     install -d ${D}/${datadir}/pixmaps
+    install -d ${D}/home/root/Desktop
     install -m 755 ${WORKDIR}/gpio-tool ${D}/${bindir}/
     install -m 644 ${WORKDIR}/gpio-tool.desktop ${D}/${datadir}/applications/
     install -m 644 ${WORKDIR}/gpio-tool.png ${D}/${datadir}/pixmaps/
+    ln -s ${datadir}/applications/gpio-tool.desktop ${D}/home/root/Desktop/
 }
 
-pkg_postinst_${PN}() {
-    mkdir -p ${base_prefix}/home/root/Desktop
-    cp ${datadir}/applications/gpio-tool.desktop ${base_prefix}/home/root/Desktop/
-}
-
-pkg_postrm_${PN}() {
-    rm -f ${base_prefix}/home/Desktop/gpio-tool.desktop
-}
+FILES_${PN} += " \
+    /home/root/Desktop \
+"
