@@ -33,5 +33,5 @@ do_install () {
 
 # make sure xinput_calibrator is only started once
 pkg_postinst_${PN}() {
-    rm /etc/xdg/autostart/xinput_calibrator.desktop
+    rm -f /etc/xdg/autostart/xinput_calibrator.desktop
 }
