@@ -55,11 +55,7 @@ do_install_append_apalis-tk1 () {
     sed -i 's/monitor=1/monitor=0/' ${D}/etc/xdg/lxpanel/LXDE/panels/panel2
 }
 
-pkg_postinst_${PN}_vf () {
-    # can't do this offline
-    if [ "x$D" != "x" ]; then
-        exit 1
-    fi
+pkg_postinst_ontarget_${PN}_vf () {
     IS_VF50=`grep -c VF50 /proc/cpuinfo`
     IS_VF50_DTB=`grep -c toradex,vf500-colibri_vf50 /proc/device-tree/compatible`
     IS_VF61=`grep -c VF61 /proc/cpuinfo`
@@ -71,11 +67,7 @@ pkg_postinst_${PN}_vf () {
     fi
 }
 
-pkg_postinst_${PN}_mx6 () {
-    # can't do this offline
-    if [ "x$D" != "x" ]; then
-        exit 1
-    fi
+pkg_postinst_ontarget_${PN}_mx6 () {
     SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
     CORES=`grep -c processor /proc/cpuinfo`
     case $CORES in
@@ -101,15 +93,11 @@ pkg_postinst_${PN}_mx6 () {
 # the ull is in the mx6 soc family, so give a more specific override here
 # do nothing, but do not prevent the injected update-alternatives to run on
 # the target.
-pkg_postinst_${PN}_mx6ull () {
+pkg_postinst_ontarget_${PN}_mx6ull () {
     :
 }
 
-pkg_postinst_${PN}_mx7 () {
-    # can't do this offline
-    if [ "x$D" != "x" ]; then
-        exit 1
-    fi
+pkg_postinst_ontarget_${PN}_mx7 () {
 # Currently the soc bus subsystem seems not to work on i.MX 7Solo
 #    SOC_TYPE=`cat /sys/bus/soc/devices/soc0/soc_id`
 #    if [ "x$SOC_TYPE" = "xi.MX7D" ]; then
