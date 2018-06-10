@@ -159,6 +159,8 @@ fakeroot imagedeploy_arm() {
     cd ${WORKDIR}
     cp -Lr ${BURNFLASH}/* ${IMAGE_DIR}/
 
+    sed -i 's/%kernel_device_trees%/${KERNEL_DEVICETREE}/' ${IMAGE_DIR}/update.sh
+
     cd ${IMAGE_DIR}/${MACHINE}_bin
     ./mk-u-boot-scripts.sh
     cd ${WORKDIR}

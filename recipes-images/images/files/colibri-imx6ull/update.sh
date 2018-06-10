@@ -67,7 +67,7 @@ Usage()
 }
 
 # initialise options
-KERNEL_DEVICETREE="imx6ull-colibri-eval-v3.dtb imx6ull-colibri-wifi-eval-v3.dtb"
+KERNEL_DEVICETREE="%kernel_device_trees%"
 KERNEL_IMAGETYPE="zImage"
 MODTYPE_DETECT=0
 

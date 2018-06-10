@@ -131,9 +131,7 @@ case "$MODTYPE" in
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext4
-		KERNEL_DEVICETREE="imx6q-apalis-eval.dtb imx6q-apalis_v1_0-eval.dtb \
-                                  imx6q-apalis-ixora.dtb imx6q-apalis_v1_0-ixora.dtb \
-                                  imx6q-apalis-ixora-v1.1.dtb"
+		KERNEL_DEVICETREE="%kernel_device_trees%"
 		LOCPATH="`pwd`/imx_flash"
 		OUT_DIR="$OUT_DIR/apalis_imx6"
 		;;
@@ -141,7 +139,7 @@ case "$MODTYPE" in
 		# assumed minimal eMMC size [in sectors of 512]
 		EMMC_SIZE=$(expr 1024 \* 3500 \* 2)
 		IMAGEFILE=root.ext4
-		KERNEL_DEVICETREE="imx6dl-colibri-eval-v3.dtb imx6dl-colibri-cam-eval-v3.dtb imx6dl-colibri-aster.dtb"
+		KERNEL_DEVICETREE="%kernel_device_trees%"
 		LOCPATH="`pwd`/imx_flash"
 		OUT_DIR="$OUT_DIR/colibri_imx6"
 		;;

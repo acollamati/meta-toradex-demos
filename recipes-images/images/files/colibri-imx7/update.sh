@@ -67,7 +67,7 @@ Usage()
 }
 
 # initialise options
-KERNEL_DEVICETREE="imx7s-colibri-eval-v3.dtb imx7d-colibri-eval-v3.dtb imx7s-colibri-aster.dtb imx7d-colibri-aster.dtb"
+KERNEL_DEVICETREE="%kernel_device_trees%"
 KERNEL_IMAGETYPE="zImage"
 MODTYPE_DETECT=0
 

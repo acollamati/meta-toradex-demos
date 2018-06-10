@@ -71,7 +71,7 @@ Usage()
 }
 
 # initialise options
-KERNEL_DEVICETREE="vf500-colibri-eval-v3.dtb vf610-colibri-eval-v3.dtb vf500-colibri-aster.dtb vf610-colibri-aster.dtb"
+KERNEL_DEVICETREE="%kernel_device_trees%"
 KERNEL_IMAGETYPE="zImage"
 MODTYPE_DETECT=0
 NORTSCTS=0
