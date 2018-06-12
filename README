@@ -14,12 +14,12 @@ Dependencies
 This layer depends on the relevant BSP layers for your machine and:
 
   URI: git://git.openembedded.org/bitbake
-  branch: 1.32
+  branch: 1.36
   revision: HEAD
 
   URI: git://git.openembedded.org/openembedded-core
   layer: meta
-  branch: morty
+  branch: rocko
   revision: HEAD
 
   URI: git://git.openembedded.org/meta-openembedded
@@ -28,35 +28,35 @@ This layer depends on the relevant BSP layers for your machine and:
     meta-multimedia
     meta-networking
     meta-oe
-  branch: morty
+  branch: rocko
   revision: HEAD
 
   URI: https://github.com/angstrom-distribution/meta-angstrom.git
-  branch: angstrom-v2016.12-yocto2.2
+  branch: angstrom-v2017.12-rocko
   revision: HEAD
 
   URI: https://github.com/OSSystems/meta-browser.git
-  branch: morty
-  revision: HEAD
+  branch: master
+  revision: cf35eca0de52d5a34dabe2068e68348367db8e55
 
   URI: git://git.yoctoproject.org/meta-freescale
-  branch: morty
+  branch: rocko
   revision: HEAD
 
   URI: https://github.com/freescale/meta-freescale-distro.git
-  branch: morty
+  branch: rocko
   revision: HEAD
 
   URI: git://git.toradex.com/meta-lxde.git
-  branch: morty
+  branch: rocko
   revision: HEAD
 
-  URI: https://github.com/meta-qt5/meta-qt4
-  branch: morty
+  URI: git://git.yoctoproject.org/meta-qt4
+  branch: rocko
   revision: HEAD
 
   URI: https://github.com/meta-qt5/meta-qt5
-  branch: morty
+  branch: rocko
   revision: HEAD
 
 Patches
