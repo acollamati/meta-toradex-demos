@@ -36,6 +36,7 @@ IMAGE_INSTALL_append_tegra3 = " \
     e2fsprogs-resize2fs \
     e2fsprogs-tune2fs \
     nv-conf-systemd \
+    perf \
 "
 
 IMAGE_INSTALL_append_tegra124 = " \
@@ -54,6 +55,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     tegrastats \
     u-boot-toradex-fw-utils \
     usb-rndis-systemd \
+    perf \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     aspell \
@@ -69,6 +71,7 @@ IMAGE_INSTALL_append_tegra124m = " \
     pciutils \
     ptpd \
     u-boot-toradex-fw-utils \
+    perf \
 "
 
 IMAGE_INSTALL_append_apalis-t30 = " \
@@ -105,9 +108,11 @@ IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL-MX6QDL}"
 
 IMAGE_INSTALL_append_apalis-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
+    perf \
 "
 IMAGE_INSTALL_append_colibri-imx6 = " \
     u-boot-toradex-fsl-fw-utils \
+    perf \
 "
 
 IMAGE_INSTALL_append_mx6ull = " \
@@ -150,6 +155,7 @@ IMAGE_INSTALL_append_mx7 = " \
 
 IMAGE_INSTALL_append_colibri-imx7-emmc = " \
     u-boot-toradex-fsl-fw-utils \
+    perf \
 "
 
 IMAGE_INSTALL_append_colibri-imx7 = " \
