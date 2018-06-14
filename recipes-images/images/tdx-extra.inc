@@ -249,6 +249,10 @@ IMAGE_INSTALL_remove_apalis-tk1-mainline = " \
     backports \
 "
 
+IMAGE_INSTALL_remove_colibri-t20 = " \
+    linux-firmware-ath10k \
+"
+
 IMAGE_INSTALL_append_apalis-t30 = " \
     ${BACKPORTS_WIFI_EXTRA} \
 "
