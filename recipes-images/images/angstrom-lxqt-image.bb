@@ -36,7 +36,6 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "
 # for a more complete configuration tool consider replacing lxqt-connman-applet
 # with cmst at the price of a bigger footprint
 CONMANPKGS ?= "connman connman-client lxqt-connman-applet"
-CONMANPKGS_libc-uclibc = ""
 
 #deploy the OpenGL ES headers to the sysroot
 DEPENDS_append_tegra = " nvsamples"

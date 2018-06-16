@@ -24,7 +24,6 @@ DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
 CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
-CONMANPKGS_libc-uclibc = ""
 
 #don't install some id databases
 #BAD_RECOMMENDATIONS_append_colibri-vf += " udev-hwdb cpufrequtils "
