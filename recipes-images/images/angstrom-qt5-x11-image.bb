@@ -1,9 +1,10 @@
 SUMMARY = "Toradex Embedded Linux Qt5 Demo With X11"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 
-# after the boot systemd starts X and then a qt5 application
-# check recipes-qt/qt5/qt5-x11-free-systemd.bb for the systemd service
-# responsible for this
+# after the boot systemd starts X and then a qt5 application, check
+# recipes-graphics/x-window-simple-app/x-window-simple-app and
+# https://developer.toradex.com/knowledge-base/how-to-autorun-application-at-the-start-up-in-linux#X11_with_One_User_Application
+# for how this is done.
 
 LICENSE = "MIT"
 
