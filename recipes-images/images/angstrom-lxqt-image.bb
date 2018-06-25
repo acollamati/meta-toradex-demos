@@ -41,7 +41,7 @@ CONMANPKGS ?= "connman connman-client lxqt-connman-applet"
 #deploy the OpenGL ES headers to the sysroot
 DEPENDS_append_tegra = " nvsamples"
 
-IMAGE_BROWSER = ""
+IMAGE_BROWSER = "falkon"
 #keep the rootfs size small
 IMAGE_BROWSER_colibri-imx6ull = ""
 IMAGE_BROWSER_colibri-vf = ""
