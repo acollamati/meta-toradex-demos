@@ -22,6 +22,5 @@ RDEPENDS_${PN} = " \
 "
 
 QTWEBKIT ??= "\
-	qtquick1 \
 	qtwebkit \
 "

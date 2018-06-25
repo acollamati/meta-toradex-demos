@@ -231,7 +231,6 @@ QT5_LIBS ?= " \
     qtimageformats \
     qtlocation \
     qtmultimedia \
-    qtquick1 \
     qtquickcontrols2 \
     qtquickcontrols \
     qtscript \
