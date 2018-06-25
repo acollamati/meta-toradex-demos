@@ -9,6 +9,7 @@ IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
 UBOOT_EXT = "bin"
 UBOOT_EXT_mx6 = "img"
+UBOOT_EXT_use-mainline-bsp = "img"
 UBOOT_EXT_colibri-imx6ull = "imx"
 UBOOT_EXT_mx7 = "imx"
 UBOOT_EXT_vf = "imx"
@@ -26,6 +27,7 @@ UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 #we need some native tools for deployment
 DEPENDS_append = " pbzip2-native"
 DEPENDS_append_mx6 = " imx-loader-native"
+DEPENDS_append_use-mainline-bsp = " imx-loader-native"
 DEPENDS_append_mx6ull = " mtd-utils-native imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
 DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
@@ -42,6 +44,18 @@ imagedeploytools() {
     :
 }
 
+imagedeploytools-all-mx6qdl() {
+    IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
+    rm -f ${IMAGE_ROOT}/imx_flash/imx_usb ${IMAGE_ROOT}/imx_flash/*.conf
+    mkdir -p ${IMAGE_ROOT}
+
+    # add imx-loader and its configuration files
+    cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_*.conf ${IMAGE_ROOT}/
+}
+
 imagedeploytools_append_mx6() {
     IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
     rm -f ${IMAGE_ROOT}/imx_flash/imx_usb ${IMAGE_ROOT}/imx_flash/*.conf
@@ -52,6 +66,19 @@ imagedeploytools_append_mx6() {
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_*.conf ${IMAGE_ROOT}/
+}
+
+imagedeploytools_append_use-mainline-bsp() {
+    IMAGE_ROOT="${IMAGE_ROOTFS}/../imx_flash/"
+    rm -f ${IMAGE_ROOT}/imx_flash/imx_usb ${IMAGE_ROOT}/imx_flash/*.conf
+    mkdir -p ${IMAGE_ROOT}
+
+    # add imx-loader and its configuration files
+    cp ${STAGING_BINDIR_NATIVE}/imx_usb ${IMAGE_ROOT}/
+    ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
+    cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx6_usb_*.conf ${IMAGE_ROOT}/
+
 }
 
 imagedeploytools_append_mx6ull() {
