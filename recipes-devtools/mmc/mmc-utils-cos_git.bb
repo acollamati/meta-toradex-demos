@@ -13,7 +13,10 @@ SRCREV = "bcc3e2e4246431be511be3959a11cd9733bedd29"
 
 PV = "0.1"
 
-SRC_URI = "git://chromium.googlesource.com/chromiumos/third_party/mmc-utils.git;protocol=https;branch=${SRCBRANCH}"
+SRC_URI  = " \
+    git://chromium.googlesource.com/chromiumos/third_party/mmc-utils.git;protocol=https;branch=${SRCBRANCH} \
+    file://0001-lsmmc-replace-strncpy-with-memmove-on-overlapping-me.patch \
+"
 
 S = "${WORKDIR}/git"
 
