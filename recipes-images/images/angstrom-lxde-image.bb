@@ -246,8 +246,6 @@ RRECOMMENDS_${PN} += " \
 IMAGE_INSTALL += " \
     eject \
     gconf \
-    gnome-vfs \
-    gnome-vfs-plugin-file \
     gvfs \
     gvfsd-trash \
     xdg-utils \
@@ -279,7 +277,6 @@ IMAGE_INSTALL += " \
     libxdamage libxvmc libxinerama \
     libxcursor \
     \
-    florence3 \
     bash \
     \
     ${GSTREAMER} \
@@ -290,6 +287,11 @@ IMAGE_INSTALL += " \
     alsa-states \
     ${IMAGE_BROWSER} \
 "
+#    gnome-vfs \
+#    gnome-vfs-plugin-file \
+#    florence3 \
+#
+
 require recipes-images/images/lx.inc
 require recipes-images/images/tdx-extra.inc
 
