@@ -116,7 +116,6 @@ IMAGE_INSTALL_append_colibri-imx6 = " \
 "
 
 IMAGE_INSTALL_append_mx6ull = " \
-    bmode-usb \
     libusbgx \
     libusbgx-examples \
     linuxptp \
