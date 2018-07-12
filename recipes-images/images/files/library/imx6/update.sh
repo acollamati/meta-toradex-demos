@@ -264,17 +264,12 @@ mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/${KERNEL_IMAGETYPE} ::/${KERNEL_IM
 # Copy device tree file
 COPIED=false
 if test -n "${KERNEL_DEVICETREE}"; then
-	for DTS_FILE in ${KERNEL_DEVICETREE}; do
-		DTS_BASE_NAME=`basename ${DTS_FILE} .dtb`
-		if [ -e "${BINARIES}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb" ]; then
-			kernel_bin="`readlink ${BINARIES}/${KERNEL_IMAGETYPE}`"
-			kernel_bin_for_dtb="`readlink ${BINARIES}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb | sed "s,$DTS_BASE_NAME,${MODTYPE},g;s,\.dtb$,.bin,g"`"
-			if [ "$kernel_bin" = "$kernel_bin_for_dtb" ]; then
-				mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb ::/${DTS_BASE_NAME}.dtb
-				#copy also to out_dir
-				sudo cp ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb "$OUT_DIR/${DTS_BASE_NAME}.dtb"
-				COPIED=true
-			fi
+	for DTB_FILE in ${KERNEL_DEVICETREE}; do
+		if [ -e "${BINARIES}/${DTB_FILE}" ]; then
+			mcopy -i ${BINARIES}/boot.vfat -s ${BINARIES}/${DTB_FILE} ::/${DTB_FILE}
+			#copy also to out_dir
+			sudo cp ${BINARIES}/${DTB_FILE} "$OUT_DIR/"
+			COPIED=true
 		fi
 	done
 	[ $COPIED = true ] || { echo "Did not find the devicetrees from KERNEL_DEVICETREE, ${KERNEL_DEVICETREE}.  Aborting."; exit 1; }

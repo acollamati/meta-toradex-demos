@@ -200,8 +200,8 @@ sudo mkdir -p "$OUT_DIR"
 COPIED=false
 if test -n "${KERNEL_DEVICETREE}"; then
 	for DTB_FILE in ${KERNEL_DEVICETREE}; do
-		if [ -e "${BINARIES}/${KERNEL_IMAGETYPE}-${DTB_FILE}" ]; then
-			sudo cp ${BINARIES}/${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTB_FILE} "$OUT_DIR/${DTB_FILE}"
+		if [ -e "${BINARIES}/${DTB_FILE}" ]; then
+			sudo cp ${BINARIES}/${DTB_FILE} "$OUT_DIR/"
 			COPIED=true
 		fi
 	done
