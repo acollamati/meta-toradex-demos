@@ -59,4 +59,4 @@ IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
 
-inherit image
+inherit core-image
