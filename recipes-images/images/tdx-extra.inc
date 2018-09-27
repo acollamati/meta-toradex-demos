@@ -226,6 +226,7 @@ BACKPORTS_WIFI = " \
     linux-firmware-sd8787    \
     linux-firmware-sd8797    \
     linux-firmware-sd8887    \
+    linux-firmware-sd8997    \
     linux-firmware-ralink    \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8188eu \
