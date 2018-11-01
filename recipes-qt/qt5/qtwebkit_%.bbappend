@@ -1,6 +1,3 @@
-PACKAGECONFIG_append_tegra = " \
-    gstreamer010 \
-"
 PACKAGECONFIG_remove_tegra = " \
     gstreamer \
 "
