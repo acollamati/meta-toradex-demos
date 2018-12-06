@@ -1,5 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Qt4 Demo With X11"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
+DESCRIPTION = "Angstrom-based image with the Qt4 Framework and the X11 server"
 
 LICENSE = "MIT"
 

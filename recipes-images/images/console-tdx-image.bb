@@ -1,5 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Console Demo"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
+DESCRIPTION = "Angstrom-based image without graphical interface"
 
 LICENSE = "MIT"
 

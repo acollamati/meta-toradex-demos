@@ -1,5 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Demo with LXDE"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
+DESCRIPTION = "Angstrom-based image with the LXDE desktop environment"
 
 LICENSE = "MIT"
 

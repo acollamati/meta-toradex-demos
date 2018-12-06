@@ -1,5 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Qt5 Demo With X11"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
+DESCRIPTION = "Angstrom-based image with the Qt5 Framework and the X11 server"
 
 # after the boot systemd starts X and then a qt5 application, check
 # recipes-graphics/x-window-simple-app/x-window-simple-app and
