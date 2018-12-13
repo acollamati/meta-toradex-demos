@@ -199,19 +199,20 @@ IMAGE_INSTALL += " \
     util-linux-fstrim \
     \
     devmem2 \
+    ethtool \
     evtest \
     hdparm \
     iperf3 \
     i2c-tools \
     libsoc \
+    lmbench \
     memtester \
     mmc-utils-cos \
+    nbench-byte \
     rt-tests \
     stress \
-    lmbench \
-    nbench-byte \
     tinymembench \
-    ethtool \
+    util-linux-lsblk \
     \
     tdx-oak-sensors \
 "
