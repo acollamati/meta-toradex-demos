@@ -107,11 +107,11 @@ IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL-MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL-MX6QDL}"
 
 IMAGE_INSTALL_append_apalis-imx6 = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
     perf \
 "
 IMAGE_INSTALL_append_colibri-imx6 = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
     perf \
 "
 
@@ -140,7 +140,7 @@ IMAGE_INSTALL_append_vf = " \
 "
 
 IMAGE_INSTALL_append_colibri-vf = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
 "
 
 IMAGE_INSTALL_append_mx7 = " \
@@ -153,17 +153,17 @@ IMAGE_INSTALL_append_mx7 = " \
 "
 
 IMAGE_INSTALL_append_colibri-imx7-emmc = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
     perf \
 "
 
 IMAGE_INSTALL_append_colibri-imx7 = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
     mtd-utils-ubifs \
 "
 
 IMAGE_INSTALL_append_colibri-imx6ull = " \
-    u-boot-toradex-fsl-fw-utils \
+    u-boot-toradex-fw-utils \
     mtd-utils-ubifs \
     bluez-alsa \
     mwifiexap \
