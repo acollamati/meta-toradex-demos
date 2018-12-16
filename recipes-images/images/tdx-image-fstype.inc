@@ -3,7 +3,6 @@
 include conf/tdx_version.conf
 
 PV = "${TDX_VER_PACKAGE_MIN}"
-BURNFLASH := "${THISDIR}/files/${MACHINE}"
 IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_ITEM}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
 
@@ -25,7 +24,7 @@ UBOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${UBOOT_EXT}"
 UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 
 #we need some native tools for deployment
-DEPENDS_append = " pbzip2-native"
+DEPENDS_append = " pbzip2-native tdx-updater"
 DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_use-mainline-bsp = " imx-loader-native"
 DEPENDS_append_mx6ull = " mtd-utils-native imx-loader-native"
@@ -37,7 +36,7 @@ DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
 #we need mkimage to produce the U-Boot scripts even if not building a uImage kernel
 DEPENDS_append_arm = " virtual/bootloader u-boot-mkimage-native"
-DEPENDS_remove_qemuarm = "virtual/bootloader"
+DEPENDS_remove_qemuall = "virtual/bootloader"
 
 imagedeploytools() {
     # default to nothing to deploy
@@ -113,7 +112,7 @@ imagedeploytools_append_mx7() {
     ${BUILD_STRIP} ${IMAGE_ROOT}/imx_usb
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_*.conf ${IMAGE_ROOT}/
-    cp ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY} ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot.imx
+    cp ${MACHINE_BIN}/${UBOOT_BINARY} ${MACHINE_BIN}/u-boot.imx
 }
 
 imagedeploytools_append_tegra() {
@@ -173,9 +172,9 @@ imagedeploytools_append_vf() {
 
 imagedeploy_kernel() {
     # put kernel, existing device-tree(s) into the bin directories
-    cp -pP ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
-    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${IMAGE_ROOTFS}/../${MACHINE}_bin/
-    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${KERNEL_IMAGETYPE}-${MACHINE}.bin ${IMAGE_ROOTFS}/../${MACHINE}_bin/${KERNEL_IMAGETYPE}
+    cp -pP ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}* ${MACHINE_BIN}/
+    ls ${DEPLOY_DIR_IMAGE}/*.dtb 2> /dev/null && cp -pP ${DEPLOY_DIR_IMAGE}/*.dtb ${MACHINE_BIN}/
+    mv ${MACHINE_BIN}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ${MACHINE_BIN}/${KERNEL_IMAGETYPE}
 }
 
 fakeroot imagedeploy() {
@@ -184,23 +183,24 @@ fakeroot imagedeploy() {
 
 fakeroot imagedeploy_arm() {
     cd ${WORKDIR}
-    cp -Lr ${BURNFLASH}/* ${IMAGE_DIR}/
+    cp -Lr ${RECIPE_SYSROOT}${datadir}/update/* ${IMAGE_DIR}/
+    export MACHINE_BIN=$(readlink -e ${IMAGE_ROOTFS}/../*_bin)
 
     sed -i 's/%kernel_device_trees%/${KERNEL_DEVICETREE}/' ${IMAGE_DIR}/update.sh
 
-    cd ${IMAGE_DIR}/${MACHINE}_bin
+    cd ${IMAGE_DIR}/*_bin
     ./mk-u-boot-scripts.sh
     cd ${WORKDIR}
 
     imagedeploy_kernel
 
-    cp -P ${DEPLOY_DIR_IMAGE}/u-boot* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+    cp -P ${DEPLOY_DIR_IMAGE}/u-boot* ${MACHINE_BIN}/
     if [ -e ${DEPLOY_DIR_IMAGE}/SPL ]
     then
-        cp -P ${DEPLOY_DIR_IMAGE}/SPL* ${IMAGE_ROOTFS}/../${MACHINE}_bin/
+        cp -P ${DEPLOY_DIR_IMAGE}/SPL* ${MACHINE_BIN}/
     fi
-    rm -f ${IMAGE_ROOTFS}/../${MACHINE}_bin/u-boot-hsmmc-${MACHINE}.${UBOOT_EXT}
-    mv ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_SYMLINK} ${IMAGE_ROOTFS}/../${MACHINE}_bin/${UBOOT_BINARY}
+    rm -f ${MACHINE_BIN}/u-boot-hsmmc-${MACHINE}.${UBOOT_EXT}
+    mv ${MACHINE_BIN}/${UBOOT_SYMLINK} ${MACHINE_BIN}/${UBOOT_BINARY}
 
     # add additional tools if required
     imagedeploytools
@@ -214,7 +214,7 @@ fakeroot imagedeploy_arm() {
 }
 
 fakeroot do_imagedeploy() {
-    if [ -e ${BURNFLASH} ]
+    if [ ! -e ${RECIPE_SYSROOT}/${datadir}/update/no_update_defined.txt ]
     then
         imagedeploy
     fi

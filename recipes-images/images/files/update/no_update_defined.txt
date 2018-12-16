@@ -1,0 +1,16 @@
+For this machine no directory with the files for the legacy update
+procedure was found. So the legacy update image will not be built.
+
+If you inherited your machine.conf from one of the toradex machines for which
+the legacy update exists make sure to amend your overrides, e.g. if your
+building for a colibri-imx6.conf derived machine add something like this to
+your machine.conf file:
+
+MACHINEOVERRIDES .= ":colibri-imx6
+
+alternatively add a directory tree with the needed files for your machine
+to:
+
+images/files/<machine>/update/
+
+Note that this must not include a file named no_update_defined.txt!
