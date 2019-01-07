@@ -7,7 +7,6 @@ LICENSE = "MIT"
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "Console-Image"
 IMAGE_NAME_apalis-imx6 = "Apalis-iMX6_${IMAGE_BASENAME}"
-IMAGE_NAME_apalis-t30 = "Apalis-T30_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1 = "Apalis-TK1_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1-mainline = "Apalis-TK1-Mainline_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx6 = "Colibri-iMX6_${IMAGE_BASENAME}"
@@ -15,8 +14,6 @@ IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-t20 = "Colibri-T20_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-t30 = "Colibri-T30_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
@@ -40,7 +37,6 @@ CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-p
 #deploy the X server for the tegras
 #this adds a few MB to the image, but all graphical HW acceleration is
 #available only on top of X, this is not required for nouveau based build.
-IMAGE_INSTALL_append_tegra = " ${XSERVER} xterm xclock"
 IMAGE_INSTALL_append_tegra124 = " ${XSERVER} xterm xclock"
 
 IMAGE_INSTALL += " \

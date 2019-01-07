@@ -1,4 +1,3 @@
-PACKAGECONFIG_GL_tegra = "gles2"
 PACKAGECONFIG_EXAMPLES ?= "examples"
 
 # | /build/krm/oe-core_V2.6/build/out-glibc/work/armv7at2hf-vfp-neon-mx6qdl-angstrom-linux-gnueabi/qtbase/5.5.1+gitAUTOINC+5afc431323-r0/git/src/widgets/styles/qgtkstyle.cpp: In member function 'virtual QRect QGtkStyle::subControlRect(QStyle::ComplexControl, const QStyleOptionComplex*, QStyle::SubControl, const QWidget*) const':
@@ -18,5 +17,3 @@ PACKAGECONFIG_append = " \
     icu \
     ${PACKAGECONFIG_EXAMPLES} \
 "
-
-PACKAGE_ARCH_tegra = "${MACHINE_ARCH}"

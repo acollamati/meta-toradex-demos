@@ -39,43 +39,24 @@ AWKTEST=`echo 12345678abcdefgh | awk 'BEGIN{ FIELDWIDTHS = "8 8"} {print $2}'` |
 [ "${AWKTEST}x" = "abcdefghx" ] || { echo >&2 "Program gawk not available.  Aborting."; exit 1; }
 
 # autotect MODTYPE from from rootfs directory
-CNT=`grep -c "T20" rootfs/etc/issue || true`
-if [ ${CNT} -ge 1 ] ; then
-	echo "Colibri T20 rootfs detected"
-	MODTYPE=colibri-t20
-	BOOT_DEVICE=nand
+CNT=`grep -c "VF" rootfs/etc/issue || true`
+if [ "$CNT" -ge 1 ] ; then
+	echo "Colibri VF rootfs detected"
+	MODTYPE=colibri-vf
 else
-	CNT=`grep -c "T30" rootfs/etc/issue || true`
-	if [ ${CNT} -ge 1 ] ; then
-		CNT=`grep -c "Apalis" rootfs/etc/issue || true`
-		if [ ${CNT} -ge 1 ] ; then
-			echo "Apalis T30 rootfs detected"
-			MODTYPE=apalis-t30
-		else
-			echo "Colibri T30 rootfs detected"
-			MODTYPE=colibri-t30
-		fi
+	CNT=`grep -c "Colibri_iMX6" rootfs/etc/issue || true`
+	if [ "$CNT" -ge 1 ] ; then
+		echo "Colibri iMX6 rootfs detected"
+		MODTYPE=colibri-imx6
 	else
-		CNT=`grep -c "VF" rootfs/etc/issue || true`
+		CNT=`grep -ic "imx6" rootfs/etc/issue || true`
 		if [ "$CNT" -ge 1 ] ; then
-			echo "Colibri VF rootfs detected"
-			MODTYPE=colibri-vf
+			echo "Apalis iMX6 rootfs detected"
+			MODTYPE=apalis-imx6
 		else
-			CNT=`grep -c "Colibri_iMX6" rootfs/etc/issue || true`
-			if [ "$CNT" -ge 1 ] ; then
-				echo "Colibri iMX6 rootfs detected"
-				MODTYPE=colibri-imx6
-			else
-				CNT=`grep -ic "imx6" rootfs/etc/issue || true`
-				if [ "$CNT" -ge 1 ] ; then
-					echo "Apalis iMX6 rootfs detected"
-					MODTYPE=apalis-imx6
-				else
-					echo "can not detect modulue type from ./rootfs/etc/issue"
-					echo "exiting"
-					exit 1
-				fi
-			fi
+			echo "can not detect modulue type from ./rootfs/etc/issue"
+			echo "exiting"
+			exit 1
 		fi
 	fi
 fi
@@ -127,19 +108,6 @@ else
 			;;
 		esac
 		;;
-	"apalis-t30")
-		RAM_SIZE=1024
-		echo "Enter the RAM size ( 1024 / 2048 ):"
-		read RAM_SIZE
-		case ${RAM_SIZE} in
-		"1024") 
-			PROD_ID="0026"
-			;;
-		"2048")
-			PROD_ID="0025"
-			;;
-		esac
-		;;
 	"colibri-imx6")
 		RAM_SIZE=256
 		echo "Enter the RAM size ( 256 / 512 ):"
@@ -159,29 +127,6 @@ else
 				PROD_ID="0014"
 			fi
 		fi
-		;;
-	"colibri-t20")
-		RAM_SIZE=256
-		echo "Enter the RAM size ( 256 / 512 ):"
-		read RAM_SIZE
-		echo "Enter I for IT version, nothing otherwise"
-		read IT
-		if [ $RAM_SIZE -eq 512 ] ; then
-			if [ "$IT"x = "Ix" ] ; then
-				PROD_ID="0022"
-			else
-				PROD_ID="0021"
-			fi
-		else
-			if [ "$IT"x = "Ix" ] ; then
-				PROD_ID="0024"
-			else
-				PROD_ID="0020"
-			fi
-		fi
-		;;
-	"colibri-t30")
-		PROD_ID="0023"
 		;;
 	"colibri-vf")
 		VF_TYPE=50
@@ -221,18 +166,7 @@ else
 fi
 
 #write the config block file
-if [ "${MODTYPE}" = "colibri-t20" ] ; then
-	PROD_ID=`echo $PRODUCTNR | awk 'BEGIN{ FIELDWIDTHS = "4 4"} {print $1}'`
-	CONFIGBLOCK_FILE=${MODTYPE}_bin/configblock_256.bin
-	if [ ${PROD_ID} = "0021" ] ; then
-		CONFIGBLOCK_FILE=${MODTYPE}_bin/configblock_512.bin
-	fi
-	if [ ${PROD_ID} = "0022" ] ; then
-		CONFIGBLOCK_FILE=${MODTYPE}_bin/configblock_512.bin
-	fi
-else
-	CONFIGBLOCK_FILE=${MODTYPE}_bin/configblock.bin
-fi
+CONFIGBLOCK_FILE=${MODTYPE}_bin/configblock.bin
 sudo chown ${USER}: `dirname $CONFIGBLOCK_FILE`
 sudo rm -f $CONFIGBLOCK_FILE
 #file header

@@ -15,30 +15,6 @@ add_rootfs_version () {
 # add the rootfs version to the welcome banner
 ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
-IMAGE_INSTALL_append_tegra = " \
-    u-boot-toradex-fw-utils \
-    tegrastats \
-    tdx-nv-binaries \
-    tdx-nv-binaries-nv-gstapps \
-    tdx-nv-binaries-restricted-codecs \
-    usb-rndis-systemd \
-    hdmi-hotplug \
-    \
-    file \
-    aspell \
-    kernel-modules \
-"
-
-IMAGE_INSTALL_append_tegra3 = " \
-    fs-init \
-    e2fsprogs \
-    e2fsprogs-mke2fs \
-    e2fsprogs-resize2fs \
-    e2fsprogs-tune2fs \
-    nv-conf-systemd \
-    perf \
-"
-
 IMAGE_INSTALL_append_tegra124 = " \
     aspell \
     e2fsprogs \
@@ -72,17 +48,6 @@ IMAGE_INSTALL_append_tegra124m = " \
     ptpd \
     u-boot-toradex-fw-utils \
     perf \
-"
-
-IMAGE_INSTALL_append_apalis-t30 = " \
-    linuxptp \
-    pciutils \
-    ptpd \
-    lvds-ctrl \
-"
-
-IMAGE_INSTALL_append_colibri-t20 = " \
-    mtd-utils-ubifs \
 "
 
 #note that the kernel-modules meta package gets installed from
@@ -248,14 +213,6 @@ IMAGE_INSTALL_append_apalis-tk1-mainline = " \
 
 IMAGE_INSTALL_remove_apalis-tk1-mainline = " \
     backports \
-"
-
-IMAGE_INSTALL_remove_colibri-t20 = " \
-    linux-firmware-ath10k \
-"
-
-IMAGE_INSTALL_append_apalis-t30 = " \
-    ${BACKPORTS_WIFI_EXTRA} \
 "
 
 IMAGE_INSTALL_append_apalis-imx6 = " \

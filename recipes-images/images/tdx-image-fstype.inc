@@ -13,13 +13,11 @@ UBOOT_EXT_colibri-imx6ull = "imx"
 UBOOT_EXT_mx7 = "imx"
 UBOOT_EXT_vf = "imx"
 UBOOT_SYMLINK = "u-boot-${MACHINE}.${UBOOT_EXT}"
-UBOOT_SYMLINK_tegra = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
 UBOOT_SYMLINK_tegra124 = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
 UBOOT_SYMLINK_tegra124m = "u-boot-dtb-tegra-${MACHINE}.${UBOOT_EXT}"
 UBOOT_BINARY = "u-boot.${UBOOT_EXT}"
 UBOOT_BINARY_colibri-imx7 = "u-boot-nand.${UBOOT_EXT}"
 UBOOT_BINARY_colibri-imx6ull = "u-boot-nand.${UBOOT_EXT}"
-UBOOT_BINARY_tegra = "u-boot-dtb-tegra.${UBOOT_EXT}"
 UBOOT_BINARY_tegra124 = "u-boot-dtb-tegra.${UBOOT_EXT}"
 UBOOT_BINARY_tegra124m = "u-boot-dtb-tegra.${UBOOT_EXT}"
 
@@ -29,10 +27,8 @@ DEPENDS_append_mx6 = " imx-loader-native"
 DEPENDS_append_use-mainline-bsp = " imx-loader-native"
 DEPENDS_append_mx6ull = " mtd-utils-native imx-loader-native"
 DEPENDS_append_mx7 = " mtd-utils-native imx-loader-native"
-DEPENDS_append_tegra = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra124 = " cbootimage-native tegrarcm-native"
 DEPENDS_append_tegra124m = " cbootimage-native tegrarcm-native"
-DEPENDS_append_tegra2 = " mtd-utils-native"
 DEPENDS_append_vf = " mtd-utils-native imx-loader-native"
 #we need mkimage to produce the U-Boot scripts even if not building a uImage kernel
 DEPENDS_append_arm = " virtual/bootloader u-boot-mkimage-native"
@@ -113,23 +109,6 @@ imagedeploytools_append_mx7() {
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/imx_usb.conf ${IMAGE_ROOT}/
     cp ${STAGING_ETCDIR_NATIVE}/imx-loader.d/mx7_usb_*.conf ${IMAGE_ROOT}/
     cp ${MACHINE_BIN}/${UBOOT_BINARY} ${MACHINE_BIN}/u-boot.imx
-}
-
-imagedeploytools_append_tegra() {
-    IMAGE_ROOT="${IMAGE_ROOTFS}/../tegra-uboot-flasher/"
-    mkdir -p ${IMAGE_ROOT}
-
-    # add cbootimage and tegrarcm
-    cp ${STAGING_BINDIR_NATIVE}/cbootimage ${IMAGE_ROOT}/
-    cp ${STAGING_BINDIR_NATIVE}/tegrarcm ${IMAGE_ROOT}/
-    ${BUILD_STRIP} ${IMAGE_ROOT}/cbootimage
-    ${BUILD_STRIP} ${IMAGE_ROOT}/tegrarcm
-}
-
-imagedeploytools_append_tegra2() {
-    # add the mkfs.ubifs binary
-    cp ${STAGING_DIR_NATIVE}/usr/sbin/mkfs.ubifs ${IMAGE_ROOT}/
-    ${BUILD_STRIP} ${IMAGE_ROOT}/mkfs.ubifs
 }
 
 imagedeploytools_append_tegra124() {

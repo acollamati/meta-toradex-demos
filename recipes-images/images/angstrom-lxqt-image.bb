@@ -7,7 +7,6 @@ LICENSE = "MIT"
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "LXQt-Image"
 IMAGE_NAME_apalis-imx6 = "Apalis-iMX6_${IMAGE_BASENAME}"
-IMAGE_NAME_apalis-t30 = "Apalis-T30_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1 = "Apalis-TK1_${IMAGE_BASENAME}"
 IMAGE_NAME_apalis-tk1-mainline = "Apalis-TK1-Mainline_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx6 = "Colibri-iMX6_${IMAGE_BASENAME}"
@@ -15,8 +14,6 @@ IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-t20 = "Colibri-T20_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-t30 = "Colibri-T30_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
@@ -37,9 +34,6 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "
 # for a more complete configuration tool consider replacing lxqt-connman-applet
 # with cmst at the price of a bigger footprint
 CONMANPKGS ?= "connman connman-client lxqt-connman-applet"
-
-#deploy the OpenGL ES headers to the sysroot
-DEPENDS_append_tegra = " nvsamples"
 
 IMAGE_BROWSER = "falkon"
 #keep the rootfs size small
@@ -96,41 +90,6 @@ GSTREAMER_append_mx7 = " \
     imx-gst1.0-plugin \
 "
 
-# use gstreamer-0.10 for tegra
-GSTREAMER_tegra = " \
-    gstreamer \
-    gst-plugins-base \
-    gst-plugins-base-alsa \
-    gst-plugins-base-audioconvert \
-    gst-plugins-base-audioresample \
-    gst-plugins-base-audiotestsrc \
-    gst-plugins-base-decodebin \
-    gst-plugins-base-decodebin2 \
-    gst-plugins-base-playbin \
-    gst-plugins-base-typefindfunctions \
-    gst-plugins-base-ivorbisdec \
-    gst-plugins-base-ogg \
-    gst-plugins-base-theora \
-    gst-plugins-base-videotestsrc \
-    gst-plugins-base-vorbis \
-    gst-plugins-good-audioparsers \
-    gst-plugins-good-autodetect \
-    gst-plugins-good-avi \
-    gst-plugins-good-deinterlace \
-    gst-plugins-good-id3demux \
-    gst-plugins-good-isomp4 \
-    gst-plugins-good-matroska \
-    gst-plugins-good-rtp \
-    gst-plugins-good-rtpmanager \
-    gst-plugins-good-udp \
-    gst-plugins-good-video4linux2 \
-    gst-plugins-good-wavenc \
-    gst-plugins-good-wavparse \
-    gst-plugins-ugly-asf \
-"
-GSTREAMER_append_tegra3 = " \
-    gst-plugins-good-jpeg \
-"
 GSTREAMER_append_tegra124 = " \
     gstreamer1.0-libav \
     gstreamer1.0-plugins-bad-videoparsersbad \
@@ -171,11 +130,6 @@ GSTREAMER_append_tegra124 = " \
 "
 GSTREAMER_colibri-vf = ""
 
-IMAGE_INSTALL_append_tegra = " \
-    mime-support \
-    eglinfo-x11 \
-    xvinfo \
-"
 IMAGE_INSTALL_append_tegra124 = " \
     libglu \
     mesa-demos \
