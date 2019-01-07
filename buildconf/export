@@ -2,7 +2,7 @@
 ECHO=`which echo`
 BUILDDIR="../../build"
 FIRST_TIME=0
-cd layers/openembedded-core/
+cd layers/openembedded-core
 if [ ! -f ${BUILDDIR}/conf/local.conf ]; then
 	FIRST_TIME=1
 fi
@@ -11,9 +11,9 @@ fi
 
 echo ""
 echo "Toradex targets are:"
-echo "    angstrom-lxde-image"
 echo "    console-tdx-image"
-echo "    angstrom-qt-x11-image"
+echo "    other (unsupported) targets may be found in"
+echo "    meta-toradex-demos/recipes-images/images/"
 
 if [ $FIRST_TIME -eq 1 ]; then
 	mkdir -p conf

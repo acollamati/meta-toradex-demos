@@ -1,6 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Demo with LXDE"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
-DESCRIPTION = "Angstrom-based image with the LXDE desktop environment"
+DESCRIPTION = "Image with the LXDE desktop environment"
 
 LICENSE = "MIT"
 
@@ -203,7 +203,7 @@ IMAGE_INSTALL += " \
     makedevs \
     xcursor-transparent-theme \
     zeroconf \
-    angstrom-packagegroup-boot \
+    packagegroup-boot \
     packagegroup-basic \
     udev-extra-rules \
     ${CONMANPKGS} \

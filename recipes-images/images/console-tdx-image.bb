@@ -1,6 +1,6 @@
 SUMMARY = "Toradex Embedded Linux Console Demo"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
-DESCRIPTION = "Angstrom-based image without graphical interface"
+DESCRIPTION = "Image without graphical interface"
 
 LICENSE = "MIT"
 
@@ -40,7 +40,7 @@ CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-p
 IMAGE_INSTALL_append_tegra124 = " ${XSERVER} xterm xclock"
 
 IMAGE_INSTALL += " \
-    angstrom-packagegroup-boot \
+    packagegroup-boot \
     packagegroup-basic \
     udev-extra-rules \
     ${CONMANPKGS} \

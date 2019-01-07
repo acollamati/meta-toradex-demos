@@ -37,7 +37,7 @@ IMAGE_INSTALL += " \
     mime-support \
     zeroconf \
     fbset \	
-    angstrom-packagegroup-boot \
+    packagegroup-boot \
     packagegroup-basic \
     udev-extra-rules \
     ${CONMANPKGS} \

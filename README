@@ -12,14 +12,20 @@ Dependencies
 ============
 
 This layer depends on the relevant BSP layers for your machine and:
+(please check http://git.toradex.com/cgit/toradex-bsp-platform.git/ to get
+the specific layer versions we used when building our binary demo images)
 
   URI: git://git.openembedded.org/bitbake
-  branch: 1.36
+  branch: 1.40
   revision: HEAD
 
   URI: git://git.openembedded.org/openembedded-core
   layer: meta
-  branch: rocko
+  branch: thud
+
+  URI: git://git.openembedded.org/meta-yocto
+  layer: meta-poky
+  branch: thud
   revision: HEAD
 
   URI: git://git.openembedded.org/meta-openembedded
@@ -28,35 +34,35 @@ This layer depends on the relevant BSP layers for your machine and:
     meta-multimedia
     meta-networking
     meta-oe
-  branch: rocko
-  revision: HEAD
-
-  URI: https://github.com/angstrom-distribution/meta-angstrom.git
-  branch: angstrom-v2017.12-rocko
+  branch: thud
   revision: HEAD
 
   URI: https://github.com/OSSystems/meta-browser.git
   branch: master
-  revision: cf35eca0de52d5a34dabe2068e68348367db8e55
+  revision: HEAD
 
   URI: git://git.yoctoproject.org/meta-freescale
-  branch: rocko
+  branch: thud
   revision: HEAD
 
   URI: https://github.com/freescale/meta-freescale-distro.git
-  branch: rocko
+  branch: thud
   revision: HEAD
 
   URI: git://git.toradex.com/meta-lxde.git
-  branch: rocko
+  branch: thud
   revision: HEAD
 
   URI: git://git.yoctoproject.org/meta-qt4
-  branch: rocko
+  branch: thud
   revision: HEAD
 
   URI: https://github.com/meta-qt5/meta-qt5
-  branch: rocko
+  branch: thud
+  revision: HEAD
+
+  URI: https://github.com/schnitzeltony/meta-qt5-extra.git
+  branch: thud
   revision: HEAD
 
 Patches
@@ -76,7 +82,7 @@ I. Building the meta-toradex-demos Layer
 ========================================
 
 For information on how to use the modules with Linux and instructions on how
-to build the angstrom based demo images please visit:
+to build the demo images please visit:
 http://developer.toradex.com/software/linux
 http://developer.toradex.com/knowledge-base/board-support-package/openembedded-(core)
 
@@ -84,14 +90,14 @@ For support, visit the Toradex Developer Community:
 https://www.toradex.com/community
 
 Images built with this layer can be found here:
-http://developer.toradex.com/files/toradex-dev/uploads/media/Colibri/Linux/Images/
+https://developer.toradex.com/software/linux/linux-software#Binary_Images
 
 II. Deploying Built Images
 ==========================
 
-http://developer.toradex.com/knowledge-base/flashing-linux-on-imx6-modules
-http://developer.toradex.com/knowledge-base/flashing-embedded-linux-to-imx7-modules
-http://developer.toradex.com/knowledge-base/flashing-linux-on-vybrid-modules
+Links to the image type and module specific flashing instructions can be found
+here:
+https://developer.toradex.com/software/linux/linux-software#Binary_Images
 
 License
 =======
