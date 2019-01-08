@@ -172,7 +172,7 @@ IMAGE_INSTALL_append_colibri-imx6ull = " \
 IMAGE_INSTALL += " \
     packagegroup-dotnet-deps \
     \
-    crda \
+    wireless-regdb-static \
     \
     alsa-utils \
     alsa-utils-aplay \
