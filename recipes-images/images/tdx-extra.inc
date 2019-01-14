@@ -222,3 +222,7 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
 IMAGE_INSTALL_remove_use-mainline-bsp = " \
     backports \
 "
+
+IMAGE_INSTALL_remove_qemuall = " \
+    backports \
+"
