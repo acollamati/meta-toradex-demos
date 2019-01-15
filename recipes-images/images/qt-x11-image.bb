@@ -89,7 +89,7 @@ GSTREAMER_append_mx7 = " \
 #
 
 GSTREAMER_append_tegra124 = " \
-    gstreamer1.0-libav \
+    ${@bb.utils.contains("LICENSE_FLAGS_WHITELIST", "commercial", "gstreamer1.0-libav", "", d)} \
     gstreamer1.0-plugins-bad-videoparsersbad \
     gstreamer \
     gst-plugins-base \
