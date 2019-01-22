@@ -25,6 +25,7 @@ do_install() {
 # For kernel <= v4.14, inherit the kernel_wireless_regdb.bbclass in kernel's recipe.
 PACKAGES =+ "${PN}-static"
 RCONFLICTS_${PN} = "${PN}-static"
+RDEPENDS_${PN}-dev = ""
 
 FILES_${PN}-static = " \
     ${nonarch_base_libdir}/firmware/regulatory.db \
