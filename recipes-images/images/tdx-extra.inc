@@ -219,6 +219,10 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
     ${BACKPORTS_WIFI_EXTRA} \
 "
 
+IMAGE_INSTALL_remove_mx8 = " \
+    backports \
+"
+
 IMAGE_INSTALL_remove_use-mainline-bsp = " \
     backports \
 "
