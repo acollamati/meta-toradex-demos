@@ -1,7 +1,5 @@
 #create the deployment directory-tree
 
-include conf/tdx_version.conf
-
 PV = "${TDX_VER_PACKAGE_MIN}"
 IMAGE_DIR = "${IMAGE_NAME}_${TDX_VER_ITEM}"
 IMAGE_ROOTFS = "${WORKDIR}/${IMAGE_DIR}/rootfs"
@@ -202,3 +200,8 @@ addtask imagedeploy after do_image before do_image_complete
 
 # make sure to rerun do_rootfs before do_imagedeploy is executed
 do_imagedeploy[vardep] = "do_rootfs"
+
+# defaults
+TDX_VER_PACKAGE_MIN ??= "nodistro"
+TDX_VER_PACKAGE ??= "nodistro"
+TDX_VER_ITEM ??= "nodistro"
