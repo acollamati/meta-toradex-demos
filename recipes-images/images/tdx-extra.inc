@@ -147,7 +147,7 @@ IMAGE_INSTALL += " \
     \
     ${BACKPORTS_WIFI} \
     curl \
-    canutils \
+    can-utils iproute2 \
     nfs-utils-client \
     openssh-scp \
     openssh-sftp \
