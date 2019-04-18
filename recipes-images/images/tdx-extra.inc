@@ -33,6 +33,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     usb-rndis-systemd \
     perf \
 "
+
 IMAGE_INSTALL_append_tegra124m = " \
     aspell \
     e2fsprogs \
@@ -53,31 +54,30 @@ IMAGE_INSTALL_append_tegra124m = " \
 #note that the kernel-modules meta package gets installed from
 #meta-fsl-arm/conf/machine/include/imx-base.inc
 IMAGE_INSTALL-MX6QDL = " \
-    bmode-usb \
-    libusbgx \
-    libusbgx-examples \
-    linuxptp \
-    gpio-export \
-    file \
     aspell \
-    ptpd \
-    fs-init \
+    bmode-usb \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-resize2fs \
     e2fsprogs-tune2fs \
+    file \
+    fs-init \
+    gpio-export \
+    libusbgx \
+    libusbgx-examples \
+    linuxptp \
     mimetypes \
+    perf \
+    ptpd \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL-MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL-MX6QDL}"
-
 IMAGE_INSTALL_append_apalis-imx6 = " \
+    pciutils \
     u-boot-toradex-fw-utils \
-    perf \
 "
 IMAGE_INSTALL_append_colibri-imx6 = " \
     u-boot-toradex-fw-utils \
-    perf \
 "
 
 IMAGE_INSTALL_append_mx6ull = " \
@@ -85,13 +85,33 @@ IMAGE_INSTALL_append_mx6ull = " \
     libusbgx-examples \
     linuxptp \
     ptpd \
+"
+IMAGE_INSTALL_append_colibri-imx6ull = " \
     mtd-utils-ubifs \
+    mwifiexap \
+    u-boot-toradex-fw-utils \
+    bluez-alsa \
 "
 
-#note that the kernel-modules meta package gets installed from
-#meta-fsl-arm/conf/machine/include/imx-base.inc
-IMAGE_INSTALL_append_apalis-imx6 = " \
-    pciutils \
+IMAGE_INSTALL_append_mx7 = " \
+    aspell \
+    file \
+    libusbgx \
+    libusbgx-examples \
+    linuxptp \
+    ptpd \
+"
+IMAGE_INSTALL_append_colibri-imx7-emmc = " \
+    perf \
+    u-boot-toradex-fw-utils \
+"
+IMAGE_INSTALL_append_colibri-imx7 = " \
+    mtd-utils-ubifs \
+    u-boot-toradex-fw-utils \
+"
+
+IMAGE_INSTALL_append_mx8 = " \
+    util-linux \
 "
 
 IMAGE_INSTALL_append_vf = " \
@@ -103,35 +123,8 @@ IMAGE_INSTALL_append_vf = " \
     kernel-modules \
     usb-suspend-resume \
 "
-
 IMAGE_INSTALL_append_colibri-vf = " \
     u-boot-toradex-fw-utils \
-"
-
-IMAGE_INSTALL_append_mx7 = " \
-    linuxptp \
-    libusbgx \
-    libusbgx-examples \
-    file \
-    aspell \
-    ptpd \
-"
-
-IMAGE_INSTALL_append_colibri-imx7-emmc = " \
-    u-boot-toradex-fw-utils \
-    perf \
-"
-
-IMAGE_INSTALL_append_colibri-imx7 = " \
-    u-boot-toradex-fw-utils \
-    mtd-utils-ubifs \
-"
-
-IMAGE_INSTALL_append_colibri-imx6ull = " \
-    u-boot-toradex-fw-utils \
-    mtd-utils-ubifs \
-    bluez-alsa \
-    mwifiexap \
 "
 
 IMAGE_INSTALL += " \
@@ -180,10 +173,6 @@ IMAGE_INSTALL += " \
     util-linux-lsblk \
     \
     tdx-oak-sensors \
-"
-
-IMAGE_INSTALL_append_mx8 = " \
-    util-linux \
 "
 
 #Backports
