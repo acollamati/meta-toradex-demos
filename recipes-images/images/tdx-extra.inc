@@ -182,6 +182,10 @@ IMAGE_INSTALL += " \
     tdx-oak-sensors \
 "
 
+IMAGE_INSTALL_append_mx8 = " \
+    util-linux \
+"
+
 #Backports
 
 BACKPORTS_WIFI = " \
