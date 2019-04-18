@@ -111,6 +111,22 @@ IMAGE_INSTALL_append_colibri-imx7 = " \
 "
 
 IMAGE_INSTALL_append_mx8 = " \
+    aspell \
+    bluez-alsa \
+    bmode-usb \
+    e2fsprogs \
+    e2fsprogs-mke2fs \
+    e2fsprogs-resize2fs \
+    e2fsprogs-tune2fs \
+    file \
+    fs-init \
+    libusbgx \
+    libusbgx-examples \
+    linuxptp \
+    mwifiexap \
+    pciutils \
+    perf \
+    ptpd \
     util-linux \
 "
 
