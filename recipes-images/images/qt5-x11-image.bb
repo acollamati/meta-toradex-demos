@@ -185,7 +185,6 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
-    ${XSERVER} \
     xserver-common \
     xserver-xorg-extension-dbe \
     xserver-xorg-extension-extmod \

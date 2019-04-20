@@ -224,7 +224,6 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
-    ${XSERVER} \
     xserver-common \
     xauth \
     xhost \
@@ -255,6 +254,7 @@ IMAGE_INSTALL += " \
     qedit \
     liberation-fonts \
 "
+
 require recipes-images/images/tdx-extra.inc
 
 IMAGE_DEV_MANAGER   = "udev"
