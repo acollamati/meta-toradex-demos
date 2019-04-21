@@ -247,12 +247,18 @@ IMAGE_INSTALL += " \
     libxcomposite \
     alsa-states \
     ${IMAGE_BROWSER} \
-    sddm \
     ${QT5_LIBS} \
     ${QT5_LIBS_GPLv3} \
     packagegroup-lxqt-base \
     qedit \
     liberation-fonts \
+    \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
+                         'weston weston-init weston-examples', \
+                         bb.utils.contains('DISTRO_FEATURES', 'x11', \
+                                           'sddm', '', d), d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
+                         'weston-xwayland xterm', '', d)} \
 "
 
 require recipes-images/images/tdx-extra.inc
