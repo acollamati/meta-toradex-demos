@@ -14,7 +14,6 @@ IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
@@ -31,10 +30,6 @@ CONMANPKGS ?= "connman connman-client connman-gnome"
 IMAGE_BROWSER = "firefox"
 #keep the rootfs size small
 IMAGE_BROWSER_colibri-imx6ull = ""
-IMAGE_BROWSER_colibri-vf = ""
-
-# don't install some packages bloating the vybrid image
-BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils"
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gstreamer1.0-plugins-base-meta
@@ -131,8 +126,6 @@ GSTREAMER_append_tegra124 = " \
     libgstomx-0.10 \
     libgstomx-1.0 \
 "
-GSTREAMER_colibri-vf = ""
-
 IMAGE_INSTALL_append_tegra124 = " \
     gpio-tool \
     gnome-disk-utility \
@@ -172,11 +165,6 @@ IMAGE_INSTALL_append_mx7 = " \
     gnome-disk-utility \
     mime-support \
 "
-IMAGE_INSTALL_append_vf = " \
-    gpio-tool \
-    xf86-video-modesetting \
-"
-
 IMAGE_INSTALL_append_colibri-imx6ull = " \
     gpio-tool \
 "

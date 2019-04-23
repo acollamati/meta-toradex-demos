@@ -4,7 +4,6 @@
 COPY_LIC_MANIFEST ?= "1"
 #Bug with several MACHINES build, license files for all arch packages stored wrongly
 COPY_LIC_DIRS ?= "1"
-COPY_LIC_DIRS_colibri-vf = "0"
 
 add_rootfs_version () {
     echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
@@ -128,19 +127,6 @@ IMAGE_INSTALL_append_mx8 = " \
     perf \
     ptpd \
     util-linux \
-"
-
-IMAGE_INSTALL_append_vf = " \
-    linuxptp \
-    libusbgx \
-    libusbgx-examples \
-    ptpd \
-    mtd-utils-ubifs \
-    kernel-modules \
-    usb-suspend-resume \
-"
-IMAGE_INSTALL_append_colibri-vf = " \
-    u-boot-toradex-fw-utils \
 "
 
 IMAGE_INSTALL += " \

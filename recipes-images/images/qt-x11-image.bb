@@ -14,7 +14,6 @@ IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
@@ -27,9 +26,6 @@ DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
 CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
-
-#don't install some id databases
-#BAD_RECOMMENDATIONS_append_colibri-vf = " udev-hwdb cpufrequtils "
 
 # this would pull in a large amount of gst-plugins, we only add a selected few
 #    gstreamer1.0-plugins-base-meta
@@ -123,8 +119,6 @@ GSTREAMER_append_tegra124 = " \
     libgstomx-0.10 \
     libgstomx-1.0 \
 "
-GSTREAMER_colibri-vf = ""
-
 
 IMAGE_INSTALL_QT4 = " \
     qt4-x11-free \

@@ -14,7 +14,6 @@ IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-vf = "Colibri-VF_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
@@ -27,9 +26,6 @@ DISTRO_UPDATE_ALTERNATIVES ??= ""
 ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "none", "", "${ROOTFS_PKGMANAGE} ${DISTRO_UPDATE_ALTERNATIVES}", d)}'
 
 CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
-
-#don't install some id databases
-#BAD_RECOMMENDATIONS_append_colibri-vf += " udev-hwdb cpufrequtils "
 
 #deploy the X server for the tegras
 #this adds a few MB to the image, but all graphical HW acceleration is

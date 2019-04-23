@@ -29,28 +29,11 @@ SRC_URI_append_mx7 += " \
     file://Wallpaper_ColibriiMX7D.png \
     file://Wallpaper_ColibriiMX7S.png \
 "
-# for colibri-vf50, colibri-vf61 we decide on the target during postinst
-SRC_URI_append_vf += " \
-    file://Wallpaper_ColibriVF50.png \
-    file://Wallpaper_ColibriVF61.png \
-"
 
 do_install_append () {
     install -m 0755 -d ${D}/${datadir}/lxqt/themes/toradex
     install -m 0644 ${WORKDIR}/Wallpaper*.png ${D}/${datadir}/lxqt/themes/toradex
     ln -sf ${WALLPAPER-MACHINE} ${D}/${datadir}/lxqt/themes/toradex/toradex.png
-}
-
-pkg_postinst_ontarget_${PN}_vf () {
-    IS_VF50=`grep -c VF50 /proc/cpuinfo`
-    IS_VF50_DTB=`grep -c toradex,vf500-colibri_vf50 /proc/device-tree/compatible`
-    IS_VF61=`grep -c VF61 /proc/cpuinfo`
-    IS_VF61_DTB=`grep -c toradex,vf610-colibri_vf61 /proc/device-tree/compatible`
-    if [ $IS_VF50 -gt 0 ] || [ $IS_VF50_DTB -gt 0 ]; then
-        ln -sf Wallpaper_ColibriVF50.png ${datadir}/lxqt/themes/toradex/toradex.png
-    elif [ $IS_VF61 -gt 0 ] || [ $IS_VF61_DTB -gt 0 ]; then
-        ln -sf Wallpaper_ColibriVF61.png ${datadir}/lxqt/themes/toradex/toradex.png
-    fi
 }
 
 pkg_postinst_ontarget_${PN}_mx6 () {
