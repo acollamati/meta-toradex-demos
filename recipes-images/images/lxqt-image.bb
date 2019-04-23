@@ -19,9 +19,6 @@ IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
-#create the deployment directory-tree
-require recipes-images/images/tdx-image-fstype.inc
-
 inherit populate_sdk populate_sdk_qt5
 
 IMAGE_LINGUAS = "en-us"
