@@ -242,7 +242,7 @@ IMAGE_INSTALL += " \
     liberation-fonts \
     \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston weston-init weston-examples', \
+                         'weston weston-init weston-examples libdrm-tests', \
                          bb.utils.contains('DISTRO_FEATURES', 'x11', \
                                            'sddm', '', d), d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
