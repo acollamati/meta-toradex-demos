@@ -184,8 +184,6 @@ IMAGE_INSTALL += " \
     xset \
     setxkbmap \
     \
-    xserver-nodm-init \
-    \
     xrdb \
     xorg-minimal-fonts xserver-xorg-utils \
     scrot \
@@ -202,6 +200,13 @@ IMAGE_INSTALL += " \
     libpcreposix \
     libxcomposite \
     alsa-states \
+    \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
+                         'weston weston-init weston-examples libdrm-tests', \
+                         bb.utils.contains('DISTRO_FEATURES', 'x11', \
+                                           'xserver-nodm-init', '', d), d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
+                         'weston-xwayland xterm', '', d)} \
 "
 
 require recipes-images/images/tdx-extra.inc
