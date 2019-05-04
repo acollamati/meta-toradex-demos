@@ -18,6 +18,12 @@ IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
+IMAGE_FEATURES += " \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
+       bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11', \
+                                                       '', d), d)} \
+"
+
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
 #ROOTFS_POSTPROCESS_COMMAND += 'install_linguas; '
@@ -27,11 +33,6 @@ ROOTFS_PKGMANAGE_PKGS ?= '${@oe.utils.conditional("ONLINE_PACKAGE_MANAGEMENT", "
 
 CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-plugin-wifi connman-client"
 
-#deploy the X server for the tegras
-#this adds a few MB to the image, but all graphical HW acceleration is
-#available only on top of X, this is not required for nouveau based build.
-IMAGE_INSTALL_append_tegra124 = " ${XSERVER} xterm xclock"
-
 IMAGE_INSTALL += " \
     packagegroup-boot \
     packagegroup-basic \
@@ -40,6 +41,7 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
+    ${bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
 "
 
 require recipes-images/images/tdx-extra.inc

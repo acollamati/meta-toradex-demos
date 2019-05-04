@@ -21,6 +21,12 @@ IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
 IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
 IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
 
+IMAGE_FEATURES += " \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
+       bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11', \
+                                                       '', d), d)} \
+"
+
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
 inherit populate_sdk populate_sdk_qt5
