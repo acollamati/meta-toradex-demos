@@ -29,7 +29,7 @@ IMAGE_FEATURES += " \
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
-inherit populate_sdk populate_sdk_qt5
+inherit populate_sdk_qt5
 
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
