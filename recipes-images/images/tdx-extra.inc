@@ -11,6 +11,8 @@ add_rootfs_version () {
     echo "" >> ${IMAGE_ROOTFS}/etc/issue
 }
 
+PV = "${TDX_VER_PACKAGE_MIN}"
+
 # add the rootfs version to the welcome banner
 ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
