@@ -41,7 +41,7 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x-window-xterm', '', d)} \
 "
 
 require recipes-images/images/tdx-extra.inc
