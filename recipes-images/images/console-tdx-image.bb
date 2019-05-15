@@ -41,6 +41,10 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     packagegroup-base-extended \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
+                         'weston weston-examples', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
+                         'weston-xwayland xterm', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x-window-xterm', '', d)} \
 "
 
