@@ -13,9 +13,6 @@ inherit allarch
 
 S = "${WORKDIR}"
 
-INITIAL_PATH ?= "/usr/share/qtsmarthome-1.0"
-X_APPLICATION ?= "${INITIAL_PATH}/smarthome"
-
 SRC_URI = " \
     file://x-window-manager.in \
     file://set_have_touch.sh \

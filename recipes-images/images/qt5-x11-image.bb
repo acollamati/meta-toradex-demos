@@ -3,7 +3,7 @@ SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 DESCRIPTION = "Image with the Qt5 Framework and the X11 server"
 
 # after the boot systemd starts X and then a qt5 application, check
-# recipes-graphics/x-window-simple-app/x-window-simple-app and
+# recipes-graphics/x-window-simple-app/x-window-qtsmarthome and
 # https://developer.toradex.com/knowledge-base/how-to-autorun-application-at-the-start-up-in-linux#X11_with_One_User_Application
 # for how this is done.
 
@@ -136,8 +136,7 @@ GSTREAMER_append_tegra124 = " \
 IMAGE_INSTALL_QT5 = " \
     packagegroup-qt5 \
     liberation-fonts \
-    qtsmarthome \
-    x-window-simple-app \
+    x-window-qtsmarthome \
 "
 
 IMAGE_INSTALL_append_tegra124 = " \
