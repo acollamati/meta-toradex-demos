@@ -9,6 +9,8 @@ DESCRIPTION = "Image with the Qt5 Framework and the X11 server"
 
 LICENSE = "MIT"
 
+inherit core-image
+
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "Qt5-X11-Image"
 MACHINE_NAME ?= "${MACHINE}"
@@ -172,7 +174,6 @@ IMAGE_INSTALL += " \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    packagegroup-base-extended \
     xserver-common \
     xserver-xorg-extension-dbe \
     xserver-xorg-extension-extmod \
@@ -212,5 +213,3 @@ IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
-
-inherit core-image

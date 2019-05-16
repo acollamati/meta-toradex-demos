@@ -4,6 +4,8 @@ DESCRIPTION = "Image with the LXDE desktop environment"
 
 LICENSE = "MIT"
 
+inherit core-image
+
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "LXDE-Image"
 MACHINE_NAME ?= "${MACHINE}"
@@ -192,7 +194,6 @@ IMAGE_INSTALL += " \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    packagegroup-base-extended \
     xserver-common \
     xauth \
     xhost \
@@ -229,5 +230,3 @@ IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
-
-inherit core-image

@@ -154,8 +154,6 @@ IMAGE_INSTALL += " \
     curl \
     can-utils iproute2 \
     nfs-utils-client \
-    openssh-scp \
-    openssh-sftp \
     \
     bzip2 \
     gdbserver \

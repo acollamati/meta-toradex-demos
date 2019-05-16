@@ -4,6 +4,8 @@ DESCRIPTION = "Image without graphical interface"
 
 LICENSE = "MIT"
 
+inherit core-image
+
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "Console-Image"
 MACHINE_NAME ?= "${MACHINE}"
@@ -32,7 +34,6 @@ IMAGE_INSTALL += " \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    packagegroup-base-extended \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
                          'weston weston-examples', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
@@ -46,5 +47,3 @@ IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
 IMAGE_INITSCRIPTS   = " "
 IMAGE_LOGIN_MANAGER = "busybox shadow"
-
-inherit core-image
