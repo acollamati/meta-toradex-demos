@@ -6,15 +6,8 @@ LICENSE = "MIT"
 
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "LXDE-Image"
-IMAGE_NAME_apalis-imx6 = "Apalis-iMX6_${IMAGE_BASENAME}"
-IMAGE_NAME_apalis-tk1 = "Apalis-TK1_${IMAGE_BASENAME}"
-IMAGE_NAME_apalis-tk1-mainline = "Apalis-TK1-Mainline_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-imx6 = "Colibri-iMX6_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-imx6ull = "Colibri-iMX6ULL_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-imx7 = "Colibri-iMX7_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-imx7-emmc = "Colibri-iMX7-eMMC_${IMAGE_BASENAME}"
-IMAGE_NAME_colibri-pxa = "Colibri-PXA_${IMAGE_BASENAME}"
-IMAGE_NAME = "${MACHINE}_${IMAGE_BASENAME}"
+MACHINE_NAME ?= "${MACHINE}"
+IMAGE_NAME = "${MACHINE_NAME}_${IMAGE_BASENAME}"
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 
