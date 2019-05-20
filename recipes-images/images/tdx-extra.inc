@@ -115,6 +115,8 @@ IMAGE_INSTALL_append_mx8 = " \
     aspell \
     bluez-alsa \
     bmode-usb \
+    clpeak \
+    cpuburn-a53 \
     e2fsprogs \
     e2fsprogs-mke2fs \
     e2fsprogs-resize2fs \
