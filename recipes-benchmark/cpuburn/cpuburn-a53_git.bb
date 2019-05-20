@@ -28,7 +28,7 @@ do_compile() {
 }
 
 do_compile_aarch64() {
-    ${CC} ${CFLAGS} ${LDFLAGS} --static cpuburn-a53.S -o burn-a53
+    ${CC} ${CFLAGS} ${LDFLAGS} cpuburn-a53.S -o burn-a53
 }
 
 do_install() {
