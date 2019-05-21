@@ -132,6 +132,12 @@ IMAGE_INSTALL_append_mx8 = " \
     ptpd \
     util-linux \
 "
+IMAGE_INSTALL_append_apalis-imx8 = " \
+    u-boot-toradex-fw-utils \
+"
+IMAGE_INSTALL_append_colibri-imx8qxp = " \
+    u-boot-fw-utils \
+"
 
 IMAGE_INSTALL += " \
     packagegroup-dotnet-deps \
