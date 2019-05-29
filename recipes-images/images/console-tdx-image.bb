@@ -35,10 +35,11 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston weston-examples', '', d)} \
+                         'weston weston-init wayland-terminal-launch', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
-                         'weston-xwayland xterm', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x-window-xterm', '', d)} \
+                         'weston-xwayland xterm', \
+       bb.utils.contains('DISTRO_FEATURES', 'x11', \
+                         'x-window-xterm', '', d), d)} \
 "
 
 require recipes-images/images/tdx-extra.inc
