@@ -1,7 +1,7 @@
 # set the following variable to your one and only application which should
 # be started
 
-RDEPENDS ?= "xterm"
+INITIAL_APP_PKGS ?= "xterm"
 INITIAL_PATH ?= ""
 X_APPLICATION ?= "/usr/bin/xterm"
 

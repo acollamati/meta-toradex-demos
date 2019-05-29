@@ -1,7 +1,7 @@
 # set the following variable to your one and only application which should
 # be started
 
-RDEPENDS ?= "qtsmarthome"
+INITIAL_APP_PKGS ?= "qtsmarthome"
 INITIAL_PATH ?= "/usr/share/qtsmarthome-1.0"
 X_APPLICATION ?= "${INITIAL_PATH}/smarthome"
 
