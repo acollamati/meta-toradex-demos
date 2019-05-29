@@ -1,0 +1,11 @@
+[Unit]
+Description=Start a wayland application
+After=weston.service
+Requires=weston.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/wayland-app-launch.sh
+
+[Install]
+WantedBy=multi-user.target
