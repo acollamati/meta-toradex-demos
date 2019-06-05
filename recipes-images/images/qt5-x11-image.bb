@@ -82,6 +82,20 @@ GSTREAMER_append_mx7 = " \
     imx-gst1.0-plugin \
 "
 
+GSTREAMER_append_mx8 = " \
+    imx-gst1.0-plugin \
+    imx-gst1.0-plugin-gplay \
+    imx-gst1.0-plugin-grecorder \
+    packagegroup-fsl-gstreamer1.0-full \
+    gst-examples \
+    tinycompress \
+    libvdk-imx \
+    libopenvx-imx \
+    libopencl-imx \
+    imx-gpu-viv \
+    vulkan \
+"
+
 GSTREAMER_append_tegra124 = " \
     ${@bb.utils.contains("LICENSE_FLAGS_WHITELIST", "commercial", "gstreamer1.0-libav", "", d)} \
     gstreamer1.0-plugins-bad-videoparsersbad \
