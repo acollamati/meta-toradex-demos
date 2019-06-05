@@ -1,7 +1,8 @@
-SUMMARY = "Toradex Embedded Linux Qt5 Demo With X11"
+SUMMARY = "Toradex Embedded Linux Qt5 Demo"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
-DESCRIPTION = "Image with the Qt5 Framework and the X11 server"
+DESCRIPTION = "Image with the Qt5 Framework"
 
+# With X11:
 # after the boot systemd starts X and then a qt5 application, check
 # recipes-graphics/x-window-simple-app/x-window-qtsmarthome and
 # https://developer.toradex.com/knowledge-base/how-to-autorun-application-at-the-start-up-in-linux#X11_with_One_User_Application
@@ -16,15 +17,15 @@ export IMAGE_BASENAME = "Qt5-X11-Image"
 MACHINE_NAME ?= "${MACHINE}"
 IMAGE_NAME = "${MACHINE_NAME}_${IMAGE_BASENAME}"
 
+SYSTEMD_DEFAULT_TARGET = "graphical.target"
+
+inherit populate_sdk_qt5
+
 IMAGE_FEATURES += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
        bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11', \
                                                        '', d), d)} \
 "
-
-SYSTEMD_DEFAULT_TARGET = "graphical.target"
-
-inherit populate_sdk_qt5
 
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
@@ -66,12 +67,6 @@ GSTREAMER = " \
     gstreamer1.0-plugins-good-wavenc \
     gstreamer1.0-plugins-good-wavparse \
 "
-# No longer available
-#    gst-plugins-base-decodebin \
-#    gst-plugins-base-decodebin2 \
-#    gst-plugins-base-playbin \
-#    gst-plugins-ugly-asf \
-#"
 
 GSTREAMER_MX6QDL = " \
     gstreamer1.0-plugins-base-ximagesink \
@@ -80,13 +75,12 @@ GSTREAMER_MX6QDL = " \
 GSTREAMER_append_mx6q = "${GSTREAMER_MX6QDL}"
 GSTREAMER_append_mx6dl = "${GSTREAMER_MX6QDL}"
 
+GSTREAMER_colibri-imx6ull = ""
+
 GSTREAMER_append_mx7 = " \
     gstreamer1.0-plugins-base-ximagesink \
+    imx-gst1.0-plugin \
 "
-# No longer available
-#    gst-plugins-gl \
-#    gst-fsl-plugin \
-#
 
 GSTREAMER_append_tegra124 = " \
     ${@bb.utils.contains("LICENSE_FLAGS_WHITELIST", "commercial", "gstreamer1.0-libav", "", d)} \
@@ -142,6 +136,7 @@ IMAGE_INSTALL_append_tegra124 = " \
 "
 IMAGE_INSTALL_append_tegra124m = " \
     libglu \
+    mesa-demos \
     freeglut \
     tiff \
     xvinfo \
