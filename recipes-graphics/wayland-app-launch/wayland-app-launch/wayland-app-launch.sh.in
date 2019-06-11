@@ -11,4 +11,4 @@ fi
 while [ ! -e  $XDG_RUNTIME_DIR/wayland-0 ] ; do sleep 0.1; done
 sleep 0.5
 
-@@wayland-application@@
+@@wayland-application@@ &

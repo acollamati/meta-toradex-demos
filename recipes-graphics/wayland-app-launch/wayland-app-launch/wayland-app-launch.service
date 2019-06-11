@@ -4,6 +4,7 @@ After=weston.service
 Requires=weston.service
 
 [Service]
+Restart=always
 Type=forking
 ExecStart=/usr/bin/wayland-app-launch.sh
 
