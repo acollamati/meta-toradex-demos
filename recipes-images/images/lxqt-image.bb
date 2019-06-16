@@ -183,7 +183,6 @@ QT5_LIBS ?= " \
     qttools \
     qttranslations \
     qtwebchannel \
-    qtwebkit-examples \
     qtwebkit \
     qtwebsockets \
     qtxmlpatterns \
