@@ -113,7 +113,6 @@ IMAGE_INSTALL_append_colibri-imx7 = " \
 
 IMAGE_INSTALL_append_mx8 = " \
     aspell \
-    bluez-alsa \
     bmode-usb \
     clpeak \
     cpuburn-a53 \
@@ -126,7 +125,6 @@ IMAGE_INSTALL_append_mx8 = " \
     libusbgx \
     libusbgx-examples \
     linuxptp \
-    mwifiexap \
     pciutils \
     perf \
     ptpd \
@@ -142,7 +140,6 @@ IMAGE_INSTALL_append_colibri-imx8qxp = " \
 IMAGE_INSTALL += " \
     packagegroup-dotnet-deps \
     \
-    wireless-regdb-static \
     \
     alsa-utils \
     alsa-utils-aplay \
@@ -150,7 +147,7 @@ IMAGE_INSTALL += " \
     \
     sqlite3 \
     \
-    ${BACKPORTS_WIFI} \
+    ${WIFI} \
     curl \
     can-utils iproute2 \
     nfs-utils-client \
@@ -185,10 +182,10 @@ IMAGE_INSTALL += " \
     tdx-oak-sensors \
 "
 
-#Backports
+# Wi-Fi FW and Packages
 
-BACKPORTS_WIFI = " \
-    backports \
+WIFI = " \
+    hostapd \
     linux-firmware-ath10k    \
     linux-firmware-sd8686    \
     linux-firmware-sd8688    \
@@ -199,37 +196,29 @@ BACKPORTS_WIFI = " \
     linux-firmware-ralink    \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8188eu \
-    hostapd \
+    wireless-regdb-static \
 "
-BACKPORTS_WIFI_EXTRA = " \
+WIFI_EXTRA = " \
     linux-firmware-ath9k     \
     linux-firmware-iwlwifi   \
 "
 
 IMAGE_INSTALL_append_apalis-tk1 = " \
-     ${BACKPORTS_WIFI_EXTRA} \
+    backports \
+    ${WIFI_EXTRA} \
 "
 
 IMAGE_INSTALL_append_apalis-tk1-mainline = " \
-     ${BACKPORTS_WIFI_EXTRA} \
-"
-
-IMAGE_INSTALL_remove_apalis-tk1-mainline = " \
-    backports \
+    ${WIFI_EXTRA} \
 "
 
 IMAGE_INSTALL_append_apalis-imx6 = " \
-    ${BACKPORTS_WIFI_EXTRA} \
+    ${WIFI_EXTRA} \
 "
 
-IMAGE_INSTALL_remove_mx8 = " \
-    backports \
+IMAGE_INSTALL_append_mx8 = " \
+    bluez-alsa \
+    mwifiexap \
+    ${WIFI_EXTRA} \
 "
 
-IMAGE_INSTALL_remove_use-mainline-bsp = " \
-    backports \
-"
-
-IMAGE_INSTALL_remove_qemuall = " \
-    backports \
-"
