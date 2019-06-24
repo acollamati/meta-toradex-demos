@@ -133,7 +133,7 @@ IMAGE_INSTALL_append_mx8 = " \
 IMAGE_INSTALL_append_apalis-imx8 = " \
     u-boot-toradex-fw-utils \
 "
-IMAGE_INSTALL_append_colibri-imx8qxp = " \
+IMAGE_INSTALL_append_colibri-imx8x = " \
     u-boot-fw-utils \
 "
 
