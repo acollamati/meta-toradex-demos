@@ -6,6 +6,10 @@ LICENSE = "MIT"
 
 inherit core-image
 
+# Most LXDE components don't even compile without native X11 support,
+# so make this fail early.
+COMPATIBLE_MACHINE_mx8 = "(^$)"
+
 #start of the resulting deployable tarball name
 export IMAGE_BASENAME = "LXDE-Image"
 MACHINE_NAME ?= "${MACHINE}"
