@@ -128,7 +128,6 @@ IMAGE_INSTALL_append_mx8 = " \
     pciutils \
     perf \
     ptpd \
-    util-linux \
 "
 IMAGE_INSTALL_append_apalis-imx8 = " \
     u-boot-toradex-fw-utils \
@@ -161,6 +160,7 @@ IMAGE_INSTALL += " \
     lsof \
     mtd-utils \
     dosfstools \
+    util-linux \
     util-linux-fstrim \
     \
     devmem2 \
