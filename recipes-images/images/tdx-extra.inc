@@ -30,7 +30,7 @@ IMAGE_INSTALL_append_tegra124 = " \
     pciutils \
     ptpd \
     tegrastats \
-    u-boot-toradex-fw-utils \
+    u-boot-fw-utils \
     usb-rndis-systemd \
     perf \
 "
@@ -48,7 +48,7 @@ IMAGE_INSTALL_append_tegra124m = " \
     lvds-tegra124 \
     pciutils \
     ptpd \
-    u-boot-toradex-fw-utils \
+    u-boot-fw-utils \
     perf \
 "
 
@@ -70,15 +70,12 @@ IMAGE_INSTALL-MX6QDL = " \
     mimetypes \
     perf \
     ptpd \
+    u-boot-fw-utils \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL-MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL-MX6QDL}"
 IMAGE_INSTALL_append_apalis-imx6 = " \
     pciutils \
-    u-boot-toradex-fw-utils \
-"
-IMAGE_INSTALL_append_colibri-imx6 = " \
-    u-boot-toradex-fw-utils \
 "
 
 IMAGE_INSTALL_append_mx6ull = " \
@@ -86,11 +83,11 @@ IMAGE_INSTALL_append_mx6ull = " \
     libusbgx-examples \
     linuxptp \
     ptpd \
+    u-boot-fw-utils \
 "
 IMAGE_INSTALL_append_colibri-imx6ull = " \
     mtd-utils-ubifs \
     mwifiexap \
-    u-boot-toradex-fw-utils \
     bluez-alsa \
 "
 
@@ -101,14 +98,13 @@ IMAGE_INSTALL_append_mx7 = " \
     libusbgx-examples \
     linuxptp \
     ptpd \
+    u-boot-fw-utils \
 "
 IMAGE_INSTALL_append_colibri-imx7-emmc = " \
     perf \
-    u-boot-toradex-fw-utils \
 "
 IMAGE_INSTALL_append_colibri-imx7 = " \
     mtd-utils-ubifs \
-    u-boot-toradex-fw-utils \
 "
 
 IMAGE_INSTALL_append_mx8 = " \
@@ -128,11 +124,6 @@ IMAGE_INSTALL_append_mx8 = " \
     pciutils \
     perf \
     ptpd \
-"
-IMAGE_INSTALL_append_apalis-imx8 = " \
-    u-boot-toradex-fw-utils \
-"
-IMAGE_INSTALL_append_colibri-imx8x = " \
     u-boot-fw-utils \
 "
 
