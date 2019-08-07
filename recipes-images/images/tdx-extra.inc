@@ -79,6 +79,7 @@ IMAGE_INSTALL_append_apalis-imx6 = " \
 "
 
 IMAGE_INSTALL_append_mx6ull = " \
+    bmode-usb \
     libusbgx \
     libusbgx-examples \
     linuxptp \
