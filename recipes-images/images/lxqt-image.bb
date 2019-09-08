@@ -165,7 +165,6 @@ QT5_LIBS ?= " \
     qt3d \
     qt5-plugin-generic-vboxtouch \
     qtbase \
-    qtcanvas3d \
     qtconnectivity \
     qtdeclarative \
     qtenginio \
