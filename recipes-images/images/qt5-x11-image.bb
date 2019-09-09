@@ -93,7 +93,7 @@ GSTREAMER_append_mx8 = " \
     libopenvx-imx \
     libopencl-imx \
     imx-gpu-viv \
-    vulkan \
+    vulkan-tools \
 "
 
 GSTREAMER_append_tegra124 = " \
