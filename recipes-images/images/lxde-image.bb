@@ -158,8 +158,6 @@ IMAGE_INSTALL_MX6QDL = " \
     libopencl-imx \
     gnome-disk-utility \
     mime-support \
-    eglinfo-x11 \
-    \
 "
 IMAGE_INSTALL_append_mx6q = "${IMAGE_INSTALL_MX6QDL}"
 IMAGE_INSTALL_append_mx6dl = "${IMAGE_INSTALL_MX6QDL}"
