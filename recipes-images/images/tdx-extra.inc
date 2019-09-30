@@ -139,6 +139,8 @@ IMAGE_INSTALL += " \
     sqlite3 \
     \
     ${WIFI} \
+    avahi-autoipd \
+    ppp \
     curl \
     can-utils iproute2 \
     nfs-utils-client \
@@ -167,7 +169,9 @@ IMAGE_INSTALL += " \
     mmc-utils-cos \
     nbench-byte \
     rt-tests \
+    procps \
     stress \
+    strace \
     tinymembench \
     util-linux-lsblk \
     \
