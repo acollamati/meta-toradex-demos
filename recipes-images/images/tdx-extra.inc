@@ -16,6 +16,11 @@ PV = "${TDX_VER_PACKAGE_MIN}"
 # add the rootfs version to the welcome banner
 ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
+# Entropy source daemon
+RANDOM_HELPER = "rng-tools"
+RANDOM_HELPER_tegra124 = "haveged"
+RANDOM_HELPER_tegra124m = "haveged"
+
 IMAGE_INSTALL_append_tegra124 = " \
     aspell \
     e2fsprogs \
@@ -154,6 +159,7 @@ IMAGE_INSTALL += " \
     lsof \
     mtd-utils \
     dosfstools \
+    ${RANDOM_HELPER} \
     util-linux \
     util-linux-fstrim \
     \
