@@ -141,6 +141,7 @@ IMAGE_INSTALL += " \
     alsa-utils-aplay \
     alsa-utils-amixer \
     \
+    libgpiod-tools \
     sqlite3 \
     \
     ${WIFI} \
