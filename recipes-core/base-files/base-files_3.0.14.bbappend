@@ -10,3 +10,5 @@ do_install_append () {
     install -m 0644 ${WORKDIR}/disable_systemd_coloroutput.sh ${D}${sysconfdir}/profile.d/
     install -m 0644 ${WORKDIR}/x11-display-var.sh ${D}${sysconfdir}/profile.d/
 }
+
+BASEFILESISSUEINSTALL = ""

@@ -6,12 +6,11 @@ COPY_LIC_MANIFEST ?= "1"
 COPY_LIC_DIRS ?= "1"
 
 add_rootfs_version () {
-    echo -n "${IMAGE_NAME} ${PV}" >> ${IMAGE_ROOTFS}/etc/issue
-    echo " ${TDX_VERDATE}" | sed 's/-//' >>${IMAGE_ROOTFS}/etc/issue
-    echo "" >> ${IMAGE_ROOTFS}/etc/issue
+    printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) \\\n \\\l\n" > ${IMAGE_ROOTFS}/etc/issue
+    printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) %%h\n" > ${IMAGE_ROOTFS}/etc/issue.net
+    printf "${IMAGE_NAME}\n\n" >> ${IMAGE_ROOTFS}/etc/issue
+    printf "${IMAGE_NAME}\n\n" >> ${IMAGE_ROOTFS}/etc/issue.net
 }
-
-PV = "${TDX_VER_PACKAGE_MIN}"
 
 # add the rootfs version to the welcome banner
 ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
