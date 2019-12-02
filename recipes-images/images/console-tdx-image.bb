@@ -1,23 +1,28 @@
-SUMMARY = "Toradex Embedded Linux Console Demo"
+inherit core-image
+
+SUMMARY = "Toradex Embedded Linux Console Image"
 SUMMARY_append_apalis-tk1-mainline = " (Mainline)"
 DESCRIPTION = "Image without graphical interface"
 
 LICENSE = "MIT"
 
-inherit core-image
-
-#start of the resulting deployable tarball name
+#Prefix to the resulting deployable tarball name
 export IMAGE_BASENAME = "Console-Image"
 MACHINE_NAME ?= "${MACHINE}"
 IMAGE_NAME = "${MACHINE_NAME}_${IMAGE_BASENAME}"
 
-SYSTEMD_DEFAULT_TARGET = "graphical.target"
+# Copy Licenses to image /usr/share/common-license
+COPY_LIC_MANIFEST ?= "1"
+COPY_LIC_DIRS ?= "1"
 
-IMAGE_FEATURES += " \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
-       bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11', \
-                                                       '', d), d)} \
-"
+add_rootfs_version () {
+    printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) \\\n \\\l\n" > ${IMAGE_ROOTFS}/etc/issue
+    printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) %%h\n" > ${IMAGE_ROOTFS}/etc/issue.net
+    printf "${IMAGE_NAME}\n\n" >> ${IMAGE_ROOTFS}/etc/issue
+    printf "${IMAGE_NAME}\n\n" >> ${IMAGE_ROOTFS}/etc/issue.net
+}
+# add the rootfs version to the welcome banner
+ROOTFS_POSTPROCESS_COMMAND += " add_rootfs_version;"
 
 IMAGE_LINGUAS = "en-us"
 #IMAGE_LINGUAS = "de-de fr-fr en-gb en-us pt-br es-es kn-in ml-in ta-in"
@@ -30,19 +35,14 @@ CONMANPKGS ?= "connman connman-plugin-loopback connman-plugin-ethernet connman-p
 IMAGE_INSTALL += " \
     packagegroup-boot \
     packagegroup-basic \
+    packagegroup-base-tdx-cli \
+    packagegroup-machine-tdx-cli \
+    packagegroup-wifi-tdx-cli \
     udev-extra-rules \
     ${CONMANPKGS} \
     ${ROOTFS_PKGMANAGE_PKGS} \
     timestamp-service \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston weston-init wayland-terminal-launch', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
-                         'weston-xwayland xterm', \
-       bb.utils.contains('DISTRO_FEATURES', 'x11', \
-                         'x-window-xterm', '', d), d)} \
 "
-
-require recipes-images/images/tdx-extra.inc
 
 IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
