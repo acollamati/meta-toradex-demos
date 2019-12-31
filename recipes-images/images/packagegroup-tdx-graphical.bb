@@ -59,12 +59,7 @@ RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx8 = " \
 RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_tegra124 = " \
     ${@bb.utils.contains("LICENSE_FLAGS_WHITELIST", "commercial", "gstreamer1.0-libav", "", d)} \
     gstreamer1.0-plugins-bad-videoparsersbad \
-    gstreamer \
-    gst-plugins-base \
-    gst-plugins-good \
     libgstcodecparsers-1.0 \
-    libgstnvegl \
-    libgstomx-0.10 \
     libgstomx-1.0 \
 "
 
