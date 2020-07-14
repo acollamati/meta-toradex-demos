@@ -1,4 +1,4 @@
-require console-tdx-image.bb
+require tdx-reference-minimal-image.bb
 
 SUMMARY = "Toradex Embedded Linux Graphical Image"
 DESCRIPTION = "Image with a graphical interface, either using weston or X11"

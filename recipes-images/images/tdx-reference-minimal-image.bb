@@ -1,12 +1,12 @@
 inherit core-image
 
-SUMMARY = "Toradex Embedded Linux Console Image"
-DESCRIPTION = "Image without graphical interface"
+SUMMARY = "Toradex Embedded Linux Reference Minimal Image"
+DESCRIPTION = "Minimal image without graphical interface that just boots"
 
 LICENSE = "MIT"
 
 #Prefix to the resulting deployable tarball name
-export IMAGE_BASENAME = "Console-Image"
+export IMAGE_BASENAME = "Reference-Minimal-Image"
 MACHINE_NAME ?= "${MACHINE}"
 IMAGE_NAME = "${MACHINE_NAME}_${IMAGE_BASENAME}"
 

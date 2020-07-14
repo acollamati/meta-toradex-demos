@@ -1,10 +1,10 @@
 require graphical-tdx-image.bb
 
-SUMMARY = "Toradex Embedded Linux Verification Image"
-DESCRIPTION = "Image for BSP verification"
+SUMMARY = "Toradex Embedded Linux Reference Multimedia Image"
+DESCRIPTION = "Image for BSP verification with QT and multimedia features"
 
 #Prefix to the resulting deployable tarball name
-export IMAGE_BASENAME = "Verification-Image"
+export IMAGE_BASENAME = "Reference-Multimedia-Image"
 
 IMAGE_INSTALL += " \
     packagegroup-tdx-cli \
