@@ -50,6 +50,7 @@ RRECOMMENDS_packagegroup-base-tdx-cli = "\
 SUMMARY_packagegroup-benchmark-tdx-cli = "Benchmarking tools"
 RRECOMMENDS_packagegroup-benchmark-tdx-cli = "\
     hdparm \
+    iperf2 \
     iperf3 \
     lmbench \
     memtester \
@@ -60,6 +61,7 @@ RRECOMMENDS_packagegroup-benchmark-tdx-cli = "\
 
 SUMMARY_packagegroup-devel-tdx-cli = "Tools useful during development"
 RRECOMMENDS_packagegroup-devel-tdx-cli = "\
+    bonnie++ \
     devmem2 \
     evtest \
     gdbserver \
