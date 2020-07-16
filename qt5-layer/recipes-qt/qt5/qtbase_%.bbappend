@@ -17,3 +17,21 @@ PACKAGECONFIG_append = " \
     icu \
     ${PACKAGECONFIG_EXAMPLES} \
 "
+
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
+IMX_BACKEND = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland', \
+                  bb.utils.contains('DISTRO_FEATURES',     'x11',     'x11', \
+                                                                       'fb', d), d)}"
+
+SRC_URI_append = " \
+    file://qt5-${IMX_BACKEND}.sh \
+"
+
+do_install_append () {
+    install -d ${D}${sysconfdir}/profile.d/
+    install -m 0755 ${WORKDIR}/qt5-${IMX_BACKEND}.sh ${D}${sysconfdir}/profile.d/
+
+}
+
+FILES_${PN} += "${sysconfdir}/profile.d/qt5*.sh"
