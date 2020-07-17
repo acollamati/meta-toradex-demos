@@ -14,12 +14,20 @@ IMAGE_FEATURES += " \
                                                        '', d), d)} \
 "
 
+APP_LAUNCH_WAYLAND ?= "wayland-qtdemo-launch-cinematicexperience"
+APP_LAUNCH_X11 ?= "x-window-qtcinematicexperience"
+
+APP_LAUNCH_X11_colibri-imx6ull ?= "x-window-qtsmarthome"
+APP_LAUNCH_X11_colibri-imx6 ?= "x-window-qtsmarthome"
+APP_LAUNCH_X11_mx7 ?= "x-window-qtsmarthome"
+APP_LAUNCH_X11_apalis-tk1 ?= "x-window-xterm"
+
 IMAGE_INSTALL += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston weston-init weston-examples wayland-terminal-launch', '', d)} \
+                         'weston weston-init weston-examples ${APP_LAUNCH_WAYLAND}', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
                          'weston-xwayland xterm', \
-       bb.utils.contains('DISTRO_FEATURES', 'x11', 'x-window-xterm', '', d), d)} \
+       bb.utils.contains('DISTRO_FEATURES', 'x11', '${APP_LAUNCH_X11}', '', d), d)} \
     \
     packagegroup-tdx-cli \
     packagegroup-tdx-graphical \
