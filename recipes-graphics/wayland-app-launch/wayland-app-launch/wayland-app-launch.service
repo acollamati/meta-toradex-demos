@@ -1,7 +1,7 @@
 [Unit]
 Description=Start a wayland application
-After=weston.service
-Requires=weston.service
+After=weston@root.service
+Requires=weston@root.service
 
 [Service]
 Restart=always
