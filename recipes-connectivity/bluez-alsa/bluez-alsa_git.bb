@@ -5,7 +5,11 @@ SECTION = "libs"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=bb3e99e80c5d718213f35ae1def4c106"
 
-SRC_URI = "git://github.com/Arkq/bluez-alsa.git;protocol=https;branch=master"
+SRC_URI = " \
+    git://github.com/Arkq/bluez-alsa.git;protocol=https;branch=master \
+    file://0001-Fix-linkage-mark-external-variable-as-extern.patch \
+"
+
 SRCREV = "9045edb436ea755f395a2e09e4525b5defad286a"
 
 SRC_URI += "file://bluez-alsa.service"
@@ -32,12 +36,12 @@ do_install_append () {
 }
 
 FILES_${PN} += "\
-  ${datadir}/alsa/alsa.conf.d/20-bluealsa.conf\
-  ${libdir}/alsa-lib/libasound_module_ctl_bluealsa.so\
-  ${libdir}/alsa-lib/libasound_module_pcm_bluealsa.so\
+    ${datadir}/alsa/alsa.conf.d/20-bluealsa.conf\
+    ${libdir}/alsa-lib/libasound_module_ctl_bluealsa.so\
+    ${libdir}/alsa-lib/libasound_module_pcm_bluealsa.so\
 "
 
 FILES_${PN}-staticdev += "\
-  ${libdir}/alsa-lib/libasound_module_ctl_bluealsa.a\
-  ${libdir}/alsa-lib/libasound_module_pcm_bluealsa.a\
+    ${libdir}/alsa-lib/libasound_module_ctl_bluealsa.a\
+    ${libdir}/alsa-lib/libasound_module_pcm_bluealsa.a\
 "
