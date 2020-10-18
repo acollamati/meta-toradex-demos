@@ -7,6 +7,6 @@ SRCREV = "d5d32b0765f0ae78e6ec4cbe6ad0800e470aaf67"
 
 SRC_URI = "git://github.com/cbrake/linux-serial-test.git;branch=master;protocol=git"
 
-S = "${WORKDIR}/git/"
+S = "${WORKDIR}/git"
 
 inherit cmake

@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/MediaInfo_CLI_GNU_FromSource/MediaInfo/Lic
 SRC_URI[md5sum] = "ba10422974111fdff5cf1bb38410c9a1"
 SRC_URI[sha256sum] = "ecdde190c9f02ab26769e590314c4841a1c182e8488f1ad8584bdfb374562564"
 
-S = "${WORKDIR}/MediaInfo_CLI_GNU_FromSource/MediaInfo/Project/GNU/CLI/"
+S = "${WORKDIR}/MediaInfo_CLI_GNU_FromSource/MediaInfo/Project/GNU/CLI"
 
 do_configure () {
     #build zenlib

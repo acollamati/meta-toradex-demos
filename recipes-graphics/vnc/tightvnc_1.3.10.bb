@@ -14,7 +14,7 @@ SRC_URI = " \
     file://Vncviewer \
 "
 
-S = "${WORKDIR}/vnc_unixsrc/vncviewer/"
+S = "${WORKDIR}/vnc_unixsrc/vncviewer"
 
 PACKAGES = "${PN}-viewer-dbg ${PN}-viewer"
 FILES_${PN}-viewer-dbg = "${bindir}/.debug"
