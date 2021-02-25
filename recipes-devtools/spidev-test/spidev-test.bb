@@ -6,6 +6,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = "${WORKDIR}"
 
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
+do_populate_lic[depends] += "virtual/kernel:do_shared_workdir"
 
 KERNELPATH = "tools/spi/spidev_test.c"
 
