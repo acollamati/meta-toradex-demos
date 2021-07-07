@@ -1,6 +1,6 @@
 SUMMARY = "The Linux kernels spidev-test programm"
-LICENSE = "GPL-2.0-only"
-LIC_FILES_CHKSUM = "file://${STAGING_KERNEL_DIR}/${KERNELPATH};endline=1;md5=fcab174c20ea2e2bc0be64b493708266"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = "${WORKDIR}"
@@ -8,10 +8,18 @@ S = "${WORKDIR}"
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
 do_populate_lic[depends] += "virtual/kernel:do_shared_workdir"
 
+# the spidev_test.c example got moved to tools/spi/ starting with
+# the v.4.5.y kernel
 KERNELPATH = "tools/spi/spidev_test.c"
+KERNELPATH-OLD = "Documentation/spi/spidev_test.c"
 
 do_compile () {
-    ${CC} ${LDFLAGS} ${STAGING_KERNEL_DIR}/${KERNELPATH} -o spidev_test
+    if [ -f "${STAGING_KERNEL_DIR}/${KERNELPATH}" ]
+    then
+        ${CC} ${LDFLAGS} ${STAGING_KERNEL_DIR}/${KERNELPATH} -o spidev_test
+    else
+        ${CC} ${LDFLAGS} ${STAGING_KERNEL_DIR}/${KERNELPATH-OLD} -o spidev_test
+    fi
 }
 
 do_install () {
