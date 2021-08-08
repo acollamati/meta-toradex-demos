@@ -1,1 +1,1 @@
-RDEPENDS_${PN} += "nativesdk-python3-json"
+RDEPENDS:${PN} += "nativesdk-python3-json"

@@ -10,11 +10,11 @@ export IMAGE_BASENAME = "Reference-Multimedia-Image"
 
 # Show Tezi EULA license
 TEZI_SHOW_EULA_LICENSE ?= "1"
-TEZI_SHOW_EULA_LICENSE_apalis-tk1 ?= "0"
+TEZI_SHOW_EULA_LICENSE:apalis-tk1 ?= "0"
 
-TEZI_SHOW_EULA_LICENSE_use-mainline-bsp ?= "0"
-TEZI_SHOW_EULA_LICENSE_colibri-imx6_use-mainline-bsp ?= "1"
-TEZI_SHOW_EULA_LICENSE_apalis-imx6_use-mainline-bsp ?= "1"
+TEZI_SHOW_EULA_LICENSE:use-mainline-bsp ?= "0"
+TEZI_SHOW_EULA_LICENSE:colibri-imx6:use-mainline-bsp ?= "1"
+TEZI_SHOW_EULA_LICENSE:apalis-imx6:use-mainline-bsp ?= "1"
 
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
@@ -26,18 +26,18 @@ IMAGE_FEATURES += " \
 "
 
 APP_LAUNCH_WAYLAND ?= "wayland-qtdemo-launch-cinematicexperience"
-APP_LAUNCH_WAYLAND_colibri-imx6ull ?= "wayland-qtdemo-launch-analogclock"
-APP_LAUNCH_WAYLAND_colibri-imx6ull-emmc ?= "wayland-qtdemo-launch-analogclock"
-APP_LAUNCH_WAYLAND_colibri-imx7 ?= "wayland-qtdemo-launch-analogclock"
-APP_LAUNCH_WAYLAND_colibri-imx7-emmc ?= "wayland-qtdemo-launch-analogclock"
-APP_LAUNCH_WAYLAND_apalis-tk1 ?= "wayland-qtdemo-launch-qtsmarthome"
+APP_LAUNCH_WAYLAND:colibri-imx6ull ?= "wayland-qtdemo-launch-analogclock"
+APP_LAUNCH_WAYLAND:colibri-imx6ull-emmc ?= "wayland-qtdemo-launch-analogclock"
+APP_LAUNCH_WAYLAND:colibri-imx7 ?= "wayland-qtdemo-launch-analogclock"
+APP_LAUNCH_WAYLAND:colibri-imx7-emmc ?= "wayland-qtdemo-launch-analogclock"
+APP_LAUNCH_WAYLAND:apalis-tk1 ?= "wayland-qtdemo-launch-qtsmarthome"
 
 APP_LAUNCH_X11 ?= "x-window-qtcinematicexperience"
-APP_LAUNCH_X11_colibri-imx6ull ?= "x-window-analogclock"
-APP_LAUNCH_X11_colibri-imx6ull-emmc ?= "x-window-analogclock"
-APP_LAUNCH_X11_colibri-imx7 ?= "x-window-analogclock"
-APP_LAUNCH_X11_colibri-imx7-emmc ?= "x-window-analogclock"
-APP_LAUNCH_X11_apalis-tk1 ?= "x-window-qtsmarthome"
+APP_LAUNCH_X11:colibri-imx6ull ?= "x-window-analogclock"
+APP_LAUNCH_X11:colibri-imx6ull-emmc ?= "x-window-analogclock"
+APP_LAUNCH_X11:colibri-imx7 ?= "x-window-analogclock"
+APP_LAUNCH_X11:colibri-imx7-emmc ?= "x-window-analogclock"
+APP_LAUNCH_X11:apalis-tk1 ?= "x-window-qtsmarthome"
 
 IMAGE_INSTALL += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \

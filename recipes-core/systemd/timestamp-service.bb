@@ -18,4 +18,4 @@ do_install () {
 }
 
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "timestamp.service"
+SYSTEMD_SERVICE:${PN} = "timestamp.service"

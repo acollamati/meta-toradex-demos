@@ -1,6 +1,6 @@
 TORADEX_MIRROR_URL="https://artifacts.toradex.com/artifactory/tdxref-torizoncore-sources-frankfurt/${TDX_MAJOR}"
 
-PREMIRRORS_append () {
+PREMIRRORS:append () {
 cvs://.*/.*     ${TORADEX_MIRROR_URL}
 svn://.*/.*     ${TORADEX_MIRROR_URL}
 git://.*/.*     ${TORADEX_MIRROR_URL}

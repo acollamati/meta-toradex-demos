@@ -5,5 +5,5 @@ INITIAL_APP_PKGS ?= "xterm"
 INITIAL_PATH ?= ""
 X_APPLICATION ?= "/usr/bin/xterm"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/x-window-simple-app:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/x-window-simple-app:"
 require recipes-graphics/x-window-simple-app/x-window-simple-app.inc

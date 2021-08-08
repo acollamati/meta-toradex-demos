@@ -11,5 +11,5 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1c3a7fb45253c11c74434676d84fe7dd"
 
 inherit autotools
 
-FILES_${PN} += ""
+FILES:${PN} += ""
 

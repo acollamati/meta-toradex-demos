@@ -17,8 +17,8 @@ SRC_URI = " \
 S = "${WORKDIR}/vnc_unixsrc/vncviewer"
 
 PACKAGES = "${PN}-viewer-dbg ${PN}-viewer"
-FILES_${PN}-viewer-dbg = "${bindir}/.debug"
-FILES_${PN}-viewer = "${bindir}/${PN}viewer ${sysconfdir}"
+FILES:${PN}-viewer-dbg = "${bindir}/.debug"
+FILES:${PN}-viewer = "${bindir}/${PN}viewer ${sysconfdir}"
 
 do_compile () {
     install ${WORKDIR}/Makefile ${S}
@@ -32,12 +32,12 @@ do_install () {
     install -m 644 ${WORKDIR}/Vncviewer ${D}${sysconfdir}/X11/app-defaults/Vncviewer
 }
 
-pkg_postinst_${PN}-viewer () {
+pkg_postinst:${PN}-viewer () {
     update-alternatives --install ${bindir}/vncviewer vncviewer tightvncviewer 100
 }
 
 
-pkg_prerm_${PN}-viewer () {
+pkg_prerm:${PN}-viewer () {
     update-alternatives --remove ${bindir}/vncviewer vncviewer tightvncviewer 100
 }
 

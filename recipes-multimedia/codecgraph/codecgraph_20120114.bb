@@ -3,7 +3,7 @@ SUMMARY = "Tool to generate a graph of HDA codec config"
 DESCRIPTION = "Codecgraph is a tool to generate a graph based on the ALSA description of a High Definition Audio codec."
 HOMEPAGE = "http://helllabs.org/codecgraph/"
 LICENSE = "GPLv2+"
-RDEPENDS_${PN} = "python graphviz"
+RDEPENDS:${PN} = "python graphviz"
 
 SRC_URI = "http://helllabs.org/codecgraph/codecgraph-${PV}.tar.gz"
 LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"

@@ -1,1 +1,1 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/opkg:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/opkg:"

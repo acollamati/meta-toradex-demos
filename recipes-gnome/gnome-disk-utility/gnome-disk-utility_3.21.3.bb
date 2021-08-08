@@ -17,9 +17,9 @@ GNOME_COMPRESS_TYPE = "xz"
 
 EXTRA_OECONF += "--disable-gsd-plugin"
 
-do_configure_prepend() {
+do_configure:prepend() {
     sed -i -e "s: help : :g" ${S}/Makefile.am
 }
 
-FILES_${PN} += "${datadir}/appdata ${datadir}/dbus-1/services"
-FILES_${PN}-libs += "${libdir}/libgdu*.so.*"
+FILES:${PN} += "${datadir}/appdata ${datadir}/dbus-1/services"
+FILES:${PN}-libs += "${libdir}/libgdu*.so.*"

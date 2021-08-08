@@ -4,7 +4,7 @@ inherit packagegroup
 
 PACKAGES = "packagegroup-dotnet-deps"
 
-RDEPENDS_packagegroup-dotnet-deps = "\
+RDEPENDS:packagegroup-dotnet-deps = "\
     libunwind \
     icu \
     libcurl \

@@ -28,7 +28,7 @@ do_configure () {
     oe_runconf
 }
 
-do_install_prepend () {
+do_install:prepend () {
     #install media info
     cd ${S}
 }

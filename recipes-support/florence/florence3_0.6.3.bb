@@ -12,9 +12,9 @@ DEPENDS = "cairo gconf glib-2.0-native gnome-doc-utils gstreamer1.0 gtk+3 intlto
 
 PROVIDES += "florence"
 
-RPROVIDES_${PN} += "florence"
-RREPLACES_${PN} += "florence"
-RCONFLICTS_${PN} += "florence"
+RPROVIDES:${PN} += "florence"
+RREPLACES:${PN} += "florence"
+RCONFLICTS:${PN} += "florence"
 
 SRC_URI = " \
     ${SOURCEFORGE_MIRROR}/florence/florence/${PV}/florence-${PV}.tar.bz2 \
@@ -25,6 +25,6 @@ SRC_URI[sha256sum] = "422992fd07d285be73cce721a203e22cee21320d69b0fda1579ce62944
 S = "${WORKDIR}/florence-${PV}"
 inherit gettext autotools gconf pkgconfig gsettings
 
-FILES_${PN} += "${datadir}/florence"
+FILES:${PN} += "${datadir}/florence"
 
 EXTRA_OECONF = "--disable-scrollkeeper --without-docs --without-at-spi --without-panelapplet --without-xrecord --without-sound"

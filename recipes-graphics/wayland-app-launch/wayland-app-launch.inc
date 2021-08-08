@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit allarch systemd
 
-RDEPENDS_${PN} += "weston-init ${INITIAL_APP_PKGS}"
+RDEPENDS:${PN} += "weston-init ${INITIAL_APP_PKGS}"
 
 S = "${WORKDIR}"
 
@@ -13,7 +13,7 @@ SRC_URI = " \
     file://wayland-app-launch.service.in \
     file://wayland-app-launch.sh.in \
 "
-FILESEXTRAPATHS_prepend := "${THISDIR}/wayland-app-launch:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/wayland-app-launch:"
 
 APPLICATION_ENVIRONMENT ??= ""
 
@@ -29,4 +29,4 @@ do_install () {
 }
 
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "wayland-app-launch.service"
+SYSTEMD_SERVICE:${PN} = "wayland-app-launch.service"

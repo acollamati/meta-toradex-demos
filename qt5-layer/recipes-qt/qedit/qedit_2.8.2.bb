@@ -24,10 +24,10 @@ do_configure() {
     cmake_do_configure
 }
 
-do_install_append () {
+do_install:append () {
     install -d ${D}/${datadir}/applications
     install -m 755 ${WORKDIR}/qedit.desktop ${D}/${datadir}/applications/
 }
 
-FILES_${PN} += ""
-FILES_${PN}-dev += ""
+FILES:${PN} += ""
+FILES:${PN}-dev += ""

@@ -2,9 +2,9 @@ SUMMARY = "Deployment of example files to run hostapd on Toradex demo images"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-RDEPENDS_${PN} = "hostapd"
+RDEPENDS:${PN} = "hostapd"
 
 S = "${WORKDIR}"
 
@@ -17,8 +17,8 @@ SRC_URI = " \
 
 inherit allarch systemd
 
-SYSTEMD_SERVICE_${PN} = "hostapd-example.service"
-SYSTEMD_AUTO_ENABLE_${PN} = "disable"
+SYSTEMD_SERVICE:${PN} = "hostapd-example.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 do_install() {
     install -d ${D}${systemd_unitdir}/system/ ${D}${systemd_unitdir}/network/ ${D}${sysconfdir}/
@@ -29,7 +29,7 @@ do_install() {
     sed -i -e 's,@SBINDIR@,${sbindir},g' -e 's,@SYSCONFDIR@,${sysconfdir},g' ${D}${systemd_unitdir}/system/hostapd-example.service
 }
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     ${systemd_unitdir}/system/* \
     ${systemd_unitdir}/network/hostapd-example.network \
     ${sysconfdir}/hostapd-tdx-demo-img.conf \

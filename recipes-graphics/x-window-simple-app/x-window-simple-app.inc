@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit allarch
 
-RDEPENDS_${PN} += "${INITIAL_APP_PKGS} xserver-nodm-init"
+RDEPENDS:${PN} += "${INITIAL_APP_PKGS} xserver-nodm-init"
 
 S = "${WORKDIR}"
 
@@ -31,6 +31,6 @@ do_install () {
 }
 
 # make sure xinput_calibrator is only started once
-pkg_postinst_${PN}() {
+pkg_postinst:${PN}() {
     rm -f /etc/xdg/autostart/xinput_calibrator.desktop
 }

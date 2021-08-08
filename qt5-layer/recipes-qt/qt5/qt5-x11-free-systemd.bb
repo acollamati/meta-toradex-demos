@@ -21,4 +21,4 @@ do_install () {
 }
 
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "qt5-x11-demo.service"
+SYSTEMD_SERVICE:${PN} = "qt5-x11-demo.service"

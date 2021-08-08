@@ -1,1 +1,1 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/run-postinsts:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/run-postinsts:"

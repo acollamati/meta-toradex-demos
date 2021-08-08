@@ -13,7 +13,7 @@ PACKAGES += " \
     packagegroup-x11-utils-tdx-graphical \
 "
 
-RRECOMMENDS_packagegroup-tdx-graphical = " \
+RRECOMMENDS:packagegroup-tdx-graphical = " \
     packagegroup-gstreamer-tdx-graphical \
     packagegroup-gpu-tdx-graphical \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
@@ -22,20 +22,20 @@ RRECOMMENDS_packagegroup-tdx-graphical = " \
                           packagegroup-x11-utils-tdx-graphical', \
                          '', d), d)} \
 "
-RRECOMMENDS_packagegroup-tdx-graphical_append_mx8 = " \
+RRECOMMENDS:packagegroup-tdx-graphical:append:mx8 = " \
     packagegroup-drm-utils-tdx-graphical \
 "
-RRECOMMENDS_packagegroup-tdx-graphical_append_upstream = " \
+RRECOMMENDS:packagegroup-tdx-graphical:append:upstream = " \
     packagegroup-drm-utils-tdx-graphical \
 "
 
-SUMMARY_packagegroup-drm-utils-tdx-graphical = "Utilities for DRM, Direct Rendering Manager"
-RRECOMMENDS_packagegroup-drm-utils-tdx-graphical = " \
+SUMMARY:packagegroup-drm-utils-tdx-graphical = "Utilities for DRM, Direct Rendering Manager"
+RRECOMMENDS:packagegroup-drm-utils-tdx-graphical = " \
     libdrm-tests \
 "
 
-SUMMARY_packagegroup-gstreamer-tdx-graphical = "gstreamer packages"
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical = "\
+SUMMARY:packagegroup-gstreamer-tdx-graphical = "gstreamer packages"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical = "\
     gstreamer1.0 \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
@@ -48,12 +48,12 @@ GSTREAMER_MX6QDL = " \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
 "
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx6dl = " ${GSTREAMER_MX6QDL}"
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx6q = " ${GSTREAMER_MX6QDL}"
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_colibri-imx6ull = ""
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_colibri-imx6ull-emmc = ""
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx7 = " imx-gst1.0-plugin"
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx8 = " \
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6dl = " ${GSTREAMER_MX6QDL}"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6q = " ${GSTREAMER_MX6QDL}"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:colibri-imx6ull = ""
+RRECOMMENDS_packagegroup-gstreamer-tdx-graphical:colibri-imx6ull-emmc = ""
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx7 = " imx-gst1.0-plugin"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx8 = " \
     imx-gst1.0-plugin \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
@@ -61,27 +61,27 @@ RRECOMMENDS_packagegroup-gstreamer-tdx-graphical_append_mx8 = " \
     gst-examples \
 "
 
-SUMMARY_packagegroup-gpu-utils-tdx-graphical = "Utilities for GPU (OpenGL...)"
+SUMMARY:packagegroup-gpu-utils-tdx-graphical = "Utilities for GPU (OpenGL...)"
 IMAGE_INSTALL_OPENCL_IMX = " \
     clpeak \
     libopencl-imx \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical = " \
     glmark2 \
 "
 IMAGE_INSTALL_GPU_MX6QDL = " \
     packagegroup-fsl-gpu-libs \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_mx6dl = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6dl = " \
     ${IMAGE_INSTALL_GPU_MX6QDL} \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_mx6q = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6q = " \
     ${IMAGE_INSTALL_GPU_MX6QDL} \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_colibri-imx6ull = ""
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_colibri-imx6ull-emmc = ""
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_mx8 = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:colibri-imx6ull = ""
+RRECOMMENDS_packagegroup-gpu-tdx-graphical:colibri-imx6ull-emmc = ""
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8 = " \
     tinycompress \
     libvdk-imx \
     vulkan-headers \
@@ -89,22 +89,22 @@ RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_mx8 = " \
     vulkan-tools \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_remove_mx8mm = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:remove:mx8mm = " \
     vulkan \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_mx8qm = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8qm = " \
     libopenvx-imx \
 "
-RRECOMMENDS_packagegroup-gpu-tdx-graphical_append_tegra124 = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:tegra124 = " \
     libglu \
     freeglut \
     tiff \
     xvinfo \
 "
 
-SUMMARY_packagegroup-x11-components-tdx-graphical = "Components of X11"
-RRECOMMENDS_packagegroup-x11-components-tdx-graphical = "\
+SUMMARY:packagegroup-x11-components-tdx-graphical = "Components of X11"
+RRECOMMENDS:packagegroup-x11-components-tdx-graphical = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
        bb.utils.contains('DISTRO_FEATURES', 'x11', \
        'libxcursor \
@@ -121,8 +121,8 @@ RRECOMMENDS_packagegroup-x11-components-tdx-graphical = "\
        '', d), d)} \
 "
 
-SUMMARY_packagegroup-x11-utils-tdx-graphical = "Utilities for X11"
-RRECOMMENDS_packagegroup-x11-utils-tdx-graphical = " \
+SUMMARY:packagegroup-x11-utils-tdx-graphical = "Utilities for X11"
+RRECOMMENDS:packagegroup-x11-utils-tdx-graphical = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
        bb.utils.contains('DISTRO_FEATURES', 'x11', \
        'scrot \

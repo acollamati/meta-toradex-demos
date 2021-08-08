@@ -11,42 +11,42 @@ PACKAGES += " \
     ${PN}-libs \
 "
 
-RRECOMMENDS_${PN} = " \
+RRECOMMENDS:${PN} = " \
     ${PN}-demos \
     ${PN}-fonts \
     ${PN}-libs \
 "
 # Only install qtbase-examples with its dependencies on modules with limited
 # storage and no gpu.
-RRECOMMENDS_${PN}_colibri-imx6ull = " \
+RRECOMMENDS:${PN}:colibri-imx6ull = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland', '', d)} \
     qtbase-examples \
 "
-RRECOMMENDS_${PN}_colibri-imx6ull-emmc = " \
+RRECOMMENDS_${PN}:colibri-imx6ull-emmc = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland', '', d)} \
     qtbase-examples \
 "
-RRECOMMENDS_${PN}_colibri-imx7 = " \
+RRECOMMENDS:${PN}:colibri-imx7 = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland', '', d)} \
     qtbase-examples \
 "
 
-SUMMARY_${PN}-demos = "QT5 Demos"
-RRECOMMENDS_${PN}-demos = " \
+SUMMARY:${PN}-demos = "QT5 Demos"
+RRECOMMENDS:${PN}-demos = " \
     cinematicexperience \
     qtsmarthome \
 "
 
-SUMMARY_${PN}-fonts = "Some fonts useful for QT5"
-RRECOMMENDS_${PN}-fonts = " \
+SUMMARY:${PN}-fonts = "Some fonts useful for QT5"
+RRECOMMENDS:${PN}-fonts = " \
     ttf-dejavu-common \
     ttf-dejavu-sans \
     ttf-dejavu-sans-mono \
     ttf-dejavu-serif \
 "
 
-SUMMARY_${PN}-libs = "QT5 libraries"
-RRECOMMENDS_${PN}-libs = " \
+SUMMARY:${PN}-libs = "QT5 libraries"
+RRECOMMENDS:${PN}-libs = " \
     qt3d \
     qt5ledscreen \
     qtbase \

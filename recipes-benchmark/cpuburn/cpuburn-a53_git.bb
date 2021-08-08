@@ -2,7 +2,7 @@ SUMMARY = "CPU burn app that loads the NEON coprocessor fully"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://cpuburn-a53.S;md5=a32d75f7e1fa9afbb887bef71d89875a"
 
-DL_DIR_append = "/${PN}-${PV}"
+DL_DIR:append = "/${PN}-${PV}"
 
 # Ensure to make this available for machine which has neon
 COMPATIBLE_MACHINE = "(${@bb.utils.contains("TUNE_FEATURES", "aarch64", "${MACHINE}", "Invalid!", d)})"
@@ -27,7 +27,7 @@ do_compile() {
     ${CC} ${CFLAGS} ${LDFLAGS} cpuburn-a8.S -o burn-neona8
 }
 
-do_compile_aarch64() {
+do_compile:aarch64() {
     ${CC} ${CFLAGS} ${LDFLAGS} cpuburn-a53.S -o burn-a53
 }
 
@@ -37,7 +37,7 @@ do_install() {
     install -m 0755 ${S}/burn-neona8 ${D}${bindir}/
 }
 
-do_install_aarch64() {
+do_install:aarch64() {
     install -d ${D}${bindir}
     install -m 0755 ${S}/burn-a53 ${D}${bindir}/
 }

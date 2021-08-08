@@ -18,7 +18,7 @@ PACKAGES = "${PN}"
 #no gnu_hash in binaries, skip QA dev-so for this package
 #we have symlinks ending in .so, skip QA ldflags for this package
 #inhibit warnings about files being stripped
-INSANE_SKIP_${PN} = "ldflags already-stripped"
+INSANE_SKIP:${PN} = "ldflags already-stripped"
 
 # just don't do any configuring
 do_configure() {
@@ -35,6 +35,6 @@ do_install() {
     ln -s ${datadir}/applications/gpio-tool.desktop ${D}/home/root/Desktop/
 }
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     /home/root/Desktop \
 "
