@@ -65,6 +65,7 @@ RRECOMMENDS:packagegroup-devel-tdx-cli = "\
     bonnie++ \
     devmem2 \
     evtest \
+    fio \
     gdbserver \
     i2c-tools \
     ldd \
