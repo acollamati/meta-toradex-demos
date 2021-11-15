@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=911690f51af322440237a253d695d19f"
 DEPENDS = "virtual/opencl-icd"
 
 SRC_URI = " \
-    git://github.com/krrishnarraj/clpeak.git;protocol=https \
+    git://github.com/krrishnarraj/clpeak.git;branch=master;protocol=https \
     file://0001-CMakeLists-add-install-rule.patch \
 "
 
