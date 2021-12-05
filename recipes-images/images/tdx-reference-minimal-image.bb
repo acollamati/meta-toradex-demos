@@ -14,14 +14,6 @@ IMAGE_NAME = "${MACHINE_NAME}_${IMAGE_BASENAME}"
 COPY_LIC_MANIFEST ?= "1"
 COPY_LIC_DIRS ?= "1"
 
-# Show Tezi EULA license
-TEZI_SHOW_EULA_LICENSE ?= "1"
-TEZI_SHOW_EULA_LICENSE:apalis-tk1 ?= "0"
-TEZI_SHOW_EULA_LICENSE:use-mainline-bsp ?= "0"
-TEZI_SHOW_EULA_LICENSE:colibri-imx6:use-mainline-bsp ?= "1"
-TEZI_SHOW_EULA_LICENSE:apalis-imx6:use-mainline-bsp ?= "1"
-
-
 add_rootfs_version () {
     printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) \\\n \\\l\n" > ${IMAGE_ROOTFS}/etc/issue
     printf "${DISTRO_NAME} ${DISTRO_VERSION} (${DISTRO_CODENAME}) %%h\n" > ${IMAGE_ROOTFS}/etc/issue.net
