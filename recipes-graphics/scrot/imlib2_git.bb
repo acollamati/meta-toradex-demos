@@ -8,7 +8,7 @@ PV = "1.4.6+gitr${SRCPV}"
 SRCREV = "560a58e61778d84953944f744a025af6ce986334"
 
 inherit autotools binconfig pkgconfig
-SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git"
+SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git;branch=master"
 S = "${WORKDIR}/git"
 
 # autotools-brokensep
