@@ -183,6 +183,7 @@ RRECOMMENDS:packagegroup-wifi-tdx-cli = "\
 SUMMARY:packagegroup-wifi-fw-tdx-cli = "Wi-Fi firmware"
 RRECOMMENDS:packagegroup-wifi-fw-tdx-cli = "\
     linux-firmware-ath10k    \
+    linux-firmware-nxp89xx   \
     linux-firmware-sd8686    \
     linux-firmware-sd8688    \
     linux-firmware-sd8787    \
