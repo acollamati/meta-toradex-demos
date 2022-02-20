@@ -22,7 +22,7 @@ RRECOMMENDS:packagegroup-tdx-graphical = " \
                           packagegroup-x11-utils-tdx-graphical', \
                          '', d), d)} \
 "
-RRECOMMENDS:packagegroup-tdx-graphical:append:mx8 = " \
+RRECOMMENDS:packagegroup-tdx-graphical:append:mx8-nxp-bsp = " \
     packagegroup-drm-utils-tdx-graphical \
 "
 RRECOMMENDS:packagegroup-tdx-graphical:append:upstream = " \
@@ -48,12 +48,12 @@ GSTREAMER_MX6QDL = " \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
 "
-RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6dl = " ${GSTREAMER_MX6QDL}"
-RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6q = " ${GSTREAMER_MX6QDL}"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6dl-nxp-bsp = " ${GSTREAMER_MX6QDL}"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6q-nxp-bsp = " ${GSTREAMER_MX6QDL}"
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:colibri-imx6ull = ""
 RRECOMMENDS_packagegroup-gstreamer-tdx-graphical:colibri-imx6ull-emmc = ""
-RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx7 = " imx-gst1.0-plugin"
-RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx8 = " \
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx7-nxp-bsp = " imx-gst1.0-plugin"
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx8-nxp-bsp = " \
     imx-gst1.0-plugin \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
@@ -72,16 +72,16 @@ RRECOMMENDS:packagegroup-gpu-tdx-graphical = " \
 IMAGE_INSTALL_GPU_MX6QDL = " \
     packagegroup-fsl-gpu-libs \
 "
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6dl = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6dl-nxp-bsp = " \
     ${IMAGE_INSTALL_GPU_MX6QDL} \
 "
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6q = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6q-nxp-bsp = " \
     ${IMAGE_INSTALL_GPU_MX6QDL} \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
 RRECOMMENDS:packagegroup-gpu-tdx-graphical:colibri-imx6ull = ""
 RRECOMMENDS_packagegroup-gpu-tdx-graphical:colibri-imx6ull-emmc = ""
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8 = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8-nxp-bsp = " \
     tinycompress \
     libvdk-imx \
     vulkan-headers \
@@ -89,11 +89,11 @@ RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8 = " \
     vulkan-tools \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:remove:mx8mm = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:remove:mx8mm-nxp-bsp = " \
     vulkan \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8qm = " \
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8qm-nxp-bsp = " \
     libopenvx-imx \
 "
 RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:tegra124 = " \

@@ -77,7 +77,7 @@ RRECOMMENDS:packagegroup-devel-tdx-cli = "\
     spidev-test \
     strace \
 "
-RRECOMMENDS:packagegroup-devel-tdx-cli:remove:use-nxp-bsp:colibri-vf = "perf"
+RRECOMMENDS:packagegroup-devel-tdx-cli:remove:colibri-vf = "perf"
 
 SUMMARY:packagegroup-machine-tdx-cli = "Machine specific tools"
 RRECOMMENDS:packagegroup-machine-tdx-cli = "\
@@ -101,7 +101,7 @@ RRECOMMENDS_packagegroup-machine-tdx-cli:colibri-imx6ull-emmc = "\
 RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx7 = "\
     mtd-utils-ubifs \
 "
-RRECOMMENDS:packagegroup-machine-tdx-cli:mx8 = "\
+RRECOMMENDS:packagegroup-machine-tdx-cli:mx8-generic-bsp = "\
     mwifiexap \
 "
 RRECOMMENDS:packagegroup-machine-tdx-cli:tegra124 = "\
@@ -156,7 +156,7 @@ RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     ${USB_GADGET} \
     util-linux \
 "
-RRECOMMENDS:packagegroup-utils-tdx-cli:append:mx8 = " \
+RRECOMMENDS:packagegroup-utils-tdx-cli:append:mx8-generic-bsp = " \
     cpuburn-a53 \
 "
 RRECOMMENDS:packagegroup-utils-tdx-cli:append:tegra124 = " \
