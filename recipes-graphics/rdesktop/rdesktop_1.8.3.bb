@@ -1,7 +1,7 @@
 DESCRIPTION-${PN}-client = "A remote desktop protocol client"
 HOMEPAGE = "http://www.rdesktop.org/"
 SECTION = "utils"
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949"
 
 require rdesktop.inc

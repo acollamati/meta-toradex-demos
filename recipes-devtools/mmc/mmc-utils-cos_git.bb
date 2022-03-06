@@ -1,6 +1,6 @@
 SUMMARY = "Userspace tools for MMC/SD devices (Downstream version of Chromium OS Project)"
 HOMEPAGE = "http://chromium.googlesource.com/chromiumos/third_party/mmc-utils.git"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://mmc.c;beginline=1;endline=17;md5=d7747fc87f1eb22b946ef819969503f0"
 
 inherit update-alternatives

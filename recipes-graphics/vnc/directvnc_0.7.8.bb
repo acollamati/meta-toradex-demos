@@ -1,7 +1,7 @@
 SUMMARY = "Provides a very thin VNC client for unix framebuffer systems"
 HOMEPAGE = "http://drinkmilk.github.com/directvnc/"
 SECTION = "utils"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=cbbd794e2a0a289b9dfcc9f513d1996e"
 
 DEPENDS = "zlib libpng jpeg directfb xproto"

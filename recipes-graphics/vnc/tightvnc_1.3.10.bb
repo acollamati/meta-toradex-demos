@@ -1,7 +1,7 @@
 SUMMARY = "A lightweight VNC viewer"
 HOMEPAGE = "http://www.tightvnc.com/"
 SECTION = "utils"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://../LICENCE.TXT;md5=75b02c2872421380bbd47781d2bd75d3"
 
 DEPENDS = "virtual/libx11 zlib libxmu libxaw jpeg libxt libxext libxmu"

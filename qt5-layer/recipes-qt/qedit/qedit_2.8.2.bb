@@ -2,7 +2,7 @@ SUMMARY = "QEdit Text Editor"
 HOMEPAGE = "http://hugo.pereira.free.fr/software/index.php?page=package&package_list=software_list_qt&package=qedit&full=0"
 SECTION = "x11"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=81bcece21748c91ba9992349a91ec11d"
 
 DEPENDS  = "qtbase qtx11extras"

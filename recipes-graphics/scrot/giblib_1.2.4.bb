@@ -1,7 +1,7 @@
 SECTION = "graphic/utils"
 SUMMARY = "giblib is a simple library which wraps imlib2"
 HOMEPAGE = "http://linuxbrit.co.uk/software/"
-LICENSE = "BSD"
+LICENSE = "MIT-feh"
 
 DEPENDS = "imlib2"
 

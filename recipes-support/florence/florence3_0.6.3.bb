@@ -3,7 +3,7 @@ HOMEPAGE = "http://florence.sourceforge.net/english.html"
 
 #NOTICE: If florence can't find its gconf settings, you need to start florence with --config for one time and save the configuration once.
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 PR = "r1"
