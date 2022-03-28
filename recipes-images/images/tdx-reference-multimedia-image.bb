@@ -8,12 +8,9 @@ inherit populate_sdk_qt5
 #Prefix to the resulting deployable tarball name
 export IMAGE_BASENAME = "Reference-Multimedia-Image"
 
-SYSTEMD_DEFAULT_TARGET = "graphical.target"
-
 IMAGE_FEATURES += " \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
-       bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11', \
-                                                       '', d), d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
+       bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11-base', '', d), d)} \
 "
 
 APP_LAUNCH_WAYLAND ?= "wayland-qtdemo-launch-cinematicexperience"
@@ -32,7 +29,7 @@ APP_LAUNCH_X11:apalis-tk1 ?= "x-window-qtsmarthome"
 
 IMAGE_INSTALL += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston weston-init weston-examples ${APP_LAUNCH_WAYLAND}', '', d)} \
+                         '${APP_LAUNCH_WAYLAND}', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', \
                          'weston-xwayland xterm', \
        bb.utils.contains('DISTRO_FEATURES', 'x11', '${APP_LAUNCH_X11}', '', d), d)} \
