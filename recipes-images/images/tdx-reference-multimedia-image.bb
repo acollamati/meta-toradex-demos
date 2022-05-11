@@ -44,6 +44,7 @@ IMAGE_INSTALL += " \
     less \
     makedevs \
     mime-support \
+    net-tools \
     util-linux \
     v4l-utils \
     \
