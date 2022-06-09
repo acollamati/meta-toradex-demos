@@ -138,7 +138,7 @@ RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     alsa-utils \
     alsa-utils-aplay \
     alsa-utils-amixer \
-    bluez-alsa \
+    bluealsa \
     bzip2 \
     e2fsprogs \
     e2fsprogs-resize2fs \
