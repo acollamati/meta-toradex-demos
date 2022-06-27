@@ -40,6 +40,7 @@ RRECOMMENDS:packagegroup-gstreamer-tdx-graphical = "\
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-bad \
+    gst-examples \
 "
 GSTREAMER_MX6QDL = " \
     gstreamer1.0-plugins-base-ximagesink \
@@ -58,7 +59,6 @@ RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx8-nxp-bsp = " \
     imx-gst1.0-plugin-gplay \
     imx-gst1.0-plugin-grecorder \
     packagegroup-fsl-gstreamer1.0-full \
-    gst-examples \
 "
 
 SUMMARY:packagegroup-gpu-utils-tdx-graphical = "Utilities for GPU (OpenGL...)"
