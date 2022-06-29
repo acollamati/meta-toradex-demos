@@ -84,11 +84,9 @@ RRECOMMENDS:packagegroup-machine-tdx-cli = "\
 "
 RRECOMMENDS:packagegroup-machine-tdx-cli:apalis-imx6 = "\
     bmode-usb \
-    gpio-export \
 "
 RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx6 = "\
     bmode-usb \
-    gpio-export \
 "
 RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx6ull = "\
     bmode-usb \
