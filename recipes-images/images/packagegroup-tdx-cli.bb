@@ -39,7 +39,6 @@ RRECOMMENDS:packagegroup-base-tdx-cli = "\
     iproute2 \
     libgomp \
     libgpiod-tools \
-    libsoc \
     mtd-utils \
     set-hostname \
     u-boot-fw-utils \
