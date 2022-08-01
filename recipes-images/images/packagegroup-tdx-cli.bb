@@ -34,6 +34,7 @@ RDEPENDS:packagegroup-tdx-cli = "\
 SUMMARY:packagegroup-base-tdx-cli = "Recommended for any image"
 RRECOMMENDS:packagegroup-base-tdx-cli = "\
     can-utils \
+    can-utils-cantest \
     dosfstools \
     e2fsprogs-mke2fs \
     iproute2 \
