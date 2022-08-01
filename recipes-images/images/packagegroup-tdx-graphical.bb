@@ -96,12 +96,6 @@ RRECOMMENDS:packagegroup-gpu-tdx-graphical:remove:mx8mm-nxp-bsp = " \
 RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8qm-nxp-bsp = " \
     libopenvx-imx \
 "
-RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:tegra124 = " \
-    libglu \
-    freeglut \
-    tiff \
-    xvinfo \
-"
 
 SUMMARY:packagegroup-x11-components-tdx-graphical = "Components of X11"
 RRECOMMENDS:packagegroup-x11-components-tdx-graphical = "\

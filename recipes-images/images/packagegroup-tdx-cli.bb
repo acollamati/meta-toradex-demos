@@ -77,7 +77,6 @@ RRECOMMENDS:packagegroup-devel-tdx-cli = "\
     spidev-test \
     strace \
 "
-RRECOMMENDS:packagegroup-devel-tdx-cli:remove:colibri-vf = "perf"
 
 SUMMARY:packagegroup-machine-tdx-cli = "Machine specific tools"
 RRECOMMENDS:packagegroup-machine-tdx-cli = "\
@@ -106,10 +105,6 @@ RRECOMMENDS_packagegroup-machine-tdx-cli:verdin-imx8mp = "\
 RRECOMMENDS:packagegroup-machine-tdx-cli:mx8-generic-bsp = "\
     mwifiexap \
 "
-RRECOMMENDS:packagegroup-machine-tdx-cli:tegra124 = "\
-    hdmi-hotplug \
-    kernel-modules \
-"
 
 SUMMARY:packagegroup-networking-tdx-cli = "Networking specific tools"
 RRECOMMENDS:packagegroup-networking-tdx-cli = "\
@@ -125,13 +120,11 @@ SUMMARY:packagegroup-utils-tdx-cli = "Useful utilities"
 
 # Entropy source daemon
 RANDOM_HELPER = "rng-tools"
-RANDOM_HELPER:tegra124 = "haveged"
 
 USB_GADGET = " \
     libusbgx \
     libusbgx-examples \
 "
-USB_GADGET:tegra124 = ""
 
 RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     alsa-utils \
@@ -160,9 +153,6 @@ RRECOMMENDS:packagegroup-utils-tdx-cli = "\
 "
 RRECOMMENDS:packagegroup-utils-tdx-cli:append:mx8-generic-bsp = " \
     cpuburn-a53 \
-"
-RRECOMMENDS:packagegroup-utils-tdx-cli:append:tegra124 = " \
-    tegrastats \
 "
 
 SUMMARY:packagegroup-utils-large-tdx-cli = "Useful utilities, but large footprint"

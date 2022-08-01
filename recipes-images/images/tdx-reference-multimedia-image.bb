@@ -18,14 +18,12 @@ APP_LAUNCH_WAYLAND:colibri-imx6ull ?= "wayland-qtdemo-launch-analogclock"
 APP_LAUNCH_WAYLAND:colibri-imx6ull-emmc ?= "wayland-qtdemo-launch-analogclock"
 APP_LAUNCH_WAYLAND:colibri-imx7 ?= "wayland-qtdemo-launch-analogclock"
 APP_LAUNCH_WAYLAND:colibri-imx7-emmc ?= "wayland-qtdemo-launch-analogclock"
-APP_LAUNCH_WAYLAND:apalis-tk1 ?= "wayland-qtdemo-launch-qtsmarthome"
 
 APP_LAUNCH_X11 ?= "x-window-qtcinematicexperience"
 APP_LAUNCH_X11:colibri-imx6ull ?= "x-window-analogclock"
 APP_LAUNCH_X11:colibri-imx6ull-emmc ?= "x-window-analogclock"
 APP_LAUNCH_X11:colibri-imx7 ?= "x-window-analogclock"
 APP_LAUNCH_X11:colibri-imx7-emmc ?= "x-window-analogclock"
-APP_LAUNCH_X11:apalis-tk1 ?= "x-window-qtsmarthome"
 
 IMAGE_INSTALL += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \

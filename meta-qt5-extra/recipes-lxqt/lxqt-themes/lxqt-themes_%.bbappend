@@ -1,9 +1,6 @@
 WALLPAPER-MACHINE = "Wallpaper_Toradex.png"
-WALLPAPER-MACHINE:colibri-t20 = "Wallpaper_ColibriT20.png"
-WALLPAPER-MACHINE:colibri-t30 = "Wallpaper_ColibriT30.png"
-WALLPAPER-MACHINE:apalis-t30 = "Wallpaper_ApalisT30.png"
-WALLPAPER-MACHINE:apalis-tk1 = "Wallpaper_ApalisTK1.png"
 WALLPAPER-MACHINE:colibri-imx6ull = "Wallpaper_ColibriiMX6ULL.png"
+WALLPAPER-MACHINE:colibri-imx6ull-emmc = "Wallpaper_ColibriiMX6ULL.png"
 WALLPAPER-MACHINE:colibri-imx7-emmc = "Wallpaper_ColibriiMX7D.png"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/lxqt-themes:"
