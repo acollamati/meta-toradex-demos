@@ -5,7 +5,7 @@ PR = "r3"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-DEPENDS = "gtk+"
+DEPENDS = "glib-2.0 gtk+"
 
 SRC_URI = " \
     file://gpio-tool \
@@ -13,16 +13,12 @@ SRC_URI = " \
     file://gpio-tool.png \
 "
 
-PACKAGES = "${PN}"
+inherit bin_package
 
 #no gnu_hash in binaries, skip QA dev-so for this package
 #we have symlinks ending in .so, skip QA ldflags for this package
 #inhibit warnings about files being stripped
 INSANE_SKIP:${PN} = "ldflags already-stripped"
-
-# just don't do any configuring
-do_configure() {
-}
 
 do_install() {
     install -d ${D}/${bindir}
@@ -34,7 +30,3 @@ do_install() {
     install -m 644 ${WORKDIR}/gpio-tool.png ${D}/${datadir}/pixmaps/
     ln -s ${datadir}/applications/gpio-tool.desktop ${D}/home/root/Desktop/
 }
-
-FILES:${PN} += " \
-    /home/root/Desktop \
-"
