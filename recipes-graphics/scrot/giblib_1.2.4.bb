@@ -9,7 +9,7 @@ MIRRORS:prepend () {
 }
 
 SRC_URI = " \
-    http://pkgs.fedoraproject.org/repo/pkgs/giblib/giblib-${PV}.tar.gz/c810ef5389baf24882a1caca2954385e/giblib-${PV}.tar.gz \
+    https://pkgs.fedoraproject.org/repo/pkgs/giblib/giblib-${PV}.tar.gz/c810ef5389baf24882a1caca2954385e/giblib-${PV}.tar.gz \
     file://fix-giblib-binconfig-paths.patch \
 "
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"

@@ -7,7 +7,7 @@ DL_DIR:append = "/${PN}-${PV}"
 # Ensure to make this available for machine which has neon
 COMPATIBLE_MACHINE = "(${@bb.utils.contains("TUNE_FEATURES", "aarch64", "${MACHINE}", "Invalid!", d)})"
 
-SRC_URI = "http://hardwarebug.org/files/burn.S;name=mru \
+SRC_URI = "https://hardwarebug.org/files/burn.S;name=mru \
            https://raw.githubusercontent.com/ssvb/cpuburn-arm/dd5c5ba58d2b0b23cfab4a286f9d3f5510000f20/cpuburn-a8.S;name=ssvb \
            https://raw.githubusercontent.com/ssvb/cpuburn-arm/ad7e646700d14b81413297bda02fb7fe96613c3f/cpuburn-a53.S;name=ssvb53 \
 "

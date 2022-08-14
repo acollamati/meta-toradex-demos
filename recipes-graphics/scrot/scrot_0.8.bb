@@ -11,7 +11,7 @@ MIRRORS:prepend () {
 }
 
 SRC_URI = " \
-    http://pkgs.fedoraproject.org/repo/pkgs/scrot/scrot-${PV}.tar.gz/ccae904d225609571bdd3b03445c1e88/scrot-${PV}.tar.gz \
+    https://pkgs.fedoraproject.org/repo/pkgs/scrot/scrot-${PV}.tar.gz/ccae904d225609571bdd3b03445c1e88/scrot-${PV}.tar.gz \
     file://fix-scrot-include-paths.patch \
 "
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"

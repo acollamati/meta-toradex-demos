@@ -17,7 +17,7 @@ Dependencies
 ============
 
 This layer depends on the relevant BSP layers for your machine and:
-(please check http://git.toradex.com/cgit/toradex-bsp-platform.git/ to get
+(please check https://git.toradex.com/cgit/toradex-bsp-platform.git/ to get
 the specific layer versions we used when building our binary demo images)
 
   URI: git://git.openembedded.org/bitbake
@@ -68,8 +68,8 @@ I. Building the meta-toradex-demos Layer
 
 For information on how to use the modules with Linux and instructions on how
 to build the demo images please visit:
-http://developer.toradex.com/software/linux
-http://developer.toradex.com/knowledge-base/board-support-package/openembedded-(core)
+https://developer.toradex.com/software/linux
+https://developer.toradex.com/linux-bsp/in-depth/bsp-layers-and-reference-images-for-yocto-project-software
 
 For support, visit the Toradex Developer Community:
 https://www.toradex.com/community
