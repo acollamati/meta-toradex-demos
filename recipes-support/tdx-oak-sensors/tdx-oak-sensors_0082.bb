@@ -3,7 +3,7 @@ LICENSE = "PD"
 
 S = "${WORKDIR}/OakLinux_${PV}"
 
-SRC_URI = "http://files.toradex.com/Oak/Linux/OakLinux_${PV}.tar.bz2"
+SRC_URI = "https://files.toradex.com/Oak/Linux/OakLinux_${PV}.tar.bz2"
 
 SRC_URI[md5sum] = "cedc87c056f961c15751ee899fb719d5"
 SRC_URI[sha256sum] = "69836dfa746422a64f6518cc9e785a7a64ca67d82f5fae0421515a59f4394929"
