@@ -31,6 +31,11 @@ RDEPENDS:packagegroup-tdx-cli = "\
     packagegroup-wifi-fw-large-tdx-cli \
 "
 
+USB_GADGET = " \
+    libusbgx \
+    libusbgx-examples \
+"
+
 SUMMARY:packagegroup-base-tdx-cli = "Recommended for any image"
 RRECOMMENDS:packagegroup-base-tdx-cli = "\
     can-utils \
@@ -46,6 +51,7 @@ RRECOMMENDS:packagegroup-base-tdx-cli = "\
     udev-toradex-rules \
     uhubctl \
     util-linux-fstrim \
+    ${USB_GADGET} \
 "
 
 SUMMARY:packagegroup-benchmark-tdx-cli = "Benchmarking tools"
@@ -121,11 +127,6 @@ SUMMARY:packagegroup-utils-tdx-cli = "Useful utilities"
 # Entropy source daemon
 RANDOM_HELPER = "rng-tools"
 
-USB_GADGET = " \
-    libusbgx \
-    libusbgx-examples \
-"
-
 RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     alsa-utils \
     alsa-utils-aplay \
@@ -148,7 +149,6 @@ RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     stress-ng \
     sqlite3 \
     tdx-oak-sensors \
-    ${USB_GADGET} \
     util-linux \
 "
 RRECOMMENDS:packagegroup-utils-tdx-cli:append:mx8-generic-bsp = " \
