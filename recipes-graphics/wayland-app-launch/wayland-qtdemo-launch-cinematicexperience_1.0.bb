@@ -2,8 +2,7 @@
 # be launched right after weston started
 
 INITIAL_APP_PKGS ?= "cinematicexperience qtwayland"
-INITIAL_PATH ?= ""
-APPLICATION_ENVIRONMENT ?= '\"QT_QPA_PLATFORM=wayland-egl\"'
+APPLICATION_ENVIRONMENT ?= 'QT_QPA_PLATFORM=wayland-egl'
 WAYLAND_APPLICATION ?= "/usr/share/cinematicexperience-1.0/Qt5_CinematicExperience --fullscreen"
 
 require wayland-app-launch.inc

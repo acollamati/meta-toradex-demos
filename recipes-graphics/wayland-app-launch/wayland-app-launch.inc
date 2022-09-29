@@ -11,21 +11,20 @@ S = "${WORKDIR}"
 
 SRC_URI = " \
     file://wayland-app-launch.service.in \
-    file://wayland-app-launch.sh.in \
 "
 FILESEXTRAPATHS:prepend := "${THISDIR}/wayland-app-launch:"
 
 APPLICATION_ENVIRONMENT ??= ""
 
 do_compile () {
-    sed -e "s:@@wayland-application@@:${WAYLAND_APPLICATION}:" -e "s:@@initial-path@@:${INITIAL_PATH}:" wayland-app-launch.sh.in > wayland-app-launch.sh
-    sed -e "s:@@application-environment@@:${APPLICATION_ENVIRONMENT}:" wayland-app-launch.service.in > wayland-app-launch.service
+    sed -e "s:@@wayland-application@@:${WAYLAND_APPLICATION}:" \
+        -e "s:@@application-environment@@:${APPLICATION_ENVIRONMENT}:" \
+	wayland-app-launch.service.in > wayland-app-launch.service
 }
 
 do_install () {
-    install -d ${D}/${bindir} ${D}${systemd_unitdir}/system/
+    install -d ${D}${systemd_unitdir}/system/
     install -m 0644 ${WORKDIR}/wayland-app-launch.service ${D}${systemd_unitdir}/system
-    install -m 0755 ${S}/wayland-app-launch.sh ${D}/${bindir}
 }
 
 SYSTEMD_PACKAGES = "${PN}"

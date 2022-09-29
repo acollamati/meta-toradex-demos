@@ -2,8 +2,7 @@
 # be launched right after weston started
 
 INITIAL_APP_PKGS ?= "qtsmarthome qtwayland"
-INITIAL_PATH ?= "/usr/share/qtsmarthome-1.0/"
-APPLICATION_ENVIRONMENT ?= '\"QT_QPA_PLATFORM=wayland-egl\"'
-WAYLAND_APPLICATION ?= "${INITIAL_PATH}/smarthome"
+APPLICATION_ENVIRONMENT ?= 'QT_QPA_PLATFORM=wayland-egl'
+WAYLAND_APPLICATION ?= "/usr/share/qtsmarthome-1.0/smarthome"
 
 require wayland-app-launch.inc

@@ -2,8 +2,7 @@
 # be launched right after weston started
 
 INITIAL_APP_PKGS ?= "qtbase-examples qtwayland"
-INITIAL_PATH ?= ""
-APPLICATION_ENVIRONMENT ?= '\"QT_QPA_PLATFORM=wayland-egl\"'
+APPLICATION_ENVIRONMENT ?= 'QT_QPA_PLATFORM=wayland-egl'
 WAYLAND_APPLICATION ?= "/usr/share/examples/gui/analogclock/analogclock"
 
 require wayland-app-launch.inc
