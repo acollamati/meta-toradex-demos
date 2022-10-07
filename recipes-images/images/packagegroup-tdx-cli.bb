@@ -98,13 +98,13 @@ RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx6ull = "\
     mtd-utils-ubifs \
     mwifiexap \
 "
-RRECOMMENDS_packagegroup-machine-tdx-cli:colibri-imx6ull-emmc = "\
+RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx6ull-emmc = "\
     bmode-usb \
 "
 RRECOMMENDS:packagegroup-machine-tdx-cli:colibri-imx7 = "\
     mtd-utils-ubifs \
 "
-RRECOMMENDS_packagegroup-machine-tdx-cli:verdin-imx8mp = "\
+RRECOMMENDS:packagegroup-machine-tdx-cli:verdin-imx8mp = "\
     btuart \
     mwifiexap \
 "

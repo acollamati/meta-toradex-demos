@@ -52,7 +52,7 @@ GSTREAMER_MX6QDL = " \
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6dl-nxp-bsp = " ${GSTREAMER_MX6QDL}"
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx6q-nxp-bsp = " ${GSTREAMER_MX6QDL}"
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:colibri-imx6ull = ""
-RRECOMMENDS_packagegroup-gstreamer-tdx-graphical:colibri-imx6ull-emmc = ""
+RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:colibri-imx6ull-emmc = ""
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx7-nxp-bsp = " imx-gst1.0-plugin"
 RRECOMMENDS:packagegroup-gstreamer-tdx-graphical:append:mx8-nxp-bsp = " \
     imx-gst1.0-plugin \
@@ -80,7 +80,7 @@ RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx6q-nxp-bsp = " \
     ${IMAGE_INSTALL_OPENCL_IMX} \
 "
 RRECOMMENDS:packagegroup-gpu-tdx-graphical:colibri-imx6ull = ""
-RRECOMMENDS_packagegroup-gpu-tdx-graphical:colibri-imx6ull-emmc = ""
+RRECOMMENDS:packagegroup-gpu-tdx-graphical:colibri-imx6ull-emmc = ""
 RRECOMMENDS:packagegroup-gpu-tdx-graphical:append:mx8-nxp-bsp = " \
     tinycompress \
     libvdk-imx \
