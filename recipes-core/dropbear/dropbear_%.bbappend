@@ -3,4 +3,4 @@
 # If debug-tweaks is set in IMAGE_FEATURES then enable also weak ciphers.
 # With debug-tweaks we allow password less root access, enforcing strong
 # ciphers is pointless anyway.
-PACKAGECONFIG = "${@bb.utils.contains("IMAGE_FEATURES", "debug-tweaks", "", "disable-weak-ciphers",d)}"
+PACKAGECONFIG:remove = "${@bb.utils.contains('IMAGE_FEATURES', 'debug-tweaks', 'disable-weak-ciphers', '',d)}"
