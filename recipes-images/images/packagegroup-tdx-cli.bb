@@ -52,6 +52,7 @@ RRECOMMENDS:packagegroup-base-tdx-cli = "\
     uhubctl \
     util-linux-fstrim \
     ${USB_GADGET} \
+    tdx-info \
 "
 
 SUMMARY:packagegroup-benchmark-tdx-cli = "Benchmarking tools"
