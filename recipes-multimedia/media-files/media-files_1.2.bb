@@ -7,7 +7,7 @@ inherit allarch bin_package
 SRC_URI = " \
     https://developer1.toradex.com/files/toradex-dev/uploads/media/Colibri/AddSW/Linux/ReleaseTest/media-files-${PV}.tar.xz \
 "
-SRC_URI[md5sum] = "74420d7d46a19ec232e21059b8eefd85"
-SRC_URI[sha256sum] = "8f99b76d56464bafe3cac241fc711b5739236753add55be7a88f28c870e1d013"
+SRC_URI[md5sum] = "9db08fa5c08063d345a7fc7e8b49b55e"
+SRC_URI[sha256sum] = "f6f40cd90ba6da06644cbfe5d48498c42836654897707fedeaaea6e00d99d334"
 
 S = "${WORKDIR}/media-files"
