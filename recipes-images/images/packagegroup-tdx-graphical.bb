@@ -22,6 +22,9 @@ RRECOMMENDS:packagegroup-tdx-graphical = " \
                           packagegroup-x11-utils-tdx-graphical', \
                          '', d), d)} \
 "
+RRECOMMENDS:packagegroup-tdx-graphical:append:am62xx = " \
+    packagegroup-drm-utils-tdx-graphical \
+"
 RRECOMMENDS:packagegroup-tdx-graphical:append:mx8-nxp-bsp = " \
     packagegroup-drm-utils-tdx-graphical \
 "
