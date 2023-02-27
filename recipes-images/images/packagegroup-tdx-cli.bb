@@ -151,7 +151,7 @@ RRECOMMENDS:packagegroup-utils-tdx-cli = "\
     tdx-oak-sensors \
     util-linux \
 "
-RRECOMMENDS:packagegroup-utils-tdx-cli:am62xx = " \
+RRECOMMENDS:packagegroup-utils-tdx-cli:append:am62xx = " \
     cpuburn-a53 \
 "
 RRECOMMENDS:packagegroup-utils-tdx-cli:append:mx8-generic-bsp = " \
