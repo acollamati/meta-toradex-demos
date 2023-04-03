@@ -84,6 +84,9 @@ RRECOMMENDS:packagegroup-devel-tdx-cli = "\
     spidev-test \
     strace \
 "
+RRECOMMENDS:packagegroup-devel-tdx-cli:append:am62xx = "\
+    k3conf \
+"
 
 SUMMARY:packagegroup-machine-tdx-cli = "Machine specific tools"
 RRECOMMENDS:packagegroup-machine-tdx-cli = "\
